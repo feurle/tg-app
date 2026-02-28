@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import type { ArticleResponse, ImageResponse } from '../types/article'
-import ArticleList from '../components/ArticleList'
-import ArticleDetailsModal from '../components/ArticleDetailsModal'
-import ArticleFormModal from '../components/ArticleFormModal'
-import ConfirmDialog from '../components/ConfirmDialog'
-import type { FormData } from '../components/ArticleForm'
+import type { ArticleResponse, ImageResponse } from '../../types/article.ts'
+import ArticleList from '../../components/webcontent/ArticleList.tsx'
+import ArticleDetailsModal from '../../components/webcontent/ArticleDetailsModal.tsx'
+import ArticleFormModal from '../../components/webcontent/ArticleFormModal.tsx'
+import ConfirmDialog from '../../components/common/ConfirmDialog.tsx'
+import type { FormData } from '../../components/webcontent/ArticleForm.tsx'
 import './ArticlesPage.css'
 
 type ModalState =
@@ -94,25 +94,50 @@ export default function ArticlesPage({ onBack }: Props) {
 
   return (
     <div className="articles-page">
-      <button className="articles-page__back" onClick={onBack}>← Zurück</button>
+      {/* Header */}
+      <div className="articles-page-header">
+        <div className="articles-page-header-content">
+          <h1 className="articles-page-title">Artikelverwaltung</h1>
+          <p className="articles-page-subtitle">Verwalten Sie alle Artikel und Inhalte</p>
 
-      <div className="articles-page__header">
-        <h1>Artikel</h1>
-        <button className="btn btn--primary" onClick={() => setModal({ mode: 'create' })}>
-          + Neuer Artikel
-        </button>
+          <div className="articles-page-actions">
+            <button
+              className="btn btn--primary"
+              onClick={() => setModal({ mode: 'create' })}
+              disabled={loading || saving}
+            >
+              + Neuer Artikel
+            </button>
+            <button
+              className="btn btn--secondary"
+              onClick={onBack}
+              disabled={loading || saving}
+            >
+              Zurück
+            </button>
+          </div>
+        </div>
       </div>
 
-      {loading && <p className="articles-page__status">Laden…</p>}
-      {error && <p className="articles-page__status articles-page__status--error">Fehler: {error}</p>}
-      {!loading && !error && (
-        <ArticleList
-          articles={articles}
-          onView={setSelectedArticle}
-          onEdit={(article) => setModal({ mode: 'edit', article })}
-          onDelete={setDeleteTarget}
-        />
-      )}
+      {/* Content */}
+      <div className="articles-page-content">
+        {loading && <div className="articles-page-loading">Laden…</div>}
+
+        {error && (
+          <div className="articles-page-error">
+            <strong>Fehler:</strong> {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <ArticleList
+            articles={articles}
+            onView={setSelectedArticle}
+            onEdit={(article) => setModal({ mode: 'edit', article })}
+            onDelete={setDeleteTarget}
+          />
+        )}
+      </div>
 
       {selectedArticle && (
         <ArticleDetailsModal

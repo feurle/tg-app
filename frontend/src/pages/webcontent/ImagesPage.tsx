@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import type { ImageResponse } from '../types/image'
-import ImageList from '../components/ImageList'
-import ImageUploadModal from '../components/ImageUploadModal'
-import ConfirmDialog from '../components/ConfirmDialog'
+import type { ImageResponse } from '../../types/image.ts'
+import ImageList from '../../components/webcontent/ImageList.tsx'
+import ImageUploadModal from '../../components/webcontent/ImageUploadModal.tsx'
+import ConfirmDialog from '../../components/common/ConfirmDialog.tsx'
 import './ImagesPage.css'
 
 interface Props {
@@ -64,23 +64,48 @@ export default function ImagesPage({ onBack }: Props) {
 
   return (
     <div className="images-page">
-      <button className="images-page__back" onClick={onBack}>← Zurück</button>
+      {/* Header */}
+      <div className="images-page-header">
+        <div className="images-page-header-content">
+          <h1 className="images-page-title">Bilderverwaltung</h1>
+          <p className="images-page-subtitle">Verwalten Sie alle hochgeladenen Bilder</p>
 
-      <div className="images-page__header">
-        <h1>Bilder</h1>
-        <button className="btn btn--primary" onClick={() => setShowUploadModal(true)}>
-          + Neues Bild
-        </button>
+          <div className="images-page-actions">
+            <button
+              className="btn btn--primary"
+              onClick={() => setShowUploadModal(true)}
+              disabled={loading || uploading}
+            >
+              + Neues Bild
+            </button>
+            <button
+              className="btn btn--secondary"
+              onClick={onBack}
+              disabled={loading || uploading}
+            >
+              Zurück
+            </button>
+          </div>
+        </div>
       </div>
 
-      {loading && <p className="images-page__status">Laden…</p>}
-      {error && <p className="images-page__status images-page__status--error">Fehler: {error}</p>}
-      {!loading && !error && (
-        <ImageList
-          images={images}
-          onDelete={setDeleteTarget}
-        />
-      )}
+      {/* Content */}
+      <div className="images-page-content">
+        {loading && <div className="images-page-loading">Laden…</div>}
+
+        {error && (
+          <div className="images-page-error">
+            <strong>Fehler:</strong> {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <ImageList
+            images={images}
+            onDelete={setDeleteTarget}
+          />
+        )}
+      </div>
 
       {showUploadModal && (
         <ImageUploadModal

@@ -1,4 +1,4 @@
-import type { ImageResponse } from '../types/image'
+import type { ImageResponse } from '../../types/image.ts'
 import './ImageList.css'
 
 interface Props {

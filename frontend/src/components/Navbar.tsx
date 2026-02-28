@@ -1,6 +1,6 @@
 import './Navbar.css'
 
-type Page = 'home' | 'news' | 'articles' | 'images'
+type Page = 'home' | 'news' | 'articles' | 'images' | 'customers'
 
 interface Props {
   currentPage: Page
@@ -44,6 +44,12 @@ export default function Navbar({ currentPage, onNavigate }: Props) {
             Artikel
           </button>
           <button
+            onClick={() => onNavigate('customers')}
+            className="navbar-action-btn"
+          >
+            Kunden
+          </button>
+          <button
             onClick={() => onNavigate('images')}
             className="navbar-action-btn"
           >
@@ -65,6 +71,18 @@ export default function Navbar({ currentPage, onNavigate }: Props) {
           className={`mobile-nav-link ${currentPage === 'news' ? 'active' : ''}`}
         >
           News
+        </button>
+        <button
+          onClick={() => onNavigate('articles')}
+          className={`mobile-nav-link ${currentPage === 'articles' ? 'active' : ''}`}
+        >
+          Artikel
+        </button>
+        <button
+          onClick={() => onNavigate('customers')}
+          className={`mobile-nav-link ${currentPage === 'customers' ? 'active' : ''}`}
+        >
+          Kunden
         </button>
         <button
           onClick={() => onNavigate('images')}

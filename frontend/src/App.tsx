@@ -2,10 +2,11 @@ import { useState } from 'react'
 import Navbar from './components/Navbar'
 import HomePage from './pages/public/HomePage.tsx'
 import NewsPage from './pages/public/NewsPage.tsx'
-import ArticlesPage from './pages/ArticlesPage'
-import ImagesPage from './pages/ImagesPage'
+import ArticlesPage from './pages/webcontent/ArticlesPage.tsx'
+import ImagesPage from './pages/webcontent/ImagesPage.tsx'
+import CustomerPage from './pages/customer/CustomerPage'
 
-type Page = 'home' | 'news' | 'articles' | 'images'
+type Page = 'home' | 'news' | 'articles' | 'images' | 'customers'
 
 function App() {
   const [page, setPage] = useState<Page>('home')
@@ -18,6 +19,7 @@ function App() {
         {page === 'news' && <NewsPage />}
         {page === 'articles' && <ArticlesPage onBack={() => setPage('home')} />}
         {page === 'images' && <ImagesPage onBack={() => setPage('home')} />}
+        {page === 'customers' && <CustomerPage onBack={() => setPage('home')} />}
       </main>
     </div>
   )

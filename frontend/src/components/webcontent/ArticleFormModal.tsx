@@ -1,5 +1,5 @@
-import type { ArticleResponse, ImageResponse } from '../types/article'
-import ArticleForm, { type FormData } from './ArticleForm'
+import type { ArticleResponse, ImageResponse } from '../../types/article.ts'
+import ArticleForm, { type FormData } from './ArticleForm.tsx'
 import './ArticleFormModal.css'
 
 interface Props {

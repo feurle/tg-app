@@ -1,4 +1,4 @@
-import type { ArticleResponse } from '../types/article'
+import type { ArticleResponse } from '../../types/article.ts'
 import './ArticleList.css'
 
 interface Props {

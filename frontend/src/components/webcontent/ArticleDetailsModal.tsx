@@ -1,4 +1,4 @@
-import type { ArticleResponse } from '../types/article'
+import type { ArticleResponse } from '../../types/article.ts'
 import './ArticleDetailsModal.css'
 
 const STATE_LABELS: Record<string, string> = {

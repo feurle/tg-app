@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ArticleResponse, ArticleState, PageType, ImageResponse } from '../types/article'
+import type { ArticleResponse, ArticleState, PageType, ImageResponse } from '../../types/article.ts'
 import './ArticleForm.css'
 
 export interface CreateFormData {
