@@ -8,19 +8,30 @@ interface Props {
 }
 
 export default function HomePage({ onManageArticles }: Props) {
+  const [teaserArticle, setTeaserArticle] = useState<ArticleResponse | null>(null)
   const [articles, setArticles] = useState<ArticleResponse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/webcontent/articles/page/HOME/published')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<ArticleResponse[]>
-      })
-      .then(setArticles)
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false))
+    Promise.all([
+      // Load TEASER article for hero section
+      fetch('/api/webcontent/articles/page/TEASER/published')
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          return res.json() as Promise<ArticleResponse[]>
+        })
+        .then((results) => setTeaserArticle(results[0] || null))
+        .catch(() => setTeaserArticle(null)), // Teaser is optional
+      // Load HOME articles
+      fetch('/api/webcontent/articles/page/HOME/published')
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          return res.json() as Promise<ArticleResponse[]>
+        })
+        .then(setArticles)
+        .catch((err: Error) => setError(err.message)),
+    ]).finally(() => setLoading(false))
   }, [])
 
   return (
@@ -32,13 +43,15 @@ export default function HomePage({ onManageArticles }: Props) {
         </div>
 
         <div className="hero-content">
-          {/* Hero Content */}
+          {/* Hero Content from TEASER article or fallback */}
           <h1 className="hero-title">
-            Willkommen bei <span className="hero-title-accent">TG App</span>
+            {teaserArticle ? teaserArticle.title : 'Willkommen bei'} <span className="hero-title-accent">{teaserArticle ? '' : 'TG App'}</span>
           </h1>
 
           <p className="hero-subtitle">
-            Entdecken Sie aktuelle Artikel und News. Bleiben Sie informiert über die neuesten Inhalte.
+            {teaserArticle
+              ? teaserArticle.content
+              : 'Entdecken Sie aktuelle Artikel und News. Bleiben Sie informiert über die neuesten Inhalte.'}
           </p>
 
           {/* CTA Buttons */}
@@ -59,10 +72,12 @@ export default function HomePage({ onManageArticles }: Props) {
               <div className="hero-stat-value">{articles.length}</div>
               <div className="hero-stat-label">Artikel</div>
             </div>
-            <div className="hero-stat">
-              <div className="hero-stat-value">100%</div>
-              <div className="hero-stat-label">Aktuell</div>
-            </div>
+            {teaserArticle && (
+              <div className="hero-stat">
+                <div className="hero-stat-value">{teaserArticle.images.length}</div>
+                <div className="hero-stat-label">Bilder</div>
+              </div>
+            )}
             <div className="hero-stat">
               <div className="hero-stat-value">24/7</div>
               <div className="hero-stat-label">Verfügbar</div>
