@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,17 +49,22 @@ public class ArticleService {
     }
 
     public Article updateArticle(Long id, String title, String content, ArticleState state,
-                                 LocalDateTime publishedDate, List<Long> imageIds) {
+                                 List<Long> imageIds) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found: " + id));
 
         article.setTitle(title);
         article.setContent(content);
+
+        // Auto-set publishedDate when transitioning to PUBLISHED status
+        if (state == ArticleState.PUBLISHED && article.getState() != ArticleState.PUBLISHED) {
+            article.setPublishedDate(LocalDateTime.now());
+        }
+
         article.setState(state);
-        article.setPublishedDate(publishedDate);
 
         if (imageIds != null) {
-            article.setImages(imageIds.isEmpty() ? List.of() : imageRepository.findAllById(imageIds));
+            article.setImages(imageIds.isEmpty() ? new ArrayList<>() : imageRepository.findAllById(imageIds));
         }
 
         return articleRepository.save(article);

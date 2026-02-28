@@ -10,9 +10,16 @@
   font-size: 0.9rem;
 }
 
-.articles-page h1 {
-  font-size: 1.8rem;
+.articles-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
+}
+
+.articles-page__header h1 {
+  font-size: 1.8rem;
+  margin: 0;
 }
 
 .articles-page__status {

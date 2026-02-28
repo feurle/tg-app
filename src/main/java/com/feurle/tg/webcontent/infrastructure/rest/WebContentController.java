@@ -93,7 +93,7 @@ public class WebContentController {
     ) {
         Article article = articleService.updateArticle(
                 id, request.title(), request.content(),
-                request.state(), request.publishedDate(), request.imageIds());
+                request.state(), request.imageIds());
         return ResponseEntity.ok(toArticleResponse(article));
     }
 
