@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import type { ArticleResponse } from '../types/article'
-import ArticleCard from '../components/ArticleCard'
+import type { ArticleResponse } from '../../types/article.ts'
+import ArticleCard from '../../components/ArticleCard.tsx'
 import './NewsPage.css'
 
 export default function NewsPage() {

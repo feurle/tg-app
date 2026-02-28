@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
-import HomePage from './pages/HomePage'
-import NewsPage from './pages/NewsPage'
+import HomePage from './pages/public/HomePage.tsx'
+import NewsPage from './pages/public/NewsPage.tsx'
 import ArticlesPage from './pages/ArticlesPage'
 import ImagesPage from './pages/ImagesPage'
 
