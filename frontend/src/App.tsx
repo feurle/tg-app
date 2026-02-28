@@ -1,46 +1,54 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ArticlesPage from './pages/ArticlesPage'
+import ImagesPage from './pages/ImagesPage'
 
-type Page = 'home' | 'articles'
+type Page = 'home' | 'articles' | 'images'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [page, setPage] = useState<Page>('home')
+    const [count, setCount] = useState(0)
+    const [page, setPage] = useState<Page>('home')
 
-  if (page === 'articles') {
-    return <ArticlesPage onBack={() => setPage('home')} />
-  }
+    if (page === 'articles') {
+        return <ArticlesPage onBack={() => setPage('home')}/>
+    }
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <div className="card">
-        <button onClick={() => setPage('articles')}>Artikel anzeigen</button>
-      </div>
-    </>
-  )
+    if (page === 'images') {
+        return <ImagesPage onBack={() => setPage('home')}/>
+    }
+
+    return (
+        <>
+            <div>
+                <a href="https://vite.dev" target="_blank">
+                    <img src={viteLogo} className="logo" alt="Vite logo"/>
+                </a>
+                <a href="https://react.dev" target="_blank">
+                    <img src={reactLogo} className="logo react" alt="React logo"/>
+                </a>
+            </div>
+            <h1>Vite + React</h1>
+            <div className="card">
+                <button onClick={() => setCount((count) => count + 1)}>
+                    count is {count}
+                </button>
+                <p>
+                    Edit <code>src/App.tsx</code> and save to test HMR
+                </p>
+            </div>
+            <p className="read-the-docs">
+                Click on the Vite and React logos to learn more
+            </p>
+            <div className="card">
+                <button onClick={() => setPage('articles')}>Artikel verwalten</button>
+            </div>
+            <div className="card">
+                <button onClick={() => setPage('images')}>Bilder verwalten</button>
+            </div>
+        </>
+    )
 }
 
 export default App

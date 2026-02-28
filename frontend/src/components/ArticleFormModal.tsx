@@ -1,4 +1,4 @@
-import type { ArticleResponse } from '../types/article'
+import type { ArticleResponse, ImageResponse } from '../types/article'
 import ArticleForm, { type FormData } from './ArticleForm'
 import './ArticleFormModal.css'
 
@@ -7,9 +7,10 @@ interface Props {
   onSave: (data: FormData) => void
   onCancel: () => void
   saving: boolean
+  availableImages: ImageResponse[]
 }
 
-export default function ArticleFormModal({ initial, onSave, onCancel, saving }: Props) {
+export default function ArticleFormModal({ initial, onSave, onCancel, saving, availableImages }: Props) {
   const title = initial ? 'Artikel bearbeiten' : 'Neuer Artikel'
 
   return (
@@ -20,7 +21,7 @@ export default function ArticleFormModal({ initial, onSave, onCancel, saving }: 
           <button className="modal__close" onClick={onCancel} aria-label="Schliessen">×</button>
         </div>
         <div className="modal__body">
-          <ArticleForm initial={initial} onSave={onSave} onCancel={onCancel} saving={saving} />
+          <ArticleForm initial={initial} onSave={onSave} onCancel={onCancel} saving={saving} availableImages={availableImages} />
         </div>
       </div>
     </div>

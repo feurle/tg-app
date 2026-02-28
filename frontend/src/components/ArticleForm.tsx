@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ArticleResponse, ArticleState, PageType } from '../types/article'
+import type { ArticleResponse, ArticleState, PageType, ImageResponse } from '../types/article'
 import './ArticleForm.css'
 
 export interface CreateFormData {
@@ -7,6 +7,7 @@ export interface CreateFormData {
   title: string
   content: string
   page: PageType
+  imageIds: number[]
 }
 
 export interface EditFormData {
@@ -14,6 +15,7 @@ export interface EditFormData {
   title: string
   content: string
   state: ArticleState
+  imageIds: number[]
 }
 
 export type FormData = CreateFormData | EditFormData
@@ -23,21 +25,31 @@ interface Props {
   onSave: (data: FormData) => void
   onCancel: () => void
   saving: boolean
+  availableImages: ImageResponse[]
 }
 
-export default function ArticleForm({ initial, onSave, onCancel, saving }: Props) {
+export default function ArticleForm({ initial, onSave, onCancel, saving, availableImages }: Props) {
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
   const [page, setPage] = useState<PageType>(initial?.page ?? 'HOME')
   const [state, setState] = useState<ArticleState>(initial?.state ?? 'CREATED')
+  const [imageIds, setImageIds] = useState<number[]>(initial?.images.map(img => img.id) ?? [])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (initial) {
-      onSave({ mode: 'edit', title, content, state })
+      onSave({ mode: 'edit', title, content, state, imageIds })
     } else {
-      onSave({ mode: 'create', title, content, page })
+      onSave({ mode: 'create', title, content, page, imageIds })
     }
+  }
+
+  function toggleImageSelection(imageId: number) {
+    setImageIds(prev =>
+      prev.includes(imageId)
+        ? prev.filter(id => id !== imageId)
+        : [...prev, imageId]
+    )
   }
 
   return (
@@ -86,6 +98,45 @@ export default function ArticleForm({ initial, onSave, onCancel, saving }: Props
           required
         />
       </div>
+
+      {availableImages.length > 0 && (
+        <div className="article-form__field">
+          <label>Bilder</label>
+          <div className="article-form__images">
+            {availableImages.map(image => (
+              <label key={image.id} className="article-form__image-option">
+                <input
+                  type="checkbox"
+                  checked={imageIds.includes(image.id)}
+                  onChange={() => toggleImageSelection(image.id)}
+                  disabled={saving}
+                />
+                <span className="article-form__image-label">{image.fileName}</span>
+              </label>
+            ))}
+          </div>
+
+          {imageIds.length > 0 && (
+            <div className="article-form__preview">
+              <p className="article-form__preview-title">Vorschau ({imageIds.length} ausgewählt)</p>
+              <div className="article-form__preview-grid">
+                {availableImages
+                  .filter(img => imageIds.includes(img.id))
+                  .map(image => (
+                    <div key={image.id} className="article-form__preview-item">
+                      <img
+                        src={`/api/webcontent/images/${image.id}/download`}
+                        alt={image.fileName}
+                        title={image.fileName}
+                      />
+                      <p className="article-form__preview-name">{image.fileName}</p>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="article-form__actions">
         <button type="button" className="btn btn--secondary" onClick={onCancel} disabled={saving}>

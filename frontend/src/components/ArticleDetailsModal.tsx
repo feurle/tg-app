@@ -81,6 +81,24 @@ export default function ArticleDetailsModal({ article, onEdit, onDelete, onClose
               {article.content}
             </div>
           </div>
+
+          {article.images.length > 0 && (
+            <div className="details-section">
+              <h3>Bilder ({article.images.length})</h3>
+              <div className="details-images">
+                {article.images.map(image => (
+                  <div key={image.id} className="details-image-item">
+                    <img
+                      src={`/api/webcontent/images/${image.id}/download`}
+                      alt={image.fileName}
+                      title={image.fileName}
+                    />
+                    <p className="details-image-name">{image.fileName}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="modal__footer">

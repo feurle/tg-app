@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { ArticleResponse } from '../types/article'
+import type { ArticleResponse, ImageResponse } from '../types/article'
 import ArticleList from '../components/ArticleList'
 import ArticleDetailsModal from '../components/ArticleDetailsModal'
 import ArticleFormModal from '../components/ArticleFormModal'
@@ -18,6 +18,7 @@ interface Props {
 
 export default function ArticlesPage({ onBack }: Props) {
   const [articles, setArticles] = useState<ArticleResponse[]>([])
+  const [images, setImages] = useState<ImageResponse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedArticle, setSelectedArticle] = useState<ArticleResponse | null>(null)
@@ -35,8 +36,18 @@ export default function ArticlesPage({ onBack }: Props) {
       .catch((err: Error) => setError(err.message))
   }
 
+  function fetchImages() {
+    return fetch('/api/webcontent/images')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        return res.json() as Promise<ImageResponse[]>
+      })
+      .then(setImages)
+      .catch((err: Error) => setError(err.message))
+  }
+
   useEffect(() => {
-    fetchArticles().finally(() => setLoading(false))
+    Promise.all([fetchArticles(), fetchImages()]).finally(() => setLoading(false))
   }, [])
 
   function handleSave(data: FormData) {
@@ -48,12 +59,12 @@ export default function ArticlesPage({ onBack }: Props) {
 
     const body =
       data.mode === 'create'
-        ? { title: data.title, content: data.content, page: data.page, imageIds: [] }
+        ? { title: data.title, content: data.content, page: data.page, imageIds: data.imageIds }
         : {
             title: data.title,
             content: data.content,
             state: data.state,
-            imageIds: [],
+            imageIds: data.imageIds,
           }
 
     fetch(url, {
@@ -124,6 +135,7 @@ export default function ArticlesPage({ onBack }: Props) {
           onSave={handleSave}
           onCancel={() => setModal(null)}
           saving={saving}
+          availableImages={images}
         />
       )}
 
