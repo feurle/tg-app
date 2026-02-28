@@ -16,6 +16,10 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ImageRepository imageRepository;
 
+    public List<Article> getAllArticles() {
+        return articleRepository.findAll();
+    }
+
     public List<Article> getArticlesByPage(PageType page) {
         return articleRepository.findByPage(page);
     }

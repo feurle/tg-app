@@ -1,0 +1,23 @@
+info:
+  name: Create Article
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/webcontent/articles"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Mein Titel",
+        "content": "blablabla",
+        "page": "HOME"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

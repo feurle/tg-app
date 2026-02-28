@@ -2,9 +2,17 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import ArticlesPage from './pages/ArticlesPage'
+
+type Page = 'home' | 'articles'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [page, setPage] = useState<Page>('home')
+
+  if (page === 'articles') {
+    return <ArticlesPage onBack={() => setPage('home')} />
+  }
 
   return (
     <>
@@ -28,6 +36,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div className="card">
+        <button onClick={() => setPage('articles')}>Artikel anzeigen</button>
+      </div>
     </>
   )
 }

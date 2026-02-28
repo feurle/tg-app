@@ -56,6 +56,12 @@ public class WebContentController {
 
     // ========== Article Endpoints ==========
 
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
+        return ResponseEntity.ok(articleService.getAllArticles().stream()
+                .map(this::toArticleResponse).toList());
+    }
+
     @GetMapping("/articles/page/{pageType}")
     public ResponseEntity<List<ArticleResponse>> getArticlesByPage(@PathVariable PageType pageType) {
         return ResponseEntity.ok(articleService.getArticlesByPage(pageType).stream()

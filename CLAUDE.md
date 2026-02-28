@@ -2,66 +2,61 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
-
-**tg-app** is a Spring Boot 4.0.3 application for animal health management, built with Java 21 and Gradle. The project uses **Spring Modulith** for modular architecture, enabling bounded contexts and clear separation of concerns.
-
 ## Build & Development Commands
 
-- **Build**: `./gradlew build` (or `./gradlew.bat build` on Windows)
-- **Run application**: `./gradlew bootRun`
-- **Run tests**: `./gradlew test`
-- **Run single test**: `./gradlew test --tests ClassName` or `./gradlew test --tests ClassName.methodName`
-- **Clean build**: `./gradlew clean`
-- **Rebuild cache**: `./gradlew build --refresh-dependencies`
+```bash
+./gradlew build          # compile, test, package
+./gradlew bootRun        # run the application
+./gradlew test           # run all tests
+./gradlew test --tests "com.feurle.tg.webcontent.application.ImageServiceTest"  # single test class
+./gradlew test --tests "com.feurle.tg.webcontent.application.ImageServiceTest.upload_savesImageAndReturnsIt"  # single method
+./gradlew clean          # clean build outputs
+```
 
-## Key Technologies & Structure
+H2 Console (dev only): `http://localhost:8080/h2-console` — JDBC URL `jdbc:h2:mem:testdb`, user `sa`, no password.
 
-### Spring Modulith Architecture
-The application is structured using Spring Modulith (v2.0.3) for modular design:
-- Modules are organized as separate packages under `com.feurle.tg.*` (e.g., `com.feurle.tg.animal`, `com.feurle.tg.health`)
-- Each module should be self-contained with its own domain logic, repositories, and services
-- Communication between modules uses Spring's event model or explicit service dependencies
-- Spring Modulith Actuator provides runtime observability of module interactions
+## Architecture
 
-### Core Dependencies
-- **Spring Boot Starter Web**: REST endpoints and HTTP request handling
-- **Spring Data JPA**: Entity mapping and database operations
-- **Spring Boot Actuator**: Monitoring and management endpoints
-- **H2 Database**: In-memory relational database (development/testing)
-- **Lombok**: Reduces boilerplate (use `@Data`, `@Getter`, `@Setter`, `@RequiredArgsConstructor`)
-- **Spring Boot DevTools**: Auto-reload during development
+**Spring Boot 4.0.3 · Java 21 · Spring Modulith 2.0.3**
 
-### Configuration
-- Main config: `src/main/resources/application.yaml`
-- Application name: `tg-app`
-- Java toolchain: Version 21
-- Test framework: JUnit 5 (via `@SpringBootTest`)
-
-## Development Notes
-
-- **Entity Development**: Place JPA entities in `com.feurle.tg.{moduleName}` packages with `@Entity` and Lombok annotations
-- **HTTP Endpoints**: Use `@RestController` and `@RequestMapping` for REST endpoints
-- **Testing**: Use `@SpringBootTest` for integration tests; ensure test methods are public and annotated with `@Test`
-- **H2 Console**: Accessible during development at `http://localhost:8080/h2-console` (if configured in application.yaml)
-- **Module Observability**: Spring Modulith Actuator exposes module topology at management endpoints
-
-## Repository Structure
+Modules live as sub-packages of `com.feurle.tg`. Currently there is one module: `webcontent`. Each module follows **Onion Architecture** with three fixed layers:
 
 ```
-tg-app/
-├── build.gradle                 # Gradle build configuration (Java 21, Spring Boot 4.0.3)
-├── settings.gradle              # Root project name
-├── gradle/                       # Gradle wrapper scripts
-├── src/
-│   ├── main/
-│   │   ├── java/com/feurle/tg/ # Source code packages
-│   │   │   └── Application.java # Boot entry point
-│   │   └── resources/
-│   │       ├── application.yaml # Spring configuration
-│   │       ├── static/          # Static assets (CSS, JS, images)
-│   │       └── templates/       # Thymeleaf or other templates
-│   └── test/
-│       └── java/com/feurle/tg/ # Test code packages
-└── HELP.md                      # Spring Boot generated guide
+{module}/
+├── domain/             ← Entities + Port interfaces (no Spring, except JPA annotations)
+├── application/        ← Use-case services; depend only on domain; return domain objects, never DTOs
+└── infrastructure/
+    ├── persistence/    ← JpaXxxRepository: extends JpaRepository<E,ID> + implements domain port
+    └── rest/
+        ├── dto/        ← Request/Response records
+        └── *Controller ← Maps HTTP ↔ application services; owns all DTO mapping
 ```
+
+**Dependency rule**: `infrastructure → application → domain`. Nothing in `domain` or `application` may import from `infrastructure`.
+
+**Repository pattern**: Domain port interfaces (e.g. `ArticleRepository`) are plain Java interfaces in `domain/`. Spring Data implementations (`JpaArticleRepository`) live in `infrastructure/persistence/` and extend both `JpaRepository<E,ID>` and the domain interface — Spring Data generates all query implementations automatically.
+
+**Spring Modulith**: `ApplicationModules.verify()` enforces module boundaries at test time (`WebContentModuleTests`). Do not create cross-module dependencies via direct package imports; use Spring events instead.
+
+## Database
+
+Schema is managed by **Liquibase** (`ddl-auto: none`). The master changelog is at `src/main/resources/db/changelog/db.changelog-master.yaml` and includes per-module changeset files under `db/changelog/{module}/`.
+
+When adding a new entity or column: add a new numbered changeset file (e.g. `002-add-column.yaml`) and reference it from the master file. Never modify existing changesets.
+
+The Spring Modulith `event_publication` table is not yet in the Liquibase schema — this produces a harmless `WARN` on shutdown during tests.
+
+## Adding a New Module
+
+1. Create package `com.feurle.tg.{module}` with the `domain/`, `application/`, `infrastructure/` sub-structure.
+2. Add a Liquibase changeset file under `db/changelog/{module}/` and include it in the master changelog.
+3. Spring Modulith auto-detects the module; run `WebContentModuleTests` to verify boundaries.
+
+## Key Conventions
+
+- **Services** receive and return domain objects. DTOs never leak into `application/` or `domain/`.
+- **Controllers** extract framework-specific types (e.g. `MultipartFile`) before calling services.
+- **Enums** stored as strings in DB (`@Enumerated(EnumType.STRING)`).
+- Multipart upload limit: 10 MB (`spring.servlet.multipart.max-file-size`).
+- Use Lombok (`@Data`, `@NoArgsConstructor`, `@RequiredArgsConstructor`) on entities and services.
+- Use records for DTOs.
