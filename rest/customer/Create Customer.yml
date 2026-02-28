@@ -1,0 +1,29 @@
+info:
+  name: Create Customer
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/customer"
+  body:
+    type: json
+    data: |-
+      {
+        "firstName": "Max",
+        "lastName": "Müller",
+        "email": "max@example.com",
+        "phone": "+49123456789",
+        "address": "Hauptstr. 1",
+        "city": "Berlin",
+        "state": "BE",
+        "zip": "10115",
+        "country": "Germany"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,75 @@
+package com.feurle.tg.customer.infrastructure.rest;
+
+import com.feurle.tg.customer.application.CustomerService;
+import com.feurle.tg.customer.domain.Customer;
+import com.feurle.tg.customer.infrastructure.rest.dto.CreateCustomerRequest;
+import com.feurle.tg.customer.infrastructure.rest.dto.UpdateCustomerRequest;
+import com.feurle.tg.customer.infrastructure.rest.dto.CustomerResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/customer")
+@RequiredArgsConstructor
+public class CustomerController {
+
+    private final CustomerService customerService;
+
+    @GetMapping
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+        return ResponseEntity.ok(customerService.getAllCustomers().stream()
+                .map(this::toCustomerResponse).toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Long id) {
+        return ResponseEntity.ok(toCustomerResponse(customerService.getCustomerById(id)));
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(toCustomerResponse(customerService.getCustomerByEmail(email)));
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody CreateCustomerRequest request) {
+        Customer customer = customerService.createCustomer(
+                request.firstName(), request.lastName(), request.email(), request.phone(),
+                request.address(), request.city(), request.state(), request.zip(), request.country()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(toCustomerResponse(customer));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerResponse> updateCustomer(
+            @PathVariable Long id,
+            @RequestBody UpdateCustomerRequest request
+    ) {
+        Customer customer = customerService.updateCustomer(
+                id, request.firstName(), request.lastName(), request.email(), request.phone(),
+                request.address(), request.city(), request.state(), request.zip(), request.country()
+        );
+        return ResponseEntity.ok(toCustomerResponse(customer));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        customerService.deleteCustomer(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ========== Mapping ==========
+
+    private CustomerResponse toCustomerResponse(Customer customer) {
+        return new CustomerResponse(
+                customer.getId(), customer.getFirstName(), customer.getLastName(),
+                customer.getEmail(), customer.getPhone(), customer.getAddress(),
+                customer.getCity(), customer.getState(), customer.getZip(), customer.getCountry(),
+                customer.getCreatedAt(), customer.getUpdatedAt()
+        );
+    }
+}

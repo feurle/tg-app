@@ -1,0 +1,29 @@
+info:
+  name: Update Customer
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/customer/1"
+  body:
+    type: json
+    data: |-
+      {
+        "firstName": "Maximilian",
+        "lastName": "Mueller",
+        "email": "maximilian@example.com",
+        "phone": "+49999999999",
+        "address": "Friedrichstr. 100",
+        "city": "Berlin",
+        "state": "BE",
+        "zip": "10117",
+        "country": "Germany"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
