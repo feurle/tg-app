@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - changeSet:
+      id: webcontent-001-create-image
+      author: init
+      changes:
+        - createTable:
+            tableName: image
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: image_data
+                  type: BLOB
+              - column:
+                  name: file_name
+                  type: VARCHAR(255)
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: mime_type
+                  type: VARCHAR(100)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+
+  - changeSet:
+      id: webcontent-002-create-article
+      author: init
+      changes:
+        - createTable:
+            tableName: article
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: content
+                  type: CLOB
+              - column:
+                  name: state
+                  type: VARCHAR(50)
+              - column:
+                  name: page
+                  type: VARCHAR(50)
+              - column:
+                  name: published_date
+                  type: TIMESTAMP
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+
+  - changeSet:
+      id: webcontent-003-create-article-images
+      author: init
+      changes:
+        - createTable:
+            tableName: article_images
+            columns:
+              - column:
+                  name: article_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: article_images
+            columnNames: article_id, image_id
+            constraintName: pk_article_images
+        - addForeignKeyConstraint:
+            baseTableName: article_images
+            baseColumnNames: article_id
+            constraintName: fk_article_images_article
+            referencedTableName: article
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: article_images
+            baseColumnNames: image_id
+            constraintName: fk_article_images_image
+            referencedTableName: image
+            referencedColumnNames: id
