@@ -1,36 +1,33 @@
+/* ConfirmDialog Styles - Bootstrap Theme */
+
 .confirm-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 200;
+  z-index: 50;
 }
 
 .confirm-dialog {
-  background: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 1.5rem 2rem;
-  min-width: 300px;
-  max-width: 420px;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  max-width: 28rem;
+  width: 90%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .confirm-dialog p {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.5rem 0;
+  color: #212529;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
 .confirm-dialog__actions {
   display: flex;
-  justify-content: flex-end;
   gap: 0.75rem;
-}
-
-@media (prefers-color-scheme: light) {
-  .confirm-dialog {
-    background: #fff;
-    border-color: #ddd;
-  }
+  justify-content: flex-end;
 }

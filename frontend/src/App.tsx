@@ -1,33 +1,24 @@
 import { useState } from 'react'
-import './App.css'
+import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
+import NewsPage from './pages/NewsPage'
 import ArticlesPage from './pages/ArticlesPage'
 import ImagesPage from './pages/ImagesPage'
 
-type Page = 'home' | 'articles' | 'images'
+type Page = 'home' | 'news' | 'articles' | 'images'
 
 function App() {
   const [page, setPage] = useState<Page>('home')
 
-  if (page === 'articles') {
-    return <ArticlesPage onBack={() => setPage('home')} />
-  }
-
-  if (page === 'images') {
-    return <ImagesPage onBack={() => setPage('home')} />
-  }
-
   return (
-    <div className="app">
-      <HomePage onManageArticles={() => setPage('articles')} />
-      <footer className="app__footer">
-        <button className="btn btn--secondary" onClick={() => setPage('articles')}>
-          Artikel verwalten
-        </button>
-        <button className="btn btn--secondary" onClick={() => setPage('images')}>
-          Bilder verwalten
-        </button>
-      </footer>
+    <div className="flex flex-col min-h-screen bg-white">
+      <Navbar currentPage={page} onNavigate={setPage} />
+      <main className="flex-1">
+        {page === 'home' && <HomePage onManageArticles={() => setPage('articles')} />}
+        {page === 'news' && <NewsPage />}
+        {page === 'articles' && <ArticlesPage onBack={() => setPage('home')} />}
+        {page === 'images' && <ImagesPage onBack={() => setPage('home')} />}
+      </main>
     </div>
   )
 }
