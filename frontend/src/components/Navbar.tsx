@@ -5,13 +5,14 @@ import logoImg from '../assets/logo.png'
 import type { AuthUser } from '../types/auth'
 import './Navbar.css'
 
-type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users' | 'login'
+type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'
 
 interface Props {
   currentPage: Page
   onNavigate: (page: Page) => void
   authUser: AuthUser | null
   onLogout: () => void
+  onLoginClick: () => void
 }
 
 const LANGUAGE_FLAGS: Record<string, { flag: string; name: string }> = {
@@ -21,7 +22,7 @@ const LANGUAGE_FLAGS: Record<string, { flag: string; name: string }> = {
   ru: { flag: '🇷🇺', name: 'Русский' },
 }
 
-export default function Navbar({ currentPage, onNavigate, authUser, onLogout }: Props) {
+export default function Navbar({ currentPage, onNavigate, authUser, onLogout, onLoginClick }: Props) {
   const { t } = useTranslation('navbar')
   const [currentLang, setCurrentLang] = useState<string>(i18n.language || 'de')
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
@@ -101,10 +102,7 @@ export default function Navbar({ currentPage, onNavigate, authUser, onLogout }: 
               </button>
             </>
           ) : (
-            <button
-              onClick={() => onNavigate('login')}
-              className={`nav-link ${currentPage === 'login' ? 'active' : ''}`}
-            >
+            <button onClick={onLoginClick} className="nav-link">
               {t('login')}
             </button>
           )}
@@ -179,10 +177,7 @@ export default function Navbar({ currentPage, onNavigate, authUser, onLogout }: 
             </button>
           </>
         ) : (
-          <button
-            onClick={() => onNavigate('login')}
-            className={`mobile-nav-link ${currentPage === 'login' ? 'active' : ''}`}
-          >
+          <button onClick={onLoginClick} className="mobile-nav-link">
             {t('login')}
           </button>
         )}

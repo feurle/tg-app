@@ -32,7 +32,9 @@
   color: #495057;
   line-height: 1.5;
   margin-bottom: 1rem;
-  white-space: pre-wrap;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .article-card-images {

@@ -126,10 +126,10 @@
 }
 
 .navbar-mobile-menu {
-  display: md-none;
+  display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-  padding-bottom: 0.5rem;
+  padding: 0 1.5rem 0.5rem 1.5rem;
   border-top: 1px solid #e9ecef;
   margin-top: 0.5rem;
 }

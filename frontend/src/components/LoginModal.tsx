@@ -1,114 +1,105 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { AuthUser } from '../types/auth'
 import './LoginModal.css'
 
 interface Props {
-  onSuccess: () => void
-  onClose: () => void
+  onLogin: (user: AuthUser) => void
+  onCancel: () => void
 }
 
-export default function LoginModal({ onSuccess, onClose }: Props) {
-  const { t } = useTranslation('common')
-  const [username, setUsername] = useState('')
+export default function LoginModal({ onLogin, onCancel }: Props) {
+  const { t } = useTranslation('login')
+  const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setError('')
+    setError(null)
     setLoading(true)
 
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          username,
-          password,
-        }).toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, password }),
       })
 
-      if (response.ok) {
-        onSuccess()
-      } else {
-        setError(t('form.invalidCredentials'))
+      if (!response.ok) {
+        throw new Error('unauthorized')
       }
-    } catch (err) {
-      setError(t('form.error'))
+
+      const user = (await response.json()) as AuthUser
+      onLogin(user)
+    } catch {
+      setError(t('invalidCredentials'))
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="login-modal-overlay" onClick={onClose}>
-      <div className="login-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="login-modal-header">
-          <h2 className="login-modal-title">{t('form.login')}</h2>
-          <button
-            type="button"
-            className="login-modal-close"
-            onClick={onClose}
-            aria-label="Close"
-          >
+    <div className="modal-backdrop" onClick={onCancel}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal__header">
+          <h2>{t('title')}</h2>
+          <button className="modal__close" onClick={onCancel} aria-label="Close">
             ×
           </button>
         </div>
+        <div className="modal__body">
+          <form className="login-modal__form" onSubmit={handleSubmit}>
+            {error && <div className="login-modal__error">{error}</div>}
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          {error && <div className="login-form-error">{error}</div>}
+            <div className="form-group">
+              <label htmlFor="login" className="form-label">
+                {t('loginLabel')}
+              </label>
+              <input
+                id="login"
+                type="text"
+                className="form-control"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+                autoComplete="username"
+                required
+                disabled={loading}
+              />
+            </div>
 
-          <div className="login-form-group">
-            <label htmlFor="username" className="login-form-label">
-              {t('form.username')}
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="login-form-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              disabled={loading}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
+                {t('passwordLabel')}
+              </label>
+              <input
+                id="password"
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                required
+                disabled={loading}
+              />
+            </div>
 
-          <div className="login-form-group">
-            <label htmlFor="password" className="login-form-label">
-              {t('form.password')}
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="login-form-input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading}
-              required
-            />
-          </div>
-
-          <div className="login-form-actions">
-            <button
-              type="submit"
-              className="login-form-submit"
-              disabled={loading}
-            >
-              {loading ? t('form.loggingIn') : t('form.login')}
-            </button>
-            <button
-              type="button"
-              className="login-form-cancel"
-              onClick={onClose}
-              disabled={loading}
-            >
-              {t('form.cancel')}
-            </button>
-          </div>
-        </form>
+            <div className="modal__actions">
+              <button type="submit" className="btn btn--primary" disabled={loading}>
+                {loading ? t('loggingIn') : t('loginButton')}
+              </button>
+              <button
+                type="button"
+                className="btn btn--secondary"
+                onClick={onCancel}
+                disabled={loading}
+              >
+                {t('cancel')}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

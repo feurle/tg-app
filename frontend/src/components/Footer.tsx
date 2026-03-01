@@ -37,30 +37,15 @@ export default function Footer() {
 
   return (
     <footer className="app-footer">
-      <div className="footer-content">
-        {/* Stats */}
-        <div className="footer-stats">
-          <div className="footer-stat">
-            <div className="footer-stat-value">{articleCount}</div>
-            <div className="footer-stat-label">{t('stats.articles')}</div>
-          </div>
-          <div className="footer-stat">
-            <div className="footer-stat-value">{imageCount}</div>
-            <div className="footer-stat-label">{t('stats.images')}</div>
-          </div>
-          <div className="footer-stat">
-            <div className="footer-stat-value">24/7</div>
-            <div className="footer-stat-label">{t('stats.availability')}</div>
-          </div>
-        </div>
-
-        {/* Version & Year */}
-        <p className="footer-text">
-          <span className="footer-version">v{APP_VERSION}</span>
-          <span className="footer-separator">•</span>
-          <span className="footer-year">© {CURRENT_YEAR}</span>
-        </p>
-      </div>
+      <p className="footer-line">
+        <span>{articleCount} {t('stats.articles')}</span>
+        <span className="footer-sep">·</span>
+        <span>{imageCount} {t('stats.images')}</span>
+        <span className="footer-sep">·</span>
+        <span>v{APP_VERSION}</span>
+        <span className="footer-sep">·</span>
+        <span>© {CURRENT_YEAR}</span>
+      </p>
     </footer>
   )
 }
