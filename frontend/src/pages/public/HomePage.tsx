@@ -5,11 +5,7 @@ import type { ArticleResponse } from '../../types/article.ts'
 import ArticleCard from '../../components/ArticleCard.tsx'
 import './HomePage.css'
 
-interface Props {
-  onManageArticles?: () => void
-}
-
-export default function HomePage({ onManageArticles }: Props) {
+export default function HomePage() {
   const { t } = useTranslation('home')
   const [teaserArticle, setTeaserArticle] = useState<ArticleResponse | null>(null)
   const [articles, setArticles] = useState<ArticleResponse[]>([])
@@ -59,16 +55,6 @@ export default function HomePage({ onManageArticles }: Props) {
           </p>
 
           {/* CTA Buttons */}
-          <div className="hero-buttons">
-            <a href="#articles" className="hero-button-primary">
-              {t('hero.ctaRead')}
-            </a>
-            {onManageArticles && (
-              <button onClick={onManageArticles} className="hero-button-secondary">
-                {t('hero.ctaManage')}
-              </button>
-            )}
-          </div>
         </div>
       </section>
 
@@ -76,10 +62,6 @@ export default function HomePage({ onManageArticles }: Props) {
       <section id="articles" className="articles-section">
         <div className="articles-container">
           {/* Section Header */}
-          <div className="section-header">
-            <h2 className="section-title">{t('section.title')}</h2>
-            <p className="section-subtitle">{t('section.subtitle')}</p>
-          </div>
 
           {/* Loading State */}
           {loading && (
