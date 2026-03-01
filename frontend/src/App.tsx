@@ -68,7 +68,7 @@ function App() {
         {page === 'login' && (
           <LoginPage onLogin={handleLogin} onCancel={() => setPage('home')} />
         )}
-        {page === 'home' && <HomePage onManageArticles={() => handleNavigate('articles')} />}
+        {page === 'home' && <HomePage />}
         {page === 'news' && <NewsPage />}
         {page === 'articles' && authUser && <ArticlesPage onBack={() => setPage('home')} />}
         {page === 'images' && authUser && <ImagesPage onBack={() => setPage('home')} />}
