@@ -1,0 +1,10 @@
+{
+  "title": "Sign In",
+  "subtitle": "Please sign in with your credentials.",
+  "loginLabel": "Username",
+  "passwordLabel": "Password",
+  "loginButton": "Sign In",
+  "loggingIn": "Signing in…",
+  "cancel": "Cancel",
+  "invalidCredentials": "Invalid credentials. Please try again."
+}

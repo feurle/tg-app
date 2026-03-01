@@ -5,5 +5,7 @@
   "articles": "Articles",
   "customers": "Customers",
   "users": "Users",
-  "images": "Images"
+  "images": "Images",
+  "login": "Sign In",
+  "logout": "Sign Out"
 }

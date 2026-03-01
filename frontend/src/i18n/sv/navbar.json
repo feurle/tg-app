@@ -5,5 +5,7 @@
   "articles": "Artiklar",
   "customers": "Kunder",
   "users": "Användare",
-  "images": "Bilder"
+  "images": "Bilder",
+  "login": "Logga in",
+  "logout": "Logga ut"
 }

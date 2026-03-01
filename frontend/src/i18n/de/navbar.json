@@ -5,5 +5,7 @@
   "articles": "Artikel",
   "customers": "Kunden",
   "users": "Benutzer",
-  "images": "Bilder"
+  "images": "Bilder",
+  "login": "Anmelden",
+  "logout": "Abmelden"
 }
