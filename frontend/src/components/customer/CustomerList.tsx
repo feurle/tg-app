@@ -1,3 +1,4 @@
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { Customer } from '../../types/customer'
 import './CustomerList.css'
 
@@ -44,11 +45,21 @@ export default function CustomerList({ customers, onEdit, onDelete }: Props) {
             <td>{customer.city || '—'}</td>
             <td>{formatDate(customer.createdAt)}</td>
             <td className="customer-list__actions">
-              <button className="btn btn--sm btn--secondary" onClick={() => onEdit(customer)}>
-                Bearbeiten
+              <button
+                className="customer-list__action-btn customer-list__action-btn--edit"
+                onClick={() => onEdit(customer)}
+                title="Bearbeiten"
+                aria-label="Kunde bearbeiten"
+              >
+                <PencilIcon className="customer-list__action-icon" />
               </button>
-              <button className="btn btn--sm btn--danger" onClick={() => onDelete(customer)}>
-                Löschen
+              <button
+                className="customer-list__action-btn customer-list__action-btn--delete"
+                onClick={() => onDelete(customer)}
+                title="Löschen"
+                aria-label="Kunde löschen"
+              >
+                <TrashIcon className="customer-list__action-icon" />
               </button>
             </td>
           </tr>

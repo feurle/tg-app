@@ -1,4 +1,5 @@
 import type { ArticleResponse } from '../../types/article.ts'
+import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import './ArticleList.css'
 
 interface Props {
@@ -15,9 +16,10 @@ const STATE_LABELS: Record<string, string> = {
 }
 
 const PAGE_LABELS: Record<string, string> = {
-  TEASER: 'Teaser',
-  HOME: 'Home',
-  NEWS: 'News',
+  HOME_TEASER: 'Home Teaser',
+  HOME_PAGE: 'Home Seite',
+  NEWS_TEASER: 'News Teaser',
+  NEWS_PAGE: 'News Seite',
 }
 
 function formatDate(iso: string | null): string {
@@ -65,14 +67,29 @@ export default function ArticleList({ articles, onView, onEdit, onDelete }: Prop
             <td>{formatDate(article.updatedAt)}</td>
             <td>{article.images.length}</td>
             <td className="article-list__actions">
-              <button className="btn btn--sm btn--secondary" onClick={() => onView(article)}>
-                Ansehen
+              <button
+                className="article-list__action-btn article-list__action-btn--view"
+                onClick={() => onView(article)}
+                title="Ansehen"
+                aria-label="Artikel ansehen"
+              >
+                <EyeIcon className="article-list__action-icon" />
               </button>
-              <button className="btn btn--sm btn--secondary" onClick={() => onEdit(article)}>
-                Bearbeiten
+              <button
+                className="article-list__action-btn article-list__action-btn--edit"
+                onClick={() => onEdit(article)}
+                title="Bearbeiten"
+                aria-label="Artikel bearbeiten"
+              >
+                <PencilIcon className="article-list__action-icon" />
               </button>
-              <button className="btn btn--sm btn--danger" onClick={() => onDelete(article)}>
-                Löschen
+              <button
+                className="article-list__action-btn article-list__action-btn--delete"
+                onClick={() => onDelete(article)}
+                title="Löschen"
+                aria-label="Artikel löschen"
+              >
+                <TrashIcon className="article-list__action-icon" />
               </button>
             </td>
           </tr>

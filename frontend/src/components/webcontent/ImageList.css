@@ -123,3 +123,38 @@
   background-color: #c82333;
   border-color: #bd2130;
 }
+
+/* Icon Button Styles */
+.image-list__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.image-list__action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.image-list__action-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2;
+}
+
+.image-list__action-btn--delete {
+  color: #dc3545;
+}
+
+.image-list__action-btn--delete:hover:not(:disabled) {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+}

@@ -1,3 +1,4 @@
+import { TrashIcon } from '@heroicons/react/24/outline'
 import type { ImageResponse } from '../../types/image.ts'
 import './ImageList.css'
 
@@ -42,10 +43,12 @@ export default function ImageList({ images, onDelete }: Props) {
           </div>
           <div className="image-list__actions">
             <button
-              className="btn btn--sm btn--danger"
+              className="image-list__action-btn image-list__action-btn--delete"
               onClick={() => onDelete(image)}
+              title="Löschen"
+              aria-label="Bild löschen"
             >
-              Löschen
+              <TrashIcon className="image-list__action-icon" />
             </button>
           </div>
         </div>

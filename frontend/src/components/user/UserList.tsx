@@ -1,3 +1,4 @@
+import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { User } from '../../types/user'
 import './UserList.css'
 
@@ -62,11 +63,21 @@ export default function UserList({ users, onEdit, onDelete }: Props) {
             </td>
             <td>{formatDate(user.createdDate)}</td>
             <td className="user-list__actions">
-              <button className="btn btn--sm btn--secondary" onClick={() => onEdit(user)}>
-                Bearbeiten
+              <button
+                className="user-list__action-btn user-list__action-btn--edit"
+                onClick={() => onEdit(user)}
+                title="Bearbeiten"
+                aria-label="Benutzer bearbeiten"
+              >
+                <PencilIcon className="user-list__action-icon" />
               </button>
-              <button className="btn btn--sm btn--danger" onClick={() => onDelete(user)}>
-                Löschen
+              <button
+                className="user-list__action-btn user-list__action-btn--delete"
+                onClick={() => onDelete(user)}
+                title="Löschen"
+                aria-label="Benutzer löschen"
+              >
+                <TrashIcon className="user-list__action-icon" />
               </button>
             </td>
           </tr>
