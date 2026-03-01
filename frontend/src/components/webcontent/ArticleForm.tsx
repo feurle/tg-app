@@ -33,7 +33,7 @@ interface Props {
 export default function ArticleForm({ initial, onSave, onCancel, saving, availableImages }: Props) {
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
-  const [page, setPage] = useState<PageType>(initial?.page ?? 'HOME')
+  const [page, setPage] = useState<PageType>(initial?.page ?? 'HOME_PAGE')
   const [language, setLanguage] = useState<Language>(initial?.language ?? 'GERMAN')
   const [state, setState] = useState<ArticleState>(initial?.state ?? 'CREATED')
   const [imageIds, setImageIds] = useState<number[]>(initial?.images.map(img => img.id) ?? [])
@@ -73,9 +73,10 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
         <div className="article-form__field">
           <label htmlFor="af-page">Seite</label>
           <select id="af-page" value={page} onChange={(e) => setPage(e.target.value as PageType)}>
-            <option value="HOME">Home</option>
-            <option value="TEASER">Teaser</option>
-            <option value="NEWS">News</option>
+            <option value="HOME_TEASER">Home Teaser</option>
+            <option value="HOME_PAGE">Home Seite</option>
+            <option value="NEWS_TEASER">News Teaser</option>
+            <option value="NEWS_PAGE">News Seite</option>
           </select>
         </div>
       )}

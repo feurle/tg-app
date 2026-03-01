@@ -1,5 +1,5 @@
 export type ArticleState = 'CREATED' | 'PUBLISHED' | 'CLOSED'
-export type PageType = 'TEASER' | 'HOME' | 'NEWS'
+export type PageType = 'HOME_TEASER' | 'HOME_PAGE' | 'NEWS_TEASER' | 'NEWS_PAGE'
 export type Language = 'GERMAN' | 'ENGLISH' | 'SWEDISH' | 'RUSSIAN'
 
 export interface ImageResponse {

@@ -15,16 +15,16 @@ export default function HomePage({ onManageArticles }: Props) {
 
   useEffect(() => {
     Promise.all([
-      // Load TEASER article for hero section
-      fetch('/api/webcontent/articles/page/TEASER/published')
+      // Load HOME_TEASER article for hero section
+      fetch('/api/webcontent/articles/page/HOME_TEASER/published')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           return res.json() as Promise<ArticleResponse[]>
         })
         .then((results) => setTeaserArticle(results[0] || null))
         .catch(() => setTeaserArticle(null)), // Teaser is optional
-      // Load HOME articles
-      fetch('/api/webcontent/articles/page/HOME/published')
+      // Load HOME_PAGE articles
+      fetch('/api/webcontent/articles/page/HOME_PAGE/published')
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           return res.json() as Promise<ArticleResponse[]>

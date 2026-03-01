@@ -4,19 +4,30 @@ import ArticleCard from '../../components/ArticleCard.tsx'
 import './NewsPage.css'
 
 export default function NewsPage() {
+  const [teaserArticle, setTeaserArticle] = useState<ArticleResponse | null>(null)
   const [articles, setArticles] = useState<ArticleResponse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/webcontent/articles/page/NEWS/published')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<ArticleResponse[]>
-      })
-      .then(setArticles)
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false))
+    Promise.all([
+      // Load NEWS_TEASER article for hero section
+      fetch('/api/webcontent/articles/page/NEWS_TEASER/published')
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          return res.json() as Promise<ArticleResponse[]>
+        })
+        .then((results) => setTeaserArticle(results[0] || null))
+        .catch(() => setTeaserArticle(null)), // Teaser is optional
+      // Load NEWS_PAGE articles
+      fetch('/api/webcontent/articles/page/NEWS_PAGE/published')
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          return res.json() as Promise<ArticleResponse[]>
+        })
+        .then(setArticles)
+        .catch((err: Error) => setError(err.message)),
+    ]).finally(() => setLoading(false))
   }, [])
 
   return (
@@ -28,13 +39,15 @@ export default function NewsPage() {
         </div>
 
         <div className="news-hero-content">
-          {/* Hero Content */}
+          {/* Hero Content from NEWS_TEASER article or fallback */}
           <h1 className="news-hero-title">
-            Aktuelle <span className="news-hero-title-accent">News</span>
+            {teaserArticle ? teaserArticle.title : 'Aktuelle'} <span className="news-hero-title-accent">{teaserArticle ? '' : 'News'}</span>
           </h1>
 
           <p className="news-hero-subtitle">
-            Bleiben Sie auf dem Laufenden mit den neuesten Meldungen und Updates
+            {teaserArticle
+              ? teaserArticle.content
+              : 'Bleiben Sie auf dem Laufenden mit den neuesten Meldungen und Updates'}
           </p>
         </div>
       </section>
