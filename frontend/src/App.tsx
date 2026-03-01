@@ -5,8 +5,9 @@ import NewsPage from './pages/public/NewsPage.tsx'
 import ArticlesPage from './pages/webcontent/ArticlesPage.tsx'
 import ImagesPage from './pages/webcontent/ImagesPage.tsx'
 import CustomerPage from './pages/customer/CustomerPage'
+import UserPage from './pages/user/UserPage'
 
-type Page = 'home' | 'news' | 'articles' | 'images' | 'customers'
+type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'
 
 function App() {
   const [page, setPage] = useState<Page>('home')
@@ -20,6 +21,7 @@ function App() {
         {page === 'articles' && <ArticlesPage onBack={() => setPage('home')} />}
         {page === 'images' && <ImagesPage onBack={() => setPage('home')} />}
         {page === 'customers' && <CustomerPage onBack={() => setPage('home')} />}
+        {page === 'users' && <UserPage onBack={() => setPage('home')} />}
       </main>
     </div>
   )
