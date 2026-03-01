@@ -1,0 +1,11 @@
+id;first_name;last_name;email;phone;address;city;state;zip;country;created_at;updated_at
+1;Max;Weber;max.weber@example.com;+49 30 123456;Hauptstraße 10;Berlin;Berlin;10115;Germany;2025-01-15T10:00:00;2025-01-15T10:00:00
+2;Anna;Mueller;anna.mueller@example.com;+49 89 654321;Leopoldstraße 5;München;Bayern;80802;Germany;2025-01-16T11:30:00;2025-01-16T11:30:00
+3;Klaus;Schmidt;klaus.schmidt@example.com;+49 221 987654;Domstraße 1;Köln;Nordrhein-Westfalen;50667;Germany;2025-01-17T09:15:00;2025-01-17T09:15:00
+4;Sophie;Bergmann;sophie.bergmann@example.com;+49 711 246813;Königstraße 25;Stuttgart;Baden-Württemberg;70173;Germany;2025-01-18T14:45:00;2025-01-18T14:45:00
+5;Thomas;Koch;thomas.koch@example.com;+49 40 135792;Straße 1;Hamburg;Hamburg;20095;Germany;2025-01-19T13:20:00;2025-01-19T13:20:00
+6;Elena;Fischer;elena.fischer@example.com;+49 69 864209;Schillerstraße 15;Frankfurt;Hessen;60311;Germany;2025-01-20T10:50:00;2025-01-20T10:50:00
+7;Robert;Wagner;robert.wagner@example.com;+49 351 741852;Altstadt 3;Dresden;Sachsen;01067;Germany;2025-01-21T15:30:00;2025-01-21T15:30:00
+8;Juliet;Hoffmann;juliet.hoffmann@example.com;+49 228 963852;Bonner Straße 20;Bonn;Nordrhein-Westfalen;53121;Germany;2025-01-22T11:00:00;2025-01-22T11:00:00
+9;Peter;Linke;peter.linke@example.com;+49 541 357159;Marktstraße 8;Osnabrück;Niedersachsen;49074;Germany;2025-01-23T16:15:00;2025-01-23T16:15:00
+10;Margot;Richter;margot.richter@example.com;+49 611 159786;Taunusstraße 12;Wiesbaden;Hessen;65189;Germany;2025-01-24T12:40:00;2025-01-24T12:40:00

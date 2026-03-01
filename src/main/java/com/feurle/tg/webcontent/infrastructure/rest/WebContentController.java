@@ -4,6 +4,7 @@ import com.feurle.tg.webcontent.application.ArticleService;
 import com.feurle.tg.webcontent.application.ImageService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -69,8 +70,16 @@ public class WebContentController {
     }
 
     @GetMapping("/articles/page/{pageType}/published")
-    public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPage(@PathVariable PageType pageType) {
-        return ResponseEntity.ok(articleService.getPublishedArticlesByPage(pageType).stream()
+    public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPage(
+            @PathVariable PageType pageType,
+            @RequestParam(required = false) Language language) {
+        List<Article> articles;
+        if (language != null) {
+            articles = articleService.getPublishedArticlesByPageAndLanguage(pageType, language);
+        } else {
+            articles = articleService.getPublishedArticlesByPage(pageType);
+        }
+        return ResponseEntity.ok(articles.stream()
                 .map(this::toArticleResponse).toList());
     }
 

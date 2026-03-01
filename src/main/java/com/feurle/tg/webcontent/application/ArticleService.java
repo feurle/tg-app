@@ -32,6 +32,10 @@ public class ArticleService {
         return articleRepository.findByPageAndState(page, ArticleState.PUBLISHED);
     }
 
+    public List<Article> getPublishedArticlesByPageAndLanguage(PageType page, Language language) {
+        return articleRepository.findByPageAndStateAndLanguage(page, ArticleState.PUBLISHED, language);
+    }
+
     public Article getArticleById(Long id) {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found: " + id));

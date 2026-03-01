@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import i18n from '../../i18n/config'
 import type { ArticleResponse } from '../../types/article.ts'
 import ArticleCard from '../../components/ArticleCard.tsx'
 import './NewsPage.css'
@@ -12,9 +13,10 @@ export default function NewsPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    const language = i18n.language.toUpperCase()
     Promise.all([
       // Load NEWS_TEASER article for hero section
-      fetch('/api/webcontent/articles/page/NEWS_TEASER/published')
+      fetch(`/api/webcontent/articles/page/NEWS_TEASER/published?language=${language}`)
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           return res.json() as Promise<ArticleResponse[]>
@@ -22,7 +24,7 @@ export default function NewsPage() {
         .then((results) => setTeaserArticle(results[0] || null))
         .catch(() => setTeaserArticle(null)), // Teaser is optional
       // Load NEWS_PAGE articles
-      fetch('/api/webcontent/articles/page/NEWS_PAGE/published')
+      fetch(`/api/webcontent/articles/page/NEWS_PAGE/published?language=${language}`)
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           return res.json() as Promise<ArticleResponse[]>
@@ -30,7 +32,7 @@ export default function NewsPage() {
         .then(setArticles)
         .catch((err: Error) => setError(err.message)),
     ]).finally(() => setLoading(false))
-  }, [])
+  }, [i18n.language])
 
   return (
     <div className="news-page">

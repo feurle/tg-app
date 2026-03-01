@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import i18n from '../i18n/config'
 import type { ArticleResponse } from '../types/article'
 import './Footer.css'
 
@@ -14,8 +15,9 @@ export default function Footer() {
 
   useEffect(() => {
     // Lade Artikel für Stats
+    const language = i18n.language.toUpperCase()
     Promise.all([
-      fetch('/api/webcontent/articles/page/HOME_PAGE/published')
+      fetch(`/api/webcontent/articles/page/HOME_PAGE/published?language=${language}`)
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           return res.json() as Promise<ArticleResponse[]>
@@ -31,7 +33,7 @@ export default function Footer() {
         .then((images) => setImageCount(images.length))
         .catch(() => setImageCount(0)),
     ])
-  }, [])
+  }, [i18n.language])
 
   return (
     <footer className="app-footer">
