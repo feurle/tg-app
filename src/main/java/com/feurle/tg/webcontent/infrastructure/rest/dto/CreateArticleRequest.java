@@ -1,6 +1,6 @@
 package com.feurle.tg.webcontent.infrastructure.rest.dto;
 
-import com.feurle.tg.webcontent.domain.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
 
 import java.util.List;
 

@@ -1,5 +1,8 @@
 package com.feurle.tg.webcontent.domain;
 
+import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
+
 import java.util.List;
 import java.util.Optional;
 

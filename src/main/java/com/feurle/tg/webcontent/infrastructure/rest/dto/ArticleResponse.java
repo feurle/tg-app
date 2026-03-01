@@ -1,7 +1,7 @@
 package com.feurle.tg.webcontent.infrastructure.rest.dto;
 
-import com.feurle.tg.webcontent.domain.ArticleState;
-import com.feurle.tg.webcontent.domain.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
 
 import java.time.LocalDateTime;
 import java.util.List;

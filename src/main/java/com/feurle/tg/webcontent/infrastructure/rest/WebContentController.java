@@ -4,7 +4,7 @@ import com.feurle.tg.webcontent.application.ArticleService;
 import com.feurle.tg.webcontent.application.ImageService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
-import com.feurle.tg.webcontent.domain.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

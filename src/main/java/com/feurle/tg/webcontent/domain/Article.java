@@ -1,5 +1,8 @@
 package com.feurle.tg.webcontent.domain;
 
+import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +31,9 @@ public class Article {
 
     @Enumerated(EnumType.STRING)
     private PageType page;
+
+    @Enumerated(EnumType.STRING)
+    private Language language = Language.GERMAN;
 
     private LocalDateTime publishedDate;
 

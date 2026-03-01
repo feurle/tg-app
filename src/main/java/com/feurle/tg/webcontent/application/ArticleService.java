@@ -1,6 +1,8 @@
 package com.feurle.tg.webcontent.application;
 
 import com.feurle.tg.webcontent.domain.*;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

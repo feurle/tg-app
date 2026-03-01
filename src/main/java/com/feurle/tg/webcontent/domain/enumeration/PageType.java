@@ -1,4 +1,4 @@
-package com.feurle.tg.webcontent.domain;
+package com.feurle.tg.webcontent.domain.enumeration;
 
 public enum PageType {
     TEASER,
