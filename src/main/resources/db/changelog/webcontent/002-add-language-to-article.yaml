@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-add-language-to-article
+      author: system
+      changes:
+        - addColumn:
+            tableName: article
+            columns:
+              - column:
+                  name: language
+                  type: VARCHAR(50)
+                  defaultValue: 'GERMAN'
+                  constraints:
+                    nullable: false

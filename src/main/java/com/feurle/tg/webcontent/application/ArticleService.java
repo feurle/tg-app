@@ -2,6 +2,7 @@ package com.feurle.tg.webcontent.application;
 
 import com.feurle.tg.webcontent.domain.*;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +37,12 @@ public class ArticleService {
                 .orElseThrow(() -> new IllegalArgumentException("Article not found: " + id));
     }
 
-    public Article createArticle(String title, String content, PageType page, List<Long> imageIds) {
+    public Article createArticle(String title, String content, PageType page, Language language, List<Long> imageIds) {
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
         article.setPage(page);
+        article.setLanguage(language != null ? language : Language.GERMAN);
         article.setState(ArticleState.CREATED);
 
         if (imageIds != null && !imageIds.isEmpty()) {
@@ -50,13 +52,16 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public Article updateArticle(Long id, String title, String content, ArticleState state,
+    public Article updateArticle(Long id, String title, String content, ArticleState state, Language language,
                                  List<Long> imageIds) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found: " + id));
 
         article.setTitle(title);
         article.setContent(content);
+        if (language != null) {
+            article.setLanguage(language);
+        }
 
         // Auto-set publishedDate when transitioning to PUBLISHED status
         if (state == ArticleState.PUBLISHED && article.getState() != ArticleState.PUBLISHED) {

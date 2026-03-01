@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-load-fake-articles
+      author: system
+      context: fake
+      changes:
+        - loadData:
+            file: db/fake-data/article.csv
+            tableName: article
+            separator: ;
+            quotchar: '"'
+            columns:
+              - column:
+                  name: id
+                  type: numeric
+              - column:
+                  name: title
+                  type: string
+              - column:
+                  name: content
+                  type: string
+              - column:
+                  name: state
+                  type: string
+              - column:
+                  name: published_date
+                  type: datetime
+              - column:
+                  name: author
+                  type: skip
+              - column:
+                  name: language
+                  type: string
+              - column:
+                  name: page
+                  type: string
+              - column:
+                  name: article_image_id
+                  type: skip
+        - sql:
+            sql: UPDATE article SET created_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE created_at IS NULL
+            dbms: h2

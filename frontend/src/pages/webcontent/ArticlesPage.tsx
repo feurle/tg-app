@@ -59,11 +59,12 @@ export default function ArticlesPage({ onBack }: Props) {
 
     const body =
       data.mode === 'create'
-        ? { title: data.title, content: data.content, page: data.page, imageIds: data.imageIds }
+        ? { title: data.title, content: data.content, page: data.page, language: data.language, imageIds: data.imageIds }
         : {
             title: data.title,
             content: data.content,
             state: data.state,
+            language: data.language,
             imageIds: data.imageIds,
           }
 

@@ -82,7 +82,7 @@ public class WebContentController {
     @PostMapping("/articles")
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody CreateArticleRequest request) {
         Article article = articleService.createArticle(
-                request.title(), request.content(), request.page(), request.imageIds());
+                request.title(), request.content(), request.page(), request.language(), request.imageIds());
         return ResponseEntity.status(HttpStatus.CREATED).body(toArticleResponse(article));
     }
 
@@ -93,7 +93,7 @@ public class WebContentController {
     ) {
         Article article = articleService.updateArticle(
                 id, request.title(), request.content(),
-                request.state(), request.imageIds());
+                request.state(), request.language(), request.imageIds());
         return ResponseEntity.ok(toArticleResponse(article));
     }
 
@@ -111,7 +111,7 @@ public class WebContentController {
                 .toList();
         return new ArticleResponse(
                 article.getId(), article.getTitle(), article.getContent(),
-                article.getState(), article.getPage(), article.getPublishedDate(),
+                article.getState(), article.getPage(), article.getLanguage(), article.getPublishedDate(),
                 imageResponses, article.getCreatedAt(), article.getUpdatedAt()
         );
     }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ArticleResponse, ArticleState, PageType, ImageResponse } from '../../types/article.ts'
+import type { ArticleResponse, ArticleState, PageType, Language, ImageResponse } from '../../types/article.ts'
 import './ArticleForm.css'
 
 export interface CreateFormData {
@@ -7,6 +7,7 @@ export interface CreateFormData {
   title: string
   content: string
   page: PageType
+  language: Language
   imageIds: number[]
 }
 
@@ -15,6 +16,7 @@ export interface EditFormData {
   title: string
   content: string
   state: ArticleState
+  language: Language
   imageIds: number[]
 }
 
@@ -32,15 +34,16 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
   const [page, setPage] = useState<PageType>(initial?.page ?? 'HOME')
+  const [language, setLanguage] = useState<Language>(initial?.language ?? 'GERMAN')
   const [state, setState] = useState<ArticleState>(initial?.state ?? 'CREATED')
   const [imageIds, setImageIds] = useState<number[]>(initial?.images.map(img => img.id) ?? [])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (initial) {
-      onSave({ mode: 'edit', title, content, state, imageIds })
+      onSave({ mode: 'edit', title, content, state, language, imageIds })
     } else {
-      onSave({ mode: 'create', title, content, page, imageIds })
+      onSave({ mode: 'create', title, content, page, language, imageIds })
     }
   }
 
@@ -76,6 +79,16 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
           </select>
         </div>
       )}
+
+      <div className="article-form__field">
+        <label htmlFor="af-language">Sprache</label>
+        <select id="af-language" value={language} onChange={(e) => setLanguage(e.target.value as Language)}>
+          <option value="GERMAN">Deutsch</option>
+          <option value="ENGLISH">English</option>
+          <option value="SWEDISH">Svenska</option>
+          <option value="RUSSIAN">Русский</option>
+        </select>
+      </div>
 
       {initial && (
         <div className="article-form__field">
