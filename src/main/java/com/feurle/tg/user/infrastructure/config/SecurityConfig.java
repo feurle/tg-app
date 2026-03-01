@@ -21,6 +21,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
         http.csrf(csrf -> csrf.disable());
+        http.headers(headers -> headers.frameOptions(frame -> frame.disable()) // X-Frame-Options deaktivieren
+                // ODER nur für gleiche Origin erlauben:
+                // .frameOptions(frame -> frame.sameOrigin())
+        );
         return http.build();
     }
 }
