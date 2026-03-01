@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-event-publication-table
+      author: system
+      changes:
+        - createTable:
+            tableName: event_publication
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: listener_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: publication_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completion_date
+                  type: TIMESTAMP
+              - column:
+                  name: serialized_event
+                  type: CLOB
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  defaultValue: 'INITIAL'
+              - column:
+                  name: completion_attempts
+                  type: INT
+                  defaultValue: 0
+              - column:
+                  name: last_resubmission_date
+                  type: TIMESTAMP
+        - createIndex:
+            indexName: idx_event_publication_status
+            tableName: event_publication
+            columns:
+              - column:
+                  name: status
+        - createIndex:
+            indexName: idx_event_publication_completion_date
+            tableName: event_publication
+            columns:
+              - column:
+                  name: completion_date
