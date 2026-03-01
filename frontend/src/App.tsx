@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import HomePage from './pages/public/HomePage.tsx'
 import NewsPage from './pages/public/NewsPage.tsx'
 import ArticlesPage from './pages/webcontent/ArticlesPage.tsx'
@@ -23,6 +24,7 @@ function App() {
         {page === 'customers' && <CustomerPage onBack={() => setPage('home')} />}
         {page === 'users' && <UserPage onBack={() => setPage('home')} />}
       </main>
+      <Footer />
     </div>
   )
 }

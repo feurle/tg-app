@@ -16,9 +16,9 @@
     "createdAt": "Создано"
   },
   "fields": {
-    "firstName": "Имя *",
-    "lastName": "Фамилия *",
-    "email": "Электронная почта *",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "email": "Электронная почта",
     "phone": "Телефон",
     "address": "Адрес",
     "city": "Город",

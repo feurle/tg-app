@@ -16,9 +16,9 @@
     "createdAt": "Created at"
   },
   "fields": {
-    "firstName": "First Name *",
-    "lastName": "Last Name *",
-    "email": "Email *",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
     "phone": "Phone",
     "address": "Address",
     "city": "City",

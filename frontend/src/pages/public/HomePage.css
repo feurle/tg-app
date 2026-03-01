@@ -82,7 +82,6 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
 }
 
 @media (min-width: 640px) {
@@ -126,42 +125,6 @@
 
 .hero-button-secondary:hover {
   background-color: #e2e6ea;
-}
-
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding-top: 2rem;
-  border-top: 1px solid #dee2e6;
-}
-
-@media (min-width: 640px) {
-  .hero-stats {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #212529;
-}
-
-@media (min-width: 640px) {
-  .hero-stat-value {
-    font-size: 1.875rem;
-  }
-}
-
-.hero-stat-label {
-  font-size: 0.875rem;
-  color: #6c757d;
-  margin-top: 0.25rem;
 }
 
 /* Articles Section */

@@ -67,24 +67,6 @@ export default function HomePage({ onManageArticles }: Props) {
               </button>
             )}
           </div>
-
-          {/* Stats */}
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="hero-stat-value">{articles.length}</div>
-              <div className="hero-stat-label">{t('stats.articles')}</div>
-            </div>
-            {teaserArticle && (
-              <div className="hero-stat">
-                <div className="hero-stat-value">{teaserArticle.images.length}</div>
-                <div className="hero-stat-label">{t('stats.images')}</div>
-              </div>
-            )}
-            <div className="hero-stat">
-              <div className="hero-stat-value">24/7</div>
-              <div className="hero-stat-label">{t('stats.availability')}</div>
-            </div>
-          </div>
         </div>
       </section>
 

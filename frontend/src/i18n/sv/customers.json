@@ -16,9 +16,9 @@
     "createdAt": "Skapad"
   },
   "fields": {
-    "firstName": "Förnamn *",
-    "lastName": "Efternamn *",
-    "email": "E-post *",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "email": "E-post",
     "phone": "Telefon",
     "address": "Adress",
     "city": "Stad",
