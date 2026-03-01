@@ -11,6 +11,7 @@ import de_articles from './de/articles.json'
 import de_images from './de/images.json'
 import de_customers from './de/customers.json'
 import de_users from './de/users.json'
+import de_login from './de/login.json'
 
 // English
 import en_common from './en/common.json'
@@ -21,6 +22,7 @@ import en_articles from './en/articles.json'
 import en_images from './en/images.json'
 import en_customers from './en/customers.json'
 import en_users from './en/users.json'
+import en_login from './en/login.json'
 
 // Swedish
 import sv_common from './sv/common.json'
@@ -31,6 +33,7 @@ import sv_articles from './sv/articles.json'
 import sv_images from './sv/images.json'
 import sv_customers from './sv/customers.json'
 import sv_users from './sv/users.json'
+import sv_login from './sv/login.json'
 
 // Russian
 import ru_common from './ru/common.json'
@@ -41,6 +44,7 @@ import ru_articles from './ru/articles.json'
 import ru_images from './ru/images.json'
 import ru_customers from './ru/customers.json'
 import ru_users from './ru/users.json'
+import ru_login from './ru/login.json'
 
 i18n
   .use(LanguageDetector)
@@ -56,6 +60,7 @@ i18n
         images: de_images,
         customers: de_customers,
         users: de_users,
+        login: de_login,
       },
       en: {
         common: en_common,
@@ -66,6 +71,7 @@ i18n
         images: en_images,
         customers: en_customers,
         users: en_users,
+        login: en_login,
       },
       sv: {
         common: sv_common,
@@ -76,6 +82,7 @@ i18n
         images: sv_images,
         customers: sv_customers,
         users: sv_users,
+        login: sv_login,
       },
       ru: {
         common: ru_common,
@@ -86,6 +93,7 @@ i18n
         images: ru_images,
         customers: ru_customers,
         users: ru_users,
+        login: ru_login,
       },
     },
     fallbackLng: 'de',

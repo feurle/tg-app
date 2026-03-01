@@ -1,0 +1,10 @@
+{
+  "title": "Anmelden",
+  "subtitle": "Bitte melden Sie sich mit Ihren Zugangsdaten an.",
+  "loginLabel": "Benutzername",
+  "passwordLabel": "Passwort",
+  "loginButton": "Anmelden",
+  "loggingIn": "Anmelden…",
+  "cancel": "Abbrechen",
+  "invalidCredentials": "Ungültige Zugangsdaten. Bitte versuchen Sie es erneut."
+}

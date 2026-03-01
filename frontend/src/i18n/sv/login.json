@@ -1,0 +1,10 @@
+{
+  "title": "Logga in",
+  "subtitle": "Logga in med dina uppgifter.",
+  "loginLabel": "Användarnamn",
+  "passwordLabel": "Lösenord",
+  "loginButton": "Logga in",
+  "loggingIn": "Loggar in…",
+  "cancel": "Avbryt",
+  "invalidCredentials": "Ogiltiga uppgifter. Försök igen."
+}

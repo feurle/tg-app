@@ -259,6 +259,30 @@
   flex: 1;
 }
 
+/* Auth elements */
+.navbar-user {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #495057;
+  padding: 0 0.25rem;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .navbar-user {
+    display: inline;
+  }
+}
+
+.navbar-logout {
+  color: #dc3545;
+}
+
+.navbar-logout:hover {
+  background-color: #fff5f5;
+  color: #b02a37;
+}
+
 /* Mobile Language Selector */
 .mobile-language-selector {
   display: none;

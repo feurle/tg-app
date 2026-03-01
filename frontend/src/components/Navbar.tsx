@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n/config'
 import logoImg from '../assets/logo.png'
+import type { AuthUser } from '../types/auth'
 import './Navbar.css'
 
-type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'
+type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users' | 'login'
 
 interface Props {
   currentPage: Page
   onNavigate: (page: Page) => void
+  authUser: AuthUser | null
+  onLogout: () => void
 }
 
 const LANGUAGE_FLAGS: Record<string, { flag: string; name: string }> = {
@@ -18,7 +21,7 @@ const LANGUAGE_FLAGS: Record<string, { flag: string; name: string }> = {
   ru: { flag: '🇷🇺', name: 'Русский' },
 }
 
-export default function Navbar({ currentPage, onNavigate }: Props) {
+export default function Navbar({ currentPage, onNavigate, authUser, onLogout }: Props) {
   const { t } = useTranslation('navbar')
   const [currentLang, setCurrentLang] = useState<string>(i18n.language || 'de')
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
@@ -66,30 +69,45 @@ export default function Navbar({ currentPage, onNavigate }: Props) {
 
         {/* Right Side Actions */}
         <div className="navbar-actions">
-          <button
-            onClick={() => onNavigate('articles')}
-            className={`nav-link ${currentPage === 'articles' ? 'active' : ''}`}
-          >
-            {t('articles')}
-          </button>
-          <button
-            onClick={() => onNavigate('customers')}
-            className={`nav-link ${currentPage === 'customers' ? 'active' : ''}`}
-          >
-            {t('customers')}
-          </button>
-          <button
-            onClick={() => onNavigate('users')}
-            className={`nav-link ${currentPage === 'users' ? 'active' : ''}`}
-          >
-            {t('users')}
-          </button>
-          <button
-            onClick={() => onNavigate('images')}
-            className={`nav-link ${currentPage === 'images' ? 'active' : ''}`}
-          >
-            {t('images')}
-          </button>
+          {authUser ? (
+            <>
+              <button
+                onClick={() => onNavigate('articles')}
+                className={`nav-link ${currentPage === 'articles' ? 'active' : ''}`}
+              >
+                {t('articles')}
+              </button>
+              <button
+                onClick={() => onNavigate('customers')}
+                className={`nav-link ${currentPage === 'customers' ? 'active' : ''}`}
+              >
+                {t('customers')}
+              </button>
+              <button
+                onClick={() => onNavigate('users')}
+                className={`nav-link ${currentPage === 'users' ? 'active' : ''}`}
+              >
+                {t('users')}
+              </button>
+              <button
+                onClick={() => onNavigate('images')}
+                className={`nav-link ${currentPage === 'images' ? 'active' : ''}`}
+              >
+                {t('images')}
+              </button>
+              <span className="navbar-user">{authUser.login}</span>
+              <button onClick={onLogout} className="nav-link navbar-logout">
+                {t('logout')}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => onNavigate('login')}
+              className={`nav-link ${currentPage === 'login' ? 'active' : ''}`}
+            >
+              {t('login')}
+            </button>
+          )}
           <div className="navbar-language-selector">
             <button
               className="navbar-language-btn"
@@ -130,30 +148,44 @@ export default function Navbar({ currentPage, onNavigate }: Props) {
         >
           {t('news')}
         </button>
-        <button
-          onClick={() => onNavigate('articles')}
-          className={`mobile-nav-link ${currentPage === 'articles' ? 'active' : ''}`}
-        >
-          {t('articles')}
-        </button>
-        <button
-          onClick={() => onNavigate('customers')}
-          className={`mobile-nav-link ${currentPage === 'customers' ? 'active' : ''}`}
-        >
-          {t('customers')}
-        </button>
-        <button
-          onClick={() => onNavigate('users')}
-          className={`mobile-nav-link ${currentPage === 'users' ? 'active' : ''}`}
-        >
-          {t('users')}
-        </button>
-        <button
-          onClick={() => onNavigate('images')}
-          className={`mobile-nav-link ${currentPage === 'images' ? 'active' : ''}`}
-        >
-          {t('images')}
-        </button>
+        {authUser ? (
+          <>
+            <button
+              onClick={() => onNavigate('articles')}
+              className={`mobile-nav-link ${currentPage === 'articles' ? 'active' : ''}`}
+            >
+              {t('articles')}
+            </button>
+            <button
+              onClick={() => onNavigate('customers')}
+              className={`mobile-nav-link ${currentPage === 'customers' ? 'active' : ''}`}
+            >
+              {t('customers')}
+            </button>
+            <button
+              onClick={() => onNavigate('users')}
+              className={`mobile-nav-link ${currentPage === 'users' ? 'active' : ''}`}
+            >
+              {t('users')}
+            </button>
+            <button
+              onClick={() => onNavigate('images')}
+              className={`mobile-nav-link ${currentPage === 'images' ? 'active' : ''}`}
+            >
+              {t('images')}
+            </button>
+            <button onClick={onLogout} className="mobile-nav-link">
+              {t('logout')} ({authUser.login})
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => onNavigate('login')}
+            className={`mobile-nav-link ${currentPage === 'login' ? 'active' : ''}`}
+          >
+            {t('login')}
+          </button>
+        )}
         <div className="mobile-language-selector">
           <span className="mobile-language-label">Sprache / Language:</span>
           <select
