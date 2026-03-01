@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n/config'
+import logoImg from '../assets/logo.png'
 import './Navbar.css'
 
 type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'
@@ -38,12 +39,13 @@ export default function Navbar({ currentPage, onNavigate }: Props) {
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        {/* Logo */}
+        {/* Logo & Brand */}
         <button
           onClick={() => onNavigate('home')}
           className="navbar-brand"
         >
-          {t('brand')}
+          <img src={logoImg} alt="Logo" className="navbar-logo" />
+          <span className="navbar-brand-text">{t('brand')}</span>
         </button>
 
         {/* Center Navigation */}
