@@ -71,5 +71,19 @@
     "fileTooLarge": "Datei ist zu groß. Maximum: 10 MB.",
     "invalidType": "Ungültiger Dateityp.",
     "passwordRequired": "Passwort ist erforderlich"
+  },
+  "form": {
+    "login": "Anmelden",
+    "loggingIn": "Wird angemeldet…",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "cancel": "Abbrechen",
+    "invalidCredentials": "Ungültige Anmeldedaten",
+    "error": "Ein Fehler ist aufgetreten"
+  },
+  "footer": {
+    "articles": "Artikel",
+    "images": "Bilder",
+    "anonymous": "Anonym"
   }
 }

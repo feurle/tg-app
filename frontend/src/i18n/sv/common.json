@@ -71,5 +71,19 @@
     "fileTooLarge": "Filen är för stor. Maximum: 10 MB.",
     "invalidType": "Ogiltig filtyp.",
     "passwordRequired": "Lösenord krävs"
+  },
+  "form": {
+    "login": "Logga in",
+    "loggingIn": "Loggar in…",
+    "username": "Användarnamn",
+    "password": "Lösenord",
+    "cancel": "Avbryt",
+    "invalidCredentials": "Ogiltiga uppgifter",
+    "error": "Ett fel uppstod"
+  },
+  "footer": {
+    "articles": "Artiklar",
+    "images": "Bilder",
+    "anonymous": "Anonym"
   }
 }

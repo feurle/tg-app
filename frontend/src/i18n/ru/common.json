@@ -71,5 +71,19 @@
     "fileTooLarge": "Файл слишком большой. Максимум: 10 МБ.",
     "invalidType": "Неверный тип файла.",
     "passwordRequired": "Пароль требуется"
+  },
+  "form": {
+    "login": "Войти",
+    "loggingIn": "Вход…",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "cancel": "Отмена",
+    "invalidCredentials": "Неверные учетные данные",
+    "error": "Произошла ошибка"
+  },
+  "footer": {
+    "articles": "Статьи",
+    "images": "Изображения",
+    "anonymous": "Анонимно"
   }
 }

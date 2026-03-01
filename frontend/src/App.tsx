@@ -70,10 +70,10 @@ function App() {
         )}
         {page === 'home' && <HomePage />}
         {page === 'news' && <NewsPage />}
-        {page === 'articles' && authUser && <ArticlesPage onBack={() => setPage('home')} />}
-        {page === 'images' && authUser && <ImagesPage onBack={() => setPage('home')} />}
-        {page === 'customers' && authUser && <CustomerPage onBack={() => setPage('home')} />}
-        {page === 'users' && authUser && <UserPage onBack={() => setPage('home')} />}
+        {page === 'articles' && <ArticlesPage onBack={() => setPage('home')} />}
+        {page === 'images' && <ImagesPage onBack={() => setPage('home')} />}
+        {page === 'customers' && <CustomerPage onBack={() => setPage('home')} />}
+        {page === 'users' && <UserPage onBack={() => setPage('home')} />}
       </main>
       <Footer />
     </div>
