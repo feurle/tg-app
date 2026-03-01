@@ -13,9 +13,9 @@
     "title": "Titel",
     "page": "Seite",
     "state": "Status",
-    "createdAt": "Erstellt am",
-    "publishedAt": "Publiziert am",
-    "updatedAt": "Geändert am",
+    "createdAt": "Erstellt",
+    "publishedAt": "Publiziert",
+    "updatedAt": "Geändert",
     "images": "Bilder"
   },
   "pageTypes": {
