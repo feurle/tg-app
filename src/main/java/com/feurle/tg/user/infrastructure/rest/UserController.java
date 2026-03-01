@@ -3,6 +3,7 @@ package com.feurle.tg.user.infrastructure.rest;
 import com.feurle.tg.user.application.UserService;
 import com.feurle.tg.user.domain.entity.Authority;
 import com.feurle.tg.user.domain.entity.User;
+import com.feurle.tg.user.infrastructure.persistence.JpaAuthorityRepository;
 import com.feurle.tg.user.infrastructure.rest.dto.CreateUserRequest;
 import com.feurle.tg.user.infrastructure.rest.dto.UpdateUserRequest;
 import com.feurle.tg.user.infrastructure.rest.dto.UserResponse;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final JpaAuthorityRepository authorityRepository;
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request) {
@@ -35,12 +38,12 @@ public class UserController {
         user.setImageUrl(request.imageUrl());
         user.setActivated(false);
 
-        if (request.authorities() != null) {
-            user.setAuthorities(
-                    request.authorities().stream()
-                            .map(Authority::new)
-                            .collect(Collectors.toSet())
-            );
+        if (request.authorities() != null && !request.authorities().isEmpty()) {
+            Set<Authority> authorities = request.authorities().stream()
+                    .map(name -> authorityRepository.findByName(name)
+                            .orElseThrow(() -> new IllegalArgumentException("Authority not found: " + name)))
+                    .collect(Collectors.toSet());
+            user.setAuthorities(authorities);
         }
 
         User created = userService.createUser(user);
@@ -91,12 +94,12 @@ public class UserController {
         userUpdate.setImageUrl(request.imageUrl());
         userUpdate.setActivated(request.activated());
 
-        if (request.authorities() != null) {
-            userUpdate.setAuthorities(
-                    request.authorities().stream()
-                            .map(Authority::new)
-                            .collect(Collectors.toSet())
-            );
+        if (request.authorities() != null && !request.authorities().isEmpty()) {
+            Set<Authority> authorities = request.authorities().stream()
+                    .map(name -> authorityRepository.findByName(name)
+                            .orElseThrow(() -> new IllegalArgumentException("Authority not found: " + name)))
+                    .collect(Collectors.toSet());
+            userUpdate.setAuthorities(authorities);
         }
 
         User updated = userService.updateUser(id, userUpdate);
