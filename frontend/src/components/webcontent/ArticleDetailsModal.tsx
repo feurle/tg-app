@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse } from '../../types/article.ts'
 import './ArticleDetailsModal.css'
 
@@ -32,6 +33,8 @@ interface Props {
 }
 
 export default function ArticleDetailsModal({ article, onEdit, onDelete, onClose }: Props) {
+  const { t } = useTranslation('articles')
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal modal--large" onClick={(e) => e.stopPropagation()}>
@@ -43,40 +46,40 @@ export default function ArticleDetailsModal({ article, onEdit, onDelete, onClose
         <div className="modal__body">
           <div className="details-grid">
             <div className="details-row">
-              <label>Status</label>
+              <label>{t('fields.state')}</label>
               <span className={`badge badge--${article.state.toLowerCase()}`}>
                 {STATE_LABELS[article.state]}
               </span>
             </div>
 
             <div className="details-row">
-              <label>Seite</label>
+              <label>{t('fields.page')}</label>
               <span>{PAGE_LABELS[article.page] ?? article.page}</span>
             </div>
 
             <div className="details-row">
-              <label>Erstellt am</label>
+              <label>{t('fields.createdAt')}</label>
               <span>{formatDate(article.createdAt)}</span>
             </div>
 
             <div className="details-row">
-              <label>Publiziert am</label>
+              <label>{t('fields.publishedAt')}</label>
               <span>{formatDate(article.publishedDate)}</span>
             </div>
 
             <div className="details-row">
-              <label>Geändert am</label>
+              <label>{t('fields.updatedAt')}</label>
               <span>{formatDate(article.updatedAt)}</span>
             </div>
 
             <div className="details-row">
-              <label>Bilder</label>
+              <label>{t('fields.images')}</label>
               <span>{article.images.length}</span>
             </div>
           </div>
 
           <div className="details-section">
-            <h3>Inhalt</h3>
+            <h3>{t('sections.content')}</h3>
             <div className="details-content">
               {article.content}
             </div>
@@ -84,7 +87,7 @@ export default function ArticleDetailsModal({ article, onEdit, onDelete, onClose
 
           {article.images.length > 0 && (
             <div className="details-section">
-              <h3>Bilder ({article.images.length})</h3>
+              <h3>{t('sections.images', { count: article.images.length })}</h3>
               <div className="details-images">
                 {article.images.map(image => (
                   <div key={image.id} className="details-image-item">
@@ -102,9 +105,9 @@ export default function ArticleDetailsModal({ article, onEdit, onDelete, onClose
         </div>
 
         <div className="modal__footer">
-          <button className="btn btn--secondary" onClick={onClose}>Schliessen</button>
-          <button className="btn btn--secondary" onClick={() => onEdit(article)}>Bearbeiten</button>
-          <button className="btn btn--danger" onClick={() => onDelete(article)}>Löschen</button>
+          <button className="btn btn--secondary" onClick={onClose}>{t('actions.close')}</button>
+          <button className="btn btn--secondary" onClick={() => onEdit(article)}>{t('actions.edit')}</button>
+          <button className="btn btn--danger" onClick={() => onDelete(article)}>{t('actions.delete')}</button>
         </div>
       </div>
     </div>

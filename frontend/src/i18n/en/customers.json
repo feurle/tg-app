@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Customer Management",
+  "pageSubtitle": "Manage all customer entries",
+  "createNew": "+ New Customer",
+  "empty": "No customers available.",
+  "deleteConfirm": "Really delete customer \"{{name}}\"?",
+  "modal": {
+    "createTitle": "New Customer",
+    "editTitle": "Edit Customer"
+  },
+  "columns": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "city": "City",
+    "createdAt": "Created at"
+  },
+  "fields": {
+    "firstName": "First Name *",
+    "lastName": "Last Name *",
+    "email": "Email *",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "zip": "ZIP Code",
+    "country": "Country"
+  }
+}

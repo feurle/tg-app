@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Kundenverwaltung",
+  "pageSubtitle": "Verwalten Sie alle Kundeneinträge",
+  "createNew": "+ Neuer Kunde",
+  "empty": "Keine Kunden vorhanden.",
+  "deleteConfirm": "Möchten Sie den Kunden \"{{name}}\" wirklich löschen?",
+  "modal": {
+    "createTitle": "Neuer Kunde",
+    "editTitle": "Kunde bearbeiten"
+  },
+  "columns": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Telefon",
+    "city": "Ort",
+    "createdAt": "Erstellt am"
+  },
+  "fields": {
+    "firstName": "Vorname *",
+    "lastName": "Nachname *",
+    "email": "Email *",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "city": "Stadt",
+    "zip": "PLZ",
+    "country": "Land"
+  }
+}

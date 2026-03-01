@@ -1,0 +1,48 @@
+{
+  "pageTitle": "Управление статьями",
+  "pageSubtitle": "Управляйте всеми статьями и контентом",
+  "createNew": "+ Новая статья",
+  "empty": "Нет доступных статей.",
+  "deleteConfirm": "Действительно удалить статью \"{{title}}\"?",
+  "modal": {
+    "createTitle": "Новая статья",
+    "editTitle": "Редактировать статью"
+  },
+  "columns": {
+    "id": "ID",
+    "title": "Название",
+    "page": "Страница",
+    "state": "Статус",
+    "createdAt": "Создано",
+    "publishedAt": "Опубликовано",
+    "updatedAt": "Обновлено",
+    "images": "Изображения"
+  },
+  "pageTypes": {
+    "homeTeaser": "Главная Превью",
+    "homePage": "Главная Страница",
+    "newsTeaser": "Новости Превью",
+    "newsPage": "Новости Страница"
+  },
+  "fields": {
+    "title": "Название",
+    "page": "Страница",
+    "content": "Содержание",
+    "images": "Изображения",
+    "language": "Язык",
+    "state": "Статус"
+  },
+  "languages": {
+    "german": "Deutsch",
+    "english": "English",
+    "swedish": "Svenska",
+    "russian": "Русский",
+    "french": "Français"
+  },
+  "states": {
+    "created": "Создано",
+    "published": "Опубликовано",
+    "closed": "Закрыто"
+  },
+  "imagePreview": "Предпросмотр ({{count}} выбрано)"
+}

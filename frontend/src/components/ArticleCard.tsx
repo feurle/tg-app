@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse } from '../types/article'
 import './ArticleCard.css'
 
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function ArticleCard({ article }: Props) {
+  const { t } = useTranslation('home')
   function formatDate(iso: string | null): string {
     if (!iso) return ''
     return new Date(iso).toLocaleDateString('de-CH', {
@@ -53,14 +55,14 @@ export default function ArticleCard({ article }: Props) {
       <div className="article-card-footer">
         <div>
           {article.state === 'PUBLISHED' && (
-            <span className="article-card-badge article-card-badge-published">Publiziert</span>
+            <span className="article-card-badge article-card-badge-published">{t('states.published')}</span>
           )}
           {article.state === 'CREATED' && (
-            <span className="article-card-badge article-card-badge-draft">Entwurf</span>
+            <span className="article-card-badge article-card-badge-draft">{t('states.draft')}</span>
           )}
         </div>
         <a href="#" className="article-card-read-link">
-          Lesen →
+          {t('readMore')} →
         </a>
       </div>
     </article>

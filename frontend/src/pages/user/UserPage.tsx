@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { User, CreateUserData, UpdateUserData } from '../../types/user'
 import UserList from '../../components/user/UserList'
 import UserFormModal from '../../components/user/UserFormModal'
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function UserPage({ onBack }: Props) {
+  const { t } = useTranslation(['users', 'common'])
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -75,8 +77,8 @@ export default function UserPage({ onBack }: Props) {
       {/* Header */}
       <div className="user-page-header">
         <div className="user-page-header-content">
-          <h1 className="user-page-title">Benutzerverwaltung</h1>
-          <p className="user-page-subtitle">Verwalten Sie alle Systembenutzer und deren Rollen</p>
+          <h1 className="user-page-title">{t('pageTitle')}</h1>
+          <p className="user-page-subtitle">{t('pageSubtitle')}</p>
 
           <div className="user-page-actions">
             <button
@@ -84,14 +86,14 @@ export default function UserPage({ onBack }: Props) {
               onClick={() => setModal({ mode: 'create' })}
               disabled={loading || saving}
             >
-              + Neuer Benutzer
+              {t('createNew')}
             </button>
             <button
               className="btn btn--secondary"
               onClick={onBack}
               disabled={loading || saving}
             >
-              Zurück
+              {t('common:back')}
             </button>
           </div>
         </div>
@@ -99,11 +101,11 @@ export default function UserPage({ onBack }: Props) {
 
       {/* Content */}
       <div className="user-page-content">
-        {loading && <div className="user-page-loading">Laden…</div>}
+        {loading && <div className="user-page-loading">{t('common:loading')}</div>}
 
         {error && (
           <div className="user-page-error">
-            <strong>Fehler:</strong> {error}
+            <strong>{t('common:error')}:</strong> {error}
           </div>
         )}
 
@@ -128,7 +130,7 @@ export default function UserPage({ onBack }: Props) {
 
       {deleteTarget && (
         <ConfirmDialog
-          message={`Möchten Sie den Benutzer "${deleteTarget.login}" wirklich löschen?`}
+          message={t('deleteConfirm', { login: deleteTarget.login })}
           onConfirm={handleDelete}
           onCancel={() => setDeleteTarget(null)}
         />

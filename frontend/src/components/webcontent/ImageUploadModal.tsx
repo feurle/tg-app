@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './ImageUploadModal.css'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function ImageUploadModal({ onUpload, onCancel, uploading }: Props) {
+  const { t } = useTranslation(['images', 'common'])
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -17,13 +19,13 @@ export default function ImageUploadModal({ onUpload, onCancel, uploading }: Prop
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      setError('Bitte wählen Sie eine Bilddatei aus.')
+      setError(t('validation.invalidType'))
       return
     }
 
     // Validate file size (10MB max)
     if (file.size > 10 * 1024 * 1024) {
-      setError('Datei ist zu groß. Maximum: 10 MB.')
+      setError(t('validation.fileTooLarge'))
       return
     }
 
@@ -40,20 +42,20 @@ export default function ImageUploadModal({ onUpload, onCancel, uploading }: Prop
         setSelectedFile(null)
         onCancel()
       })
-      .catch((err) => setError(err.message || 'Upload fehlgeschlagen.'))
+      .catch((err) => setError(err.message || t('validation.uploadFailed')))
   }
 
   return (
     <div className="modal-backdrop" onClick={onCancel}>
       <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Bild hochladen</h2>
+          <h2>{t('modal.title')}</h2>
           <button className="modal-close" onClick={onCancel}>×</button>
         </div>
 
         <form onSubmit={handleSubmit} className="modal-body">
           <div className="form-group">
-            <label htmlFor="file-input" className="form-label">Bilddatei auswählen</label>
+            <label htmlFor="file-input" className="form-label">{t('fields.selectFile')}</label>
             <input
               id="file-input"
               type="file"
@@ -64,7 +66,7 @@ export default function ImageUploadModal({ onUpload, onCancel, uploading }: Prop
               required
             />
             {selectedFile && (
-              <p className="form-help">Gewählt: {selectedFile.name}</p>
+              <p className="form-help">{t('fields.selectedFile', { name: selectedFile.name })}</p>
             )}
           </div>
 
@@ -79,14 +81,14 @@ export default function ImageUploadModal({ onUpload, onCancel, uploading }: Prop
               onClick={onCancel}
               disabled={uploading}
             >
-              Abbrechen
+              {t('common:cancel')}
             </button>
             <button
               type="submit"
               className="btn btn--primary"
               disabled={!selectedFile || uploading}
             >
-              {uploading ? 'Wird hochgeladen…' : 'Hochladen'}
+              {uploading ? t('buttons.uploading') : t('buttons.upload')}
             </button>
           </div>
         </form>

@@ -1,0 +1,8 @@
+{
+  "hero": {
+    "titleFallback": "Aktuelle",
+    "accentFallback": "News",
+    "subtitleFallback": "Bleiben Sie auf dem Laufenden mit den neuesten Meldungen und Updates"
+  },
+  "empty": "Keine News vorhanden"
+}

@@ -1,0 +1,48 @@
+{
+  "pageTitle": "Article Management",
+  "pageSubtitle": "Manage all articles and content",
+  "createNew": "+ New Article",
+  "empty": "No articles available.",
+  "deleteConfirm": "Really delete article \"{{title}}\"?",
+  "modal": {
+    "createTitle": "New Article",
+    "editTitle": "Edit Article"
+  },
+  "columns": {
+    "id": "ID",
+    "title": "Title",
+    "page": "Page",
+    "state": "Status",
+    "createdAt": "Created at",
+    "publishedAt": "Published at",
+    "updatedAt": "Updated at",
+    "images": "Images"
+  },
+  "pageTypes": {
+    "homeTeaser": "Home Teaser",
+    "homePage": "Home Page",
+    "newsTeaser": "News Teaser",
+    "newsPage": "News Page"
+  },
+  "fields": {
+    "title": "Title",
+    "page": "Page",
+    "content": "Content",
+    "images": "Images",
+    "language": "Language",
+    "state": "Status"
+  },
+  "languages": {
+    "german": "Deutsch",
+    "english": "English",
+    "swedish": "Svenska",
+    "russian": "Русский",
+    "french": "Français"
+  },
+  "states": {
+    "created": "Created",
+    "published": "Published",
+    "closed": "Closed"
+  },
+  "imagePreview": "Preview ({{count}} selected)"
+}

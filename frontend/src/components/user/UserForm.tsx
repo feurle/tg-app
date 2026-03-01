@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { User, CreateUserData, UpdateUserData } from '../../types/user'
 import './UserForm.css'
 
@@ -12,6 +13,7 @@ interface Props {
 const AVAILABLE_AUTHORITIES = ['ROLE_USER', 'ROLE_ADMIN']
 
 export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
+  const { t } = useTranslation(['users', 'common'])
   const [email, setEmail] = useState(initial?.email ?? '')
   const [login, setLogin] = useState(initial?.login ?? '')
   const [password, setPassword] = useState('')
@@ -45,7 +47,7 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
     } else {
       // Create mode
       if (!password) {
-        alert('Passwort ist erforderlich')
+        alert(t('validation.passwordRequired'))
         return
       }
       onSave({
@@ -75,7 +77,7 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
     <form className="user-form" onSubmit={handleSubmit}>
       <div className="user-form__row">
         <div className="user-form__field">
-          <label htmlFor="uf-email">Email *</label>
+          <label htmlFor="uf-email">{t('fields.email')} *</label>
           <input
             id="uf-email"
             type="email"
@@ -88,7 +90,7 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
 
         {!initial && (
           <div className="user-form__field">
-            <label htmlFor="uf-login">Benutzername *</label>
+            <label htmlFor="uf-login">{t('fields.login')} *</label>
             <input
               id="uf-login"
               type="text"
@@ -102,13 +104,13 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
       </div>
 
       <div className="user-form__field">
-        <label htmlFor="uf-password">Passwort {!initial && '*'}</label>
+        <label htmlFor="uf-password">{t('fields.password')} {!initial && '*'}</label>
         <input
           id="uf-password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder={initial ? 'Leer lassen zum Behalten des aktuellen Passworts' : ''}
+          placeholder={initial ? t('fields.passwordPlaceholder') : ''}
           required={!initial}
           disabled={saving}
         />
@@ -116,7 +118,7 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
 
       <div className="user-form__row">
         <div className="user-form__field">
-          <label htmlFor="uf-firstName">Vorname</label>
+          <label htmlFor="uf-firstName">{t('fields.firstName')}</label>
           <input
             id="uf-firstName"
             type="text"
@@ -127,7 +129,7 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
         </div>
 
         <div className="user-form__field">
-          <label htmlFor="uf-lastName">Nachname</label>
+          <label htmlFor="uf-lastName">{t('fields.lastName')}</label>
           <input
             id="uf-lastName"
             type="text"
@@ -140,21 +142,21 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
 
       <div className="user-form__row">
         <div className="user-form__field">
-          <label htmlFor="uf-langKey">Sprache</label>
+          <label htmlFor="uf-langKey">{t('fields.language')}</label>
           <select
             id="uf-langKey"
             value={langKey}
             onChange={(e) => setLangKey(e.target.value)}
             disabled={saving}
           >
-            <option value="de">Deutsch</option>
-            <option value="en">English</option>
-            <option value="fr">Français</option>
+            <option value="de">{t('languages.german')}</option>
+            <option value="en">{t('languages.english')}</option>
+            <option value="fr">{t('languages.french')}</option>
           </select>
         </div>
 
         <div className="user-form__field">
-          <label htmlFor="uf-imageUrl">Profilbild URL</label>
+          <label htmlFor="uf-imageUrl">{t('fields.imageUrl')}</label>
           <input
             id="uf-imageUrl"
             type="url"
@@ -174,13 +176,13 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
               onChange={(e) => setActivated(e.target.checked)}
               disabled={saving}
             />
-            <span>Aktiviert</span>
+            <span>{t('fields.activated')}</span>
           </label>
         </div>
       )}
 
       <div className="user-form__field">
-        <label>Rollen</label>
+        <label>{t('fields.authorities')}</label>
         <div className="user-form__authorities">
           {AVAILABLE_AUTHORITIES.map((authority) => (
             <label key={authority} className="user-form__authority">
@@ -198,10 +200,10 @@ export default function UserForm({ initial, onSave, onCancel, saving }: Props) {
 
       <div className="user-form__actions">
         <button type="button" className="btn btn--secondary" onClick={onCancel} disabled={saving}>
-          Abbrechen
+          {t('common:cancel')}
         </button>
         <button type="submit" className="btn btn--primary" disabled={saving}>
-          {saving ? 'Speichern…' : 'Speichern'}
+          {saving ? t('common:saving') : t('common:save')}
         </button>
       </div>
     </form>

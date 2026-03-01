@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { Customer, CreateCustomerData, UpdateCustomerData } from '../../types/customer'
 import './CustomerForm.css'
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function CustomerForm({ initial, onSave, onCancel, saving }: Props) {
+  const { t } = useTranslation(['customers', 'common'])
   const [firstName, setFirstName] = useState(initial?.firstName ?? '')
   const [lastName, setLastName] = useState(initial?.lastName ?? '')
   const [email, setEmail] = useState(initial?.email ?? '')
@@ -39,7 +41,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
     <form className="customer-form" onSubmit={handleSubmit}>
       <div className="customer-form__row">
         <div className="customer-form__field">
-          <label htmlFor="cf-firstName">Vorname *</label>
+          <label htmlFor="cf-firstName">{t('fields.firstName')} *</label>
           <input
             id="cf-firstName"
             type="text"
@@ -52,7 +54,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
         </div>
 
         <div className="customer-form__field">
-          <label htmlFor="cf-lastName">Nachname *</label>
+          <label htmlFor="cf-lastName">{t('fields.lastName')} *</label>
           <input
             id="cf-lastName"
             type="text"
@@ -65,7 +67,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
       </div>
 
       <div className="customer-form__field">
-        <label htmlFor="cf-email">Email *</label>
+        <label htmlFor="cf-email">{t('fields.email')} *</label>
         <input
           id="cf-email"
           type="email"
@@ -77,7 +79,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
       </div>
 
       <div className="customer-form__field">
-        <label htmlFor="cf-phone">Telefon</label>
+        <label htmlFor="cf-phone">{t('fields.phone')}</label>
         <input
           id="cf-phone"
           type="tel"
@@ -88,7 +90,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
       </div>
 
       <div className="customer-form__field">
-        <label htmlFor="cf-address">Adresse</label>
+        <label htmlFor="cf-address">{t('fields.address')}</label>
         <input
           id="cf-address"
           type="text"
@@ -100,7 +102,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
 
       <div className="customer-form__row">
         <div className="customer-form__field">
-          <label htmlFor="cf-city">Stadt</label>
+          <label htmlFor="cf-city">{t('fields.city')}</label>
           <input
             id="cf-city"
             type="text"
@@ -111,7 +113,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
         </div>
 
         <div className="customer-form__field">
-          <label htmlFor="cf-state">Bundesland/Kanton</label>
+          <label htmlFor="cf-state">{t('fields.state')}</label>
           <input
             id="cf-state"
             type="text"
@@ -122,7 +124,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
         </div>
 
         <div className="customer-form__field">
-          <label htmlFor="cf-zip">PLZ</label>
+          <label htmlFor="cf-zip">{t('fields.zip')}</label>
           <input
             id="cf-zip"
             type="text"
@@ -134,7 +136,7 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
       </div>
 
       <div className="customer-form__field">
-        <label htmlFor="cf-country">Land</label>
+        <label htmlFor="cf-country">{t('fields.country')}</label>
         <input
           id="cf-country"
           type="text"
@@ -146,10 +148,10 @@ export default function CustomerForm({ initial, onSave, onCancel, saving }: Prop
 
       <div className="customer-form__actions">
         <button type="button" className="btn btn--secondary" onClick={onCancel} disabled={saving}>
-          Abbrechen
+          {t('common:cancel')}
         </button>
         <button type="submit" className="btn btn--primary" disabled={saving}>
-          {saving ? 'Speichern…' : 'Speichern'}
+          {saving ? t('common:saving') : t('common:save')}
         </button>
       </div>
     </form>

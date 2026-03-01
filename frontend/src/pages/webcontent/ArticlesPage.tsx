@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse, ImageResponse } from '../../types/article.ts'
 import ArticleList from '../../components/webcontent/ArticleList.tsx'
 import ArticleDetailsModal from '../../components/webcontent/ArticleDetailsModal.tsx'
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function ArticlesPage({ onBack }: Props) {
+  const { t } = useTranslation(['articles', 'common'])
   const [articles, setArticles] = useState<ArticleResponse[]>([])
   const [images, setImages] = useState<ImageResponse[]>([])
   const [loading, setLoading] = useState(true)
@@ -98,8 +100,8 @@ export default function ArticlesPage({ onBack }: Props) {
       {/* Header */}
       <div className="articles-page-header">
         <div className="articles-page-header-content">
-          <h1 className="articles-page-title">Artikelverwaltung</h1>
-          <p className="articles-page-subtitle">Verwalten Sie alle Artikel und Inhalte</p>
+          <h1 className="articles-page-title">{t('pageTitle')}</h1>
+          <p className="articles-page-subtitle">{t('pageSubtitle')}</p>
 
           <div className="articles-page-actions">
             <button
@@ -107,14 +109,14 @@ export default function ArticlesPage({ onBack }: Props) {
               onClick={() => setModal({ mode: 'create' })}
               disabled={loading || saving}
             >
-              + Neuer Artikel
+              {t('createNew')}
             </button>
             <button
               className="btn btn--secondary"
               onClick={onBack}
               disabled={loading || saving}
             >
-              Zurück
+              {t('common:back')}
             </button>
           </div>
         </div>
@@ -122,11 +124,11 @@ export default function ArticlesPage({ onBack }: Props) {
 
       {/* Content */}
       <div className="articles-page-content">
-        {loading && <div className="articles-page-loading">Laden…</div>}
+        {loading && <div className="articles-page-loading">{t('common:loading')}</div>}
 
         {error && (
           <div className="articles-page-error">
-            <strong>Fehler:</strong> {error}
+            <strong>{t('common:error')}:</strong> {error}
           </div>
         )}
 
@@ -167,7 +169,7 @@ export default function ArticlesPage({ onBack }: Props) {
 
       {deleteTarget && (
         <ConfirmDialog
-          message={`Artikel „${deleteTarget.title}" wirklich löschen?`}
+          message={t('deleteConfirm', { title: deleteTarget.title })}
           onConfirm={handleDelete}
           onCancel={() => setDeleteTarget(null)}
         />

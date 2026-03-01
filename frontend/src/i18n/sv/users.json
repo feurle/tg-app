@@ -1,0 +1,42 @@
+{
+  "pageTitle": "Användarhantering",
+  "pageSubtitle": "Hantera alla systemanvändare och deras roller",
+  "createNew": "+ Ny användare",
+  "empty": "Inga användare tillgängliga.",
+  "deleteConfirm": "Ta verkligen bort användare \"{{login}}\"?",
+  "modal": {
+    "createTitle": "Ny användare",
+    "editTitle": "Redigera användare"
+  },
+  "columns": {
+    "login": "Användarnamn",
+    "email": "E-post",
+    "name": "Namn",
+    "authorities": "Roller",
+    "status": "Status",
+    "createdAt": "Skapad"
+  },
+  "fields": {
+    "email": "E-post *",
+    "login": "Användarnamn *",
+    "password": "Lösenord",
+    "passwordPlaceholder": "Lämna tomt för att behålla nuvarande lösenord",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "language": "Språk",
+    "imageUrl": "Profilbild URL",
+    "activated": "Aktiverad",
+    "authorities": "Roller"
+  },
+  "languages": {
+    "german": "Deutsch",
+    "english": "English",
+    "swedish": "Svenska",
+    "russian": "Русский",
+    "french": "Français"
+  },
+  "status": {
+    "active": "Aktiv",
+    "inactive": "Inaktiv"
+  }
+}

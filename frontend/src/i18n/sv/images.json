@@ -1,0 +1,23 @@
+{
+  "pageTitle": "Bildhantering",
+  "pageSubtitle": "Hantera alla uppladdade bilder",
+  "createNew": "+ Ny bild",
+  "empty": "Inga bilder tillgängliga.",
+  "deleteConfirm": "Ta verkligen bort bild \"{{name}}\"?",
+  "modal": {
+    "title": "Ladda upp bild"
+  },
+  "fields": {
+    "selectFile": "Välj bildfil",
+    "selectedFile": "Vald fil:"
+  },
+  "buttons": {
+    "upload": "Ladda upp",
+    "uploading": "Laddar upp…"
+  },
+  "validation": {
+    "uploadFailed": "Uppladdningen misslyckades.",
+    "fileTooLarge": "Filen är för stor. Maximum: 10 MB.",
+    "invalidType": "Välj en bildfil."
+  }
+}

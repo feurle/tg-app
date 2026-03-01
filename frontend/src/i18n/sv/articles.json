@@ -1,0 +1,48 @@
+{
+  "pageTitle": "Artikelhantering",
+  "pageSubtitle": "Hantera alla artiklar och innehål",
+  "createNew": "+ Ny artikel",
+  "empty": "Inga artiklar tillgängliga.",
+  "deleteConfirm": "Ta verkligen bort artikel \"{{title}}\"?",
+  "modal": {
+    "createTitle": "Ny artikel",
+    "editTitle": "Redigera artikel"
+  },
+  "columns": {
+    "id": "ID",
+    "title": "Titel",
+    "page": "Sida",
+    "state": "Status",
+    "createdAt": "Skapad",
+    "publishedAt": "Publicerad",
+    "updatedAt": "Uppdaterad",
+    "images": "Bilder"
+  },
+  "pageTypes": {
+    "homeTeaser": "Hem Förhandsvisning",
+    "homePage": "Hem Sida",
+    "newsTeaser": "Nyheter Förhandsvisning",
+    "newsPage": "Nyheter Sida"
+  },
+  "fields": {
+    "title": "Titel",
+    "page": "Sida",
+    "content": "Innehål",
+    "images": "Bilder",
+    "language": "Språk",
+    "state": "Status"
+  },
+  "languages": {
+    "german": "Deutsch",
+    "english": "English",
+    "swedish": "Svenska",
+    "russian": "Русский",
+    "french": "Français"
+  },
+  "states": {
+    "created": "Skapad",
+    "published": "Publicerad",
+    "closed": "Stängd"
+  },
+  "imagePreview": "Förhandsvisning ({{count}} vald)"
+}

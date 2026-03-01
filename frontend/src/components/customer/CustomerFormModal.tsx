@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { Customer } from '../../types/customer'
 import type { CreateCustomerData, UpdateCustomerData } from '../../types/customer'
 import CustomerForm from './CustomerForm'
@@ -11,7 +12,8 @@ interface Props {
 }
 
 export default function CustomerFormModal({ initial, onSave, onCancel, saving }: Props) {
-  const title = initial ? 'Kunde bearbeiten' : 'Neuer Kunde'
+  const { t } = useTranslation('customers')
+  const title = initial ? t('modal.editTitle') : t('modal.createTitle')
 
   return (
     <div className="modal-backdrop" onClick={onCancel}>

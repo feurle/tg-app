@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ImageResponse } from '../../types/image.ts'
 import ImageList from '../../components/webcontent/ImageList.tsx'
 import ImageUploadModal from '../../components/webcontent/ImageUploadModal.tsx'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function ImagesPage({ onBack }: Props) {
+  const { t } = useTranslation(['images', 'common'])
   const [images, setImages] = useState<ImageResponse[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -67,8 +69,8 @@ export default function ImagesPage({ onBack }: Props) {
       {/* Header */}
       <div className="images-page-header">
         <div className="images-page-header-content">
-          <h1 className="images-page-title">Bilderverwaltung</h1>
-          <p className="images-page-subtitle">Verwalten Sie alle hochgeladenen Bilder</p>
+          <h1 className="images-page-title">{t('pageTitle')}</h1>
+          <p className="images-page-subtitle">{t('pageSubtitle')}</p>
 
           <div className="images-page-actions">
             <button
@@ -76,14 +78,14 @@ export default function ImagesPage({ onBack }: Props) {
               onClick={() => setShowUploadModal(true)}
               disabled={loading || uploading}
             >
-              + Neues Bild
+              {t('createNew')}
             </button>
             <button
               className="btn btn--secondary"
               onClick={onBack}
               disabled={loading || uploading}
             >
-              Zurück
+              {t('common:back')}
             </button>
           </div>
         </div>
@@ -91,11 +93,11 @@ export default function ImagesPage({ onBack }: Props) {
 
       {/* Content */}
       <div className="images-page-content">
-        {loading && <div className="images-page-loading">Laden…</div>}
+        {loading && <div className="images-page-loading">{t('common:loading')}</div>}
 
         {error && (
           <div className="images-page-error">
-            <strong>Fehler:</strong> {error}
+            <strong>{t('common:error')}:</strong> {error}
           </div>
         )}
 
@@ -117,7 +119,7 @@ export default function ImagesPage({ onBack }: Props) {
 
       {deleteTarget && (
         <ConfirmDialog
-          message={`Bild „${deleteTarget.fileName}" wirklich löschen?`}
+          message={t('deleteConfirm', { name: deleteTarget.fileName })}
           onConfirm={handleDelete}
           onCancel={() => setDeleteTarget(null)}
         />

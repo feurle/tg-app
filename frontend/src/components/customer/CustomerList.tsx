@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { Customer } from '../../types/customer'
 import './CustomerList.css'
@@ -18,20 +19,22 @@ function formatDate(iso: string | null): string {
 }
 
 export default function CustomerList({ customers, onEdit, onDelete }: Props) {
+  const { t } = useTranslation(['customers', 'common'])
+
   if (customers.length === 0) {
-    return <p className="customer-list__empty">Keine Kunden vorhanden.</p>
+    return <p className="customer-list__empty">{t('emptyState')}</p>
   }
 
   return (
     <table className="customer-list">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Telefon</th>
-          <th>Ort</th>
-          <th>Erstellt am</th>
+          <th>{t('columns.id')}</th>
+          <th>{t('columns.name')}</th>
+          <th>{t('columns.email')}</th>
+          <th>{t('columns.phone')}</th>
+          <th>{t('columns.city')}</th>
+          <th>{t('columns.createdAt')}</th>
           <th></th>
         </tr>
       </thead>
@@ -48,16 +51,16 @@ export default function CustomerList({ customers, onEdit, onDelete }: Props) {
               <button
                 className="customer-list__action-btn customer-list__action-btn--edit"
                 onClick={() => onEdit(customer)}
-                title="Bearbeiten"
-                aria-label="Kunde bearbeiten"
+                title={t('actions.edit')}
+                aria-label={t('actions.edit')}
               >
                 <PencilIcon className="customer-list__action-icon" />
               </button>
               <button
                 className="customer-list__action-btn customer-list__action-btn--delete"
                 onClick={() => onDelete(customer)}
-                title="Löschen"
-                aria-label="Kunde löschen"
+                title={t('common:delete')}
+                aria-label={t('actions.delete')}
               >
                 <TrashIcon className="customer-list__action-icon" />
               </button>

@@ -1,0 +1,75 @@
+{
+  "loading": "Laddar…",
+  "error": "Fel",
+  "back": "Tillbaka",
+  "cancel": "Avbryt",
+  "delete": "Ta bort",
+  "save": "Spara",
+  "saving": "Sparar…",
+  "columns": {
+    "id": "ID",
+    "title": "Titel",
+    "page": "Sida",
+    "state": "Status",
+    "status": "Status",
+    "createdAt": "Skapad",
+    "publishedAt": "Publicerad",
+    "updatedAt": "Uppdaterad",
+    "name": "Namn",
+    "email": "E-post",
+    "phone": "Telefon",
+    "city": "Stad",
+    "images": "Bilder",
+    "login": "Användarnamn",
+    "authorities": "Roller"
+  },
+  "fields": {
+    "title": "Titel",
+    "page": "Sida",
+    "language": "Språk",
+    "state": "Status",
+    "content": "Innehål",
+    "images": "Bilder",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "email": "E-post",
+    "phone": "Telefon",
+    "address": "Adress",
+    "city": "Stad",
+    "zip": "Postnummer",
+    "country": "Land",
+    "login": "Användarnamn",
+    "password": "Lösenord",
+    "passwordPlaceholder": "Lämna tomt för att behålla nuvarande lösenord",
+    "activated": "Aktiverad",
+    "authorities": "Roller",
+    "imageUrl": "Profilbild URL",
+    "createdAt": "Skapad",
+    "publishedAt": "Publicerad",
+    "updatedAt": "Uppdaterad",
+    "selectedFile": "Vald fil",
+    "selectFile": "Välj fil"
+  },
+  "states": {
+    "created": "Skapad",
+    "published": "Publicerad",
+    "closed": "Stängd",
+    "draft": "Utkast"
+  },
+  "status": {
+    "active": "Aktiv",
+    "inactive": "Inaktiv"
+  },
+  "actions": {
+    "view": "Visa",
+    "edit": "Redigera",
+    "delete": "Ta bort",
+    "close": "Stäng"
+  },
+  "validation": {
+    "uploadFailed": "Uppladdningen misslyckades.",
+    "fileTooLarge": "Filen är för stor. Maximum: 10 MB.",
+    "invalidType": "Ogiltig filtyp.",
+    "passwordRequired": "Lösenord krävs"
+  }
+}

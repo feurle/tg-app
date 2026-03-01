@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { TrashIcon } from '@heroicons/react/24/outline'
 import type { ImageResponse } from '../../types/image.ts'
 import './ImageList.css'
@@ -19,8 +20,10 @@ function formatDate(iso: string | null): string {
 }
 
 export default function ImageList({ images, onDelete }: Props) {
+  const { t } = useTranslation(['images', 'common'])
+
   if (images.length === 0) {
-    return <p className="image-list__empty">Keine Bilder vorhanden.</p>
+    return <p className="image-list__empty">{t('emptyState')}</p>
   }
 
   return (
@@ -45,8 +48,8 @@ export default function ImageList({ images, onDelete }: Props) {
             <button
               className="image-list__action-btn image-list__action-btn--delete"
               onClick={() => onDelete(image)}
-              title="Löschen"
-              aria-label="Bild löschen"
+              title={t('common:delete')}
+              aria-label={t('actions.delete')}
             >
               <TrashIcon className="image-list__action-icon" />
             </button>

@@ -1,0 +1,75 @@
+{
+  "loading": "Laden…",
+  "error": "Fehler",
+  "back": "Zurück",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "save": "Speichern",
+  "saving": "Speichern…",
+  "columns": {
+    "id": "ID",
+    "title": "Titel",
+    "page": "Seite",
+    "state": "Status",
+    "status": "Status",
+    "createdAt": "Erstellt am",
+    "publishedAt": "Publiziert am",
+    "updatedAt": "Geändert am",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Telefon",
+    "city": "Ort",
+    "images": "Bilder",
+    "login": "Benutzername",
+    "authorities": "Rollen"
+  },
+  "fields": {
+    "title": "Titel",
+    "page": "Seite",
+    "language": "Sprache",
+    "state": "Status",
+    "content": "Inhalt",
+    "images": "Bilder",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "city": "Stadt",
+    "zip": "PLZ",
+    "country": "Land",
+    "login": "Benutzername",
+    "password": "Passwort",
+    "passwordPlaceholder": "Leer lassen zum Behalten des aktuellen Passworts",
+    "activated": "Aktiviert",
+    "authorities": "Rollen",
+    "imageUrl": "Profilbild URL",
+    "createdAt": "Erstellt am",
+    "publishedAt": "Publiziert am",
+    "updatedAt": "Geändert am",
+    "selectedFile": "Gewählte Datei",
+    "selectFile": "Datei auswählen"
+  },
+  "states": {
+    "created": "Erstellt",
+    "published": "Publiziert",
+    "closed": "Geschlossen",
+    "draft": "Entwurf"
+  },
+  "status": {
+    "active": "Aktiv",
+    "inactive": "Inaktiv"
+  },
+  "actions": {
+    "view": "Ansehen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "close": "Schliessen"
+  },
+  "validation": {
+    "uploadFailed": "Upload fehlgeschlagen.",
+    "fileTooLarge": "Datei ist zu groß. Maximum: 10 MB.",
+    "invalidType": "Ungültiger Dateityp.",
+    "passwordRequired": "Passwort ist erforderlich"
+  }
+}

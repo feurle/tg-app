@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { Customer } from '../../types/customer'
 import type { CreateCustomerData, UpdateCustomerData } from '../../types/customer'
 import CustomerList from '../../components/customer/CustomerList'
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function CustomerPage({ onBack }: Props) {
+  const { t } = useTranslation(['customers', 'common'])
   const [customers, setCustomers] = useState<Customer[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -80,8 +82,8 @@ export default function CustomerPage({ onBack }: Props) {
       {/* Header */}
       <div className="customer-page-header">
         <div className="customer-page-header-content">
-          <h1 className="customer-page-title">Kundenverwaltung</h1>
-          <p className="customer-page-subtitle">Verwalten Sie alle Kundeneinträge</p>
+          <h1 className="customer-page-title">{t('pageTitle')}</h1>
+          <p className="customer-page-subtitle">{t('pageSubtitle')}</p>
 
           <div className="customer-page-actions">
             <button
@@ -89,14 +91,14 @@ export default function CustomerPage({ onBack }: Props) {
               onClick={() => setModal({ mode: 'create' })}
               disabled={loading || saving}
             >
-              + Neuer Kunde
+              {t('createNew')}
             </button>
             <button
               className="btn btn--secondary"
               onClick={onBack}
               disabled={loading || saving}
             >
-              Zurück
+              {t('common:back')}
             </button>
           </div>
         </div>
@@ -104,11 +106,11 @@ export default function CustomerPage({ onBack }: Props) {
 
       {/* Content */}
       <div className="customer-page-content">
-        {loading && <div className="customer-page-loading">Laden…</div>}
+        {loading && <div className="customer-page-loading">{t('common:loading')}</div>}
 
         {error && (
           <div className="customer-page-error">
-            <strong>Fehler:</strong> {error}
+            <strong>{t('common:error')}:</strong> {error}
           </div>
         )}
 
@@ -133,7 +135,7 @@ export default function CustomerPage({ onBack }: Props) {
 
       {deleteTarget && (
         <ConfirmDialog
-          message={`Möchten Sie den Kunden "${deleteTarget.firstName} ${deleteTarget.lastName}" wirklich löschen?`}
+          message={t('deleteConfirm', { name: `${deleteTarget.firstName} ${deleteTarget.lastName}` })}
           onConfirm={handleConfirmDelete}
           onCancel={() => setDeleteTarget(null)}
         />

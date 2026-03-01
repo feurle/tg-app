@@ -1,0 +1,8 @@
+{
+  "hero": {
+    "titleFallback": "Senaste",
+    "accentFallback": "Nyheter",
+    "subtitleFallback": "Håll dig uppdaterad med de senaste nyheterna och uppdateringarna"
+  },
+  "empty": "Inga nyheter tillgängliga"
+}

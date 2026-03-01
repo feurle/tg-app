@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { User, CreateUserData, UpdateUserData } from '../../types/user'
 import UserForm from './UserForm'
 import './UserFormModal.css'
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export default function UserFormModal({ initial, onSave, onCancel, saving }: Props) {
-  const title = initial ? 'Benutzer bearbeiten' : 'Neuer Benutzer'
+  const { t } = useTranslation('users')
+  const title = initial ? t('modal.editTitle') : t('modal.createTitle')
 
   return (
     <div className="modal-backdrop" onClick={onCancel}>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse, ArticleState, PageType, Language, ImageResponse } from '../../types/article.ts'
 import './ArticleForm.css'
 
@@ -31,6 +32,7 @@ interface Props {
 }
 
 export default function ArticleForm({ initial, onSave, onCancel, saving, availableImages }: Props) {
+  const { t } = useTranslation(['articles', 'common'])
   const [title, setTitle] = useState(initial?.title ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
   const [page, setPage] = useState<PageType>(initial?.page ?? 'HOME_PAGE')
@@ -58,7 +60,7 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
   return (
     <form className="article-form" onSubmit={handleSubmit}>
       <div className="article-form__field">
-        <label htmlFor="af-title">Titel</label>
+        <label htmlFor="af-title">{t('fields.title')}</label>
         <input
           id="af-title"
           type="text"
@@ -71,39 +73,39 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
 
       {!initial && (
         <div className="article-form__field">
-          <label htmlFor="af-page">Seite</label>
+          <label htmlFor="af-page">{t('fields.page')}</label>
           <select id="af-page" value={page} onChange={(e) => setPage(e.target.value as PageType)}>
-            <option value="HOME_TEASER">Home Teaser</option>
-            <option value="HOME_PAGE">Home Seite</option>
-            <option value="NEWS_TEASER">News Teaser</option>
-            <option value="NEWS_PAGE">News Seite</option>
+            <option value="HOME_TEASER">{t('pageTypes.homeTeaser')}</option>
+            <option value="HOME_PAGE">{t('pageTypes.homePage')}</option>
+            <option value="NEWS_TEASER">{t('pageTypes.newsTeaser')}</option>
+            <option value="NEWS_PAGE">{t('pageTypes.newsPage')}</option>
           </select>
         </div>
       )}
 
       <div className="article-form__field">
-        <label htmlFor="af-language">Sprache</label>
+        <label htmlFor="af-language">{t('fields.language')}</label>
         <select id="af-language" value={language} onChange={(e) => setLanguage(e.target.value as Language)}>
-          <option value="GERMAN">Deutsch</option>
-          <option value="ENGLISH">English</option>
-          <option value="SWEDISH">Svenska</option>
-          <option value="RUSSIAN">Русский</option>
+          <option value="GERMAN">{t('languages.german')}</option>
+          <option value="ENGLISH">{t('languages.english')}</option>
+          <option value="SWEDISH">{t('languages.swedish')}</option>
+          <option value="RUSSIAN">{t('languages.russian')}</option>
         </select>
       </div>
 
       {initial && (
         <div className="article-form__field">
-          <label htmlFor="af-state">Status</label>
+          <label htmlFor="af-state">{t('fields.state')}</label>
           <select id="af-state" value={state} onChange={(e) => setState(e.target.value as ArticleState)}>
-            <option value="CREATED">Erstellt</option>
-            <option value="PUBLISHED">Publiziert</option>
-            <option value="CLOSED">Geschlossen</option>
+            <option value="CREATED">{t('states.created')}</option>
+            <option value="PUBLISHED">{t('states.published')}</option>
+            <option value="CLOSED">{t('states.closed')}</option>
           </select>
         </div>
       )}
 
       <div className="article-form__field">
-        <label htmlFor="af-content">Inhalt</label>
+        <label htmlFor="af-content">{t('fields.content')}</label>
         <textarea
           id="af-content"
           value={content}
@@ -115,7 +117,7 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
 
       {availableImages.length > 0 && (
         <div className="article-form__field">
-          <label>Bilder</label>
+          <label>{t('fields.images')}</label>
           <div className="article-form__images">
             {availableImages.map(image => (
               <label key={image.id} className="article-form__image-option">
@@ -132,7 +134,7 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
 
           {imageIds.length > 0 && (
             <div className="article-form__preview">
-              <p className="article-form__preview-title">Vorschau ({imageIds.length} ausgewählt)</p>
+              <p className="article-form__preview-title">{t('imagePreview', { count: imageIds.length })}</p>
               <div className="article-form__preview-grid">
                 {availableImages
                   .filter(img => imageIds.includes(img.id))
@@ -154,10 +156,10 @@ export default function ArticleForm({ initial, onSave, onCancel, saving, availab
 
       <div className="article-form__actions">
         <button type="button" className="btn btn--secondary" onClick={onCancel} disabled={saving}>
-          Abbrechen
+          {t('common:cancel')}
         </button>
         <button type="submit" className="btn btn--primary" disabled={saving}>
-          {saving ? 'Speichern…' : 'Speichern'}
+          {saving ? t('common:saving') : t('common:save')}
         </button>
       </div>
     </form>

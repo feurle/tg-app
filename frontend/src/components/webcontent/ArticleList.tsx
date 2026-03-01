@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse } from '../../types/article.ts'
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import './ArticleList.css'
@@ -32,22 +33,24 @@ function formatDate(iso: string | null): string {
 }
 
 export default function ArticleList({ articles, onView, onEdit, onDelete }: Props) {
+  const { t } = useTranslation(['articles', 'common'])
+
   if (articles.length === 0) {
-    return <p className="article-list__empty">Keine Artikel vorhanden.</p>
+    return <p className="article-list__empty">{t('emptyState')}</p>
   }
 
   return (
     <table className="article-list">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Titel</th>
-          <th>Seite</th>
-          <th>Status</th>
-          <th>Erstellt am</th>
-          <th>Publiziert am</th>
-          <th>Geändert am</th>
-          <th>Bilder</th>
+          <th>{t('columns.id')}</th>
+          <th>{t('columns.title')}</th>
+          <th>{t('columns.page')}</th>
+          <th>{t('columns.state')}</th>
+          <th>{t('columns.createdAt')}</th>
+          <th>{t('columns.publishedAt')}</th>
+          <th>{t('columns.updatedAt')}</th>
+          <th>{t('columns.images')}</th>
           <th></th>
         </tr>
       </thead>
@@ -70,24 +73,24 @@ export default function ArticleList({ articles, onView, onEdit, onDelete }: Prop
               <button
                 className="article-list__action-btn article-list__action-btn--view"
                 onClick={() => onView(article)}
-                title="Ansehen"
-                aria-label="Artikel ansehen"
+                title={t('actions.view')}
+                aria-label={t('actions.view')}
               >
                 <EyeIcon className="article-list__action-icon" />
               </button>
               <button
                 className="article-list__action-btn article-list__action-btn--edit"
                 onClick={() => onEdit(article)}
-                title="Bearbeiten"
-                aria-label="Artikel bearbeiten"
+                title={t('actions.edit')}
+                aria-label={t('actions.edit')}
               >
                 <PencilIcon className="article-list__action-icon" />
               </button>
               <button
                 className="article-list__action-btn article-list__action-btn--delete"
                 onClick={() => onDelete(article)}
-                title="Löschen"
-                aria-label="Artikel löschen"
+                title={t('common:delete')}
+                aria-label={t('actions.delete')}
               >
                 <TrashIcon className="article-list__action-icon" />
               </button>

@@ -1,0 +1,42 @@
+{
+  "pageTitle": "User Management",
+  "pageSubtitle": "Manage all system users and their roles",
+  "createNew": "+ New User",
+  "empty": "No users available.",
+  "deleteConfirm": "Really delete user \"{{login}}\"?",
+  "modal": {
+    "createTitle": "New User",
+    "editTitle": "Edit User"
+  },
+  "columns": {
+    "login": "Username",
+    "email": "Email",
+    "name": "Name",
+    "authorities": "Roles",
+    "status": "Status",
+    "createdAt": "Created at"
+  },
+  "fields": {
+    "email": "Email *",
+    "login": "Username *",
+    "password": "Password",
+    "passwordPlaceholder": "Leave empty to keep current password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "language": "Language",
+    "imageUrl": "Profile Image URL",
+    "activated": "Activated",
+    "authorities": "Roles"
+  },
+  "languages": {
+    "german": "Deutsch",
+    "english": "English",
+    "swedish": "Svenska",
+    "russian": "Русский",
+    "french": "Français"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  }
+}

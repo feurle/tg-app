@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Kundhantering",
+  "pageSubtitle": "Hantera alla kundposter",
+  "createNew": "+ Ny kund",
+  "empty": "Inga kunder tillgängliga.",
+  "deleteConfirm": "Ta verkligen bort kund \"{{name}}\"?",
+  "modal": {
+    "createTitle": "Ny kund",
+    "editTitle": "Redigera kund"
+  },
+  "columns": {
+    "name": "Namn",
+    "email": "E-post",
+    "phone": "Telefon",
+    "city": "Stad",
+    "createdAt": "Skapad"
+  },
+  "fields": {
+    "firstName": "Förnamn *",
+    "lastName": "Efternamn *",
+    "email": "E-post *",
+    "phone": "Telefon",
+    "address": "Adress",
+    "city": "Stad",
+    "zip": "Postnummer",
+    "country": "Land"
+  }
+}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import type { ArticleResponse, ImageResponse } from '../../types/article.ts'
 import ArticleForm, { type FormData } from './ArticleForm.tsx'
 import './ArticleFormModal.css'
@@ -11,7 +12,8 @@ interface Props {
 }
 
 export default function ArticleFormModal({ initial, onSave, onCancel, saving, availableImages }: Props) {
-  const title = initial ? 'Artikel bearbeiten' : 'Neuer Artikel'
+  const { t } = useTranslation('articles')
+  const title = initial ? t('modal.editTitle') : t('modal.createTitle')
 
   return (
     <div className="modal-backdrop" onClick={onCancel}>
