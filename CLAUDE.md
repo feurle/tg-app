@@ -222,7 +222,7 @@ src/main/webapp/
 │   │   ├── user.ts
 │   │   └── auth.ts
 │   ├── i18n/                ← Internationalization (4 languages)
-│   │   ├── config.ts        ← i18next configuration
+│   │   ├── translation.ts        ← i18next configuration
 │   │   ├── de/              ← German translations (8 namespaces)
 │   │   ├── en/              ← English translations
 │   │   ├── sv/              ← Swedish translations
@@ -230,7 +230,7 @@ src/main/webapp/
 │   └── styles/
 │       ├── base.css         ← Tailwind @layer base (reusable classes)
 │       └── (component CSS files co-located with components)
-└── vite.config.ts           ← Vite + Tailwind plugin config
+└── vite.translation.ts           ← Vite + Tailwind plugin config
 ```
 
 ### Routing & Page Types

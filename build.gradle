@@ -70,8 +70,10 @@ tasks.named('test') {
 }
 
 // Frontend build: make Java build depend on npm build
-tasks.named('build') {
-	dependsOn 'npm_run_build'
+['build', 'buildDependents'].each { taskName ->
+	tasks.named(taskName) {
+		dependsOn 'npm_run_build'
+	}
 }
 
 bootRun {

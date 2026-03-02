@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import i18n from '../../i18n/config'
+import i18n from '../../config/translation.ts'
 import type { ArticleResponse } from '../../types/article.ts'
 import ArticleCard from '../../components/ArticleCard.tsx'
 import './NewsPage.css'
