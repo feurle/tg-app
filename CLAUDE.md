@@ -112,7 +112,7 @@ User management with Spring Security integration, authentication, and role-based
 - `User` M:N relationship with `Authority`
 
 **Key Services:**
-- `UserDetailsServiceImpl`: Spring Security integration; loads users and maps authorities
+- `AppUserDetailsService`: Spring Security integration; loads users and maps authorities
 - `UserService`: CRUD + password encoding
 
 **API Endpoints:**
@@ -180,7 +180,7 @@ db/changelog/
 # Development server (HMR enabled, proxies /api to localhost:8080)
 npm run dev
 
-# Build for production (outputs to src/main/resources/static)
+# Build for production (outputs to build/resources/main/static/)
 npm run build
 
 # Type-check TypeScript
@@ -208,7 +208,7 @@ src/main/webapp/
 │   │   ├── LoginModal.tsx   ← Authentication modal
 │   │   ├── common/          ← Shared components (ConfirmDialog)
 │   │   ├── webcontent/      ← Article/Image components (list, form, modal, details)
-│   │   └── customer/        ← Customer components (list, form, modal)
+│   │   ├── customer/        ← Customer components (list, form, modal)
 │   │   └── user/            ← User components (list, form, modal)
 │   ├── pages/
 │   │   ├── public/          ← Public pages (HomePage, NewsPage)
@@ -221,16 +221,17 @@ src/main/webapp/
 │   │   ├── customer.ts
 │   │   ├── user.ts
 │   │   └── auth.ts
-│   ├── i18n/                ← Internationalization (4 languages)
-│   │   ├── translation.ts        ← i18next configuration
-│   │   ├── de/              ← German translations (8 namespaces)
-│   │   ├── en/              ← English translations
-│   │   ├── sv/              ← Swedish translations
-│   │   └── ru/              ← Russian translations
 │   └── styles/
 │       ├── base.css         ← Tailwind @layer base (reusable classes)
 │       └── (component CSS files co-located with components)
-└── vite.translation.ts           ← Vite + Tailwind plugin config
+├── app/config/
+│   └── translation.ts       ← i18next configuration
+├── i18n/                    ← Internationalization (4 languages)
+│   ├── de/                  ← German translations (9 namespaces)
+│   ├── en/                  ← English translations
+│   ├── sv/                  ← Swedish translations
+│   └── ru/                  ← Russian translations
+└── vite.config.ts               ← Vite configuration (root level)
 ```
 
 ### Routing & Page Types
@@ -304,7 +305,7 @@ Each component has its own `.css` file with semantic class names (BEM-like: `.co
 - Fallback: German (de)
 
 **Translation Files:**
-- **Namespaces** (8 total): `common`, `navbar`, `home`, `news`, `articles`, `images`, `customers`, `users`
+- **Namespaces** (9 total): `common`, `navbar`, `home`, `news`, `articles`, `images`, `customers`, `users`, `login`
 - **Languages**: 🇩🇪 de, 🇬🇧 en, 🇸🇪 sv, 🇷🇺 ru
 
 **Usage in Components:**
@@ -319,7 +320,7 @@ const { t } = useTranslation('namespace')
 
 ### Vite Configuration
 - **Root**: `src/main/webapp` (not root directory)
-- **Build Output**: `src/main/resources/static/` (served by Spring Boot)
+- **Build Output**: `build/resources/main/static/` (served by Spring Boot)
 - **Plugins**: `@tailwindcss/vite`, `@vitejs/plugin-react`
 - **Dev Proxy**: `/api/*` → `http://localhost:8080/api/*`
 
@@ -339,7 +340,7 @@ const { t } = useTranslation('namespace')
 ```bash
 ./gradlew bootRun
 # Backend starts on http://localhost:8080
-# Serves static frontend from src/main/resources/static (production build only)
+# Serves static frontend from build/resources/main/static/ (production build only)
 ```
 
 **Terminal 2 (Frontend Dev):**
@@ -354,7 +355,7 @@ Then open **http://localhost:5173** in browser (HMR enabled).
 ### Building for Deployment
 
 ```bash
-# Compiles frontend to src/main/resources/static/
+# Compiles frontend to build/resources/main/static/
 # Then builds Spring Boot jar (includes frontend assets)
 ./gradlew build
 ```
@@ -486,7 +487,7 @@ npm run lint
 
 ## Git Workflow Notes
 
-- Current branch: `npm-folder-reorg` (reorganizing frontend files from `frontend/` → `src/main/webapp/`)
+- Current branch: `trunk` (main development branch)
 - Frontend and backend are in the same repository
 - Commit prefix: `[Frontend]` or `[Backend]` if changes are isolated
 - Use conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`
