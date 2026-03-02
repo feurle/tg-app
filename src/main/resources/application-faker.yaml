@@ -1,4 +1,0 @@
-spring:
-  liquibase:
-    contexts: faker
-    drop-first: true

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import i18n from '../i18n/config'
-import type { ArticleResponse } from '../types/article'
+import i18n from '../config/translation.ts'
+import type { ArticleResponse } from '../types/article.ts'
 import './Footer.css'
 
 // Version wird aus package.json gelesen
@@ -33,7 +33,7 @@ export default function Footer() {
         .then((images) => setImageCount(images.length))
         .catch(() => setImageCount(0)),
     ])
-  }, [i18n.language])
+  }, [])
 
   return (
     <footer className="app-footer">

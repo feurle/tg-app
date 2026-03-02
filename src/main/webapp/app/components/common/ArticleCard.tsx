@@ -1,5 +1,5 @@
 import {useTranslation} from 'react-i18next'
-import type {ArticleResponse} from '../types/article'
+import type {ArticleResponse} from '../../types/article.ts'
 import './ArticleCard.css'
 
 interface Props {
