@@ -32,7 +32,7 @@ export default function HomePage() {
         .then(setArticles)
         .catch((err: Error) => setError(err.message)),
     ]).finally(() => setLoading(false))
-  }, [i18n.language])
+  }, [])
 
   return (
     <div className="home-page">

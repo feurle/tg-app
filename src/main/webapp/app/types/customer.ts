@@ -25,4 +25,4 @@ export interface CreateCustomerData {
   country?: string
 }
 
-export interface UpdateCustomerData extends CreateCustomerData {}
+export type UpdateCustomerData = CreateCustomerData

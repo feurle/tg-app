@@ -14,7 +14,7 @@ A full-stack Spring Boot + React application for content management with support
 ```bash
 ./gradlew bootRun
 ```
-- Backend starts on `http://localhost:8080`
+- Backend starts on `http://localhost:8080` (default with dev profile)
 - Includes **Hot Reload** via Spring Boot DevTools (automatic reload on Java changes)
 - H2 Database Console: `http://localhost:8080/h2-console` (development only)
 

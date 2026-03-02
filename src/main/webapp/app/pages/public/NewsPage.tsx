@@ -32,7 +32,7 @@ export default function NewsPage() {
         .then(setArticles)
         .catch((err: Error) => setError(err.message)),
     ]).finally(() => setLoading(false))
-  }, [i18n.language])
+  }, [])
 
   return (
     <div className="news-page">
