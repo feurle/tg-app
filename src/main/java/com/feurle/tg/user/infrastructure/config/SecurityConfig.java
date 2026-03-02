@@ -45,10 +45,16 @@ public class SecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http.authorizeHttpRequests(authz -> authz
+            // Static frontend assets
+            .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico").permitAll()
+            // H2 Console (dev only)
             .requestMatchers("/h2-console/**").permitAll()
+            // Authentication endpoints
             .requestMatchers("/api/auth/**").permitAll()
+            // Public API: read articles and download images
             .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**").permitAll()
+            // All other requests require authentication
             .anyRequest().authenticated()
         );
 

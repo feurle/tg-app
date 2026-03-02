@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "./styles/base.css";
+@import "../../../../frontend/node_modules/tailwindcss/dist/lib.d.mts";
+@import "styles/base.css";
 
 @theme {
   --color-primary: #0d6efd;
