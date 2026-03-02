@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../config/translation.ts'
-import type { ArticleResponse } from '../types/article'
+import type { ArticleResponse } from '../types/article.ts'
 import './Footer.css'
 
 // Version wird aus package.json gelesen

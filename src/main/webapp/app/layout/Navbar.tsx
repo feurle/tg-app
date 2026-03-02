@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../config/translation.ts'
-import logoImg from '../assets/logo.png'
-import type { AuthUser } from '../types/auth'
+import logoImg from '../../assets/logo.png'
+import type { AuthUser } from '../types/auth.ts'
 import './Navbar.css'
 
 type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'

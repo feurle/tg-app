@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# TG App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Spring Boot + React application for content management with support for articles, images, customer management, and user authentication/authorization.
 
-Currently, two official plugins are available:
+**Stack:**
+- Backend: Spring Boot 4.0.3 · Java 21 · Spring Modulith · Spring Security · H2 Database · Liquibase
+- Frontend: React 19 · TypeScript · Vite · Tailwind CSS v4 · i18next (4 languages)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Local Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Terminal 1: Backend (Spring Boot)
+```bash
+./gradlew bootRun
+```
+- Backend starts on `http://localhost:8080`
+- Includes **Hot Reload** via Spring Boot DevTools (automatic reload on Java changes)
+- H2 Database Console: `http://localhost:8080/h2-console` (development only)
 
-## Expanding the ESLint configuration
+### Terminal 2: Frontend (Vite Dev Server)
+```bash
+npm run dev
+```
+- Dev server on `http://localhost:5173`
+- **Hot Module Reload (HMR)** enabled
+- Proxies `/api` to `http://localhost:8080`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Then open **http://localhost:5173** in your browser.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Build & Deployment
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Compiles frontend → src/main/resources/static/
+# Then builds Spring Boot jar (includes frontend assets)
+./gradlew build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The resulting jar contains both backend + frontend and can be run standalone.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Quick Commands
+
+### Backend
+```bash
+./gradlew bootRun          # Run application
+./gradlew build            # Build + test everything
+./gradlew test             # Run all tests
+./gradlew clean            # Clean build outputs
 ```
+
+### Frontend
+```bash
+npm run dev                # Development server (HMR enabled)
+npm run build              # Build for production
+npm run lint               # Lint code
+npx tsc -b                 # Type check
+npm run preview            # Preview production build locally
+```
+
+---
+
+## Documentation
+
+For detailed architecture, API endpoints, testing guides, and more, see **[CLAUDE.md](./CLAUDE.md)**.
+
+---
+
+## Hot Reload Features
+
+| Component | Technology | Behavior |
+|-----------|-----------|----------|
+| **Java Backend** | Spring Boot DevTools | Auto-reload on `.java` file changes (most code) |
+| **Frontend** | Vite HMR | Instant reload for `.tsx`, `.css`, `.ts` changes |
+| **TypeScript** | Type checking | Run `npx tsc -b` for full type check |
+
+---
+
+## Authentication
+
+- **Public endpoints**: Article reading, image download, authentication
+- **Protected endpoints**: Everything else (requires login)
+- **Login**: Username/password form-based login
+- **Roles**: Manage via admin panel (`/api/user`)
