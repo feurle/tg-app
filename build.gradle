@@ -73,3 +73,8 @@ tasks.named('test') {
 tasks.named('build') {
 	dependsOn 'npm_run_build'
 }
+
+bootRun {
+	args = ["--spring.profiles.active=dev"]
+}
+
