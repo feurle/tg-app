@@ -64,6 +64,8 @@ The backend is organized into **modules** using Spring Modulith. Each module fol
 
 **Dependency Rule**: `infrastructure → application → domain`. Nothing in `domain` or `application` may import from `infrastructure`.
 
+---
+
 ### Backend Modules
 
 #### `webcontent` Module
@@ -124,6 +126,8 @@ User management with Spring Security integration, authentication, and role-based
 - `POST /api/user` - Create user (admin only)
 - `PUT /api/user/{id}` - Update user (admin only)
 - `DELETE /api/user/{id}` - Delete user (admin only)
+
+---
 
 ### Spring Security Configuration
 
