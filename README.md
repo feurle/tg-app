@@ -79,9 +79,35 @@ For detailed architecture, API endpoints, testing guides, and more, see **[CLAUD
 
 ---
 
-## Authentication
+## Authentication & Test Data
+
+### Login Credentials
+
+The application comes with pre-loaded test data:
+
+| Username | Password | Role | Use Case |
+|----------|----------|------|----------|
+| `admin` | `admin` | ROLE_ADMIN, ROLE_USER | Full admin access (users, articles, customers) |
+| `user` | `user` | ROLE_USER | Limited access (view articles, images) |
+
+**To login:**
+1. Click the login button in the navbar
+2. Enter credentials
+3. On success, your username appears in the navbar
+
+### Endpoints & Access
 
 - **Public endpoints**: Article reading, image download, authentication
 - **Protected endpoints**: Everything else (requires login)
-- **Login**: Username/password form-based login
+- **Admin-only endpoints**: User management, all CRUD operations
+- **Authentication**: Form-based login with stateful sessions
 - **Roles**: Manage via admin panel (`/api/user`)
+
+### Test Data
+
+The H2 database is pre-populated with sample data:
+
+- **Users**: 2 test accounts (admin, user) with different role permissions
+- **Customers**: ~50 fake customers (CSV-loaded via Liquibase, `db/fake-data/customer.csv`)
+- **Articles**: ~50+ articles in 4 languages (DE, EN, SV, RU) with multiple states (CREATED, PUBLISHED, CLOSED)
+- **Images**: Sample images loaded through the article relationships

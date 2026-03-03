@@ -39,3 +39,77 @@ jobs:
 
       - name: Build JAR
         run: ./gradlew bootJar
+
+  # ─────────────────────────────────────────
+  # JOB 2: Docker Image bauen & pushen
+  # ─────────────────────────────────────────
+  docker:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    needs: build  # Nur wenn Tests grün sind!
+    outputs:
+      image-tag: ${{ steps.meta.outputs.version }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Image Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=sha-
+
+      - name: Build & Push Docker Image (Gradle bootBuildImage)
+        run: |
+          ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:latest
+          docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          docker push ${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+
+  # ─────────────────────────────────────────
+  # JOB 3: Deploy auf den Server
+  # ─────────────────────────────────────────
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    needs: docker  # Nur wenn Image erfolgreich gepusht
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Neuestes Image holen
+            docker pull ${{ env.IMAGE_NAME }}:latest
+
+            # Container neu starten
+            docker compose -f /opt/app/docker-compose.yml up -d
+
+            # Alte Images aufräumen
+            docker image prune -f
+
+      - name: Health Check
+        run: |
+          echo "Warte 60s auf Spring Boot Start..."
+          sleep 60
+          curl --fail --retry 5 --retry-delay 10 \
+            http://${{ env.SERVER_HOST }}:8080/actuator/health
