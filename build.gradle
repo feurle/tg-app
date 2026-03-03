@@ -76,11 +76,10 @@ tasks.named("bootBuildImage") {
 }
 
 // Frontend build: make Java build depend on npm build
-['build', 'buildDependents'].each { taskName ->
-	tasks.named(taskName) {
-		dependsOn 'npm_run_build'
-	}
+tasks.named("bootJar") {
+	dependsOn 'npm_run_build'
 }
+
 
 bootRun {
 	args = ["--spring.profiles.active=dev"]
