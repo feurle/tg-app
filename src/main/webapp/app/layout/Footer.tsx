@@ -33,7 +33,7 @@ export default function Footer() {
         .then((images) => setImageCount(images.length))
         .catch(() => setImageCount(0)),
     ])
-  }, [])
+  }, [i18n.language])
 
   return (
     <footer className="app-footer">

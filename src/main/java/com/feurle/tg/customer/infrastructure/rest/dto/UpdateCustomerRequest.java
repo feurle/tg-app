@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.customer.infrastructure.rest.dto;
 
 public record UpdateCustomerRequest(
@@ -9,5 +11,4 @@ public record UpdateCustomerRequest(
     String city,
     String state,
     String zip,
-    String country
-) {}
+    String country) {}
