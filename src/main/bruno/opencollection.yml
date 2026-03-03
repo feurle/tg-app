@@ -1,7 +1,7 @@
 opencollection: 1.0.0
 
 info:
-  name: tg-rest
+  name: tg-rest-api
 bundled: false
 extensions:
   bruno:
