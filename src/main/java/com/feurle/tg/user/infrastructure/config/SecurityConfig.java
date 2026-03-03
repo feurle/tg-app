@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.user.infrastructure.config;
 
 import com.feurle.tg.user.application.AppUserDetailsService;
@@ -5,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,48 +18,55 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final AppUserDetailsService userDetailsService;
+  private final AppUserDetailsService userDetailsService;
 
-    public SecurityConfig(AppUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+  public SecurityConfig(AppUserDetailsService userDetailsService) {
+    this.userDetailsService = userDetailsService;
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-        return builder.build();
-    }
+  @Bean
+  public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+    AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
+    builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    return builder.build();
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(authz -> authz
-            // Static frontend assets
-            .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico").permitAll()
-            // H2 Console (dev only)
-            .requestMatchers("/h2-console/**").permitAll()
-            // Authentication endpoints
-            .requestMatchers("/api/auth/**").permitAll()
-            // Public API: read articles and download images
-            .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**").permitAll()
-            // All other requests require authentication
-            .anyRequest().authenticated()
-        );
+    http.authorizeHttpRequests(
+        authz ->
+            authz
+                // Static frontend assets
+                .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico")
+                .permitAll()
+                // H2 Console (dev only)
+                .requestMatchers("/h2-console/**")
+                .permitAll()
+                .requestMatchers("/actuator/health")
+                .permitAll()
+                // Authentication endpoints
+                .requestMatchers("/api/auth/**")
+                .permitAll()
+                // Public API: read articles and download images
+                .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**")
+                .permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
+                .permitAll()
+                // All other requests require authentication
+                .anyRequest()
+                .authenticated());
 
-        http.csrf(csrf -> csrf.disable());
-        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
-        http.formLogin(form -> form.disable());
-        http.httpBasic(basic -> basic.disable());
+    http.csrf(csrf -> csrf.disable());
+    http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
+    http.formLogin(form -> form.disable());
+    http.httpBasic(basic -> basic.disable());
 
-        return http.build();
-    }
+    return http.build();
+  }
 }
-

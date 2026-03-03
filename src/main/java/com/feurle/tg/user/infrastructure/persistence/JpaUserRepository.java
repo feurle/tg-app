@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.user.infrastructure.persistence;
 
 import com.feurle.tg.user.domain.entity.User;
@@ -6,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JpaUserRepository extends JpaRepository<User, Long>, UserRepository {
-}
+public interface JpaUserRepository extends JpaRepository<User, Long>, UserRepository {}
