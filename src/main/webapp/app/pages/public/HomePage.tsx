@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../../config/translation.ts'
 import type { ArticleResponse } from '../../types/article.ts'
+import { articleService } from '../../services/article.service.ts'
 import ArticleCard from '../../components/common/ArticleCard.tsx'
 import './HomePage.css'
 
@@ -13,26 +14,27 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    // Note: i18n.language is checked within effect, not as dependency
+    // because i18n doesn't re-render when language changes
     const language = i18n.language.toUpperCase()
-    Promise.all([
-      // Load HOME_TEASER article for hero section
-      fetch(`/api/webcontent/articles/page/HOME_TEASER/published?language=${language}`)
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          return res.json() as Promise<ArticleResponse[]>
-        })
-        .then((results) => setTeaserArticle(results[0] || null))
-        .catch(() => setTeaserArticle(null)), // Teaser is optional
-      // Load HOME_PAGE articles
-      fetch(`/api/webcontent/articles/page/HOME_PAGE/published?language=${language}`)
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          return res.json() as Promise<ArticleResponse[]>
-        })
-        .then(setArticles)
-        .catch((err: Error) => setError(err.message)),
-    ]).finally(() => setLoading(false))
-  }, [i18n.language])
+    ;(async () => {
+      try {
+        const [teaser, pageArticles] = await Promise.all([
+          articleService.getPublished('HOME_TEASER', language).catch(() => []),
+          articleService.getPublished('HOME_PAGE', language).catch((err) => {
+            throw err
+          }),
+        ])
+        setTeaserArticle(teaser[0] || null)
+        setArticles(pageArticles)
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Failed to load articles'
+        setError(message)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [[i18n.language]])
 
   return (
     <div className="home-page">

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { User, CreateUserData, UpdateUserData } from '../../types/user'
+import { useUsers } from '../../hooks/useUsers.ts'
 import UserList from '../../components/user/UserList'
 import UserFormModal from '../../components/user/UserFormModal'
 import ConfirmDialog from '../../components/common/ConfirmDialog'
@@ -14,62 +15,38 @@ interface Props {
 
 export default function UserPage({ onBack }: Props) {
   const { t } = useTranslation(['users', 'common'])
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { users, loading, error, create, update, remove } = useUsers()
   const [modal, setModal] = useState<ModalState>(null)
   const [deleteTarget, setDeleteTarget] = useState<User | null>(null)
   const [saving, setSaving] = useState(false)
 
-  function fetchUsers() {
-    return fetch('/api/user')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<User[]>
-      })
-      .then(setUsers)
-      .catch((err: Error) => setError(err.message))
-  }
-
-  useEffect(() => {
-    fetchUsers().finally(() => setLoading(false))
-  }, [])
-
-  function handleSave(data: CreateUserData | UpdateUserData) {
+  async function handleSave(data: CreateUserData | UpdateUserData) {
     setSaving(true)
-    const isEdit = modal?.mode === 'edit' && modal?.user
-    const url = isEdit ? `/api/user/${(modal as { mode: 'edit'; user: User }).user.id}` : '/api/user'
-    const method = isEdit ? 'PUT' : 'POST'
-
-    fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<User>
-      })
-      .then(() => {
-        setModal(null)
-        return fetchUsers()
-      })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setSaving(false))
+    try {
+      if (modal?.mode === 'edit' && modal?.user) {
+        await update(modal.user.id, data as UpdateUserData)
+      } else {
+        await create(data as CreateUserData)
+      }
+      setModal(null)
+    } catch {
+      // Error already handled in hook
+    } finally {
+      setSaving(false)
+    }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return
-
     setSaving(true)
-    fetch(`/api/user/${deleteTarget.id}`, { method: 'DELETE' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setDeleteTarget(null)
-        return fetchUsers()
-      })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setSaving(false))
+    try {
+      await remove(deleteTarget.id)
+      setDeleteTarget(null)
+    } catch {
+      // Error already handled in hook
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (

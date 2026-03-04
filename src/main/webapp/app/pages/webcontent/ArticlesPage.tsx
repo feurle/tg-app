@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { ArticleResponse, ImageResponse } from '../../types/article.ts'
+import type { ArticleResponse } from '../../types/article.ts'
+import { useArticles } from '../../hooks/useArticles.ts'
+import { useImages } from '../../hooks/useImages.ts'
 import ArticleList from '../../components/webcontent/ArticleList.tsx'
 import ArticleDetailsModal from '../../components/webcontent/ArticleDetailsModal.tsx'
 import ArticleFormModal from '../../components/webcontent/ArticleFormModal.tsx'
@@ -19,80 +21,52 @@ interface Props {
 
 export default function ArticlesPage({ onBack }: Props) {
   const { t } = useTranslation(['articles', 'common'])
-  const [articles, setArticles] = useState<ArticleResponse[]>([])
-  const [images, setImages] = useState<ImageResponse[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { articles, loading: articlesLoading, error: articlesError, create, update, remove } = useArticles()
+  const { images, loading: imagesLoading } = useImages()
   const [selectedArticle, setSelectedArticle] = useState<ArticleResponse | null>(null)
   const [modal, setModal] = useState<ModalState>(null)
   const [deleteTarget, setDeleteTarget] = useState<ArticleResponse | null>(null)
   const [saving, setSaving] = useState(false)
 
-  function fetchArticles() {
-    return fetch('/api/webcontent/articles')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<ArticleResponse[]>
-      })
-      .then(setArticles)
-      .catch((err: Error) => setError(err.message))
-  }
+  const loading = articlesLoading || imagesLoading
+  const error = articlesError
 
-  function fetchImages() {
-    return fetch('/api/webcontent/images')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<ImageResponse[]>
-      })
-      .then(setImages)
-      .catch((err: Error) => setError(err.message))
-  }
-
-  useEffect(() => {
-    Promise.all([fetchArticles(), fetchImages()]).finally(() => setLoading(false))
-  }, [])
-
-  function handleSave(data: FormData) {
+  async function handleSave(data: FormData) {
     setSaving(true)
-    const isEdit = data.mode === 'edit' && modal?.mode === 'edit'
-    const url = isEdit
-      ? `/api/webcontent/articles/${(modal as { mode: 'edit'; article: ArticleResponse }).article.id}`
-      : '/api/webcontent/articles'
-
-    const body =
-      data.mode === 'create'
-        ? { title: data.title, content: data.content, page: data.page, language: data.language, imageIds: data.imageIds }
-        : {
-            title: data.title,
-            content: data.content,
-            state: data.state,
-            language: data.language,
-            imageIds: data.imageIds,
-          }
-
-    fetch(url, {
-      method: isEdit ? 'PUT' : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setModal(null)
-        return fetchArticles()
-      })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setSaving(false))
+    try {
+      if (data.mode === 'edit' && modal?.mode === 'edit') {
+        await update((modal as { mode: 'edit'; article: ArticleResponse }).article.id, {
+          title: data.title,
+          content: data.content,
+          state: (data as typeof data & { state: string }).state,
+          language: data.language,
+          imageIds: data.imageIds,
+        })
+      } else {
+        await create({
+          title: data.title,
+          content: data.content,
+          page: (data as typeof data & { page: string }).page,
+          language: data.language,
+          imageIds: data.imageIds,
+        })
+      }
+      setModal(null)
+    } catch {
+      // Error is already handled in hook
+    } finally {
+      setSaving(false)
+    }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return
-    fetch(`/api/webcontent/articles/${deleteTarget.id}`, { method: 'DELETE' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setDeleteTarget(null)
-        return fetchArticles()
-      })
-      .catch((err: Error) => setError(err.message))
+    try {
+      await remove(deleteTarget.id)
+      setDeleteTarget(null)
+    } catch {
+      // Error is already handled in hook
+    }
   }
 
   return (
