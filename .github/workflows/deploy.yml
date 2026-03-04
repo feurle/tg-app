@@ -112,4 +112,4 @@ jobs:
           echo "Warte 60s auf Spring Boot Start..."
           sleep 60
           curl --fail --retry 5 --retry-delay 10 \
-            http://${{ env.SERVER_HOST }}:8080/actuator/health
+            https://${{ secrets.VIRTUAL_HOST }}/actuator/health
