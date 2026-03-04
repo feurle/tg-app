@@ -1,14 +1,45 @@
 services:
   app:
     image: feurle/tg-app:latest
-    ports:
-      - "8080:8080"
+    container_name: tg-app
     restart: unless-stopped
+    expose:
+      - "8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=prod
+      - VIRTUAL_HOST=app.domain.tld
+      - VIRTUAL_PORT=8080
+      - LETSENCRYPT_HOST=app.domain.tld
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 60s
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - nginx-proxy-network
+
+  db:
+    image: mysql:9.2.0
+    volumes:
+      - db_data:/var/lib/mysq
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=tg-app
+    command: mysqld --lower_case_table_names=1 --skip-mysqlx --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  nginx-proxy-network:
+    external: true
+
+volumes:
+  db_data:
