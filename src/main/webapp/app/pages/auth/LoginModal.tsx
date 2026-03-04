@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { AuthUser } from '../../types/auth.ts'
+import { useAuthContext } from '../../context/AuthContext.tsx'
 import './LoginModal.css'
 
 interface Props {
-  onLogin: (user: AuthUser) => void
   onCancel: () => void
 }
 
-export default function LoginModal({ onLogin, onCancel }: Props) {
+export default function LoginModal({ onCancel }: Props) {
   const { t } = useTranslation('login')
+  const { login: authLogin } = useAuthContext()
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -21,18 +21,8 @@ export default function LoginModal({ onLogin, onCancel }: Props) {
     setLoading(true)
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ login, password }),
-      })
-
-      if (!response.ok) {
-        throw new Error('unauthorized')
-      }
-
-      const user = (await response.json()) as AuthUser
-      onLogin(user)
+      await authLogin(login, password)
+      onCancel()
     } catch {
       setError(t('invalidCredentials'))
     } finally {

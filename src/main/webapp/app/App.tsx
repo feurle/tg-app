@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Navbar from './layout/Navbar.tsx'
 import Footer from './layout/Footer.tsx'
 import LoginModal from './pages/auth/LoginModal.tsx'
@@ -8,7 +8,7 @@ import ArticlesPage from './pages/webcontent/ArticlesPage.tsx'
 import ImagesPage from './pages/webcontent/ImagesPage.tsx'
 import CustomerPage from './pages/customer/CustomerPage'
 import UserPage from './pages/user/UserPage'
-import type { AuthUser } from './types/auth'
+import { useAuthContext } from './context/AuthContext.tsx'
 
 type Page = 'home' | 'news' | 'articles' | 'images' | 'customers' | 'users'
 
@@ -16,15 +16,8 @@ const ADMIN_PAGES: Page[] = ['articles', 'images', 'customers', 'users']
 
 function App() {
   const [page, setPage] = useState<Page>('home')
-  const [authUser, setAuthUser] = useState<AuthUser | null | 'loading'>('loading')
   const [showLoginModal, setShowLoginModal] = useState(false)
-
-  useEffect(() => {
-    fetch('/api/auth/me')
-      .then((res) => (res.ok ? (res.json() as Promise<AuthUser>) : null))
-      .then((user) => setAuthUser(user))
-      .catch(() => setAuthUser(null))
-  }, [])
+  const { authUser, logout } = useAuthContext()
 
   function handleNavigate(newPage: Page) {
     if (ADMIN_PAGES.includes(newPage) && !authUser) {
@@ -34,16 +27,9 @@ function App() {
     }
   }
 
-  function handleLogin(user: AuthUser) {
-    setAuthUser(user)
-    setShowLoginModal(false)
-  }
-
-  function handleLogout() {
-    fetch('/api/auth/logout', { method: 'POST' }).finally(() => {
-      setAuthUser(null)
-      setPage('home')
-    })
+  async function handleLogout() {
+    await logout()
+    setPage('home')
   }
 
   if (authUser === 'loading') {
@@ -73,7 +59,7 @@ function App() {
       </main>
       <Footer />
       {showLoginModal && (
-        <LoginModal onLogin={handleLogin} onCancel={() => setShowLoginModal(false)} />
+        <LoginModal onCancel={() => setShowLoginModal(false)} />
       )}
     </div>
   )

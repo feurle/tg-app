@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { ImageResponse } from '../../types/image.ts'
+import { useImages } from '../../hooks/useImages.ts'
 import ImageList from '../../components/webcontent/ImageList.tsx'
 import ImageUploadModal from '../../components/webcontent/ImageUploadModal.tsx'
 import ConfirmDialog from '../../components/common/ConfirmDialog.tsx'
@@ -12,56 +12,31 @@ interface Props {
 
 export default function ImagesPage({ onBack }: Props) {
   const { t } = useTranslation(['images', 'common'])
-  const [images, setImages] = useState<ImageResponse[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { images, loading, error, upload, remove } = useImages()
   const [showUploadModal, setShowUploadModal] = useState(false)
-  const [deleteTarget, setDeleteTarget] = useState<ImageResponse | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<(typeof images)[number] | null>(null)
   const [uploading, setUploading] = useState(false)
 
-  function fetchImages() {
-    return fetch('/api/webcontent/images')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<ImageResponse[]>
-      })
-      .then(setImages)
-      .catch((err: Error) => setError(err.message))
-  }
-
-  useEffect(() => {
-    fetchImages().finally(() => setLoading(false))
-  }, [])
-
-  function handleUpload(file: File) {
+  async function handleUpload(file: File) {
     setUploading(true)
-    const formData = new FormData()
-    formData.append('file', file)
-
-    return fetch('/api/webcontent/images', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return fetchImages()
-      })
-      .catch((err: Error) => {
-        setError(err.message)
-        throw err
-      })
-      .finally(() => setUploading(false))
+    try {
+      await upload(file)
+      setShowUploadModal(false)
+    } catch {
+      // Error already handled in hook
+    } finally {
+      setUploading(false)
+    }
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!deleteTarget) return
-    fetch(`/api/webcontent/images/${deleteTarget.id}`, { method: 'DELETE' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setDeleteTarget(null)
-        return fetchImages()
-      })
-      .catch((err: Error) => setError(err.message))
+    try {
+      await remove(deleteTarget.id)
+      setDeleteTarget(null)
+    } catch {
+      // Error already handled in hook
+    }
   }
 
   return (

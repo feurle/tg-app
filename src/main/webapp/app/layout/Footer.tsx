@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import i18n from '../config/translation.ts'
-import type { ArticleResponse } from '../types/article.ts'
+import { articleService } from '../services/article.service.ts'
+import { imageService } from '../services/image.service.ts'
 import './Footer.css'
 
 // Version wird aus package.json gelesen
@@ -14,26 +15,25 @@ export default function Footer() {
   const [imageCount, setImageCount] = useState(0)
 
   useEffect(() => {
-    // Lade Artikel für Stats
+    // Lade Artikel und Bilder für Stats
+    // Note: i18n.language is checked within effect, not as dependency
+    // because i18n doesn't re-render when language changes
     const language = i18n.language.toUpperCase()
-    Promise.all([
-      fetch(`/api/webcontent/articles/page/HOME_PAGE/published?language=${language}`)
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          return res.json() as Promise<ArticleResponse[]>
-        })
-        .then((articles) => setArticleCount(articles.length))
-        .catch(() => setArticleCount(0)),
-      // Lade Bilder für Stats
-      fetch('/api/webcontent/images')
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          return res.json() as Promise<Array<{ id: number }>>
-        })
-        .then((images) => setImageCount(images.length))
-        .catch(() => setImageCount(0)),
-    ])
-  }, [i18n.language])
+    ;(async () => {
+      try {
+        const [articles, images] = await Promise.all([
+          articleService.getPublished('HOME_PAGE', language).catch(() => []),
+          imageService.getAll().catch(() => []),
+        ])
+        setArticleCount(articles.length)
+        setImageCount(images.length)
+      } catch {
+        // Fallback auf 0
+        setArticleCount(0)
+        setImageCount(0)
+      }
+    })()
+  }, [])
 
   return (
     <footer className="app-footer">

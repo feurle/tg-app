@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Customer } from '../../types/customer'
-import type { CreateCustomerData, UpdateCustomerData } from '../../types/customer'
+import type { Customer, CreateCustomerData, UpdateCustomerData } from '../../types/customer'
+import { useCustomers } from '../../hooks/useCustomers.ts'
 import CustomerList from '../../components/customer/CustomerList'
 import CustomerFormModal from '../../components/customer/CustomerFormModal'
 import ConfirmDialog from '../../components/common/ConfirmDialog.tsx'
@@ -15,66 +15,42 @@ interface Props {
 
 export default function CustomerPage({ onBack }: Props) {
   const { t } = useTranslation(['customers', 'common'])
-  const [customers, setCustomers] = useState<Customer[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { customers, loading, error, create, update, remove } = useCustomers()
   const [modal, setModal] = useState<ModalState>(null)
   const [deleteTarget, setDeleteTarget] = useState<Customer | null>(null)
   const [saving, setSaving] = useState(false)
 
-  function fetchCustomers() {
-    return fetch('/api/customer')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<Customer[]>
-      })
-      .then(setCustomers)
-      .catch((err: Error) => setError(err.message))
-  }
-
-  useEffect(() => {
-    fetchCustomers().finally(() => setLoading(false))
-  }, [])
-
-  function handleSave(data: CreateCustomerData | UpdateCustomerData) {
+  async function handleSave(data: CreateCustomerData | UpdateCustomerData) {
     setSaving(true)
-    const isEdit = modal?.mode === 'edit' && modal?.customer
-    const url = isEdit ? `/api/customer/${(modal as { mode: 'edit'; customer: Customer }).customer.id}` : '/api/customer'
-    const method = isEdit ? 'PUT' : 'POST'
-
-    fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<Customer>
-      })
-      .then(() => {
-        setModal(null)
-        return fetchCustomers()
-      })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setSaving(false))
+    try {
+      if (modal?.mode === 'edit' && modal?.customer) {
+        await update(modal.customer.id, data as UpdateCustomerData)
+      } else {
+        await create(data as CreateCustomerData)
+      }
+      setModal(null)
+    } catch {
+      // Error already handled in hook
+    } finally {
+      setSaving(false)
+    }
   }
 
   function handleDelete(customer: Customer) {
     setDeleteTarget(customer)
   }
 
-  function handleConfirmDelete() {
+  async function handleConfirmDelete() {
     if (!deleteTarget) return
-
     setSaving(true)
-    fetch(`/api/customer/${deleteTarget.id}`, { method: 'DELETE' })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        setDeleteTarget(null)
-        return fetchCustomers()
-      })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setSaving(false))
+    try {
+      await remove(deleteTarget.id)
+      setDeleteTarget(null)
+    } catch {
+      // Error already handled in hook
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
