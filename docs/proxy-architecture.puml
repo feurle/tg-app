@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/component-diagram
+'https://github.com/nginx-proxy/acme-companion/tree/main/docs
+
+node "Feurle App Server" {
+    package "Nginx Proxy Network" {
+        [nginx-proxy]
+        [nginx-proxy-acme]
+        package "TG App" {
+            [tg-app]
+            [tg-db]
+        }
+    }
+}
+
+cloud {
+    component [lets-encrypt]
+    boundary browser
+}
+
+[browser] --> [nginx-proxy]
+[nginx-proxy-acme] --> [lets-encrypt]
+[nginx-proxy] --> [nginx-proxy-acme]
+[tg-app] --> [tg-db]
+[nginx-proxy] --> [tg-app]
+@enduml
