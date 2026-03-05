@@ -14,10 +14,8 @@ export default function NewsPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Note: i18n.language is checked within effect, not as dependency
-    // because i18n doesn't re-render when language changes
-    const language = i18n.language.toUpperCase()
-    ;(async () => {
+    const loadArticles = async () => {
+      const language = i18n.language.toUpperCase()
       try {
         const [teaser, pageArticles] = await Promise.all([
           articleService.getPublished('NEWS_TEASER', language).catch(() => []),
@@ -33,8 +31,23 @@ export default function NewsPage() {
       } finally {
         setLoading(false)
       }
-    })()
-  }, [[i18n.language]])
+    }
+
+    // Load on mount
+    loadArticles()
+
+    // Reload when language changes
+    const handleLanguageChanged = () => {
+      setLoading(true)
+      loadArticles()
+    }
+
+    i18n.on('languageChanged', handleLanguageChanged)
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged)
+    }
+  }, [])
 
   return (
     <div className="news-page">
