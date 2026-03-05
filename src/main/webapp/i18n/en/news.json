@@ -1,8 +1,0 @@
-{
-  "hero": {
-    "titleFallback": "Latest",
-    "accentFallback": "News",
-    "subtitleFallback": "Stay up to date with the latest news and updates"
-  },
-  "empty": "No news available"
-}
