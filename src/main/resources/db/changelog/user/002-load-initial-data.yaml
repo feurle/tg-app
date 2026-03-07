@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 004-load-authorities
+      id: 001-load-authorities
       author: system
       changes:
         - loadData:
@@ -11,7 +11,7 @@ databaseChangeLog:
             relativeToChangelogFile: false
 
   - changeSet:
-      id: 005-load-users
+      id: 002-load-users
       author: system
       changes:
         - loadData:
@@ -62,7 +62,7 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: 006-load-user-authorities
+      id: 003-load-user-authorities
       author: system
       changes:
         - loadData:

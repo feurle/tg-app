@@ -14,3 +14,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: never
+    include-exception: false
+    include-binding-errors: always

@@ -1,49 +1,48 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-customer
-      author: init
+      id: 001-load-fake-customers
+      author: system
+      context: faker
       changes:
-        - createTable:
+        - loadData:
+            file: db/fake-data/customer.csv
             tableName: customer
+            separator: ;
+            quotchar: '"'
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  startWith: 1500
-                  constraints:
-                    primaryKey: true
-                    nullable: false
+                  type: numeric
               - column:
                   name: first_name
-                  type: VARCHAR(255)
+                  type: string
               - column:
                   name: last_name
-                  type: VARCHAR(255)
+                  type: string
               - column:
                   name: email
-                  type: VARCHAR(255)
+                  type: string
               - column:
                   name: phone
-                  type: VARCHAR(20)
+                  type: string
               - column:
                   name: address
-                  type: VARCHAR(255)
+                  type: string
               - column:
                   name: city
-                  type: VARCHAR(100)
+                  type: string
               - column:
                   name: state
-                  type: VARCHAR(100)
+                  type: string
               - column:
                   name: zip
-                  type: VARCHAR(20)
+                  type: string
               - column:
                   name: country
-                  type: VARCHAR(100)
+                  type: string
               - column:
                   name: created_at
-                  type: TIMESTAMP
+                  type: datetime
               - column:
                   name: updated_at
-                  type: TIMESTAMP
+                  type: datetime

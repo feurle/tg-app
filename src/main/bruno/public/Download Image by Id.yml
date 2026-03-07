@@ -1,11 +1,11 @@
 info:
-  name: Delete Customer
+  name: Download Image by Id
   type: http
-  seq: 6
+  seq: 2
 
 http:
-  method: DELETE
-  url: "{{baseUrl}}/api/customer/:id"
+  method: GET
+  url: "{{baseUrl}}/api/webcontent/images/:id/download"
   params:
     - name: id
       value: "1"

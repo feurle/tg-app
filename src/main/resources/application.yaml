@@ -1,3 +1,10 @@
 spring:
   application:
     name: tg-app
+
+server:
+  error:
+    include-message: always
+    include-stacktrace: never
+    include-exception: false
+    include-binding-errors: always
