@@ -2,9 +2,12 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.user.infrastructure.config;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import com.feurle.tg.user.application.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +20,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+  // Production/Default profile - Session auth only (no Basic Auth)
+  // Note: Use @Profile("!dev") if you want to explicitly exclude dev profile
 
   private final AppUserDetailsService userDetailsService;
+  private final Environment environment;
 
-  public SecurityConfig(AppUserDetailsService userDetailsService) {
+  public SecurityConfig(AppUserDetailsService userDetailsService, Environment environment) {
     this.userDetailsService = userDetailsService;
+    this.environment = environment;
   }
 
   @Bean
@@ -65,8 +72,24 @@ public class SecurityConfig {
     http.csrf(csrf -> csrf.disable());
     http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     http.formLogin(form -> form.disable());
-    http.httpBasic(basic -> basic.disable());
+
+    // Enable Basic Auth only in dev profile for easy curl/Postman testing
+    if (isDevProfile()) {
+      http.httpBasic(withDefaults());
+    } else {
+      http.httpBasic(basic -> basic.disable());
+    }
 
     return http.build();
+  }
+
+  private boolean isDevProfile() {
+    String[] activeProfiles = environment.getActiveProfiles();
+    for (String profile : activeProfiles) {
+      if ("dev".equals(profile)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

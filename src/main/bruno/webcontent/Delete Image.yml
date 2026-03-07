@@ -1,14 +1,14 @@
 info:
-  name: Delete Customer
+  name: Delete Image
   type: http
   seq: 6
 
 http:
   method: DELETE
-  url: "{{baseUrl}}/api/customer/:id"
+  url: "{{baseUrl}}/api/webcontent/images/:id"
   params:
     - name: id
-      value: "1"
+      value: "3"
       type: path
   auth: inherit
 
