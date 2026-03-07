@@ -25,7 +25,7 @@ services:
   tg-db:
     image: mysql:9.2.0
     volumes:
-      - tg-db_data:/var/lib/mysq
+      - tg-db_data:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=tg-app
