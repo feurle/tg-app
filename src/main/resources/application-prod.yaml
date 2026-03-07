@@ -4,20 +4,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
   jpa:
-    hibernate:
-      ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
     drop-first: false
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-
-server:
-  error:
-    include-message: always
-    include-stacktrace: never
-    include-exception: false
-    include-binding-errors: always

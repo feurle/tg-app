@@ -4,7 +4,7 @@ services:
   mysql:
     image: mysql:9.2.0
     volumes:
-      - ./config/mysql:/etc/mysql/conf.d
+      - mysql_data:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=tg-app
@@ -14,7 +14,11 @@ services:
       - 127.0.0.1:3306:3306
     command: mysqld --lower_case_table_names=1 --skip-mysqlx --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
     healthcheck:
-      test: ['CMD-SHELL', 'mysql -e "SHOW DATABASES;" && sleep 5']
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 10s
-      retries: 10
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
