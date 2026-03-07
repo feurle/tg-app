@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: customer-001-create-customer
+      id: 001-create-customer
       author: init
       changes:
         - createTable:
@@ -10,6 +10,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false

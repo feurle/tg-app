@@ -1,0 +1,5 @@
+login,password,firstName,lastName,email,activated,langKey,imageUrl
+john_doe,password123,John,Doe,john.doe@example.com,true,de,/images/john.jpg
+jane_smith,password456,Jane,Smith,jane.smith@example.com,false,en,/images/jane.jpg
+max_mueller,password789,Max,Müller,max.mueller@example.com,true,de,/images/max.jpg
+lisa_weber,passwort2024,Lisa,Weber,lisa.weber@example.com,true,sv,/images/lisa.jpg

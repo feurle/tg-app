@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-load-fake-customers
+      id: 001-load-fake-customers
       author: system
       context: faker
       changes:

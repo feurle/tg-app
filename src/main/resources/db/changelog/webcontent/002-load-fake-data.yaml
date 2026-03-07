@@ -1,6 +1,33 @@
 databaseChangeLog:
   - changeSet:
-      id: 003-load-fake-articles-de
+      id: 001-load-fake-images
+      author: system
+      context: faker
+      changes:
+        - loadData:
+            file: db/fake-data/image.csv
+            tableName: image
+            separator: ;
+            quotchar: '"'
+            columns:
+              - column:
+                  name: id
+                  type: numeric
+              - column:
+                  name: file_name
+                  type: string
+              - column:
+                  name: mime_type
+                  type: string
+              - column:
+                  name: created_at
+                  type: datetime
+              - column:
+                  name: image_data
+                  type: BLOB
+
+  - changeSet:
+      id: 002-load-fake-articles-de
       author: system
       context: faker
       changes:
@@ -78,7 +105,7 @@ databaseChangeLog:
                   type: skip
 
   - changeSet:
-      id: 003-load-fake-articles-en
+      id: 004-load-fake-articles-en
       author: system
       context: faker
       changes:
@@ -117,7 +144,7 @@ databaseChangeLog:
                   type: skip
 
   - changeSet:
-      id: 003-load-fake-articles-ru
+      id: 005-load-fake-articles-ru
       author: system
       context: faker
       changes:
@@ -154,3 +181,21 @@ databaseChangeLog:
               - column:
                   name: article_image_id
                   type: skip
+
+  - changeSet:
+      id: 006-load-fake-article-images
+      author: system
+      context: faker
+      changes:
+        - loadData:
+            file: db/fake-data/article_image.csv
+            tableName: article_images
+            separator: ;
+            quotchar: '"'
+            columns:
+              - column:
+                  name: article_id
+                  type: numeric
+              - column:
+                  name: image_id
+                  type: numeric

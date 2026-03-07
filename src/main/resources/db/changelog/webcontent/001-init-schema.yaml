@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: webcontent-001-create-image
+      id: 001-create-image
       author: init
       changes:
         - createTable:
@@ -10,6 +10,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -30,7 +31,7 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: webcontent-002-create-article
+      id: 002-create-article
       author: init
       changes:
         - createTable:
@@ -40,6 +41,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -56,6 +58,12 @@ databaseChangeLog:
                   name: page
                   type: VARCHAR(50)
               - column:
+                  name: language
+                  type: VARCHAR(50)
+                  defaultValue: 'GERMAN'
+                  constraints:
+                    nullable: false
+              - column:
                   name: published_date
                   type: TIMESTAMP
               - column:
@@ -66,7 +74,7 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: webcontent-003-create-article-images
+      id: 003-create-article-images
       author: init
       changes:
         - createTable:
