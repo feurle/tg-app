@@ -10,7 +10,6 @@ http:
     - name: id
       value: "1"
       type: path
-  auth: inherit
 
 settings:
   encodeUrl: true

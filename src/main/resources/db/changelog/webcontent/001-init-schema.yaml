@@ -16,7 +16,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: image_data
-                  type: BLOB
+                  type: LONGBLOB
               - column:
                   name: file_name
                   type: VARCHAR(255)

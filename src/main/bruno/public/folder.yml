@@ -1,7 +1,4 @@
 info:
   name: public
   type: folder
-  seq: 5
-
-request:
-  auth: inherit
+  seq: 1
