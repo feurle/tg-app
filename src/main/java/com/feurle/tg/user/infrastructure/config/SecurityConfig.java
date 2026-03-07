@@ -47,37 +47,45 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     http.authorizeHttpRequests(
-        authz ->
-            authz
-                // Static frontend assets
-                .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico")
-                .permitAll()
-                // H2 Console (dev only)
-                .requestMatchers("/h2-console/**")
-                .permitAll()
-                .requestMatchers("/actuator/health")
-                .permitAll()
-                // Authentication endpoints
-                .requestMatchers("/api/auth/**")
-                .permitAll()
-                // Public API: read articles and download images
-                .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**")
-                .permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
-                .permitAll()
-                // All other requests require authentication
-                .anyRequest()
-                .authenticated());
+        authz -> {
+          authz
+              // Static frontend assets
+              .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico")
+              .permitAll()
+              .requestMatchers("/actuator/health")
+              .permitAll()
+              // Authentication endpoints
+              .requestMatchers("/api/auth/**")
+              .permitAll()
+              // Public API: read articles and download images
+              .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**")
+              .permitAll()
+              .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
+              .permitAll();
+
+          // H2 Console (dev only)
+          if (isDevProfile()) {
+            authz.requestMatchers("/h2-console/**").permitAll();
+          }
+
+          // All other requests require authentication
+          authz.anyRequest().authenticated();
+        });
 
     http.csrf(csrf -> csrf.disable());
-    http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     http.formLogin(form -> form.disable());
 
     // Enable Basic Auth only in dev profile for easy curl/Postman testing
     if (isDevProfile()) {
       http.httpBasic(withDefaults());
+      http.headers(headers -> headers.frameOptions(withDefaults()));
     } else {
       http.httpBasic(basic -> basic.disable());
+      http.headers(
+          headers ->
+              headers.frameOptions(frame -> frame.disable())); // X-Frame-Options deaktivieren
+      // ODER nur für gleiche Origin erlauben:
+      // .frameOptions(frame -> frame.sameOrigin())
     }
 
     return http.build();
