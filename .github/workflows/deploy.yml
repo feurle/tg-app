@@ -36,8 +36,15 @@ jobs:
           restore-keys: |
             gradle-
 
-      - name: Run Tests
-        run: ./gradlew test
+      - name: Run Tests with Coverage
+        run: ./gradlew test jacocoTestReport
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: build/reports/jacoco/test/html/
+        if: always()
 
       - name: Build JAR
         run: ./gradlew bootJar
