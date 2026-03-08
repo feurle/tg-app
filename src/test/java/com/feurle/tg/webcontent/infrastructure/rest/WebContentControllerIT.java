@@ -6,17 +6,17 @@ import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import tools.jackson.databind.ObjectMapper;
 import com.feurle.tg.webcontent.application.ArticleService;
 import com.feurle.tg.webcontent.application.ImageService;
 import com.feurle.tg.webcontent.domain.Article;
+import com.feurle.tg.webcontent.domain.ArticleRepository;
 import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.PageType;
-import com.feurle.tg.webcontent.domain.ArticleRepository;
-import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.CreateArticleRequest;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.UpdateArticleRequest;
 import java.util.Collections;
@@ -32,7 +32,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
@@ -119,7 +119,8 @@ class WebContentControllerIT {
     return article;
   }
 
-  private Article createArticle(String title, String content, ArticleState state, PageType page, Language language) {
+  private Article createArticle(
+      String title, String content, ArticleState state, PageType page, Language language) {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);
@@ -168,10 +169,7 @@ class WebContentControllerIT {
     // Arrange
     MockMultipartFile file =
         new MockMultipartFile(
-            "file",
-            "test-upload.png",
-            MediaType.IMAGE_PNG_VALUE,
-            "PNG_DATA".getBytes());
+            "file", "test-upload.png", MediaType.IMAGE_PNG_VALUE, "PNG_DATA".getBytes());
 
     // Act & Assert
     mockMvc
@@ -190,10 +188,7 @@ class WebContentControllerIT {
     // Arrange
     MockMultipartFile jpegFile =
         new MockMultipartFile(
-            "file",
-            "test.jpg",
-            MediaType.IMAGE_JPEG_VALUE,
-            "JPEG_DATA".getBytes());
+            "file", "test.jpg", MediaType.IMAGE_JPEG_VALUE, "JPEG_DATA".getBytes());
 
     // Act & Assert
     mockMvc
@@ -207,12 +202,10 @@ class WebContentControllerIT {
   void uploadImage_withoutAuth_returns401() throws Exception {
     // Arrange
     MockMultipartFile file =
-        new MockMultipartFile(
-            "file", "test.png", MediaType.IMAGE_PNG_VALUE, "PNG_DATA".getBytes());
+        new MockMultipartFile("file", "test.png", MediaType.IMAGE_PNG_VALUE, "PNG_DATA".getBytes());
 
     // Act & Assert - POST requires auth
-    mockMvc.perform(multipart("/api/webcontent/images").file(file))
-        .andExpect(status().isCreated());
+    mockMvc.perform(multipart("/api/webcontent/images").file(file)).andExpect(status().isCreated());
   }
 
   // ========== GET /api/webcontent/images/{imageId}/download ==========
@@ -253,7 +246,9 @@ class WebContentControllerIT {
   @WithMockUser(roles = "ADMIN")
   void deleteImage_nonExistent_returns400() throws Exception {
     // Act & Assert - DELETE endpoint responds
-    mockMvc.perform(delete("/api/webcontent/images/{imageId}", 999L)).andExpect(status().isNoContent());
+    mockMvc
+        .perform(delete("/api/webcontent/images/{imageId}", 999L))
+        .andExpect(status().isNoContent());
   }
 
   // ========== Article Endpoints ==========
@@ -339,7 +334,9 @@ class WebContentControllerIT {
     published.setImages(new java.util.ArrayList<>());
     saveArticle(published);
 
-    Article created = createArticle("Created", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+    Article created =
+        createArticle(
+            "Created", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
     saveArticle(created);
 
     // Act & Assert
@@ -409,9 +406,7 @@ class WebContentControllerIT {
   void getArticleById_nonExistent_returns400() throws Exception {
     // Act & Assert - GET non-existent returns error
     mockMvc
-        .perform(
-            get("/api/webcontent/articles/{id}", 999L)
-                .contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/api/webcontent/articles/{id}", 999L).contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is4xxClientError());
   }
 
@@ -427,7 +422,8 @@ class WebContentControllerIT {
             "New content",
             PageType.NEWS_PAGE,
             Language.ENGLISH,
-            Collections.singletonList(testImage.getId()));
+            Collections.singletonList(testImage.getId()),
+            null);
 
     // Act & Assert
     mockMvc
@@ -452,11 +448,7 @@ class WebContentControllerIT {
     // Arrange
     CreateArticleRequest request =
         new CreateArticleRequest(
-            "Article",
-            "Content",
-            PageType.HOME_TEASER,
-            Language.GERMAN,
-            null);
+            "Article", "Content", PageType.HOME_TEASER, Language.GERMAN, null, null);
 
     // Act & Assert - POST requires auth
     mockMvc
@@ -473,7 +465,9 @@ class WebContentControllerIT {
   @WithMockUser(roles = "ADMIN")
   void updateArticle_changeState_returns200() throws Exception {
     // Arrange
-    Article article = createArticle("Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+    Article article =
+        createArticle(
+            "Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
     Article saved = saveArticle(article);
     UpdateArticleRequest request =
         new UpdateArticleRequest(
@@ -481,6 +475,7 @@ class WebContentControllerIT {
             "Updated content",
             ArticleState.PUBLISHED,
             Language.GERMAN,
+            null,
             null);
 
     // Act & Assert
@@ -506,11 +501,7 @@ class WebContentControllerIT {
     // Arrange
     UpdateArticleRequest request =
         new UpdateArticleRequest(
-            "Title",
-            "Content",
-            ArticleState.CREATED,
-            Language.GERMAN,
-            null);
+            "Title", "Content", ArticleState.CREATED, Language.GERMAN, null, null);
 
     // Act & Assert
     mockMvc
@@ -527,7 +518,9 @@ class WebContentControllerIT {
   @WithMockUser(roles = "ADMIN")
   void deleteArticle_withValidId_returns204() throws Exception {
     // Arrange
-    Article article = createArticle("Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+    Article article =
+        createArticle(
+            "Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
     Article saved = saveArticle(article);
 
     // Act & Assert
@@ -543,7 +536,9 @@ class WebContentControllerIT {
   @WithMockUser(roles = "ADMIN")
   void deleteArticle_nonExistent_returns400() throws Exception {
     // Act & Assert - DELETE endpoint responds
-    mockMvc.perform(delete("/api/webcontent/articles/{id}", 999L)).andExpect(status().isNoContent());
+    mockMvc
+        .perform(delete("/api/webcontent/articles/{id}", 999L))
+        .andExpect(status().isNoContent());
   }
 
   // ========== Article with Multiple Images ==========
@@ -564,7 +559,8 @@ class WebContentControllerIT {
             "Content",
             PageType.HOME_TEASER,
             Language.GERMAN,
-            List.of(testImage.getId(), image2.getId()));
+            List.of(testImage.getId(), image2.getId()),
+            null);
 
     // Act & Assert
     mockMvc

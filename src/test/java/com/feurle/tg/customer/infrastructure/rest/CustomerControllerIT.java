@@ -6,8 +6,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import tools.jackson.databind.ObjectMapper;
 import com.feurle.tg.customer.domain.Customer;
 import com.feurle.tg.customer.domain.CustomerRepository;
 import com.feurle.tg.customer.infrastructure.rest.dto.CreateCustomerRequest;
@@ -23,7 +23,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
@@ -95,8 +95,7 @@ class CustomerControllerIT {
 
     // Act & Assert
     mockMvc
-        .perform(
-            get("/api/customer/{id}", saved.getId()).contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/api/customer/{id}", saved.getId()).contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id", equalTo(saved.getId().intValue())))
         .andExpect(jsonPath("$.firstName", equalTo("Test")))
@@ -184,7 +183,8 @@ class CustomerControllerIT {
   void createCustomer_withMinimalData_returns201() throws Exception {
     // Arrange
     CreateCustomerRequest request =
-        new CreateCustomerRequest("Min", "Customer", "min@example.com", null, null, null, null, null, null);
+        new CreateCustomerRequest(
+            "Min", "Customer", "min@example.com", null, null, null, null, null, null);
 
     // Act & Assert
     mockMvc
@@ -278,9 +278,7 @@ class CustomerControllerIT {
     Customer saved = customerRepository.save(testCustomer);
 
     // Act & Assert
-    mockMvc
-        .perform(delete("/api/customer/{id}", saved.getId()))
-        .andExpect(status().isNoContent());
+    mockMvc.perform(delete("/api/customer/{id}", saved.getId())).andExpect(status().isNoContent());
 
     // Verify customer was deleted
     assertThat(customerRepository.findById(saved.getId())).isEmpty();
