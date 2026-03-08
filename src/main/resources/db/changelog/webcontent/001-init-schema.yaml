@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-image
+      id: 001-create-image-table
       author: init
       changes:
         - createTable:
@@ -31,8 +31,8 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: 002-create-article
-      author: init
+      id: 002-create-article-table
+      author: system
       changes:
         - createTable:
             tableName: article
@@ -73,8 +73,8 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: 003-create-article-images
-      author: init
+      id: 003-create-article-images-table
+      author: system
       changes:
         - createTable:
             tableName: article_images
