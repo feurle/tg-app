@@ -4,8 +4,10 @@ package com.feurle.tg.webcontent.infrastructure.rest;
 
 import com.feurle.tg.webcontent.application.ArticleService;
 import com.feurle.tg.webcontent.application.ImageService;
+import com.feurle.tg.webcontent.application.TagService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.Tag;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
@@ -26,6 +28,7 @@ public class WebContentController {
 
   private final ArticleService articleService;
   private final ImageService imageService;
+  private final TagService tagService;
 
   // ========== Image Endpoints ==========
 
@@ -58,6 +61,37 @@ public class WebContentController {
   @DeleteMapping("/images/{imageId}")
   public ResponseEntity<Void> deleteImage(@PathVariable Long imageId) {
     imageService.deleteImage(imageId);
+    return ResponseEntity.noContent().build();
+  }
+
+  // ========== Tag Endpoints ==========
+
+  @GetMapping("/tags")
+  public ResponseEntity<List<TagResponse>> getAllTags() {
+    return ResponseEntity.ok(tagService.getAllTags().stream().map(this::toTagResponse).toList());
+  }
+
+  @GetMapping("/tags/{id}")
+  public ResponseEntity<TagResponse> getTag(@PathVariable Long id) {
+    return ResponseEntity.ok(toTagResponse(tagService.getTag(id)));
+  }
+
+  @PostMapping("/tags")
+  public ResponseEntity<TagResponse> createTag(@RequestBody CreateTagRequest request) {
+    Tag tag = tagService.createTag(request.name());
+    return ResponseEntity.status(HttpStatus.CREATED).body(toTagResponse(tag));
+  }
+
+  @PutMapping("/tags/{id}")
+  public ResponseEntity<TagResponse> updateTag(
+      @PathVariable Long id, @RequestBody UpdateTagRequest request) {
+    Tag tag = tagService.updateTag(id, request.name());
+    return ResponseEntity.ok(toTagResponse(tag));
+  }
+
+  @DeleteMapping("/tags/{id}")
+  public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
+    tagService.deleteTag(id);
     return ResponseEntity.noContent().build();
   }
 
@@ -100,7 +134,8 @@ public class WebContentController {
             request.content(),
             request.page(),
             request.language(),
-            request.imageIds());
+            request.imageIds(),
+            request.tagIds());
     return ResponseEntity.status(HttpStatus.CREATED).body(toArticleResponse(article));
   }
 
@@ -114,7 +149,8 @@ public class WebContentController {
             request.content(),
             request.state(),
             request.language(),
-            request.imageIds());
+            request.imageIds(),
+            request.tagIds());
     return ResponseEntity.ok(toArticleResponse(article));
   }
 
@@ -129,6 +165,7 @@ public class WebContentController {
   private ArticleResponse toArticleResponse(Article article) {
     List<ImageResponse> imageResponses =
         article.getImages().stream().map(this::toImageResponse).toList();
+    List<TagResponse> tagResponses = article.getTags().stream().map(this::toTagResponse).toList();
     return new ArticleResponse(
         article.getId(),
         article.getTitle(),
@@ -138,6 +175,7 @@ public class WebContentController {
         article.getLanguage(),
         article.getPublishedDate(),
         imageResponses,
+        tagResponses,
         article.getCreatedAt(),
         article.getUpdatedAt());
   }
@@ -145,5 +183,9 @@ public class WebContentController {
   private ImageResponse toImageResponse(Image image) {
     return new ImageResponse(
         image.getId(), image.getFileName(), image.getMimeType(), image.getCreatedAt());
+  }
+
+  private TagResponse toTagResponse(Tag tag) {
+    return new TagResponse(tag.getId(), tag.getName());
   }
 }

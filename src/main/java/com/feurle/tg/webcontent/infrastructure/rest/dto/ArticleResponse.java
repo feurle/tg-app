@@ -17,5 +17,6 @@ public record ArticleResponse(
     Language language,
     LocalDateTime publishedDate,
     List<ImageResponse> images,
+    List<TagResponse> tags,
     LocalDateTime createdAt,
     LocalDateTime updatedAt) {}

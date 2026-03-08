@@ -7,4 +7,9 @@ import com.feurle.tg.webcontent.domain.enumeration.Language;
 import java.util.List;
 
 public record UpdateArticleRequest(
-    String title, String content, ArticleState state, Language language, List<Long> imageIds) {}
+    String title,
+    String content,
+    ArticleState state,
+    Language language,
+    List<Long> imageIds,
+    List<Long> tagIds) {}

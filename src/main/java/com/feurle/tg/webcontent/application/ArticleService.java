@@ -20,6 +20,7 @@ public class ArticleService {
 
   private final ArticleRepository articleRepository;
   private final ImageRepository imageRepository;
+  private final TagRepository tagRepository;
 
   public List<Article> getAllArticles() {
     return articleRepository.findAll();
@@ -44,7 +45,12 @@ public class ArticleService {
   }
 
   public Article createArticle(
-      String title, String content, PageType page, Language language, List<Long> imageIds) {
+      String title,
+      String content,
+      PageType page,
+      Language language,
+      List<Long> imageIds,
+      List<Long> tagIds) {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);
@@ -56,6 +62,10 @@ public class ArticleService {
       article.setImages(imageRepository.findAllById(imageIds));
     }
 
+    if (tagIds != null && !tagIds.isEmpty()) {
+      article.setTags(tagRepository.findAllById(tagIds));
+    }
+
     return articleRepository.save(article);
   }
 
@@ -65,7 +75,8 @@ public class ArticleService {
       String content,
       ArticleState state,
       Language language,
-      List<Long> imageIds) {
+      List<Long> imageIds,
+      List<Long> tagIds) {
     Article article =
         articleRepository
             .findById(id)
@@ -87,6 +98,10 @@ public class ArticleService {
     if (imageIds != null) {
       article.setImages(
           imageIds.isEmpty() ? new ArrayList<>() : imageRepository.findAllById(imageIds));
+    }
+
+    if (tagIds != null) {
+      article.setTags(tagIds.isEmpty() ? new ArrayList<>() : tagRepository.findAllById(tagIds));
     }
 
     return articleRepository.save(article);

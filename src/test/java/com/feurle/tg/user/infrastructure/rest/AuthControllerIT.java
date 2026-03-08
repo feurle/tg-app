@@ -5,8 +5,8 @@ package com.feurle.tg.user.infrastructure.rest;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import tools.jackson.databind.ObjectMapper;
 import com.feurle.tg.user.domain.entity.User;
 import com.feurle.tg.user.domain.repository.UserRepository;
 import com.feurle.tg.user.infrastructure.rest.dto.LoginRequest;
@@ -21,7 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")

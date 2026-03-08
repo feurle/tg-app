@@ -7,4 +7,9 @@ import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import java.util.List;
 
 public record CreateArticleRequest(
-    String title, String content, PageType page, Language language, List<Long> imageIds) {}
+    String title,
+    String content,
+    PageType page,
+    Language language,
+    List<Long> imageIds,
+    List<Long> tagIds) {}

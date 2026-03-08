@@ -45,6 +45,13 @@ public class Article {
       inverseJoinColumns = @JoinColumn(name = "image_id"))
   private List<Image> images = new ArrayList<>();
 
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  @JoinTable(
+      name = "article_tags",
+      joinColumns = @JoinColumn(name = "article_id"),
+      inverseJoinColumns = @JoinColumn(name = "tag_id"))
+  private List<Tag> tags = new ArrayList<>();
+
   private LocalDateTime createdAt;
 
   private LocalDateTime updatedAt;

@@ -10,17 +10,17 @@ Die bestehenden Tests (6 Klassen) sind überwiegend Service-Level (`@SpringBootT
 
 ## Analyse: tmp/ vs. eigene Architektur
 
-| JHipster (tmp/) | Dieses Projekt |
-|---|---|
-| `@IntegrationTest` (Custom) | `@SpringBootTest + @AutoConfigureMockMvc` |
-| `AdminUserDTO`, `UserMapper` | `CreateUserRequest`, `UserResponse` direkte DTOs |
-| `/api/admin/users` | `/api/user` |
-| `/api/authorities` | kein AuthorityController vorhanden |
-| MapperDTOs (NewsArticleDTO) | keine Mapper-Schicht (direkte DTOs) |
-| JHipster-Enums (Language.GERMAN, Location.TEASER) | `Language.GERMAN`, `PageType.HOME_TEASER` |
-| `@WithMockUser(authorities = "ROLE_ADMIN")` | `@WithMockUser(roles = "ADMIN")` |
-| CSRF disabled | CSRF disabled (SecurityConfig) |
-| PATCH-Endpoints | keine PATCH-Endpoints (nur POST/PUT/DELETE) |
+| Dieses Projekt |
+|---|
+| `@SpringBootTest + @AutoConfigureMockMvc` |
+| `CreateUserRequest`, `UserResponse` direkte DTOs |
+|  `/api/user` |
+|  kein AuthorityController vorhanden |
+|  keine Mapper-Schicht (direkte DTOs) |
+|  `Language.GERMAN`, `PageType.HOME_TEASER` |
+| `@WithMockUser(roles = "ADMIN")` |
+| CSRF disabled (SecurityConfig) |
+| keine PATCH-Endpoints (nur POST/PUT/DELETE) |
 
 ---
 

@@ -6,15 +6,13 @@ import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import tools.jackson.databind.ObjectMapper;
 import com.feurle.tg.user.domain.entity.User;
 import com.feurle.tg.user.domain.repository.UserRepository;
 import com.feurle.tg.user.infrastructure.rest.dto.CreateUserRequest;
 import com.feurle.tg.user.infrastructure.rest.dto.UpdateUserRequest;
-import com.feurle.tg.user.infrastructure.rest.dto.UserResponse;
 import java.util.Optional;
-import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +24,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import tools.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
@@ -98,8 +96,7 @@ class UserControllerIT {
 
     // Act & Assert
     mockMvc
-        .perform(
-            get("/api/user/{id}", savedUser.getId()).contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/api/user/{id}", savedUser.getId()).contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.id", equalTo(savedUser.getId().intValue())))
         .andExpect(jsonPath("$.login", equalTo("testuser")))
@@ -125,8 +122,7 @@ class UserControllerIT {
 
     // Act & Assert
     mockMvc
-        .perform(
-            get("/api/user/login/{login}", "testuser").contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/api/user/login/{login}", "testuser").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.login", equalTo("testuser")))
         .andExpect(jsonPath("$.email", equalTo("testuser@example.com")));
@@ -138,8 +134,7 @@ class UserControllerIT {
     // Act & Assert
     mockMvc
         .perform(
-            get("/api/user/login/{login}", "nonexistent")
-                .contentType(MediaType.APPLICATION_JSON))
+            get("/api/user/login/{login}", "nonexistent").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
   }
 
@@ -245,14 +240,7 @@ class UserControllerIT {
     userRepository.save(testUser);
     CreateUserRequest request =
         new CreateUserRequest(
-            "testuser",
-            "newpassword",
-            "different@example.com",
-            "First",
-            "Last",
-            "de",
-            null,
-            null);
+            "testuser", "newpassword", "different@example.com", "First", "Last", "de", null, null);
 
     // Act & Assert - expect error status (400, 409, or 500)
     mockMvc
@@ -320,9 +308,7 @@ class UserControllerIT {
     User savedUser = userRepository.save(testUser);
 
     // Act & Assert
-    mockMvc
-        .perform(delete("/api/user/{id}", savedUser.getId()))
-        .andExpect(status().isNoContent());
+    mockMvc.perform(delete("/api/user/{id}", savedUser.getId())).andExpect(status().isNoContent());
 
     // Verify user was deleted
     assertThat(userRepository.findById(savedUser.getId())).isEmpty();
@@ -344,14 +330,7 @@ class UserControllerIT {
     // Arrange
     CreateUserRequest request =
         new CreateUserRequest(
-            "publicuser",
-            "password123",
-            "public@example.com",
-            "Public",
-            "User",
-            "de",
-            null,
-            null);
+            "publicuser", "password123", "public@example.com", "Public", "User", "de", null, null);
 
     // Act & Assert
     mockMvc
