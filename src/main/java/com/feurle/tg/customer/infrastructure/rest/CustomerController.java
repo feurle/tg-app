@@ -23,17 +23,17 @@ public class CustomerController {
   @GetMapping
   public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
     return ResponseEntity.ok(
-        customerService.getAllCustomers().stream().map(this::toCustomerResponse).toList());
+        customerService.getAllCustomers().stream().map(this::mapToCustomerResponse).toList());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Long id) {
-    return ResponseEntity.ok(toCustomerResponse(customerService.getCustomerById(id)));
+    return ResponseEntity.ok(mapToCustomerResponse(customerService.getCustomerById(id)));
   }
 
   @GetMapping("/email/{email}")
   public ResponseEntity<CustomerResponse> getCustomerByEmail(@PathVariable String email) {
-    return ResponseEntity.ok(toCustomerResponse(customerService.getCustomerByEmail(email)));
+    return ResponseEntity.ok(mapToCustomerResponse(customerService.getCustomerByEmail(email)));
   }
 
   @PostMapping
@@ -50,7 +50,7 @@ public class CustomerController {
             request.state(),
             request.zip(),
             request.country());
-    return ResponseEntity.status(HttpStatus.CREATED).body(toCustomerResponse(customer));
+    return ResponseEntity.status(HttpStatus.CREATED).body(mapToCustomerResponse(customer));
   }
 
   @PutMapping("/{id}")
@@ -68,7 +68,7 @@ public class CustomerController {
             request.state(),
             request.zip(),
             request.country());
-    return ResponseEntity.ok(toCustomerResponse(customer));
+    return ResponseEntity.ok(mapToCustomerResponse(customer));
   }
 
   @DeleteMapping("/{id}")
@@ -79,7 +79,7 @@ public class CustomerController {
 
   // ========== Mapping ==========
 
-  private CustomerResponse toCustomerResponse(Customer customer) {
+  private CustomerResponse mapToCustomerResponse(Customer customer) {
     return new CustomerResponse(
         customer.getId(),
         customer.getFirstName(),

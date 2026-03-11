@@ -35,7 +35,7 @@ public class WebContentController {
   @GetMapping("/images")
   public ResponseEntity<List<ImageResponse>> getAllImages() {
     return ResponseEntity.ok(
-        imageService.getAllImages().stream().map(this::toImageResponse).toList());
+        imageService.getAllImages().stream().map(this::mapToImageResponse).toList());
   }
 
   @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -43,7 +43,7 @@ public class WebContentController {
       throws IOException {
     Image image =
         imageService.upload(file.getBytes(), file.getOriginalFilename(), file.getContentType());
-    return ResponseEntity.status(HttpStatus.CREATED).body(toImageResponse(image));
+    return ResponseEntity.status(HttpStatus.CREATED).body(mapToImageResponse(image));
   }
 
   @GetMapping("/images/{imageId}/download")
@@ -68,25 +68,25 @@ public class WebContentController {
 
   @GetMapping("/tags")
   public ResponseEntity<List<TagResponse>> getAllTags() {
-    return ResponseEntity.ok(tagService.getAllTags().stream().map(this::toTagResponse).toList());
+    return ResponseEntity.ok(tagService.getAllTags().stream().map(this::mapToTagResponse).toList());
   }
 
   @GetMapping("/tags/{id}")
   public ResponseEntity<TagResponse> getTag(@PathVariable Long id) {
-    return ResponseEntity.ok(toTagResponse(tagService.getTag(id)));
+    return ResponseEntity.ok(mapToTagResponse(tagService.getTag(id)));
   }
 
   @PostMapping("/tags")
   public ResponseEntity<TagResponse> createTag(@RequestBody CreateTagRequest request) {
     Tag tag = tagService.createTag(request.name());
-    return ResponseEntity.status(HttpStatus.CREATED).body(toTagResponse(tag));
+    return ResponseEntity.status(HttpStatus.CREATED).body(mapToTagResponse(tag));
   }
 
   @PutMapping("/tags/{id}")
   public ResponseEntity<TagResponse> updateTag(
       @PathVariable Long id, @RequestBody UpdateTagRequest request) {
     Tag tag = tagService.updateTag(id, request.name());
-    return ResponseEntity.ok(toTagResponse(tag));
+    return ResponseEntity.ok(mapToTagResponse(tag));
   }
 
   @DeleteMapping("/tags/{id}")
@@ -100,13 +100,13 @@ public class WebContentController {
   @GetMapping("/articles")
   public ResponseEntity<List<ArticleResponse>> getAllArticles() {
     return ResponseEntity.ok(
-        articleService.getAllArticles().stream().map(this::toArticleResponse).toList());
+        articleService.getAllArticles().stream().map(this::mapToArticleResponse).toList());
   }
 
   @GetMapping("/articles/page/{pageType}")
   public ResponseEntity<List<ArticleResponse>> getArticlesByPage(@PathVariable PageType pageType) {
     return ResponseEntity.ok(
-        articleService.getArticlesByPage(pageType).stream().map(this::toArticleResponse).toList());
+        articleService.getArticlesByPage(pageType).stream().map(this::mapToArticleResponse).toList());
   }
 
   @GetMapping("/articles/page/{pageType}/published")
@@ -118,12 +118,12 @@ public class WebContentController {
     } else {
       articles = articleService.getPublishedArticlesByPage(pageType);
     }
-    return ResponseEntity.ok(articles.stream().map(this::toArticleResponse).toList());
+    return ResponseEntity.ok(articles.stream().map(this::mapToArticleResponse).toList());
   }
 
   @GetMapping("/articles/{id}")
   public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id) {
-    return ResponseEntity.ok(toArticleResponse(articleService.getArticleById(id)));
+    return ResponseEntity.ok(mapToArticleResponse(articleService.getArticleById(id)));
   }
 
   @PostMapping("/articles")
@@ -136,7 +136,7 @@ public class WebContentController {
             request.language(),
             request.imageIds(),
             request.tagIds());
-    return ResponseEntity.status(HttpStatus.CREATED).body(toArticleResponse(article));
+    return ResponseEntity.status(HttpStatus.CREATED).body(mapToArticleResponse(article));
   }
 
   @PutMapping("/articles/{id}")
@@ -151,7 +151,7 @@ public class WebContentController {
             request.language(),
             request.imageIds(),
             request.tagIds());
-    return ResponseEntity.ok(toArticleResponse(article));
+    return ResponseEntity.ok(mapToArticleResponse(article));
   }
 
   @DeleteMapping("/articles/{id}")
@@ -162,10 +162,10 @@ public class WebContentController {
 
   // ========== Mapping ==========
 
-  private ArticleResponse toArticleResponse(Article article) {
+  private ArticleResponse mapToArticleResponse(Article article) {
     List<ImageResponse> imageResponses =
-        article.getImages().stream().map(this::toImageResponse).toList();
-    List<TagResponse> tagResponses = article.getTags().stream().map(this::toTagResponse).toList();
+        article.getImages().stream().map(this::mapToImageResponse).toList();
+    List<TagResponse> tagResponses = article.getTags().stream().map(this::mapToTagResponse).toList();
     return new ArticleResponse(
         article.getId(),
         article.getTitle(),
@@ -180,12 +180,12 @@ public class WebContentController {
         article.getUpdatedAt());
   }
 
-  private ImageResponse toImageResponse(Image image) {
+  private ImageResponse mapToImageResponse(Image image) {
     return new ImageResponse(
         image.getId(), image.getFileName(), image.getMimeType(), image.getCreatedAt());
   }
 
-  private TagResponse toTagResponse(Tag tag) {
+  private TagResponse mapToTagResponse(Tag tag) {
     return new TagResponse(tag.getId(), tag.getName());
   }
 }

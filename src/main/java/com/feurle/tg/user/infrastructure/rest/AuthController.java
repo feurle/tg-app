@@ -52,7 +52,7 @@ public class AuthController {
 
       return userService
           .findByLogin(request.login())
-          .map(user -> ResponseEntity.ok((Object) toResponse(user)))
+          .map(user -> ResponseEntity.ok((Object) mapToAuthUserResponse(user)))
           .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 
     } catch (BadCredentialsException e) {
@@ -71,7 +71,7 @@ public class AuthController {
 
     return userService
         .findByLogin(authentication.getName())
-        .map(user -> ResponseEntity.ok((Object) toResponse(user)))
+        .map(user -> ResponseEntity.ok((Object) mapToAuthUserResponse(user)))
         .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
   }
 
@@ -85,7 +85,7 @@ public class AuthController {
     return ResponseEntity.noContent().build();
   }
 
-  private AuthUserResponse toResponse(User user) {
+  private AuthUserResponse mapToAuthUserResponse(User user) {
     return new AuthUserResponse(
         user.getLogin(),
         user.getFirstName(),
