@@ -58,8 +58,7 @@ public class UserController {
 
   @GetMapping
   public ResponseEntity<List<UserResponse>> getAllUsers() {
-    List<UserResponse> users =
-        userService.findAll().stream().map(this::mapToUserResponse).toList();
+    List<UserResponse> users = userService.findAll().stream().map(this::mapToUserResponse).toList();
     return ResponseEntity.ok(users);
   }
 
