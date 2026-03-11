@@ -78,7 +78,7 @@ public class SecurityConfig {
     // Enable Basic Auth only in dev profile for easy curl/Postman testing
     if (isDevProfile()) {
       http.httpBasic(withDefaults());
-      http.headers(headers -> headers.frameOptions(withDefaults()));
+      http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     } else {
       http.httpBasic(basic -> basic.disable());
       http.headers(

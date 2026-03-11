@@ -7,4 +7,6 @@ public enum PageType {
   HOME_PAGE,
   NEWS_TEASER,
   NEWS_PAGE,
+  ABOUT_PAGE,
+  ABOUT_TEASER,
 }

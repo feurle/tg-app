@@ -33,7 +33,7 @@ public class AppUserDetailsService implements UserDetailsService {
         .authorities(
             user.getAuthorities().stream()
                 .map(a -> new SimpleGrantedAuthority(a.getName()))
-                .collect(Collectors.toList()))
+                    .toList())
         .disabled(!user.getActivated())
         .build();
   }

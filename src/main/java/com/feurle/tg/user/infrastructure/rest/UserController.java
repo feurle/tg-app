@@ -53,13 +53,13 @@ public class UserController {
     }
 
     User created = userService.createUser(user);
-    return ResponseEntity.status(HttpStatus.CREATED).body(mapToResponse(created));
+    return ResponseEntity.status(HttpStatus.CREATED).body(mapToUserResponse(created));
   }
 
   @GetMapping
   public ResponseEntity<List<UserResponse>> getAllUsers() {
     List<UserResponse> users =
-        userService.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
+        userService.findAll().stream().map(this::mapToUserResponse).toList();
     return ResponseEntity.ok(users);
   }
 
@@ -67,7 +67,7 @@ public class UserController {
   public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
     return userService
         .findById(id)
-        .map(user -> ResponseEntity.ok(mapToResponse(user)))
+        .map(user -> ResponseEntity.ok(mapToUserResponse(user)))
         .orElse(ResponseEntity.notFound().build());
   }
 
@@ -75,7 +75,7 @@ public class UserController {
   public ResponseEntity<UserResponse> getUserByLogin(@PathVariable String login) {
     return userService
         .findByLogin(login)
-        .map(user -> ResponseEntity.ok(mapToResponse(user)))
+        .map(user -> ResponseEntity.ok(mapToUserResponse(user)))
         .orElse(ResponseEntity.notFound().build());
   }
 
@@ -83,7 +83,7 @@ public class UserController {
   public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
     return userService
         .findByEmail(email)
-        .map(user -> ResponseEntity.ok(mapToResponse(user)))
+        .map(user -> ResponseEntity.ok(mapToUserResponse(user)))
         .orElse(ResponseEntity.notFound().build());
   }
 
@@ -115,7 +115,7 @@ public class UserController {
     }
 
     User updated = userService.updateUser(id, userUpdate);
-    return ResponseEntity.ok(mapToResponse(updated));
+    return ResponseEntity.ok(mapToUserResponse(updated));
   }
 
   @DeleteMapping("/{id}")
@@ -124,7 +124,7 @@ public class UserController {
     return ResponseEntity.noContent().build();
   }
 
-  private UserResponse mapToResponse(User user) {
+  private UserResponse mapToUserResponse(User user) {
     return new UserResponse(
         user.getId(),
         user.getLogin(),
