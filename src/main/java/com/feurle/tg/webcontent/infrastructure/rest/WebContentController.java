@@ -106,7 +106,9 @@ public class WebContentController {
   @GetMapping("/articles/page/{pageType}")
   public ResponseEntity<List<ArticleResponse>> getArticlesByPage(@PathVariable PageType pageType) {
     return ResponseEntity.ok(
-        articleService.getArticlesByPage(pageType).stream().map(this::mapToArticleResponse).toList());
+        articleService.getArticlesByPage(pageType).stream()
+            .map(this::mapToArticleResponse)
+            .toList());
   }
 
   @GetMapping("/articles/page/{pageType}/published")
@@ -165,7 +167,8 @@ public class WebContentController {
   private ArticleResponse mapToArticleResponse(Article article) {
     List<ImageResponse> imageResponses =
         article.getImages().stream().map(this::mapToImageResponse).toList();
-    List<TagResponse> tagResponses = article.getTags().stream().map(this::mapToTagResponse).toList();
+    List<TagResponse> tagResponses =
+        article.getTags().stream().map(this::mapToTagResponse).toList();
     return new ArticleResponse(
         article.getId(),
         article.getTitle(),

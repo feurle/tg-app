@@ -4,7 +4,6 @@ package com.feurle.tg.user.application;
 
 import com.feurle.tg.user.domain.entity.User;
 import com.feurle.tg.user.domain.repository.UserRepository;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,7 +32,7 @@ public class AppUserDetailsService implements UserDetailsService {
         .authorities(
             user.getAuthorities().stream()
                 .map(a -> new SimpleGrantedAuthority(a.getName()))
-                    .toList())
+                .toList())
         .disabled(!user.getActivated())
         .build();
   }
