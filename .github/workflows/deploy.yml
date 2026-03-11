@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - trunk
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/tg-app
