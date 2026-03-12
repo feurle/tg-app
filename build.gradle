@@ -71,7 +71,7 @@ jacocoTestReport {
 	dependsOn test
 	reports {
 		html.required = true
-		xml.required = false
+		xml.required = true
 	}
 }
 
@@ -94,5 +94,7 @@ sonar {
 	properties {
 		property "sonar.projectKey", "feurle_tg-app"
 		property "sonar.organization", "feurle"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }

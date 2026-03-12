@@ -43,8 +43,10 @@ jobs:
           restore-keys: |
             gradle-
 
-      - name: Run Tests with Coverage
-        run: ./gradlew test jacocoTestReport
+      - name: Build and Analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew test bootJar sonar
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
@@ -52,11 +54,6 @@ jobs:
           name: coverage-report
           path: build/reports/jacoco/test/html/
         if: always()
-
-      - name: Build and Analyze
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew bootJar sonar --info
 
   # ─────────────────────────────────────────
   # JOB 2: Docker Image bauen & pushen

@@ -22,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
   // Production/Default profile - Session auth only (no Basic Auth)
   // Note: Use @Profile("!dev") if you want to explicitly exclude dev profile
+  // @TODO: refactor to JWT
 
   private final AppUserDetailsService userDetailsService;
   private final Environment environment;
