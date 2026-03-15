@@ -1,0 +1,25 @@
+services:
+  tg-database:
+    container_name: tg-database
+    image: mysql:9.2.0
+    volumes:
+      - tg-database:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    command: mysqld --lower_case_table_names=1 --skip-mysqlx --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - nginx-proxy-network
+
+volumes:
+  tg-database:
+
+networks:
+  nginx-proxy-network:
+    external: true
