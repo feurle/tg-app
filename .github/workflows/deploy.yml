@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - trunk
+      - 'feature/**'
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/tg-app
@@ -63,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build  # Nur wenn Tests grün sind!
     outputs:
-      image-tag: ${{ steps.meta.outputs.version }}
+      image-tag: ${{ steps.tag.outputs.value }}
 
     steps:
       - name: Checkout Code
@@ -91,21 +92,24 @@ jobs:
           restore-keys: |
             gradle-
 
-      - name: Extract Image Metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=latest
-            type=sha,prefix=sha-
+      - name: Determine Image Tag
+        id: tag
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/trunk" ]; then
+            echo "value=latest" >> $GITHUB_OUTPUT
+          else
+            echo "value=snapshot" >> $GITHUB_OUTPUT
+          fi
 
       - name: Build & Push Docker Image (Gradle bootBuildImage)
         run: |
-          ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:latest
-          docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
-          docker push ${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
+          docker push ${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
+          
+          if [ "${{ steps.tag.outputs.value }}" = "latest" ]; then
+            docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+            docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          fi
 
   # ─────────────────────────────────────────
   # JOB 3: Deploy auf den Server
@@ -123,19 +127,24 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Neuestes Image holen
-            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker pull ${{ env.IMAGE_NAME }}:${{ needs.docker.outputs.image-tag }}
 
-            # Container neu starten
-            docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
+            if [ "${{ needs.docker.outputs.image-tag }}" = "latest" ]; then
+              docker compose -f /appbase/tg-app/prod-compose.yml up tg-app-prod -d
+            else
+              docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
+            fi
 
-            # Alte Images aufräumen
             docker image prune -f
 
       - name: Health Check
-        # @TODO: health check routing
         run: |
+          if [ "${{ needs.docker.outputs.image-tag }}" = "latest" ]; then
+            VIRTUAL_HOST=${{ secrets.VIRTUAL_HOST_PROD }}
+          else
+            VIRTUAL_HOST=${{ secrets.VIRTUAL_HOST_TEST }}
+          fi
           echo "Warte 60s auf Spring Boot Start..."
           sleep 60
           curl --fail --retry 5 --retry-delay 10 \
-            https://${{ secrets.VIRTUAL_HOST }}/actuator/health
+            https://${VIRTUAL_HOST}/actuator/health

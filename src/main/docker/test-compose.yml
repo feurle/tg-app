@@ -1,6 +1,6 @@
 services:
   tg-app-test:
-    image: feurle/tg-app:latest
+    image: feurle/tg-app:snapshot
     container_name: tg-app-test
     restart: unless-stopped
     expose:
@@ -13,7 +13,7 @@ services:
       - nginx-proxy-network
 
   tg-web-test:
-    image: feurle/tg-web:latest
+    image: feurle/tg-web:snapshot
     container_name: tg-web-test
     restart: unless-stopped
     environment:
