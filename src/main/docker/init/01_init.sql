@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS `tg-database`;
+CREATE DATABASE IF NOT EXISTS `tg-database-test`;
