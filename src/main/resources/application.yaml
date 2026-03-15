@@ -10,6 +10,3 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-  mail:
-    host: ${MAIL_HOST}:localhost
-    port: ${MAIL_PORT}:1025
