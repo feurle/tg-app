@@ -199,3 +199,39 @@ databaseChangeLog:
               - column:
                   name: image_id
                   type: numeric
+
+  - changeSet:
+      id: 007-load-fake-tags
+      author: system
+      context: faker
+      changes:
+        - loadData:
+            file: db/fake-data/tag.csv
+            tableName: tag
+            separator: ;
+            quotchar: '"'
+            columns:
+              - column:
+                  name: id
+                  type: numeric
+              - column:
+                  name: name
+                  type: string
+
+  - changeSet:
+      id: 008-load-fake-article-tags
+      author: system
+      context: faker
+      changes:
+        - loadData:
+            file: db/fake-data/article_tag.csv
+            tableName: article_tags
+            separator: ;
+            quotchar: '"'
+            columns:
+              - column:
+                  name: article_id
+                  type: numeric
+              - column:
+                  name: tag_id
+                  type: numeric
