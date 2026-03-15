@@ -1,10 +1,9 @@
-# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-name: tg-app
 services:
   mysql:
+    container_name: tg-database
     image: mysql:9.2.0
     volumes:
-      - mysql_data:/var/lib/mysql
+      - tg-database_data:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=tg-app
@@ -21,4 +20,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  mysql_data:
+  tg-database_data:

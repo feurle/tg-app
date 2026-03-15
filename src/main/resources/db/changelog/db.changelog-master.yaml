@@ -10,8 +10,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/webcontent/002-load-fake-data.yaml
   - include:
-      file: db/changelog/webcontent/003-add-tags.yaml
-  - include:
       file: db/changelog/customer/001-init-schema.yaml
   - include:
       file: db/changelog/customer/002-load-fake-data.yaml

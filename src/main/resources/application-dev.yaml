@@ -4,12 +4,12 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
-  h2:
-    console:
-      enabled: true
   jpa:
     show-sql: false
     database-platform: org.hibernate.dialect.H2Dialect
   liquibase:
     contexts: faker
     drop-first: true
+  h2:
+    console:
+      enabled: true

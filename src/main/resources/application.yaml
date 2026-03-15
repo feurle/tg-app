@@ -1,12 +1,15 @@
 spring:
   application:
     name: tg-app
-  jpa:
-    hibernate:
-      ddl-auto: none
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  jpa:
+    hibernate:
+      ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+  mail:
+    host: ${MAIL_HOST}:localhost
+    port: ${MAIL_PORT}:1025
