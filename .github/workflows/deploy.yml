@@ -127,12 +127,13 @@ jobs:
             docker pull ${{ env.IMAGE_NAME }}:latest
 
             # Container neu starten
-            docker compose -f /appbase/tg-app/docker-compose.yml up tg-app -d
+            docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
 
             # Alte Images aufräumen
             docker image prune -f
 
       - name: Health Check
+        # @TODO: health check routing
         run: |
           echo "Warte 60s auf Spring Boot Start..."
           sleep 60

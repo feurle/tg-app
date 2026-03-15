@@ -1,25 +1,25 @@
 services:
-  tg-app:
+  tg-app-prod:
     image: feurle/tg-app:latest
-    container_name: tg-app-test
+    container_name: tg-app-prod
     restart: unless-stopped
     expose:
       - "8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=test
+      - SPRING_PROFILES_ACTIVE=prod
       - DB_HOST=tg-database
-      - DB_NAME=tg-database-test
+      - DB_NAME=tg-database
     networks:
       - nginx-proxy-network
 
-  tg-web:
+  tg-web-prod:
     image: feurle/tg-web:latest
-    container_name: tg-web-test
+    container_name: tg-web-prod
     restart: unless-stopped
     environment:
-      - BACKEND_URL=http://tg-app:8080
-      - VIRTUAL_HOST=test.example.com
-      - LETSENCRYPT_HOST=test.example.com
+      - BACKEND_URL=http://tg-app-prod:8080
+      - VIRTUAL_HOST=prod.example.com
+      - LETSENCRYPT_HOST=prod.example.com
     networks:
       - nginx-proxy-network
 
