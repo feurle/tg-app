@@ -45,10 +45,11 @@ public class WebContentController {
   }
 
   @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<ImageResponse> uploadImage(@RequestParam MultipartFile file)
-      throws IOException {
+  public ResponseEntity<ImageResponse> uploadImage(
+      @RequestParam MultipartFile file,
+      @RequestParam(required = false) String title) throws IOException {
     Image image =
-        imageService.upload(file.getBytes(), file.getOriginalFilename(), file.getContentType());
+        imageService.upload(file.getBytes(), file.getOriginalFilename(), file.getContentType(), title);
     return ResponseEntity.status(HttpStatus.CREATED).body(imageMapper.toResponse(image));
   }
 
@@ -62,6 +63,13 @@ public class WebContentController {
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_TYPE, contentType)
         .body(image.getImageData());
+  }
+
+  @PutMapping("/images/{imageId}")
+  public ResponseEntity<ImageResponse> updateImage(
+      @PathVariable Long imageId, @RequestBody UpdateImageRequest request) {
+    Image image = imageService.updateImage(imageId, request.title());
+    return ResponseEntity.ok(imageMapper.toResponse(image));
   }
 
   @DeleteMapping("/images/{imageId}")

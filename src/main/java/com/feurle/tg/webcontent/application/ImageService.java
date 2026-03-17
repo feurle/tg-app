@@ -20,7 +20,7 @@ public class ImageService {
     return imageRepository.findAll();
   }
 
-  public Image upload(byte[] data, String fileName, String mimeType) {
+  public Image upload(byte[] data, String fileName, String mimeType, String title) {
     if (data == null || data.length == 0) {
       throw new IllegalArgumentException("Image data cannot be empty");
     }
@@ -29,6 +29,7 @@ public class ImageService {
     image.setImageData(data);
     image.setFileName(fileName);
     image.setMimeType(mimeType);
+    image.setTitle(title);
 
     return imageRepository.save(image);
   }
@@ -37,6 +38,12 @@ public class ImageService {
     return imageRepository
         .findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Image not found: " + id));
+  }
+
+  public Image updateImage(Long id, String title) {
+    Image image = getImage(id);
+    image.setTitle(title);
+    return imageRepository.save(image);
   }
 
   public void deleteImage(Long id) {

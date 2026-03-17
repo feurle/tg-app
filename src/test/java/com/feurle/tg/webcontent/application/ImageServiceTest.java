@@ -35,7 +35,7 @@ class ImageServiceTest {
 
     when(imageRepository.save(any(Image.class))).thenReturn(saved);
 
-    Image result = imageService.upload(data, "photo.jpg", "image/jpeg");
+    Image result = imageService.upload(data, "photo.jpg", "image/jpeg", "Title");
 
     assertThat(result.getFileName()).isEqualTo("photo.jpg");
     assertThat(result.getMimeType()).isEqualTo("image/jpeg");
@@ -45,7 +45,7 @@ class ImageServiceTest {
 
   @Test
   void upload_throwsWhenDataIsNull() {
-    assertThatThrownBy(() -> imageService.upload(null, "photo.jpg", "image/jpeg"))
+    assertThatThrownBy(() -> imageService.upload(null, "photo.jpg", "image/jpeg", "Title"))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Image data cannot be empty");
 
@@ -54,7 +54,7 @@ class ImageServiceTest {
 
   @Test
   void upload_throwsWhenDataIsEmpty() {
-    assertThatThrownBy(() -> imageService.upload(new byte[0], "photo.jpg", "image/jpeg"))
+    assertThatThrownBy(() -> imageService.upload(new byte[0], "photo.jpg", "image/jpeg","Title"))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Image data cannot be empty");
 
