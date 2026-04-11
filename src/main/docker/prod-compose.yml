@@ -9,6 +9,10 @@ services:
       - SPRING_PROFILES_ACTIVE=stage
       - DB_HOST=tg-database
       - DB_NAME=tg-database
+      - SMTP_HOST=localhost
+      - SMTP_USERNAME=username
+      - SMTP_PASSWORD=password
+      - CONTACT_RECIPIENT_EMAIL=dev@localhost
     networks:
       - nginx-proxy-network
 
