@@ -37,7 +37,9 @@ class GlobalExceptionHandlerIT {
   private MockMvc mockMvc;
   private MockMvc standaloneMvc;
 
-  /** Minimal test controller to trigger exception types that are hard to provoke via the real API */
+  /**
+   * Minimal test controller to trigger exception types that are hard to provoke via the real API
+   */
   @RestController
   static class ExceptionTriggerController {
 

@@ -31,6 +31,13 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    host: localhost
+    port: 1025
+
+app:
+  contact:
+    recipient-email: dev@localhost
 
 ---
 
@@ -47,4 +54,16 @@ spring:
   liquibase:
     drop-first: false
     contexts: stage
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT:465}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+
+app:
+  contact:
+    recipient-email: ${CONTACT_RECIPIENT_EMAIL}
 

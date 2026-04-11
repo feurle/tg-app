@@ -1,0 +1,23 @@
+info:
+  name: Send Message
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/contact/message"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Testanfrage",
+        "text": "Hallo, ich habe eine Frage zu meinem Tier.",
+        "replyToEmail": "absender@example.com"
+      }
+  auth: none
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

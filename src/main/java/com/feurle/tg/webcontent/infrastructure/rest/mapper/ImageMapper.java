@@ -11,6 +11,10 @@ public class ImageMapper {
 
   public ImageResponse toResponse(Image image) {
     return new ImageResponse(
-        image.getId(), image.getFileName(), image.getTitle(), image.getMimeType(), image.getCreatedAt());
+        image.getId(),
+        image.getFileName(),
+        image.getTitle(),
+        image.getMimeType(),
+        image.getCreatedAt());
   }
 }

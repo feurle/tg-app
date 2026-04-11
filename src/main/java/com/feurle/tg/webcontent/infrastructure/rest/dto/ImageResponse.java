@@ -4,4 +4,5 @@ package com.feurle.tg.webcontent.infrastructure.rest.dto;
 
 import java.time.LocalDateTime;
 
-public record ImageResponse(Long id, String fileName, String title, String mimeType, LocalDateTime createdAt) {}
+public record ImageResponse(
+    Long id, String fileName, String title, String mimeType, LocalDateTime createdAt) {}

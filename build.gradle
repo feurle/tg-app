@@ -1,9 +1,9 @@
 plugins {
 	id 'java'
 	id 'jacoco'
-	id 'org.springframework.boot' version '4.0.3'
+	id 'org.springframework.boot' version '4.0.5'
 	id 'io.spring.dependency-management' version '1.1.7'
-	id 'com.diffplug.spotless' version '6.25.0'
+	id 'com.diffplug.spotless' version '8.4.0'
 	id "org.sonarqube" version "7.2.3.7755"
 }
 
@@ -28,7 +28,7 @@ repositories {
 }
 
 ext {
-	set('springModulithVersion', "2.0.3")
+	set('springModulithVersion', "2.0.5")
 }
 
 dependencies {
@@ -37,6 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.modulith:spring-modulith-starter-core'
 	implementation 'org.springframework.modulith:spring-modulith-starter-jpa'
@@ -85,7 +86,7 @@ bootRun {
 
 spotless {
 	java {
-		googleJavaFormat('1.31.0')
+		googleJavaFormat('1.35.0')
 		licenseHeader '// SPDX-License-Identifier: MIT\n// Copyright (C) 2026 Daniel Feurle'
 	}
 }

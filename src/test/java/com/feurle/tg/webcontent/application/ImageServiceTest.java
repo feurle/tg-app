@@ -54,7 +54,7 @@ class ImageServiceTest {
 
   @Test
   void upload_throwsWhenDataIsEmpty() {
-    assertThatThrownBy(() -> imageService.upload(new byte[0], "photo.jpg", "image/jpeg","Title"))
+    assertThatThrownBy(() -> imageService.upload(new byte[0], "photo.jpg", "image/jpeg", "Title"))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Image data cannot be empty");
 
