@@ -62,6 +62,9 @@ public class SecurityConfig {
               .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
+              .permitAll()
+              // Contact form
+              .requestMatchers(HttpMethod.POST, "/api/contact/message")
               .permitAll();
 
           // H2 Console (dev only)

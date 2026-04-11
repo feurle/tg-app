@@ -46,10 +46,11 @@ public class WebContentController {
 
   @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<ImageResponse> uploadImage(
-      @RequestParam MultipartFile file,
-      @RequestParam(required = false) String title) throws IOException {
+      @RequestParam MultipartFile file, @RequestParam(required = false) String title)
+      throws IOException {
     Image image =
-        imageService.upload(file.getBytes(), file.getOriginalFilename(), file.getContentType(), title);
+        imageService.upload(
+            file.getBytes(), file.getOriginalFilename(), file.getContentType(), title);
     return ResponseEntity.status(HttpStatus.CREATED).body(imageMapper.toResponse(image));
   }
 
@@ -175,5 +176,4 @@ public class WebContentController {
     articleService.deleteArticle(id);
     return ResponseEntity.noContent().build();
   }
-
 }

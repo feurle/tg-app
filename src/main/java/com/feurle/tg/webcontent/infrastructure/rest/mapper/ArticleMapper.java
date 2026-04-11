@@ -20,8 +20,7 @@ public class ArticleMapper {
   public ArticleResponse toResponse(Article article) {
     List<ImageResponse> imageResponses =
         article.getImages().stream().map(imageMapper::toResponse).toList();
-    List<TagResponse> tagResponses =
-        article.getTags().stream().map(tagMapper::toResponse).toList();
+    List<TagResponse> tagResponses = article.getTags().stream().map(tagMapper::toResponse).toList();
     return new ArticleResponse(
         article.getId(),
         article.getTitle(),

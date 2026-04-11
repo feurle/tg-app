@@ -172,8 +172,6 @@ class TagControllerIT {
   @Test
   @WithMockUser(roles = "ADMIN")
   void deleteTag_nonExistent_returns204() throws Exception {
-    mockMvc
-        .perform(delete("/api/webcontent/tags/{id}", 999L))
-        .andExpect(status().isNoContent());
+    mockMvc.perform(delete("/api/webcontent/tags/{id}", 999L)).andExpect(status().isNoContent());
   }
 }
