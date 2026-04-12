@@ -9,6 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -75,6 +77,26 @@ public class GlobalExceptionHandler {
     ErrorResponse errorResponse =
         new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request", "Invalid request format");
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  /** Handle Spring Security access denied (insufficient role). */
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ErrorResponse> handleAccessDenied(
+      AccessDeniedException ex, WebRequest request) {
+    log.warn("Access denied: {}", ex.getMessage());
+    ErrorResponse errorResponse =
+        new ErrorResponse(HttpStatus.FORBIDDEN.value(), "Forbidden", "Access denied");
+    return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+  }
+
+  /** Handle Spring Security authentication failures. */
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleAuthentication(
+      AuthenticationException ex, WebRequest request) {
+    log.warn("Authentication failed: {}", ex.getMessage());
+    ErrorResponse errorResponse =
+        new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "Unauthorized", "Authentication required");
+    return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
   }
 
   /** Handle all other uncaught exceptions. */
