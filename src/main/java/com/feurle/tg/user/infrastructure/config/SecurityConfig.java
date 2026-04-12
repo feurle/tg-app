@@ -11,6 +11,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,10 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
   // Production/Default profile - Session auth only (no Basic Auth)
   // Note: Use @Profile("!dev") if you want to explicitly exclude dev profile
   // @TODO: refactor to JWT
+  // @TODO: use methodLevelSecurity - preAuthorize
 
   private final AppUserDetailsService userDetailsService;
   private final Environment environment;
@@ -63,14 +66,11 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
               .permitAll()
-              // Contact form
+              // Contact form + public contact info
               .requestMatchers(HttpMethod.POST, "/api/contact/message")
+              .permitAll()
+              .requestMatchers(HttpMethod.GET, "/api/contact/info")
               .permitAll();
-
-          // H2 Console (dev only)
-          if (isDevProfile()) {
-            authz.requestMatchers("/h2-console/**").permitAll();
-          }
 
           // All other requests require authentication
           authz.anyRequest().authenticated();
@@ -80,7 +80,7 @@ public class SecurityConfig {
     http.formLogin(form -> form.disable());
 
     // Enable Basic Auth only in dev profile for easy curl/Postman testing
-    if (isDevProfile()) {
+    if (isDevOrStageProfile()) {
       http.httpBasic(withDefaults());
       http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     } else {
@@ -95,10 +95,10 @@ public class SecurityConfig {
     return http.build();
   }
 
-  private boolean isDevProfile() {
+  private boolean isDevOrStageProfile() {
     String[] activeProfiles = environment.getActiveProfiles();
     for (String profile : activeProfiles) {
-      if ("dev".equals(profile)) {
+      if ("dev".equals(profile) || ("stage".equals(profile))) {
         return true;
       }
     }
