@@ -28,16 +28,9 @@ spring:
   liquibase:
     contexts: faker
     drop-first: true
-  h2:
-    console:
-      enabled: true
   mail:
     host: localhost
     port: 1025
-
-app:
-  contact:
-    recipient-email: dev@localhost
 
 ---
 
@@ -64,7 +57,3 @@ spring:
       mail.smtp.starttls.enable: true      # STARTTLS statt SSL
       mail.smtp.starttls.required: true    # optional aber empfohlen
       mail.smtp.ssl.enable: false
-
-app:
-  contact:
-    recipient-email: ${CONTACT_RECIPIENT_EMAIL}

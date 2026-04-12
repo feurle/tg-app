@@ -2,7 +2,3 @@ spring:
   mail:
     host: localhost
     port: 1025
-
-app:
-  contact:
-    recipient-email: test@localhost

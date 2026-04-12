@@ -12,7 +12,6 @@ services:
       - SMTP_HOST=localhost
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
-      - CONTACT_RECIPIENT_EMAIL=dev@localhost-
     networks:
       - nginx-proxy-network
 
