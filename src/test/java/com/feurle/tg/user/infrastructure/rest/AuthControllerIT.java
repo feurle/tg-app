@@ -3,6 +3,7 @@
 package com.feurle.tg.user.infrastructure.rest;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -130,10 +131,19 @@ class AuthControllerIT {
   @Test
   @WithMockUser(username = "authuser", roles = "USER")
   void getCurrentUser_withAuth_returns200_withUserInfo() throws Exception {
-    // Arrange - endpoint should be accessible with auth
-    // Act & Assert - endpoint is callable (may return 401 if user not in DB)
-    mockMvc.perform(get("/api/auth/me").contentType(MediaType.APPLICATION_JSON));
-    // Test passes if endpoint is reachable without exception
+    // Arrange
+    userRepository.save(testUser);
+
+    // Build MockMvc with springSecurity() so @WithMockUser is properly propagated
+    // into the filter chain — without it, SecurityContextPersistenceFilter overwrites the mock context
+    MockMvc secureMvc =
+        webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
+
+    // Act & Assert
+    secureMvc
+        .perform(get("/api/auth/me").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.login", equalTo("authuser")));
   }
 
   @Test
