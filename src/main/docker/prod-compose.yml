@@ -1,5 +1,5 @@
 services:
-  tg-app-prod:
+  tg-app:
     image: feurle/tg-app:latest
     container_name: tg-app-prod
     restart: unless-stopped
@@ -15,12 +15,12 @@ services:
     networks:
       - nginx-proxy-network
 
-  tg-web-prod:
+  tg-web:
     image: feurle/tg-web:latest
     container_name: tg-web-prod
     restart: unless-stopped
     environment:
-      - BACKEND_URL=http://tg-app-prod:8080
+      - BACKEND_URL=http://tg-app:8080
       - VIRTUAL_HOST=prod.example.com
       - LETSENCRYPT_HOST=prod.example.com
     networks:
