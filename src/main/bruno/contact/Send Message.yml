@@ -12,9 +12,9 @@ http:
       {
         "title": "Testanfrage",
         "text": "Hallo, ich habe eine Frage zu meinem Tier.",
-        "replyToEmail": "absender@example.com"
+        "replyToEmail": "absender@example.com",
+        "senderName": "Katzen Frauchen"
       }
-  auth: none
 
 settings:
   encodeUrl: true

@@ -13,8 +13,8 @@ http:
         "phone": "+49 89 123456",
         "email": "praxis@tiergesund.de",
         "street": "Musterstraße 1",
-        "city": "München",
-        "zip": "80331",
+        "city": "Bregenz",
+        "zip": "6900",
         "officeHours": [
           { "label": "Montag – Freitag", "hours": "09:00 – 18:00" },
           { "label": "Samstag", "hours": "09:00 – 13:00" },
