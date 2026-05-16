@@ -11,7 +11,7 @@ http:
     data: |-
       {
         "phone": "+49 89 123456",
-        "email": "info@tier-gesund.at",
+        "email": "praxis@tiergesund.de",
         "street": "Musterstraße 1",
         "city": "Bregenz",
         "zip": "6900",
