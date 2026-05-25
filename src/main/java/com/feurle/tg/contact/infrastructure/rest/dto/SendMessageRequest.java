@@ -6,4 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record SendMessageRequest(
-    @NotBlank String title, @NotBlank String text, @Email @NotBlank String replyToEmail, @NotBlank String senderName) {}
+    @NotBlank String title,
+    @NotBlank String text,
+    @Email @NotBlank String replyToEmail,
+    @NotBlank String senderName) {}

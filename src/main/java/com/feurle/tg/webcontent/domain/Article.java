@@ -27,16 +27,28 @@ public class Article {
   @Column(columnDefinition = "CLOB")
   private String content;
 
+  @Column(name = "sort_order")
+  private int order;
+
   @Enumerated(EnumType.STRING)
   private ArticleState state;
 
   @Enumerated(EnumType.STRING)
-  private PageType page;
+  @Column(name = "article_type")
+  private PageType pageType;
 
   @Enumerated(EnumType.STRING)
   private Language language = Language.GERMAN;
 
   private LocalDateTime publishedDate;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "page_id")
+  private Page page;
+
+  @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy("order ASC")
+  private List<Section> sections = new ArrayList<>();
 
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(

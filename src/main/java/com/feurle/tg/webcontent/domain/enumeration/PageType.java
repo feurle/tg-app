@@ -2,6 +2,7 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.webcontent.domain.enumeration;
 
+// @TODO: refactor this to articleType
 public enum PageType {
   HOME_TEASER,
   HOME_PAGE,
@@ -9,4 +10,9 @@ public enum PageType {
   NEWS_PAGE,
   ABOUT_PAGE,
   ABOUT_TEASER,
+  HERO,
+  COL3,
+  COL4,
+  TEXT,
+  DEFAULT
 }

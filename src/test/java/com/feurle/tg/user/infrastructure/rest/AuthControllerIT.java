@@ -135,9 +135,9 @@ class AuthControllerIT {
     userRepository.save(testUser);
 
     // Build MockMvc with springSecurity() so @WithMockUser is properly propagated
-    // into the filter chain — without it, SecurityContextPersistenceFilter overwrites the mock context
-    MockMvc secureMvc =
-        webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
+    // into the filter chain — without it, SecurityContextPersistenceFilter overwrites the mock
+    // context
+    MockMvc secureMvc = webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
 
     // Act & Assert
     secureMvc

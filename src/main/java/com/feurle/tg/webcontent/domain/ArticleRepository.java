@@ -11,11 +11,20 @@ import java.util.Optional;
 public interface ArticleRepository {
   List<Article> findAll();
 
-  List<Article> findByPage(PageType page);
+  List<Article> findByPageId(Long pageId);
 
-  List<Article> findByPageAndState(PageType page, ArticleState state);
+  List<Article> findByPage_Slug(String slug);
 
-  List<Article> findByPageAndStateAndLanguage(PageType page, ArticleState state, Language language);
+  List<Article> findByPageIdAndState(Long pageId, ArticleState state);
+
+  List<Article> findByPageIdAndStateAndLanguage(Long pageId, ArticleState state, Language language);
+
+  List<Article> findByPageType(PageType pageType);
+
+  List<Article> findByPageTypeAndState(PageType pageType, ArticleState state);
+
+  List<Article> findByPageTypeAndStateAndLanguage(
+      PageType pageType, ArticleState state, Language language);
 
   Optional<Article> findById(Long id);
 

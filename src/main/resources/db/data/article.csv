@@ -1,0 +1,12 @@
+id;title;content;state;published_date;created_at;updated_at;language;article_type;sort_order;page_id
+10;Willkommen bei Tier Gesund;Tier Gesund ist Ihre erste Anlaufstelle für alle Fragen rund um die Gesundheit Ihrer Tiere. Wir bieten fundierte Informationen, praktische Tipps und professionelle Beratung für Tierbesitzerinnen und Tierbesitzer.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;HERO;1;10
+11;Unsere Behandlungsmethoden;Ein individueller Ansatz für jedes Tier;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;COL3;2;10
+12;Unsere Philosophie;"Seit über 15 Jahren verfolgen wir einen integrativen Ansatz, der das Beste aus verschiedenen Welten vereint. Jedes Tier ist einzigartig und verdient eine individuelle Behandlung.
+
+Wir nehmen uns Zeit für eine ausführliche Diagnose und entwickeln gemeinsam mit Ihnen einen Therapieplan, der sowohl wirksam als auch schonend ist.";PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;3;10
+13;Kontakt & Sprechzeiten;Wir sind für Sie und Ihr Tier da;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;COL4;4;10
+20;Aktuelle Neuigkeiten aus der Tiermedizin;Bleiben Sie informiert über die neuesten Entwicklungen in der Tiermedizin, Tierpflege und Prävention. Hier finden Sie regelmäßig aktualisierte Beiträge von Fachleuten.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;20
+30;Über Tier Gesund;Tier Gesund ist ein engagiertes Team aus Tierärzten und Tierpflegespezialisten, die sich der Gesundheit und dem Wohlbefinden von Tieren verschrieben haben. Erfahren Sie mehr über unsere Geschichte und unsere Werte.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;30
+40;Datenschutzerklärung;Diese Datenschutzerklärung informiert Sie über die Art, den Umfang und den Zweck der Verarbeitung personenbezogener Daten auf dieser Website. Wir nehmen den Schutz Ihrer Daten sehr ernst.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;40
+50;Impressum;Angaben gemäß § 5 TMG. Diese Seite enthält alle rechtlich erforderlichen Angaben zum Betreiber dieser Website.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;50
+60;Kontakt;Nehmen Sie Kontakt mit uns auf – wir freuen uns auf Ihre Nachricht. Unser Team steht Ihnen bei allen Fragen rund um die Tiergesundheit zur Verfügung.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;60

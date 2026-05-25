@@ -95,7 +95,8 @@ public class GlobalExceptionHandler {
       AuthenticationException ex, WebRequest request) {
     log.warn("Authentication failed: {}", ex.getMessage());
     ErrorResponse errorResponse =
-        new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "Unauthorized", "Authentication required");
+        new ErrorResponse(
+            HttpStatus.UNAUTHORIZED.value(), "Unauthorized", "Authentication required");
     return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
   }
 

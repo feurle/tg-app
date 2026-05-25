@@ -10,6 +10,16 @@ spring:
       ddl-auto: none
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true      # STARTTLS statt SSL
+      mail.smtp.starttls.required: true    # optional aber empfohlen
+      mail.smtp.ssl.enable: false
 
 app:
   mail:
@@ -27,14 +37,10 @@ spring:
     username: sa
     password:
   jpa:
-    show-sql: false
     database-platform: org.hibernate.dialect.H2Dialect
   liquibase:
-    contexts: faker
+    contexts: stage
     drop-first: true
-  mail:
-    host: localhost
-    port: 1025
 
 ---
 
@@ -49,15 +55,6 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
-    drop-first: false
+    drop-first: true
     contexts: stage
-  mail:
-    host: ${SMTP_HOST}
-    port: ${SMTP_PORT:587}
-    username: ${SMTP_USERNAME}
-    password: ${SMTP_PASSWORD}
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.starttls.enable: true      # STARTTLS statt SSL
-      mail.smtp.starttls.required: true    # optional aber empfohlen
-      mail.smtp.ssl.enable: false
+

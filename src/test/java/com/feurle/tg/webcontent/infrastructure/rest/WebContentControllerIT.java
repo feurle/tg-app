@@ -73,7 +73,7 @@ class WebContentControllerIT {
     testArticle.setTitle("Test Article");
     testArticle.setContent("Test content");
     testArticle.setState(ArticleState.CREATED);
-    testArticle.setPage(PageType.HOME_TEASER);
+    testArticle.setPageType(PageType.HOME_TEASER);
     testArticle.setLanguage(Language.GERMAN);
     testArticle.setImages(new java.util.ArrayList<>());
   }
@@ -113,7 +113,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPage(PageType.HOME_TEASER);
+    article.setPageType(PageType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(Collections.singletonList(testImage));
     return article;
@@ -125,7 +125,7 @@ class WebContentControllerIT {
     article.setTitle(title);
     article.setContent(content);
     article.setState(state);
-    article.setPage(page);
+    article.setPageType(page);
     article.setLanguage(language);
     article.setImages(new java.util.ArrayList<>());
     return article;
@@ -262,7 +262,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPage(PageType.HOME_TEASER);
+    article.setPageType(PageType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     saveArticle(article);
@@ -286,16 +286,16 @@ class WebContentControllerIT {
         .andExpect(jsonPath("$", hasSize(0)));
   }
 
-  // ========== GET /api/webcontent/articles/page/{pageType} ==========
+  // ========== GET /api/webcontent/articles/pagetype/{pageType} ==========
 
   @Test
-  void getArticlesByPage_publicEndpoint_returns200() throws Exception {
+  void getArticlesByPageType_publicEndpoint_returns200() throws Exception {
     // Arrange - save an article with HOME_TEASER page type
     Article article = new Article();
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPage(PageType.HOME_TEASER);
+    article.setPageType(PageType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     article = saveArticle(article);
@@ -303,24 +303,24 @@ class WebContentControllerIT {
     // Act & Assert - should be public (no auth required)
     mockMvc
         .perform(
-            get("/api/webcontent/articles/page/{pageType}", "HOME_TEASER")
+            get("/api/webcontent/articles/pagetype/{pageType}", "HOME_TEASER")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)));
   }
 
   @Test
-  void getArticlesByPage_nonExistent_returns200_withEmptyList() throws Exception {
+  void getArticlesByPageType_nonExistent_returns200_withEmptyList() throws Exception {
     // Act & Assert
     mockMvc
         .perform(
-            get("/api/webcontent/articles/page/{pageType}", PageType.NEWS_PAGE)
+            get("/api/webcontent/articles/pagetype/{pageType}", PageType.NEWS_PAGE)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(0)));
   }
 
-  // ========== GET /api/webcontent/articles/page/{pageType}/published ==========
+  // ========== GET /api/webcontent/articles/pagetype/{pageType}/published ==========
 
   @Test
   void getPublishedArticles_returns200_withPublishedOnly() throws Exception {
@@ -329,7 +329,7 @@ class WebContentControllerIT {
     published.setTitle("Published Article");
     published.setContent("Published content");
     published.setState(ArticleState.PUBLISHED);
-    published.setPage(PageType.HOME_TEASER);
+    published.setPageType(PageType.HOME_TEASER);
     published.setLanguage(Language.GERMAN);
     published.setImages(new java.util.ArrayList<>());
     saveArticle(published);
@@ -342,7 +342,7 @@ class WebContentControllerIT {
     // Act & Assert
     mockMvc
         .perform(
-            get("/api/webcontent/articles/page/{pageType}/published", PageType.HOME_TEASER)
+            get("/api/webcontent/articles/pagetype/{pageType}/published", PageType.HOME_TEASER)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)))
@@ -357,7 +357,7 @@ class WebContentControllerIT {
     german.setTitle("German Article");
     german.setContent("German content");
     german.setState(ArticleState.PUBLISHED);
-    german.setPage(PageType.HOME_TEASER);
+    german.setPageType(PageType.HOME_TEASER);
     german.setLanguage(Language.GERMAN);
     saveArticle(german);
 
@@ -365,14 +365,14 @@ class WebContentControllerIT {
     english.setTitle("English Article");
     english.setContent("English content");
     english.setState(ArticleState.PUBLISHED);
-    english.setPage(PageType.HOME_TEASER);
+    english.setPageType(PageType.HOME_TEASER);
     english.setLanguage(Language.ENGLISH);
     saveArticle(english);
 
     // Act & Assert - get only German articles
     mockMvc
         .perform(
-            get("/api/webcontent/articles/page/{pageType}/published", PageType.HOME_TEASER)
+            get("/api/webcontent/articles/pagetype/{pageType}/published", PageType.HOME_TEASER)
                 .param("language", "GERMAN")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -389,7 +389,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPage(PageType.HOME_TEASER);
+    article.setPageType(PageType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     Article saved = saveArticle(article);
@@ -422,6 +422,7 @@ class WebContentControllerIT {
             "New content",
             PageType.NEWS_PAGE,
             Language.ENGLISH,
+            null,
             Collections.singletonList(testImage.getId()),
             null);
 
@@ -434,7 +435,7 @@ class WebContentControllerIT {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.title", equalTo("New Article")))
         .andExpect(jsonPath("$.content", equalTo("New content")))
-        .andExpect(jsonPath("$.page", equalTo("NEWS_PAGE")))
+        .andExpect(jsonPath("$.pageType", equalTo("NEWS_PAGE")))
         .andExpect(jsonPath("$.language", equalTo("ENGLISH")))
         .andExpect(jsonPath("$.state", equalTo("CREATED")));
 
@@ -448,7 +449,7 @@ class WebContentControllerIT {
     // Arrange
     CreateArticleRequest request =
         new CreateArticleRequest(
-            "Article", "Content", PageType.HOME_TEASER, Language.GERMAN, null, null);
+            "Article", "Content", PageType.HOME_TEASER, Language.GERMAN, null, null, null);
 
     // Act & Assert - POST requires auth
     mockMvc
@@ -559,6 +560,7 @@ class WebContentControllerIT {
             "Content",
             PageType.HOME_TEASER,
             Language.GERMAN,
+            null,
             List.of(testImage.getId(), image2.getId()),
             null);
 

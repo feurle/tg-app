@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
   private final ArticleRepository articleRepository;
+  private final PageRepository pageRepository;
   private final ImageRepository imageRepository;
   private final TagRepository tagRepository;
 
@@ -26,16 +28,34 @@ public class ArticleService {
     return articleRepository.findAll();
   }
 
-  public List<Article> getArticlesByPage(PageType page) {
-    return articleRepository.findByPage(page);
+  public List<Article> getArticlesByPageSlug(String slug) {
+    return articleRepository.findByPage_Slug(slug);
   }
 
-  public List<Article> getPublishedArticlesByPage(PageType page) {
-    return articleRepository.findByPageAndState(page, ArticleState.PUBLISHED);
+  public List<Article> getPublishedArticlesByPageSlug(String slug) {
+    return articleRepository.findByPage_Slug(slug).stream()
+        .filter(a -> a.getState() == ArticleState.PUBLISHED)
+        .toList();
   }
 
-  public List<Article> getPublishedArticlesByPageAndLanguage(PageType page, Language language) {
-    return articleRepository.findByPageAndStateAndLanguage(page, ArticleState.PUBLISHED, language);
+  public List<Article> getPublishedArticlesByPageSlugAndLanguage(String slug, Language language) {
+    return articleRepository.findByPage_Slug(slug).stream()
+        .filter(a -> a.getState() == ArticleState.PUBLISHED && a.getLanguage() == language)
+        .toList();
+  }
+
+  public List<Article> getArticlesByPageType(PageType pageType) {
+    return articleRepository.findByPageType(pageType);
+  }
+
+  public List<Article> getPublishedArticlesByPageType(PageType pageType) {
+    return articleRepository.findByPageTypeAndState(pageType, ArticleState.PUBLISHED);
+  }
+
+  public List<Article> getPublishedArticlesByPageTypeAndLanguage(
+      PageType pageType, Language language) {
+    return articleRepository.findByPageTypeAndStateAndLanguage(
+        pageType, ArticleState.PUBLISHED, language);
   }
 
   public Article getArticleById(Long id) {
@@ -47,16 +67,25 @@ public class ArticleService {
   public Article createArticle(
       String title,
       String content,
-      PageType page,
+      PageType pageType,
       Language language,
+      Long pageId,
       List<Long> imageIds,
       List<Long> tagIds) {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);
-    article.setPage(page);
+    article.setPageType(pageType);
     article.setLanguage(language != null ? language : Language.GERMAN);
     article.setState(ArticleState.CREATED);
+
+    if (pageId != null) {
+      Page page =
+          pageRepository
+              .findById(pageId)
+              .orElseThrow(() -> new NoSuchElementException("Page not found: " + pageId));
+      article.setPage(page);
+    }
 
     if (imageIds != null && !imageIds.isEmpty()) {
       article.setImages(imageRepository.findAllById(imageIds));

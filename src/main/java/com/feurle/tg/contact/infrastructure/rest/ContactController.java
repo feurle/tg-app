@@ -24,7 +24,8 @@ public class ContactController {
   @PostMapping("/message")
   public ResponseEntity<Void> sendMessage(@Valid @RequestBody SendMessageRequest request) {
     log.info("sendMessage: GET /api/contact/message");
-    contactService.sendMessage(request.title(), request.text(), request.replyToEmail(), request.senderName());
+    contactService.sendMessage(
+        request.title(), request.text(), request.replyToEmail(), request.senderName());
     return ResponseEntity.noContent().build();
   }
 }

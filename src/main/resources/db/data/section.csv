@@ -1,0 +1,14 @@
+id;sort_order;title;content;article_id
+10;1;Herzlich willkommen;Wir freuen uns, dass Sie sich für die Gesundheit Ihres Tieres interessieren. Auf unserer Plattform finden Sie Expertenwissen, praktische Ratschläge und einen direkten Draht zu Fachleuten.;10
+11;1;Schulmedizin;Moderne diagnostische Verfahren und bewährte veterinärmedizinische Behandlungen als solide Grundlage.;11
+12;2;Naturheilkunde;Phytotherapie, Homöopathie und weitere sanfte Heilmethoden zur Unterstützung der Selbstheilungskräfte.;11
+13;3;Ganzheitliche Betreuung;Individuelle Therapiepläne unter Berücksichtigung von Körper, Geist und Lebensumfeld Ihres Tieres.;11
+14;1;Telefon;+49 (0) 123 456789;13
+15;2;E-Mail;praxis@tierarzt-mueller.de;13
+16;3;Adresse;Musterstraße 42<br/>12345 Musterstadt;13
+17;4;Sprechzeiten;Mo–Fr: 9–18 Uhr<br/>Sa: 10–14 Uhr;13
+20;1;Aktuelle Meldungen;Hier finden Sie regelmäßig aktualisierte Informationen aus der Welt der Tiermedizin und Tierpflege – von Forschungsergebnissen bis hin zu praktischen Pflegetipps.;20
+30;1;Unsere Mission;Unsere Mission ist es, Tierbesitzerinnen und Tierbesitzern verlässliche und leicht verständliche Informationen zur Verfügung zu stellen, damit ihre Tiere ein langes und gesundes Leben führen können.;30
+40;1;Ihre Daten bei uns;Wir verarbeiten Ihre personenbezogenen Daten ausschließlich im Rahmen der geltenden Datenschutzgesetze. Eine Weitergabe an Dritte erfolgt nur in den gesetzlich vorgesehenen Fällen.;40
+50;1;Verantwortliche Stelle;Verantwortlich für den Inhalt dieser Website ist Tier Gesund, Musterstraße 1, 12345 Musterstadt. Bei Fragen wenden Sie sich bitte an unseren Datenschutzbeauftragten.;50
+60;1;So erreichen Sie uns;Schreiben Sie uns eine E-Mail oder nutzen Sie unser Kontaktformular. Wir antworten in der Regel innerhalb von 24 Stunden und freuen uns auf Ihre Anfrage.;60

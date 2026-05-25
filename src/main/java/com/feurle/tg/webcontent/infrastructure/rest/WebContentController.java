@@ -4,6 +4,8 @@ package com.feurle.tg.webcontent.infrastructure.rest;
 
 import com.feurle.tg.webcontent.application.ArticleService;
 import com.feurle.tg.webcontent.application.ImageService;
+import com.feurle.tg.webcontent.application.PageService;
+import com.feurle.tg.webcontent.application.SectionService;
 import com.feurle.tg.webcontent.application.TagService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
@@ -13,10 +15,13 @@ import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ArticleMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ImageMapper;
+import com.feurle.tg.webcontent.infrastructure.rest.mapper.PageMapper;
+import com.feurle.tg.webcontent.infrastructure.rest.mapper.SectionMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.TagMapper;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/webcontent")
 @RequiredArgsConstructor
@@ -32,9 +38,46 @@ public class WebContentController {
   private final ArticleService articleService;
   private final ImageService imageService;
   private final TagService tagService;
+  private final PageService pageService;
+  private final SectionService sectionService;
   private final ArticleMapper articleMapper;
   private final ImageMapper imageMapper;
   private final TagMapper tagMapper;
+  private final PageMapper pageMapper;
+  private final SectionMapper sectionMapper;
+
+  // ========== Section Endpoints ==========
+
+  @PostMapping("/articles/{articleId}/sections")
+  public ResponseEntity<SectionResponse> createSection(
+      @PathVariable Long articleId, @RequestBody CreateSectionRequest request) {
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(
+            sectionMapper.toResponse(
+                sectionService.createSection(
+                    articleId, request.order(), request.title(), request.content())));
+  }
+
+  @PutMapping("/sections/{id}")
+  public ResponseEntity<SectionResponse> updateSection(
+      @PathVariable Long id, @RequestBody UpdateSectionRequest request) {
+    return ResponseEntity.ok(
+        sectionMapper.toResponse(
+            sectionService.updateSection(id, request.order(), request.title(), request.content())));
+  }
+
+  @DeleteMapping("/sections/{id}")
+  public ResponseEntity<Void> deleteSection(@PathVariable Long id) {
+    sectionService.deleteSection(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  // ========== Page Endpoints ==========
+
+  @GetMapping("/pages/{slug}")
+  public ResponseEntity<PageResponse> getPageBySlug(@PathVariable String slug) {
+    return ResponseEntity.ok(pageMapper.toResponse(pageService.getPageBySlug(slug)));
+  }
 
   // ========== Image Endpoints ==========
 
@@ -118,22 +161,44 @@ public class WebContentController {
         articleService.getAllArticles().stream().map(articleMapper::toResponse).toList());
   }
 
-  @GetMapping("/articles/page/{pageType}")
-  public ResponseEntity<List<ArticleResponse>> getArticlesByPage(@PathVariable PageType pageType) {
+  @GetMapping("/articles/page/{slug}")
+  public ResponseEntity<List<ArticleResponse>> getArticlesByPage(@PathVariable String slug) {
+    log.info("getArticlesByPage slug:{}", slug);
     return ResponseEntity.ok(
-        articleService.getArticlesByPage(pageType).stream()
+        articleService.getArticlesByPageSlug(slug).stream()
             .map(articleMapper::toResponse)
             .toList());
   }
 
-  @GetMapping("/articles/page/{pageType}/published")
+  @GetMapping("/articles/page/{slug}/published")
   public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPage(
+      @PathVariable String slug, @RequestParam(required = false) Language language) {
+    List<Article> articles;
+    if (language != null) {
+      articles = articleService.getPublishedArticlesByPageSlugAndLanguage(slug, language);
+    } else {
+      articles = articleService.getPublishedArticlesByPageSlug(slug);
+    }
+    return ResponseEntity.ok(articles.stream().map(articleMapper::toResponse).toList());
+  }
+
+  @GetMapping("/articles/pagetype/{pageType}")
+  public ResponseEntity<List<ArticleResponse>> getArticlesByPageType(
+      @PathVariable PageType pageType) {
+    return ResponseEntity.ok(
+        articleService.getArticlesByPageType(pageType).stream()
+            .map(articleMapper::toResponse)
+            .toList());
+  }
+
+  @GetMapping("/articles/pagetype/{pageType}/published")
+  public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPageType(
       @PathVariable PageType pageType, @RequestParam(required = false) Language language) {
     List<Article> articles;
     if (language != null) {
-      articles = articleService.getPublishedArticlesByPageAndLanguage(pageType, language);
+      articles = articleService.getPublishedArticlesByPageTypeAndLanguage(pageType, language);
     } else {
-      articles = articleService.getPublishedArticlesByPage(pageType);
+      articles = articleService.getPublishedArticlesByPageType(pageType);
     }
     return ResponseEntity.ok(articles.stream().map(articleMapper::toResponse).toList());
   }
@@ -149,8 +214,9 @@ public class WebContentController {
         articleService.createArticle(
             request.title(),
             request.content(),
-            request.page(),
+            request.pageType(),
             request.language(),
+            request.pageId(),
             request.imageIds(),
             request.tagIds());
     return ResponseEntity.status(HttpStatus.CREATED).body(articleMapper.toResponse(article));
