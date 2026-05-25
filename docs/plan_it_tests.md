@@ -134,8 +134,8 @@ class XxxControllerIT {
 
 ### Articles:
 - `GET /api/webcontent/articles` → 200 + Liste
-- `GET /api/webcontent/articles/page/{pageType}` → 200 (öffentlich zugänglich)
-- `GET /api/webcontent/articles/page/{pageType}/published?language=DE` → 200
+- `GET /api/webcontent/articles/page/{articleType}` → 200 (öffentlich zugänglich)
+- `GET /api/webcontent/articles/page/{articleType}/published?language=DE` → 200
 - `GET /api/webcontent/articles/{id}` → 200 + ArticleResponse
 - `GET /api/webcontent/articles/{id}` nicht vorhanden → 400
 - `POST /api/webcontent/articles` → 201 + ArticleResponse

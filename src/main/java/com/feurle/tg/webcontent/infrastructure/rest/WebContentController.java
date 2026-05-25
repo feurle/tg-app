@@ -10,8 +10,8 @@ import com.feurle.tg.webcontent.application.TagService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
 import com.feurle.tg.webcontent.domain.Tag;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ArticleMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ImageMapper;
@@ -182,23 +182,23 @@ public class WebContentController {
     return ResponseEntity.ok(articles.stream().map(articleMapper::toResponse).toList());
   }
 
-  @GetMapping("/articles/pagetype/{pageType}")
+  @GetMapping("/articles/pagetype/{articleType}")
   public ResponseEntity<List<ArticleResponse>> getArticlesByPageType(
-      @PathVariable PageType pageType) {
+      @PathVariable ArticleType articleType) {
     return ResponseEntity.ok(
-        articleService.getArticlesByPageType(pageType).stream()
+        articleService.getArticlesByArticleType(articleType).stream()
             .map(articleMapper::toResponse)
             .toList());
   }
 
-  @GetMapping("/articles/pagetype/{pageType}/published")
+  @GetMapping("/articles/pagetype/{articleType}/published")
   public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPageType(
-      @PathVariable PageType pageType, @RequestParam(required = false) Language language) {
+          @PathVariable ArticleType articleType, @RequestParam(required = false) Language language) {
     List<Article> articles;
     if (language != null) {
-      articles = articleService.getPublishedArticlesByPageTypeAndLanguage(pageType, language);
+      articles = articleService.getPublishedArticlesByArticleTypeAndLanguage(articleType, language);
     } else {
-      articles = articleService.getPublishedArticlesByPageType(pageType);
+      articles = articleService.getPublishedArticlesByArticleType(articleType);
     }
     return ResponseEntity.ok(articles.stream().map(articleMapper::toResponse).toList());
   }
@@ -214,7 +214,7 @@ public class WebContentController {
         articleService.createArticle(
             request.title(),
             request.content(),
-            request.pageType(),
+            request.articleType(),
             request.language(),
             request.pageId(),
             request.imageIds(),

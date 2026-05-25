@@ -15,8 +15,8 @@ import com.feurle.tg.webcontent.domain.ArticleRepository;
 import com.feurle.tg.webcontent.domain.Image;
 import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.CreateArticleRequest;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.UpdateArticleRequest;
 import java.util.Collections;
@@ -73,7 +73,7 @@ class WebContentControllerIT {
     testArticle.setTitle("Test Article");
     testArticle.setContent("Test content");
     testArticle.setState(ArticleState.CREATED);
-    testArticle.setPageType(PageType.HOME_TEASER);
+    testArticle.setArticleType(ArticleType.HOME_TEASER);
     testArticle.setLanguage(Language.GERMAN);
     testArticle.setImages(new java.util.ArrayList<>());
   }
@@ -113,19 +113,19 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPageType(PageType.HOME_TEASER);
+    article.setArticleType(ArticleType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(Collections.singletonList(testImage));
     return article;
   }
 
   private Article createArticle(
-      String title, String content, ArticleState state, PageType page, Language language) {
+          String title, String content, ArticleState state, ArticleType page, Language language) {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);
     article.setState(state);
-    article.setPageType(page);
+    article.setArticleType(page);
     article.setLanguage(language);
     article.setImages(new java.util.ArrayList<>());
     return article;
@@ -262,7 +262,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPageType(PageType.HOME_TEASER);
+    article.setArticleType(ArticleType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     saveArticle(article);
@@ -295,7 +295,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPageType(PageType.HOME_TEASER);
+    article.setArticleType(ArticleType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     article = saveArticle(article);
@@ -314,7 +314,7 @@ class WebContentControllerIT {
     // Act & Assert
     mockMvc
         .perform(
-            get("/api/webcontent/articles/pagetype/{pageType}", PageType.NEWS_PAGE)
+            get("/api/webcontent/articles/pagetype/{pageType}", ArticleType.NEWS_PAGE)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(0)));
@@ -329,20 +329,20 @@ class WebContentControllerIT {
     published.setTitle("Published Article");
     published.setContent("Published content");
     published.setState(ArticleState.PUBLISHED);
-    published.setPageType(PageType.HOME_TEASER);
+    published.setArticleType(ArticleType.HOME_TEASER);
     published.setLanguage(Language.GERMAN);
     published.setImages(new java.util.ArrayList<>());
     saveArticle(published);
 
     Article created =
         createArticle(
-            "Created", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+            "Created", "content", ArticleState.CREATED, ArticleType.HOME_TEASER, Language.GERMAN);
     saveArticle(created);
 
     // Act & Assert
     mockMvc
         .perform(
-            get("/api/webcontent/articles/pagetype/{pageType}/published", PageType.HOME_TEASER)
+            get("/api/webcontent/articles/pagetype/{pageType}/published", ArticleType.HOME_TEASER)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(1)))
@@ -357,7 +357,7 @@ class WebContentControllerIT {
     german.setTitle("German Article");
     german.setContent("German content");
     german.setState(ArticleState.PUBLISHED);
-    german.setPageType(PageType.HOME_TEASER);
+    german.setArticleType(ArticleType.HOME_TEASER);
     german.setLanguage(Language.GERMAN);
     saveArticle(german);
 
@@ -365,14 +365,14 @@ class WebContentControllerIT {
     english.setTitle("English Article");
     english.setContent("English content");
     english.setState(ArticleState.PUBLISHED);
-    english.setPageType(PageType.HOME_TEASER);
+    english.setArticleType(ArticleType.HOME_TEASER);
     english.setLanguage(Language.ENGLISH);
     saveArticle(english);
 
     // Act & Assert - get only German articles
     mockMvc
         .perform(
-            get("/api/webcontent/articles/pagetype/{pageType}/published", PageType.HOME_TEASER)
+            get("/api/webcontent/articles/pagetype/{pageType}/published", ArticleType.HOME_TEASER)
                 .param("language", "GERMAN")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -389,7 +389,7 @@ class WebContentControllerIT {
     article.setTitle("Test Article");
     article.setContent("Test content");
     article.setState(ArticleState.CREATED);
-    article.setPageType(PageType.HOME_TEASER);
+    article.setArticleType(ArticleType.HOME_TEASER);
     article.setLanguage(Language.GERMAN);
     article.setImages(new java.util.ArrayList<>());
     Article saved = saveArticle(article);
@@ -420,7 +420,7 @@ class WebContentControllerIT {
         new CreateArticleRequest(
             "New Article",
             "New content",
-            PageType.NEWS_PAGE,
+            ArticleType.NEWS_PAGE,
             Language.ENGLISH,
             null,
             Collections.singletonList(testImage.getId()),
@@ -435,7 +435,7 @@ class WebContentControllerIT {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.title", equalTo("New Article")))
         .andExpect(jsonPath("$.content", equalTo("New content")))
-        .andExpect(jsonPath("$.pageType", equalTo("NEWS_PAGE")))
+        .andExpect(jsonPath("$.articleType", equalTo("NEWS_PAGE")))
         .andExpect(jsonPath("$.language", equalTo("ENGLISH")))
         .andExpect(jsonPath("$.state", equalTo("CREATED")));
 
@@ -449,7 +449,7 @@ class WebContentControllerIT {
     // Arrange
     CreateArticleRequest request =
         new CreateArticleRequest(
-            "Article", "Content", PageType.HOME_TEASER, Language.GERMAN, null, null, null);
+            "Article", "Content", ArticleType.HOME_TEASER, Language.GERMAN, null, null, null);
 
     // Act & Assert - POST requires auth
     mockMvc
@@ -468,7 +468,7 @@ class WebContentControllerIT {
     // Arrange
     Article article =
         createArticle(
-            "Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+            "Test", "content", ArticleState.CREATED, ArticleType.HOME_TEASER, Language.GERMAN);
     Article saved = saveArticle(article);
     UpdateArticleRequest request =
         new UpdateArticleRequest(
@@ -521,7 +521,7 @@ class WebContentControllerIT {
     // Arrange
     Article article =
         createArticle(
-            "Test", "content", ArticleState.CREATED, PageType.HOME_TEASER, Language.GERMAN);
+            "Test", "content", ArticleState.CREATED, ArticleType.HOME_TEASER, Language.GERMAN);
     Article saved = saveArticle(article);
 
     // Act & Assert
@@ -558,7 +558,7 @@ class WebContentControllerIT {
         new CreateArticleRequest(
             "Multi-Image Article",
             "Content",
-            PageType.HOME_TEASER,
+            ArticleType.HOME_TEASER,
             Language.GERMAN,
             null,
             List.of(testImage.getId(), image2.getId()),

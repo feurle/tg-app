@@ -4,7 +4,7 @@ package com.feurle.tg.webcontent.infrastructure.rest.dto;
 
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public record ArticleResponse(
     int order,
     List<SectionResponse> sections,
     ArticleState state,
-    PageType articleType,
+    ArticleType articleType,
     Language language,
     LocalDateTime publishedDate,
     List<ImageResponse> images,
