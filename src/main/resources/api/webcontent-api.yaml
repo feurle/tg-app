@@ -1,0 +1,676 @@
+openapi: 3.0.3
+info:
+  title: Tier Gesund – WebContent API
+  description: Manages pages, articles, sections, images and tags for the Tier Gesund platform.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api/webcontent
+    description: Local dev
+
+tags:
+  - name: Pages
+  - name: Articles
+  - name: Sections
+  - name: Images
+  - name: Tags
+
+paths:
+
+  # ─── Pages ────────────────────────────────────────────────────────────────
+
+  /pages/{slug}:
+    get:
+      tags: [Pages]
+      summary: Get page by slug
+      description: Returns the page including its full article list with sections, images and tags.
+      parameters:
+        - $ref: '#/components/parameters/slug'
+      responses:
+        '200':
+          description: Page found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ─── Articles ─────────────────────────────────────────────────────────────
+
+  /articles:
+    get:
+      tags: [Articles]
+      summary: List all articles
+      responses:
+        '200':
+          description: Article list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+    post:
+      tags: [Articles]
+      summary: Create article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateArticleRequest'
+      responses:
+        '201':
+          description: Article created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /articles/{id}:
+    get:
+      tags: [Articles]
+      summary: Get article by ID
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Article found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    put:
+      tags: [Articles]
+      summary: Update article
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateArticleRequest'
+      responses:
+        '200':
+          description: Article updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    delete:
+      tags: [Articles]
+      summary: Delete article
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          description: Article deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /articles/page/{slug}:
+    get:
+      tags: [Articles]
+      summary: List articles by page slug
+      parameters:
+        - $ref: '#/components/parameters/slug'
+      responses:
+        '200':
+          description: Article list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+
+  /articles/page/{slug}/published:
+    get:
+      tags: [Articles]
+      summary: List published articles by page slug
+      parameters:
+        - $ref: '#/components/parameters/slug'
+        - $ref: '#/components/parameters/language'
+      responses:
+        '200':
+          description: Published article list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+
+  /articles/pagetype/{pageType}:
+    get:
+      tags: [Articles]
+      summary: List articles by page type
+      parameters:
+        - $ref: '#/components/parameters/pageType'
+      responses:
+        '200':
+          description: Article list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+
+  /articles/pagetype/{pageType}/published:
+    get:
+      tags: [Articles]
+      summary: List published articles by page type
+      parameters:
+        - $ref: '#/components/parameters/pageType'
+        - $ref: '#/components/parameters/language'
+      responses:
+        '200':
+          description: Published article list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+
+  # ─── Sections ─────────────────────────────────────────────────────────────
+
+  /articles/{articleId}/sections:
+    post:
+      tags: [Sections]
+      summary: Create section for an article
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSectionRequest'
+      responses:
+        '201':
+          description: Section created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SectionResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sections/{id}:
+    put:
+      tags: [Sections]
+      summary: Update section
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSectionRequest'
+      responses:
+        '200':
+          description: Section updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SectionResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Sections]
+      summary: Delete section
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          description: Section deleted
+
+  # ─── Images ───────────────────────────────────────────────────────────────
+
+  /images:
+    get:
+      tags: [Images]
+      summary: List all images
+      responses:
+        '200':
+          description: Image list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageResponse'
+    post:
+      tags: [Images]
+      summary: Upload image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+      responses:
+        '201':
+          description: Image uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+
+  /images/{imageId}:
+    put:
+      tags: [Images]
+      summary: Update image metadata
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateImageRequest'
+      responses:
+        '200':
+          description: Image updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+    delete:
+      tags: [Images]
+      summary: Delete image
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Image deleted
+
+  /images/{imageId}/download:
+    get:
+      tags: [Images]
+      summary: Download image binary
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Image binary
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+
+  # ─── Tags ─────────────────────────────────────────────────────────────────
+
+  /tags:
+    get:
+      tags: [Tags]
+      summary: List all tags
+      responses:
+        '200':
+          description: Tag list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagResponse'
+    post:
+      tags: [Tags]
+      summary: Create tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+      responses:
+        '201':
+          description: Tag created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+
+  /tags/{id}:
+    get:
+      tags: [Tags]
+      summary: Get tag by ID
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Tag found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+    put:
+      tags: [Tags]
+      summary: Update tag
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagRequest'
+      responses:
+        '200':
+          description: Tag updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagResponse'
+    delete:
+      tags: [Tags]
+      summary: Delete tag
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '204':
+          description: Tag deleted
+
+components:
+
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    slug:
+      name: slug
+      in: path
+      required: true
+      schema:
+        type: string
+      example: home
+    pageType:
+      name: pageType
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/PageType'
+    language:
+      name: language
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Language'
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+
+    # ── Enums ──────────────────────────────────────────────────────────────
+
+    ArticleState:
+      type: string
+      enum: [CREATED, PUBLISHED, CLOSED]
+
+    Language:
+      type: string
+      enum: [GERMAN, ENGLISH, SWEDISH, RUSSIAN]
+
+    PageType:
+      type: string
+      enum: [HOME_TEASER, HOME_PAGE, NEWS_TEASER, NEWS_PAGE, ABOUT_PAGE, ABOUT_TEASER, HERO, TEXT, DEFAULT]
+
+    # ── Responses ──────────────────────────────────────────────────────────
+
+    PageResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleResponse'
+
+    ArticleResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+        order:
+          type: integer
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SectionResponse'
+        state:
+          $ref: '#/components/schemas/ArticleState'
+        pageType:
+          $ref: '#/components/schemas/PageType'
+        language:
+          $ref: '#/components/schemas/Language'
+        publishedDate:
+          type: string
+          format: date-time
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResponse'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagResponse'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        pageId:
+          type: integer
+          format: int64
+          nullable: true
+
+    SectionResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        order:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+
+    ImageResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fileName:
+          type: string
+        title:
+          type: string
+        mimeType:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    TagResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+
+    # ── Requests ───────────────────────────────────────────────────────────
+
+    CreateArticleRequest:
+      type: object
+      required: [title, content, pageType, language]
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        pageType:
+          $ref: '#/components/schemas/PageType'
+        language:
+          $ref: '#/components/schemas/Language'
+        pageId:
+          type: integer
+          format: int64
+          nullable: true
+        imageIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        tagIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+
+    UpdateArticleRequest:
+      type: object
+      required: [title, content, state]
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        state:
+          $ref: '#/components/schemas/ArticleState'
+        language:
+          $ref: '#/components/schemas/Language'
+        imageIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        tagIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+
+    CreateSectionRequest:
+      type: object
+      required: [order, title, content]
+      properties:
+        order:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+
+    UpdateSectionRequest:
+      type: object
+      required: [order, title, content]
+      properties:
+        order:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+
+    UpdateImageRequest:
+      type: object
+      properties:
+        title:
+          type: string
+
+    CreateTagRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+
+    UpdateTagRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string

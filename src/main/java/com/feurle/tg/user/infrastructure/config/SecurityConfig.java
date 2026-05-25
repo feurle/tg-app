@@ -49,7 +49,7 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    // @TODO: fix authetication path for maintainence and admin stuff
     http.authorizeHttpRequests(
         authz -> {
           authz
@@ -61,8 +61,12 @@ public class SecurityConfig {
               // Authentication endpoints
               .requestMatchers("/api/auth/**")
               .permitAll()
-              // Public API: read articles and download images
-              .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/page/**")
+              .requestMatchers(HttpMethod.GET, "/api/auth/me")
+              .permitAll()
+              // Public API: read pages, articles and download images
+              .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/**")
+              .permitAll()
+              .requestMatchers(HttpMethod.GET, "/api/webcontent/pages/**")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
               .permitAll()

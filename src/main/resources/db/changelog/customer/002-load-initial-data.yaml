@@ -9,37 +9,38 @@ databaseChangeLog:
             tableName: customer
             separator: ;
             quotchar: '"'
+            relativeToChangelogFile: false
             columns:
               - column:
                   name: id
-                  type: numeric
+                  type: NUMERIC
               - column:
                   name: first_name
-                  type: string
+                  type: STRING
               - column:
                   name: last_name
-                  type: string
+                  type: STRING
               - column:
                   name: email
-                  type: string
+                  type: STRING
               - column:
                   name: phone
-                  type: string
+                  type: STRING
               - column:
                   name: address
-                  type: string
+                  type: STRING
               - column:
                   name: city
-                  type: string
+                  type: STRING
               - column:
                   name: state
-                  type: string
+                  type: STRING
               - column:
                   name: zip
-                  type: string
+                  type: STRING
               - column:
                   name: country
-                  type: string
+                  type: STRING
               - column:
                   name: created_at
                   type: datetime

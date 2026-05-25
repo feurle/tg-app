@@ -9,7 +9,8 @@ import java.util.List;
 public record CreateArticleRequest(
     String title,
     String content,
-    PageType page,
+    PageType pageType,
     Language language,
+    Long pageId,
     List<Long> imageIds,
     List<Long> tagIds) {}

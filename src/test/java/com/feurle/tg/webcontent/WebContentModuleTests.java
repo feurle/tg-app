@@ -23,6 +23,8 @@ class WebContentModuleTests {
   @Test
   void createModuleDocumentation() {
     ApplicationModules modules = ApplicationModules.of(com.feurle.tg.Application.class);
-    assertDoesNotThrow((org.junit.jupiter.api.function.Executable) () -> new Documenter(modules).writeDocumentation());
+    assertDoesNotThrow(
+        (org.junit.jupiter.api.function.Executable)
+            () -> new Documenter(modules).writeDocumentation());
   }
 }

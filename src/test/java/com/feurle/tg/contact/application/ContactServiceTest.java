@@ -44,7 +44,8 @@ class ContactServiceTest {
     contactInfo.setEmail("empfaenger@example.com");
     when(contactInfoRepository.findFirst()).thenReturn(Optional.of(contactInfo));
 
-    contactService.sendMessage("Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann");
+    contactService.sendMessage(
+        "Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann");
 
     ArgumentCaptor<SimpleMailMessage> captor = forClass(SimpleMailMessage.class);
     verify(mailSender).send(captor.capture());
@@ -62,7 +63,9 @@ class ContactServiceTest {
     when(contactInfoRepository.findFirst()).thenReturn(Optional.empty());
 
     assertThatThrownBy(
-            () -> contactService.sendMessage("Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann"))
+            () ->
+                contactService.sendMessage(
+                    "Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann"))
         .isInstanceOf(IllegalStateException.class);
   }
 }

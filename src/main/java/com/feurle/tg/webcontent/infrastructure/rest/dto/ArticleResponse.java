@@ -12,11 +12,14 @@ public record ArticleResponse(
     Long id,
     String title,
     String content,
+    int order,
+    List<SectionResponse> sections,
     ArticleState state,
-    PageType page,
+    PageType articleType,
     Language language,
     LocalDateTime publishedDate,
     List<ImageResponse> images,
     List<TagResponse> tags,
     LocalDateTime createdAt,
-    LocalDateTime updatedAt) {}
+    LocalDateTime updatedAt,
+    Long pageId) {}

@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 001-create-image-table
-      author: init
+      author: system
       changes:
         - createTable:
             tableName: image
@@ -31,7 +31,34 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: 002-create-article-table
+      id: 002-create-page-table
+      author: system
+      changes:
+        - createTable:
+            tableName: page
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: slug
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 003-create-article-table
       author: system
       changes:
         - createTable:
@@ -55,12 +82,18 @@ databaseChangeLog:
                   name: state
                   type: VARCHAR(50)
               - column:
-                  name: page
+                  name: article_type
                   type: VARCHAR(50)
               - column:
                   name: language
                   type: VARCHAR(50)
-                  defaultValue: 'GERMAN'
+                  defaultValue: GERMAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sort_order
+                  type: INT
+                  defaultValueNumeric: 0
                   constraints:
                     nullable: false
               - column:
@@ -72,9 +105,19 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP
+              - column:
+                  name: page_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: article
+            baseColumnNames: page_id
+            constraintName: fk_article_page
+            referencedTableName: page
+            referencedColumnNames: id
+            onDelete: SET NULL
 
   - changeSet:
-      id: 003-create-article-images-table
+      id: 004-create-article-images-table
       author: system
       changes:
         - createTable:
@@ -108,7 +151,7 @@ databaseChangeLog:
             referencedColumnNames: id
 
   - changeSet:
-      id: 004-create-tag-table
+      id: 005-create-tag-table
       author: system
       changes:
         - createTable:
@@ -129,7 +172,7 @@ databaseChangeLog:
                     unique: true
 
   - changeSet:
-      id: 005-create-article-tags-table
+      id: 006-create-article-tags-table
       author: system
       changes:
         - createTable:
@@ -160,5 +203,44 @@ databaseChangeLog:
             baseColumnNames: tag_id
             constraintName: fk_article_tags_tag
             referencedTableName: tag
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 007-create-section-table
+      author: system
+      changes:
+        - createTable:
+            tableName: section
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: sort_order
+                  type: INT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: content
+                  type: CLOB
+              - column:
+                  name: article_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: section
+            baseColumnNames: article_id
+            constraintName: fk_section_article
+            referencedTableName: article
             referencedColumnNames: id
             onDelete: CASCADE
