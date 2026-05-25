@@ -4,7 +4,7 @@ package com.feurle.tg.webcontent.domain;
 
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +19,12 @@ public interface ArticleRepository {
 
   List<Article> findByPageIdAndStateAndLanguage(Long pageId, ArticleState state, Language language);
 
-  List<Article> findByPageType(PageType pageType);
+  List<Article> findByArticleType(ArticleType articleType);
 
-  List<Article> findByPageTypeAndState(PageType pageType, ArticleState state);
+  List<Article> findByArticleTypeAndState(ArticleType articleType, ArticleState state);
 
-  List<Article> findByPageTypeAndStateAndLanguage(
-      PageType pageType, ArticleState state, Language language);
+  List<Article> findByArticleTypeAndStateAndLanguage(
+          ArticleType articleType, ArticleState state, Language language);
 
   Optional<Article> findById(Long id);
 

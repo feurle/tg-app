@@ -33,7 +33,7 @@ public class ArticleMapper {
         article.getOrder(),
         sectionResponses,
         article.getState(),
-        article.getPageType(),
+        article.getArticleType(),
         article.getLanguage(),
         article.getPublishedDate(),
         imageResponses,

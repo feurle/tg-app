@@ -3,7 +3,7 @@
 package com.feurle.tg.webcontent.infrastructure.config;
 
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -36,15 +36,15 @@ public class WebContentConfig implements WebMvcConfigurer {
   }
 
   public static class StringToPageTypeConverter
-      implements org.springframework.core.convert.converter.Converter<String, PageType> {
+      implements org.springframework.core.convert.converter.Converter<String, ArticleType> {
     @Override
-    public PageType convert(String source) {
+    public ArticleType convert(String source) {
       if (source == null || source.isBlank()) {
         return null;
       }
 
       try {
-        return PageType.valueOf(source.toUpperCase());
+        return ArticleType.valueOf(source.toUpperCase());
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Unknown page type: " + source);
       }

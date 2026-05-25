@@ -3,8 +3,8 @@
 package com.feurle.tg.webcontent.domain;
 
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class Article {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "article_type")
-  private PageType pageType;
+  private ArticleType articleType;
 
   @Enumerated(EnumType.STRING)
   private Language language = Language.GERMAN;

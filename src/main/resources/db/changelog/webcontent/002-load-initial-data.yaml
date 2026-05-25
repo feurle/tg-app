@@ -110,7 +110,7 @@ databaseChangeLog:
                   name: language
                   type: STRING
               - column:
-                  name: page_type
+                  name: article_type
                   type: STRING
               - column:
                   name: sort_order
@@ -188,7 +188,7 @@ databaseChangeLog:
                   name: language
                   type: STRING
               - column:
-                  name: page_type
+                  name: article_type
                   type: STRING
               - column:
                   name: article_image_id
@@ -237,7 +237,7 @@ databaseChangeLog:
                   name: language
                   type: STRING
               - column:
-                  name: page_type
+                  name: article_type
                   type: STRING
               - column:
                   name: article_image_id
@@ -286,7 +286,7 @@ databaseChangeLog:
                   name: language
                   type: STRING
               - column:
-                  name: page_type
+                  name: article_type
                   type: STRING
               - column:
                   name: article_image_id
@@ -335,7 +335,7 @@ databaseChangeLog:
                   name: language
                   type: STRING
               - column:
-                  name: page_type
+                  name: article_type
                   type: STRING
               - column:
                   name: article_image_id
@@ -387,8 +387,8 @@ databaseChangeLog:
       author: system
       context: faker
       changes:
-        - sql: UPDATE article SET page_id = 1 WHERE page_type IN ('HOME_TEASER', 'HOME_PAGE')
-        - sql: UPDATE article SET page_id = 2 WHERE page_type IN ('NEWS_TEASER', 'NEWS_PAGE')
-        - sql: UPDATE article SET page_id = 3 WHERE page_type IN ('ABOUT_TEASER', 'ABOUT_PAGE')
+        - sql: UPDATE article SET page_id = 100 WHERE article_type IN ('HOME_TEASER', 'HOME_PAGE')
+        - sql: UPDATE article SET page_id = 200 WHERE article_type IN ('NEWS_TEASER', 'NEWS_PAGE')
+        - sql: UPDATE article SET page_id = 300 WHERE article_type IN ('ABOUT_TEASER', 'ABOUT_PAGE')
 
 

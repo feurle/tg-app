@@ -5,7 +5,7 @@ package com.feurle.tg.webcontent.application;
 import com.feurle.tg.webcontent.domain.*;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-import com.feurle.tg.webcontent.domain.enumeration.PageType;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,18 +44,18 @@ public class ArticleService {
         .toList();
   }
 
-  public List<Article> getArticlesByPageType(PageType pageType) {
-    return articleRepository.findByPageType(pageType);
+  public List<Article> getArticlesByArticleType(ArticleType articleType) {
+    return articleRepository.findByArticleType(articleType);
   }
 
-  public List<Article> getPublishedArticlesByPageType(PageType pageType) {
-    return articleRepository.findByPageTypeAndState(pageType, ArticleState.PUBLISHED);
+  public List<Article> getPublishedArticlesByArticleType(ArticleType articleType) {
+    return articleRepository.findByArticleTypeAndState(articleType, ArticleState.PUBLISHED);
   }
 
-  public List<Article> getPublishedArticlesByPageTypeAndLanguage(
-      PageType pageType, Language language) {
-    return articleRepository.findByPageTypeAndStateAndLanguage(
-        pageType, ArticleState.PUBLISHED, language);
+  public List<Article> getPublishedArticlesByArticleTypeAndLanguage(
+          ArticleType articleType, Language language) {
+    return articleRepository.findByArticleTypeAndStateAndLanguage(
+            articleType, ArticleState.PUBLISHED, language);
   }
 
   public Article getArticleById(Long id) {
@@ -67,7 +67,7 @@ public class ArticleService {
   public Article createArticle(
       String title,
       String content,
-      PageType pageType,
+      ArticleType articleType,
       Language language,
       Long pageId,
       List<Long> imageIds,
@@ -75,7 +75,7 @@ public class ArticleService {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);
-    article.setPageType(pageType);
+    article.setArticleType(articleType);
     article.setLanguage(language != null ? language : Language.GERMAN);
     article.setState(ArticleState.CREATED);
 

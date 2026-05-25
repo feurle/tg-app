@@ -3,7 +3,7 @@
 package com.feurle.tg.webcontent.domain.enumeration;
 
 // @TODO: refactor this to articleType
-public enum PageType {
+public enum ArticleType {
   HOME_TEASER,
   HOME_PAGE,
   NEWS_TEASER,
