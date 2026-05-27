@@ -146,6 +146,24 @@ databaseChangeLog:
                   name: article_id
                   type: NUMERIC
 
+  - changeSet:
+      id: 006-load-stage-article-images
+      author: system
+      context: stage
+      changes:
+        - loadData:
+            tableName: article_images
+            file: db/data/article_images.csv
+            separator: ;
+            relativeToChangelogFile: false
+            columns:
+              - column:
+                  name: article_id
+                  type: NUMERIC
+              - column:
+                  name: image_id
+                  type: NUMERIC
+
   # ── Dev / faker: rich test articles ──────────────────────────────────────
 
   - changeSet:
