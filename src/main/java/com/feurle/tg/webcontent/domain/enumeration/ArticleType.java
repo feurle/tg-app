@@ -11,6 +11,7 @@ public enum ArticleType {
   ABOUT_PAGE,
   ABOUT_TEASER,
   HERO,
+  COL2,
   COL3,
   COL4,
   TEXT,
