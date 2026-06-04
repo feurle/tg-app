@@ -2,8 +2,8 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.webcontent.infrastructure.config;
 
-import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -12,6 +12,9 @@ services:
       - SMTP_HOST=localhost
       - SMTP_USERNAME=username
       - SMTP_PASSWORD=password
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - SERVICE_BASE_URL=http://tg-app-prod:8080
     networks:
       - nginx-proxy-network
 
@@ -21,8 +24,8 @@ services:
     restart: unless-stopped
     environment:
       - BACKEND_URL=http://tg-app:8080
-      - VIRTUAL_HOST=prod.example.com
-      - LETSENCRYPT_HOST=prod.example.com
+      - VIRTUAL_HOST=www.tier-gesund.at
+      - LETSENCRYPT_HOST=www.tier-gesund.at
     networks:
       - nginx-proxy-network
 

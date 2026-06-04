@@ -3,8 +3,8 @@
 package com.feurle.tg.webcontent.domain;
 
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
-import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public interface ArticleRepository {
   List<Article> findByArticleTypeAndState(ArticleType articleType, ArticleState state);
 
   List<Article> findByArticleTypeAndStateAndLanguage(
-          ArticleType articleType, ArticleState state, Language language);
+      ArticleType articleType, ArticleState state, Language language);
 
   Optional<Article> findById(Long id);
 
