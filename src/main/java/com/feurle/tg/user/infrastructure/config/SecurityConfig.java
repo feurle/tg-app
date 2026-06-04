@@ -7,6 +7,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import com.feurle.tg.user.application.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,10 +23,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-  // Production/Default profile - Session auth only (no Basic Auth)
-  // Note: Use @Profile("!dev") if you want to explicitly exclude dev profile
-  // @TODO: refactor to JWT
-  // @TODO: use methodLevelSecurity - preAuthorize
 
   private final AppUserDetailsService userDetailsService;
   private final Environment environment;
@@ -47,62 +44,66 @@ public class SecurityConfig {
     return builder.build();
   }
 
+  /**
+   * Dedicated chain for /actuator/**. Always uses HTTP Basic so tg-admin can query actuator
+   * endpoints without a session.
+   */
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    // @TODO: fix authetication path for maintainence and admin stuff
+  @Order(1)
+  public SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
+    http.securityMatcher("/actuator/**")
+        .authorizeHttpRequests(
+            authz ->
+                authz.requestMatchers("/actuator/health").permitAll().anyRequest().hasRole("ADMIN"))
+        .httpBasic(withDefaults())
+        .csrf(csrf -> csrf.disable())
+        .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+    return http.build();
+  }
+
+  /** Main application chain — session-based auth. */
+  @Bean
+  @Order(2)
+  public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
         authz -> {
           authz
-              // Static frontend assets
               .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico")
               .permitAll()
-              .requestMatchers("/actuator/health")
-              .permitAll()
-              // Authentication endpoints
               .requestMatchers("/api/auth/**")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/auth/me")
               .permitAll()
-              // Public API: read pages, articles and download images
               .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/**")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/pages/**")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/images/**")
               .permitAll()
-              // Contact form + public contact info
               .requestMatchers(HttpMethod.POST, "/api/contact/message")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/contact/info")
               .permitAll();
-
-          // All other requests require authentication
           authz.anyRequest().authenticated();
         });
 
     http.csrf(csrf -> csrf.disable());
     http.formLogin(form -> form.disable());
 
-    // Enable Basic Auth only in dev profile for easy curl/Postman testing
     if (isDevOrStageProfile()) {
       http.httpBasic(withDefaults());
       http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     } else {
       http.httpBasic(basic -> basic.disable());
-      http.headers(
-          headers ->
-              headers.frameOptions(frame -> frame.disable())); // X-Frame-Options deaktivieren
-      // ODER nur für gleiche Origin erlauben:
-      // .frameOptions(frame -> frame.sameOrigin())
+      http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     }
 
     return http.build();
   }
 
   private boolean isDevOrStageProfile() {
-    String[] activeProfiles = environment.getActiveProfiles();
-    for (String profile : activeProfiles) {
-      if ("dev".equals(profile) || ("stage".equals(profile))) {
+    for (String profile : environment.getActiveProfiles()) {
+      if ("dev".equals(profile) || "stage".equals(profile)) {
         return true;
       }
     }

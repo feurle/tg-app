@@ -17,6 +17,20 @@ services:
     networks:
       - nginx-proxy-network
 
+  tg-admin:
+    image: feurle/tg-admin:latest
+    container_name: tg-admin
+    restart: unless-stopped
+    expose:
+      - "8080"
+    environment:
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - VIRTUAL_HOST=admin.tier-gesund.at
+      - LETSENCRYPT_HOST=admin.tier-gesund.at
+    networks:
+      - nginx-proxy-network
+
 volumes:
   tg-database:
 

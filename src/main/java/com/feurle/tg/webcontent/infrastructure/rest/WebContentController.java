@@ -193,7 +193,7 @@ public class WebContentController {
 
   @GetMapping("/articles/pagetype/{articleType}/published")
   public ResponseEntity<List<ArticleResponse>> getPublishedArticlesByPageType(
-          @PathVariable ArticleType articleType, @RequestParam(required = false) Language language) {
+      @PathVariable ArticleType articleType, @RequestParam(required = false) Language language) {
     List<Article> articles;
     if (language != null) {
       articles = articleService.getPublishedArticlesByArticleTypeAndLanguage(articleType, language);

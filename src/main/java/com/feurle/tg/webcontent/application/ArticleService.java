@@ -4,8 +4,8 @@ package com.feurle.tg.webcontent.application;
 
 import com.feurle.tg.webcontent.domain.*;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
-import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
+import com.feurle.tg.webcontent.domain.enumeration.Language;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,9 +53,9 @@ public class ArticleService {
   }
 
   public List<Article> getPublishedArticlesByArticleTypeAndLanguage(
-          ArticleType articleType, Language language) {
+      ArticleType articleType, Language language) {
     return articleRepository.findByArticleTypeAndStateAndLanguage(
-            articleType, ArticleState.PUBLISHED, language);
+        articleType, ArticleState.PUBLISHED, language);
   }
 
   public Article getArticleById(Long id) {

@@ -120,7 +120,7 @@ class WebContentControllerIT {
   }
 
   private Article createArticle(
-          String title, String content, ArticleState state, ArticleType page, Language language) {
+      String title, String content, ArticleState state, ArticleType page, Language language) {
     Article article = new Article();
     article.setTitle(title);
     article.setContent(content);

@@ -4,7 +4,6 @@ package com.feurle.tg.webcontent.infrastructure.rest.dto;
 
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
-
 import java.util.List;
 
 public record CreateArticleRequest(

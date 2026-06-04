@@ -62,7 +62,7 @@ jobs:
   docker:
     name: Build & Push Image
     runs-on: ubuntu-latest
-    needs: build  # Nur wenn Tests grün sind!
+    needs: build
     outputs:
       image-tag: ${{ steps.tag.outputs.value }}
 
@@ -105,7 +105,7 @@ jobs:
         run: |
           ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
           docker push ${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
-          
+
           if [ "${{ steps.tag.outputs.value }}" = "latest" ]; then
             docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
             docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
@@ -117,7 +117,7 @@ jobs:
   deploy:
     name: Deploy to Server
     runs-on: ubuntu-latest
-    needs: docker  # Nur wenn Image erfolgreich gepusht
+    needs: docker
 
     steps:
       - name: Deploy via SSH
@@ -131,7 +131,7 @@ jobs:
 
             if [ "${{ needs.docker.outputs.image-tag }}" = "latest" ]; then
               docker compose -f /appbase/tg-app/prod-compose.yml up tg-app -d
-            
+
               docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
             else
               docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d

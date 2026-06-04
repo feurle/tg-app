@@ -17,13 +17,39 @@ spring:
     password: ${SMTP_PASSWORD}
     properties:
       mail.smtp.auth: true
-      mail.smtp.starttls.enable: true      # STARTTLS statt SSL
-      mail.smtp.starttls.required: true    # optional aber empfohlen
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
       mail.smtp.ssl.enable: false
+  boot:
+    admin:
+      client:
+        url: http://tg-admin:8080
+        instance:
+          name: ${spring.application.name}
+          # Container name so tg-admin reaches our actuator by Docker hostname, not IP
+          service-base-url: ${SERVICE_BASE_URL:http://localhost:8080}
+          metadata:
+            user.name: ${ADMIN_USERNAME:admin}
+            user.password: ${ADMIN_PASSWORD:admin}
 
 app:
   mail:
     from: ${MAIL_FROM:Webapp <app@foo.bar>}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,heapdump,env,beans,scheduledtasks,modulith
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
+    loggers:
+      enabled: true
+    env:
+      post:
+        enabled: true
 
 ---
 
@@ -41,6 +67,11 @@ spring:
   liquibase:
     contexts: stage
     drop-first: true
+  # No tg-admin running locally — disable client to suppress retry noise
+  boot:
+    admin:
+      client:
+        enabled: false
 
 ---
 
@@ -58,3 +89,12 @@ spring:
     drop-first: true
     contexts: stage
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,heapdump,env,beans,scheduledtasks,modulith,logfile
+
+logging:
+  file:
+    name: /tmp/tg-app.log
