@@ -8,7 +8,6 @@ import com.feurle.tg.user.domain.entity.User;
 import com.feurle.tg.user.infrastructure.rest.dto.AuthUserResponse;
 import com.feurle.tg.user.infrastructure.rest.dto.LoginRequest;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,8 +35,7 @@ public class AuthController {
   @PostMapping("/login")
   public ResponseEntity<?> login(
       @RequestBody LoginRequest request,
-      HttpServletRequest servletRequest,
-      HttpServletResponse servletResponse) {
+      HttpServletRequest servletRequest) {
     try {
       Authentication authentication =
           authenticationManager.authenticate(
@@ -47,8 +45,14 @@ public class AuthController {
       context.setAuthentication(authentication);
       SecurityContextHolder.setContext(context);
 
-      new HttpSessionSecurityContextRepository()
-          .saveContext(context, servletRequest, servletResponse);
+      // Protect against session fixation: destroy any pre-existing session, then create a fresh one
+      HttpSession existing = servletRequest.getSession(false);
+      if (existing != null) {
+        existing.invalidate();
+      }
+      HttpSession session = servletRequest.getSession(true);
+      session.setAttribute(
+          HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
       return userService
           .findByLogin(request.login())

@@ -1,3 +1,11 @@
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: strict
+        http-only: true
+        secure: false   # dev runs over HTTP; overridden to true in stage/prod profile
+
 spring:
   application:
     name: tg-app
@@ -74,6 +82,13 @@ spring:
         enabled: false
 
 ---
+
+server:
+  forward-headers-strategy: native   # trust X-Forwarded-Proto from Nginx
+  servlet:
+    session:
+      cookie:
+        secure: true   # HTTPS is terminated by Nginx in stage/prod
 
 spring:
   config:
