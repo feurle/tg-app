@@ -9,9 +9,10 @@ services:
       - SPRING_PROFILES_ACTIVE=stage
       - DB_HOST=tg-database
       - DB_NAME=tg-database
-      - SMTP_HOST=localhost
-      - SMTP_USERNAME=username
-      - SMTP_PASSWORD=password
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - MAIL_FROM=${MAIL_FROM}
       - ADMIN_USERNAME=${ADMIN_USERNAME}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - SERVICE_BASE_URL=http://tg-app-prod:8080
@@ -24,8 +25,8 @@ services:
     restart: unless-stopped
     environment:
       - BACKEND_URL=http://tg-app:8080
-      - VIRTUAL_HOST=www.tier-gesund.at
-      - LETSENCRYPT_HOST=www.tier-gesund.at
+      - VIRTUAL_HOST=${VIRTUAL_HOST_PROD}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST_PROD}
     networks:
       - nginx-proxy-network
 
