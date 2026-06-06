@@ -170,6 +170,7 @@ class UserControllerIT {
   // ========== POST /api/user (createUser) ==========
 
   @Test
+  @WithMockUser(roles = "ADMIN")
   void createUser_withValidData_returns201() throws Exception {
     // Arrange
     CreateUserRequest request =
@@ -202,6 +203,7 @@ class UserControllerIT {
   }
 
   @Test
+  @WithMockUser(roles = "ADMIN")
   void createUser_withMissingLogin_returns400() throws Exception {
     // Arrange
     CreateUserRequest request =
@@ -218,6 +220,7 @@ class UserControllerIT {
   }
 
   @Test
+  @WithMockUser(roles = "ADMIN")
   void createUser_withInvalidEmail_returns400() throws Exception {
     // Arrange
     CreateUserRequest request =

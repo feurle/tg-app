@@ -7,15 +7,18 @@ import com.feurle.tg.customer.domain.Customer;
 import com.feurle.tg.customer.infrastructure.rest.dto.CreateCustomerRequest;
 import com.feurle.tg.customer.infrastructure.rest.dto.CustomerResponse;
 import com.feurle.tg.customer.infrastructure.rest.dto.UpdateCustomerRequest;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/customer")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')")
 public class CustomerController {
 
   private final CustomerService customerService;
@@ -38,7 +41,7 @@ public class CustomerController {
 
   @PostMapping
   public ResponseEntity<CustomerResponse> createCustomer(
-      @RequestBody CreateCustomerRequest request) {
+      @Valid @RequestBody CreateCustomerRequest request) {
     Customer customer =
         customerService.createCustomer(
             request.firstName(),
@@ -55,7 +58,7 @@ public class CustomerController {
 
   @PutMapping("/{id}")
   public ResponseEntity<CustomerResponse> updateCustomer(
-      @PathVariable Long id, @RequestBody UpdateCustomerRequest request) {
+      @PathVariable Long id, @Valid @RequestBody UpdateCustomerRequest request) {
     Customer customer =
         customerService.updateCustomer(
             id,

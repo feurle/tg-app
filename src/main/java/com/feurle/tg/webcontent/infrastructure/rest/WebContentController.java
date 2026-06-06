@@ -14,6 +14,7 @@ import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ArticleMapper;
+import jakarta.validation.Valid;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ImageMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.PageMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.SectionMapper;
@@ -50,7 +51,7 @@ public class WebContentController {
 
   @PostMapping("/articles/{articleId}/sections")
   public ResponseEntity<SectionResponse> createSection(
-      @PathVariable Long articleId, @RequestBody CreateSectionRequest request) {
+      @PathVariable Long articleId, @Valid @RequestBody CreateSectionRequest request) {
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(
             sectionMapper.toResponse(
@@ -60,7 +61,7 @@ public class WebContentController {
 
   @PutMapping("/sections/{id}")
   public ResponseEntity<SectionResponse> updateSection(
-      @PathVariable Long id, @RequestBody UpdateSectionRequest request) {
+      @PathVariable Long id, @Valid @RequestBody UpdateSectionRequest request) {
     return ResponseEntity.ok(
         sectionMapper.toResponse(
             sectionService.updateSection(id, request.order(), request.title(), request.content())));
@@ -111,7 +112,7 @@ public class WebContentController {
 
   @PutMapping("/images/{imageId}")
   public ResponseEntity<ImageResponse> updateImage(
-      @PathVariable Long imageId, @RequestBody UpdateImageRequest request) {
+      @PathVariable Long imageId, @Valid @RequestBody UpdateImageRequest request) {
     Image image = imageService.updateImage(imageId, request.title());
     return ResponseEntity.ok(imageMapper.toResponse(image));
   }
@@ -135,14 +136,14 @@ public class WebContentController {
   }
 
   @PostMapping("/tags")
-  public ResponseEntity<TagResponse> createTag(@RequestBody CreateTagRequest request) {
+  public ResponseEntity<TagResponse> createTag(@Valid @RequestBody CreateTagRequest request) {
     Tag tag = tagService.createTag(request.name());
     return ResponseEntity.status(HttpStatus.CREATED).body(tagMapper.toResponse(tag));
   }
 
   @PutMapping("/tags/{id}")
   public ResponseEntity<TagResponse> updateTag(
-      @PathVariable Long id, @RequestBody UpdateTagRequest request) {
+      @PathVariable Long id, @Valid @RequestBody UpdateTagRequest request) {
     Tag tag = tagService.updateTag(id, request.name());
     return ResponseEntity.ok(tagMapper.toResponse(tag));
   }
@@ -209,7 +210,7 @@ public class WebContentController {
   }
 
   @PostMapping("/articles")
-  public ResponseEntity<ArticleResponse> createArticle(@RequestBody CreateArticleRequest request) {
+  public ResponseEntity<ArticleResponse> createArticle(@Valid @RequestBody CreateArticleRequest request) {
     Article article =
         articleService.createArticle(
             request.title(),
@@ -224,7 +225,7 @@ public class WebContentController {
 
   @PutMapping("/articles/{id}")
   public ResponseEntity<ArticleResponse> updateArticle(
-      @PathVariable Long id, @RequestBody UpdateArticleRequest request) {
+      @PathVariable Long id, @Valid @RequestBody UpdateArticleRequest request) {
     Article article =
         articleService.updateArticle(
             id,
