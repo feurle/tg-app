@@ -72,12 +72,12 @@ databaseChangeLog:
                   name: description
                   type: STRING
 
-  # ── Stage: minimal seed articles and sections ─────────────────────────────
+  # ── Test: minimal seed articles and sections ──────────────────────────────
 
   - changeSet:
-      id: 004-load-stage-articles
+      id: 004-load-test-articles
       author: system
-      context: stage
+      context: test
       changes:
         - loadData:
             tableName: article
@@ -120,9 +120,9 @@ databaseChangeLog:
                   type: NUMERIC
 
   - changeSet:
-      id: 005-load-stage-sections
+      id: 005-load-test-sections
       author: system
-      context: stage
+      context: test
       changes:
         - loadData:
             tableName: section
@@ -147,9 +147,9 @@ databaseChangeLog:
                   type: NUMERIC
 
   - changeSet:
-      id: 006-load-stage-article-images
+      id: 006-load-test-article-images
       author: system
-      context: stage
+      context: test
       changes:
         - loadData:
             tableName: article_images

@@ -4,7 +4,7 @@ server:
       cookie:
         same-site: strict
         http-only: true
-        secure: false   # dev runs over HTTP; overridden to true in stage/prod profile
+        secure: false   # dev runs over HTTP; overridden to true in prod/test profile
 
 spring:
   application:
@@ -73,7 +73,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   liquibase:
-    contexts: stage
+    contexts: test
     drop-first: true
   # No tg-admin running locally — disable client to suppress retry noise
   boot:
@@ -88,12 +88,14 @@ server:
   servlet:
     session:
       cookie:
-        secure: true   # HTTPS is terminated by Nginx in stage/prod
+        secure: true   # HTTPS is terminated by Nginx in prod/test
 
 spring:
   config:
     activate:
-      on-profile: stage
+      on-profile: prod
+  application:
+    name: tg-app-prod
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:tg-database}?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -102,7 +104,42 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
     drop-first: true
-    contexts: stage
+    contexts: prod
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,heapdump,env,beans,scheduledtasks,modulith,logfile
+
+logging:
+  file:
+    name: /tmp/tg-app.log
+
+---
+
+server:
+  forward-headers-strategy: native
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  application:
+    name: tg-app-test
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:tg-database}?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+  liquibase:
+    drop-first: true
+    contexts: test
 
 management:
   endpoints:

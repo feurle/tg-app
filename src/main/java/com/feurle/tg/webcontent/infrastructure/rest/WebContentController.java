@@ -14,11 +14,11 @@ import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.*;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ArticleMapper;
-import jakarta.validation.Valid;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.ImageMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.PageMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.SectionMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.TagMapper;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -210,7 +210,8 @@ public class WebContentController {
   }
 
   @PostMapping("/articles")
-  public ResponseEntity<ArticleResponse> createArticle(@Valid @RequestBody CreateArticleRequest request) {
+  public ResponseEntity<ArticleResponse> createArticle(
+      @Valid @RequestBody CreateArticleRequest request) {
     Article article =
         articleService.createArticle(
             request.title(),
