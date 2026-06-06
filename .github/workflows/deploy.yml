@@ -147,7 +147,7 @@ jobs:
             docker pull ${{ env.IMAGE_NAME }}:${{ needs.docker.outputs.image-tag }}
 
             if [ "${{ needs.docker.outputs.image-tag }}" = "latest" ]; then
-              docker compose -f /appbase/tg-app/prod-compose.yml up tg-app -d
+              docker compose -f /appbase/tg-app/prod-compose.yml up tg-app-prod -d
 
               docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
             else
