@@ -1,6 +1,6 @@
 services:
   tg-app-test:
-    image: feurle/tg-app:snapshot
+    image: feurle/tg-app:latest
     container_name: tg-app-test
     restart: unless-stopped
     expose:
