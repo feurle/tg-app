@@ -50,13 +50,13 @@ infrastructure/ → REST controllers, JPA repository impls, DTOs, mappers
 
 ### Database
 - **Dev profile:** H2 in-memory, H2 console at `http://localhost:8080/h2-console`
-- **Stage/Prod:** MySQL 9.2 (Liquibase drops & re-migrates on deploy)
+- **Prod/Test:** MySQL 9.2 (Liquibase drops & re-migrates on deploy)
 - Migrations in `src/main/resources/db/changelog/` (Liquibase YAML)
 - Fake data is loaded by Liquibase in dev: ~50 articles in 4 languages, ~50 customers
 
 ### Profiles
 - `dev` — default for local, H2, hot reload
-- `stage` / `prod` — MySQL, deployed via Docker Compose + SSH in GitHub Actions
+- `prod` / `test` — MySQL, deployed via Docker Compose + SSH in GitHub Actions
 
 ### Test credentials (loaded by Liquibase in dev)
 | Username | Password | Roles |

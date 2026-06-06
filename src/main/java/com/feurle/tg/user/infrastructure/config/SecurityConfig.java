@@ -57,9 +57,7 @@ public class SecurityConfig {
     return http.build();
   }
 
-  /**
-   * Remaining actuator endpoints require ROLE_ADMIN via HTTP Basic so tg-admin can query them.
-   */
+  /** Remaining actuator endpoints require ROLE_ADMIN via HTTP Basic so tg-admin can query them. */
   @Bean
   @Order(2)
   public SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
@@ -102,7 +100,7 @@ public class SecurityConfig {
     http.csrf(csrf -> csrf.disable());
     http.formLogin(form -> form.disable());
 
-    if (isDevOrStageProfile()) {
+    if (isDevProfile()) {
       http.httpBasic(withDefaults());
       http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
     } else {
@@ -113,9 +111,9 @@ public class SecurityConfig {
     return http.build();
   }
 
-  private boolean isDevOrStageProfile() {
+  private boolean isDevProfile() {
     for (String profile : environment.getActiveProfiles()) {
-      if ("dev".equals(profile) || "stage".equals(profile)) {
+      if ("dev".equals(profile)) {
         return true;
       }
     }

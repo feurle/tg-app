@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    contexts: stage
+    contexts: test
   mail:
     host: localhost
     port: 1025
