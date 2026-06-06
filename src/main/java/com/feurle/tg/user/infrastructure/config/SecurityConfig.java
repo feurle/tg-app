@@ -45,16 +45,26 @@ public class SecurityConfig {
   }
 
   /**
-   * Dedicated chain for /actuator/**. Always uses HTTP Basic so tg-admin can query actuator
-   * endpoints without a session.
+   * Health endpoint is fully public — no HTTP Basic so bad credentials don't trigger a 401 even
+   * when tg-admin polls with mismatched credentials.
    */
   @Bean
   @Order(1)
+  public SecurityFilterChain healthFilterChain(HttpSecurity http) throws Exception {
+    http.securityMatcher("/actuator/health")
+        .authorizeHttpRequests(authz -> authz.anyRequest().permitAll())
+        .csrf(csrf -> csrf.disable());
+    return http.build();
+  }
+
+  /**
+   * Remaining actuator endpoints require ROLE_ADMIN via HTTP Basic so tg-admin can query them.
+   */
+  @Bean
+  @Order(2)
   public SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
     http.securityMatcher("/actuator/**")
-        .authorizeHttpRequests(
-            authz ->
-                authz.requestMatchers("/actuator/health").permitAll().anyRequest().hasRole("ADMIN"))
+        .authorizeHttpRequests(authz -> authz.anyRequest().hasRole("ADMIN"))
         .httpBasic(withDefaults())
         .csrf(csrf -> csrf.disable())
         .headers(headers -> headers.frameOptions(frame -> frame.disable()));
@@ -63,7 +73,7 @@ public class SecurityConfig {
 
   /** Main application chain — session-based auth. */
   @Bean
-  @Order(2)
+  @Order(3)
   public SecurityFilterChain appFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
         authz -> {

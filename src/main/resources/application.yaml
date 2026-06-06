@@ -37,8 +37,8 @@ spring:
           # Container name so tg-admin reaches our actuator by Docker hostname, not IP
           service-base-url: ${SERVICE_BASE_URL:http://localhost:8080}
           metadata:
-            user.name: ${ADMIN_USERNAME:admin}
-            user.password: ${ADMIN_PASSWORD:admin}
+            user.name: ${ACTUATOR_USERNAME:admin}
+            user.password: ${ACTUATOR_PASSWORD:admin}
 
 app:
   mail:
