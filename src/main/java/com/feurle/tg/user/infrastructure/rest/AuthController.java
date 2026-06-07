@@ -69,7 +69,7 @@ public class AuthController {
   @GetMapping("/me")
   public ResponseEntity<?> getCurrentUser(Authentication authentication) {
     if (authentication == null || !authentication.isAuthenticated()) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      return ResponseEntity.noContent().build();
     }
 
     return userService
