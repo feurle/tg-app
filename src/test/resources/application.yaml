@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    contexts: test
+    contexts: seed
   mail:
     host: localhost
     port: 1025

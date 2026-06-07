@@ -73,7 +73,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   liquibase:
-    contexts: test
+    contexts: seed
     drop-first: true
   # No tg-admin running locally — disable client to suppress retry noise
   boot:
@@ -93,18 +93,18 @@ server:
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: test
   application:
-    name: tg-app-prod
+    name: tg-app-test
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:tg-database}?serverTimezone=UTC
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:tg-database-test}?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
     drop-first: true
-    contexts: prod
+    contexts: seed
 
 management:
   endpoints:
@@ -128,9 +128,9 @@ server:
 spring:
   config:
     activate:
-      on-profile: test
+      on-profile: prod
   application:
-    name: tg-app-test
+    name: tg-app-prod
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/${DB_NAME:tg-database}?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -139,7 +139,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   liquibase:
     drop-first: true
-    contexts: test
+    contexts: seed
 
 management:
   endpoints:
