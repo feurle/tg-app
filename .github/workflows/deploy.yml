@@ -102,6 +102,8 @@ jobs:
           fi
 
       - name: Build & Push Docker Image (Gradle bootBuildImage)
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
         run: |
           ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
           docker push ${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
