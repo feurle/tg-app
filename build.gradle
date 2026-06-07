@@ -78,6 +78,10 @@ jacocoTestReport {
 	}
 }
 
+springBoot {
+	buildInfo()
+}
+
 tasks.named("bootBuildImage") {
 	imageName = "docker.io/feurle/${project.name}"
 }
