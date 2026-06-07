@@ -12,6 +12,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/customer/001-init-schema.yaml
   - include:
-      file: db/changelog/customer/002-load-initial-data.yaml
-  - include:
       file: db/changelog/contact/001-init-schema.yaml

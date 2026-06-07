@@ -72,16 +72,16 @@ databaseChangeLog:
                   name: description
                   type: STRING
 
-  # ── Test: minimal seed articles and sections ──────────────────────────────
+  # ── Seed: initial articles, sections and image links ─────────────────────
 
   - changeSet:
-      id: 004-load-test-articles
+      id: 004-load-articles-de
       author: system
-      context: test
+      context: seed
       changes:
         - loadData:
             tableName: article
-            file: db/data/article.csv
+            file: db/data/article_de.csv
             separator: ;
             relativeToChangelogFile: false
             columns:
@@ -120,13 +120,13 @@ databaseChangeLog:
                   type: NUMERIC
 
   - changeSet:
-      id: 005-load-test-sections
+      id: 005-load-sections-de
       author: system
-      context: test
+      context: seed
       changes:
         - loadData:
             tableName: section
-            file: db/data/section.csv
+            file: db/data/section_de.csv
             separator: ;
             relativeToChangelogFile: false
             columns:
@@ -147,9 +147,9 @@ databaseChangeLog:
                   type: NUMERIC
 
   - changeSet:
-      id: 006-load-test-article-images
+      id: 006-load-article-images
       author: system
-      context: test
+      context: seed
       changes:
         - loadData:
             tableName: article_images
@@ -163,250 +163,5 @@ databaseChangeLog:
               - column:
                   name: image_id
                   type: NUMERIC
-
-  # ── Dev / faker: rich test articles ──────────────────────────────────────
-
-  - changeSet:
-      id: 006-load-fake-articles-de
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_de.csv
-            tableName: article
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: id
-                  type: NUMERIC
-              - column:
-                  name: title
-                  type: STRING
-              - column:
-                  name: content
-                  type: STRING
-              - column:
-                  name: state
-                  type: STRING
-              - column:
-                  name: published_date
-                  type: datetime
-              - column:
-                  name: created_at
-                  type: datetime
-              - column:
-                  name: updated_at
-                  type: datetime
-              - column:
-                  name: author
-                  type: skip
-              - column:
-                  name: language
-                  type: STRING
-              - column:
-                  name: article_type
-                  type: STRING
-              - column:
-                  name: article_image_id
-                  type: skip
-              - column:
-                  name: page_id
-                  type: skip
-
-  - changeSet:
-      id: 007-load-fake-articles-sv
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_sv.csv
-            tableName: article
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: id
-                  type: NUMERIC
-              - column:
-                  name: title
-                  type: STRING
-              - column:
-                  name: content
-                  type: STRING
-              - column:
-                  name: state
-                  type: STRING
-              - column:
-                  name: published_date
-                  type: datetime
-              - column:
-                  name: created_at
-                  type: datetime
-              - column:
-                  name: updated_at
-                  type: datetime
-              - column:
-                  name: author
-                  type: skip
-              - column:
-                  name: language
-                  type: STRING
-              - column:
-                  name: article_type
-                  type: STRING
-              - column:
-                  name: article_image_id
-                  type: skip
-              - column:
-                  name: page_id
-                  type: skip
-
-  - changeSet:
-      id: 008-load-fake-articles-en
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_en.csv
-            tableName: article
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: id
-                  type: NUMERIC
-              - column:
-                  name: title
-                  type: STRING
-              - column:
-                  name: content
-                  type: STRING
-              - column:
-                  name: state
-                  type: STRING
-              - column:
-                  name: published_date
-                  type: datetime
-              - column:
-                  name: created_at
-                  type: datetime
-              - column:
-                  name: updated_at
-                  type: datetime
-              - column:
-                  name: author
-                  type: skip
-              - column:
-                  name: language
-                  type: STRING
-              - column:
-                  name: article_type
-                  type: STRING
-              - column:
-                  name: article_image_id
-                  type: skip
-              - column:
-                  name: page_id
-                  type: skip
-
-  - changeSet:
-      id: 009-load-fake-articles-ru
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_ru.csv
-            tableName: article
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: id
-                  type: NUMERIC
-              - column:
-                  name: title
-                  type: STRING
-              - column:
-                  name: content
-                  type: STRING
-              - column:
-                  name: state
-                  type: STRING
-              - column:
-                  name: published_date
-                  type: datetime
-              - column:
-                  name: created_at
-                  type: datetime
-              - column:
-                  name: updated_at
-                  type: datetime
-              - column:
-                  name: author
-                  type: skip
-              - column:
-                  name: language
-                  type: STRING
-              - column:
-                  name: article_type
-                  type: STRING
-              - column:
-                  name: article_image_id
-                  type: skip
-              - column:
-                  name: page_id
-                  type: skip
-
-  - changeSet:
-      id: 010-load-fake-article-images
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_image.csv
-            tableName: article_images
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: article_id
-                  type: NUMERIC
-              - column:
-                  name: image_id
-                  type: NUMERIC
-
-  - changeSet:
-      id: 011-load-fake-article-tags
-      author: system
-      context: faker
-      changes:
-        - loadData:
-            file: db/fake-data/article_tag.csv
-            tableName: article_tags
-            separator: ;
-            quotchar: '"'
-            relativeToChangelogFile: false
-            columns:
-              - column:
-                  name: article_id
-                  type: NUMERIC
-              - column:
-                  name: tag_id
-                  type: NUMERIC
-
-  - changeSet:
-      id: 010-assign-fake-article-page-ids
-      author: system
-      context: faker
-      changes:
-        - sql: UPDATE article SET page_id = 100 WHERE article_type IN ('HOME_TEASER', 'HOME_PAGE')
-        - sql: UPDATE article SET page_id = 200 WHERE article_type IN ('NEWS_TEASER', 'NEWS_PAGE')
-        - sql: UPDATE article SET page_id = 300 WHERE article_type IN ('ABOUT_TEASER', 'ABOUT_PAGE')
 
 

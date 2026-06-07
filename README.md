@@ -1,113 +1,88 @@
 # TG App
 
-A full-stack Spring Boot + React application for content management with support for articles, images, customer management, and user authentication/authorization.
+Spring Boot backend for a veterinary content management site. Serves articles, images, pages, and customer data via a REST API consumed by the sibling frontend repo (`tg-web`).
 
-**Stack:**
-- Backend: Spring Boot 4.0.3 · Java 21 · Spring Modulith · Spring Security · H2 Database · Liquibase
-- Frontend: React 19 · TypeScript · Vite · Tailwind CSS v4 · i18next (4 languages)
+**Stack:** Spring Boot 4.0.3 · Java 21 · Spring Modulith · Spring Security · Liquibase · H2 (dev) · MySQL 9 (test/prod)
 
 ---
 
 ## Local Development
 
-### Terminal 1: Backend (Spring Boot)
+The frontend lives in `../tg-web`. Run both together for full-stack development:
+
 ```bash
+# Terminal 1 — backend on http://localhost:8080
 ./gradlew bootRun
-```
-- Backend starts on `http://localhost:8080` (default with dev profile)
-- Includes **Hot Reload** via Spring Boot DevTools (automatic reload on Java changes)
-- H2 Database Console: `http://localhost:8080/h2-console` (development only)
 
-### Terminal 2: Frontend (Vite Dev Server)
-```bash
-npm run dev
+# Terminal 2 — frontend on http://localhost:5173 (proxies /api to backend)
+cd ../tg-web && npm run dev
 ```
-- Dev server on `http://localhost:5173`
-- **Hot Module Reload (HMR)** enabled
-- Proxies `/api` to `http://localhost:8080`
 
-Then open **http://localhost:5173** in your browser.
+Open **http://localhost:5173** in your browser.
+
+- H2 console (dev only): http://localhost:8080/h2-console
+- Spring Boot DevTools reloads the backend on Java file changes
 
 ---
 
-## Build & Deployment
+## Commands
 
 ```bash
-# Compiles frontend → src/main/resources/static/
-# Then builds Spring Boot jar (includes frontend assets)
-./gradlew build
-```
-
-The resulting jar contains both backend + frontend and can be run standalone.
-
----
-
-## Quick Commands
-
-### Backend
-```bash
-./gradlew bootRun          # Run application
-./gradlew build            # Build + test everything
-./gradlew test             # Run all tests
-./gradlew clean            # Clean build outputs
-```
-
-### Frontend
-```bash
-npm run dev                # Development server (HMR enabled)
-npm run build              # Build for production
-npm run lint               # Lint code
-npx tsc -b                 # Type check
-npm run preview            # Preview production build locally
+./gradlew bootRun              # Run with dev profile (H2, hot reload)
+./gradlew test                 # Run all tests
+./gradlew build                # Full build including tests
+./gradlew spotlessApply        # Format code (run before committing)
+./gradlew jacocoTestReport     # Generate coverage report
+./gradlew bootBuildImage       # Build Docker image via Cloud Native Buildpacks
 ```
 
 ---
 
-## Documentation
+## Authentication
 
-For detailed architecture, API endpoints, testing guides, and more, see **[CLAUDE.md](./CLAUDE.md)**.
+Form-based login with stateful sessions. Two accounts are seeded in every environment:
 
----
-
-## Hot Reload Features
-
-| Component | Technology | Behavior |
-|-----------|-----------|----------|
-| **Java Backend** | Spring Boot DevTools | Auto-reload on `.java` file changes (most code) |
-| **Frontend** | Vite HMR | Instant reload for `.tsx`, `.css`, `.ts` changes |
-| **TypeScript** | Type checking | Run `npx tsc -b` for full type check |
+| Username | Password | Roles |
+|----------|----------|-------|
+| `admin` | `admin` | ROLE_ADMIN, ROLE_USER |
+| `user` | `user` | ROLE_USER |
 
 ---
 
-## Authentication & Test Data
+## Database & Seeding
 
-### Login Credentials
+All profiles use `drop-first: true` — the database is wiped and re-seeded on every start.
 
-The application comes with pre-loaded test data:
+Seeding is split into three Liquibase layers:
 
-| Username | Password | Role | Use Case |
-|----------|----------|------|----------|
-| `admin` | `admin` | ROLE_ADMIN, ROLE_USER | Full admin access (users, articles, customers) |
-| `user` | `user` | ROLE_USER | Limited access (view articles, images) |
+| Context | Data | Active in |
+|---------|------|-----------|
+| *(none)* | Schema, users, authorities, images, tags, pages | all profiles |
+| `seed` | Articles (DE), sections, article–image links | dev, test, prod, JUnit |
+| `test` | Reserved for future JUnit-only fixtures | JUnit tests only |
 
-**To login:**
-1. Click the login button in the navbar
-2. Enter credentials
-3. On success, your username appears in the navbar
+Data files live under `src/main/resources/db/data/`.
 
-### Endpoints & Access
+---
 
-- **Public endpoints**: Article reading, image download, authentication
-- **Protected endpoints**: Everything else (requires login)
-- **Admin-only endpoints**: User management, all CRUD operations
-- **Authentication**: Form-based login with stateful sessions
-- **Roles**: Manage via admin panel (`/api/user`)
+## Profiles
 
-### Test Data
+| Profile | DB | Liquibase contexts | Used by |
+|---------|----|--------------------|---------|
+| `dev` | H2 in-memory | `seed` | local development |
+| `test` | MySQL (`tg-database-test`) | `seed` | staging server |
+| `prod` | MySQL (`tg-database`) | `seed` | production server |
 
-The H2 database is pre-populated with sample data:
+---
 
-- **Users**: 2 test accounts (admin, user) with different role permissions
-- **Customers**: ~50 fake customers (CSV-loaded via Liquibase, `db/fake-data/customer.csv`)
-- **Articles**: ~50+ articles in 4 languages (DE, EN, SV, RU) with multiple states (CREATED, PUBLISHED, CLOSED)
-- **Images**: Sample images loaded through the article relationships
+## Deployment
+
+CI/CD via GitHub Actions (`.github/workflows/deploy.yml`):
+
+1. `./gradlew test bootJar sonar` — tests + SonarQube analysis
+2. `./gradlew bootBuildImage` — Docker image pushed to Docker Hub (`feurle/tg-app`)
+   - `trunk` → tag `latest` → deployed to production via `prod-compose.yml`
+   - `feature/**` → tag `snapshot` → deployed to staging via `test-compose.yml`
+3. Deployed over SSH using Docker Compose files in `src/main/docker/`
+
+Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS.
