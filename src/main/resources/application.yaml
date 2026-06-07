@@ -44,7 +44,16 @@ app:
   mail:
     from: ${MAIL_FROM:Webapp <app@foo.bar>}
 
+info:
+  app:
+    branch: ${BRANCH_NAME:local}
+
 management:
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
   endpoints:
     web:
       exposure:
