@@ -147,11 +147,11 @@ class AuthControllerIT {
   }
 
   @Test
-  void getCurrentUser_withoutAuth_returns401() throws Exception {
+  void getCurrentUser_withoutAuth_returns204() throws Exception {
     // Act & Assert
     mockMvc
         .perform(get("/api/auth/me").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isUnauthorized());
+        .andExpect(status().isNoContent());
   }
 
   // ========== POST /api/auth/logout ==========
@@ -180,10 +180,10 @@ class AuthControllerIT {
     // Act - Logout
     mockMvc.perform(post("/api/auth/logout")).andExpect(status().isNoContent());
 
-    // Assert - Session should be invalidated, /me should return 401
+    // Assert - Session should be invalidated, /me should return 204 (no content, not authenticated)
     mockMvc
         .perform(get("/api/auth/me").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isUnauthorized());
+        .andExpect(status().isNoContent());
   }
 
   @Test
