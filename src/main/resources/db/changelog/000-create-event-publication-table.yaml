@@ -1,4 +1,15 @@
 databaseChangeLog:
+  # Spring Modulith's JpaEventPublication uses a UUID primary key (@Id @Column(length = 16) UUID).
+  # The id column type must match per database: H2/Postgres have a native UUID type, MySQL/MariaDB
+  # store it as BINARY(16) (which is what Hibernate maps the UUID to on those dialects).
+  - property:
+      name: uuid.type
+      value: UUID
+      dbms: h2,postgresql
+  - property:
+      name: uuid.type
+      value: BINARY(16)
+      dbms: mysql,mariadb
   - changeSet:
       id: 001-create-event-publication-table
       author: system
@@ -8,8 +19,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
+                  type: ${uuid.type}
                   constraints:
                     primaryKey: true
                     nullable: false

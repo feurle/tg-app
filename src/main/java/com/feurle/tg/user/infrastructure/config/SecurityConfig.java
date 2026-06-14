@@ -93,6 +93,8 @@ public class SecurityConfig {
               .requestMatchers(HttpMethod.POST, "/api/contact/message")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/contact/info")
+              .permitAll()
+              .requestMatchers(HttpMethod.POST, "/api/questionnaire")
               .permitAll();
           authz.anyRequest().authenticated();
         });

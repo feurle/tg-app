@@ -13,3 +13,5 @@ databaseChangeLog:
       file: db/changelog/customer/001-init-schema.yaml
   - include:
       file: db/changelog/contact/001-init-schema.yaml
+  - include:
+      file: db/changelog/questionnaire/001-init-schema.yaml
