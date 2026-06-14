@@ -41,9 +41,16 @@ class ContactInfoServiceTest {
 
     ContactInfo result =
         contactInfoService.upsertContactInfo(
-            "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München", "80331", officeHours);
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            officeHours);
 
     assertThat(result.getId()).isNotNull();
+    assertThat(result.getName()).isEqualTo("Tiergesund Praxis");
     assertThat(result.getPhone()).isEqualTo("+49 89 123456");
     assertThat(result.getEmail()).isEqualTo("praxis@example.de");
     assertThat(result.getStreet()).isEqualTo("Musterstr. 1");
@@ -56,11 +63,13 @@ class ContactInfoServiceTest {
   @Test
   void upsertContactInfo_updatesExistingRecord() {
     contactInfoService.upsertContactInfo(
-        "+49 89 111111", "alt@example.de", "Alte Str. 1", "Hamburg", "20095", List.of());
+        "Alte Praxis", "+49 89 111111", "alt@example.de", "Alte Str. 1", "Hamburg", "20095",
+        List.of());
 
     ContactInfo updated =
         contactInfoService.upsertContactInfo(
-            "+49 89 999999", "neu@example.de", "Neue Str. 2", "Berlin", "10115", List.of());
+            "Neue Praxis", "+49 89 999999", "neu@example.de", "Neue Str. 2", "Berlin", "10115",
+            List.of());
 
     assertThat(contactInfoRepository.findAll()).hasSize(1);
     assertThat(updated.getPhone()).isEqualTo("+49 89 999999");
@@ -75,12 +84,14 @@ class ContactInfoServiceTest {
             new OfficeHour("Montag – Freitag", "09:00 – 18:00"),
             new OfficeHour("Samstag", "09:00 – 13:00"));
     contactInfoService.upsertContactInfo(
-        "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München", "80331", initial);
+        "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
+        "80331", initial);
 
     List<OfficeHour> updated = List.of(new OfficeHour("Montag – Freitag", "10:00 – 17:00"));
     ContactInfo result =
         contactInfoService.upsertContactInfo(
-            "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München", "80331", updated);
+            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
+            "80331", updated);
 
     assertThat(result.getOfficeHours()).hasSize(1);
     assertThat(result.getOfficeHours().get(0).getHours()).isEqualTo("10:00 – 17:00");

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record UpsertContactInfoRequest(
+    String name,
     String phone,
     @Email String email,
     String street,

@@ -2,8 +2,6 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.contact.application;
 
-import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.ContactInfoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,20 +12,20 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ContactService {
+public class ContactMessageService {
 
   @Value("${app.mail.from}")
   private String mailFrom;
 
   private final JavaMailSender mailSender;
-  private final ContactInfoRepository contactInfoRepository;
+  private final ContactInfoService contactInfoService;
 
   public void sendMessage(String title, String text, String replyToEmail, String senderName) {
     String recipientEmail =
-        contactInfoRepository
-            .findFirst()
-            .map(ContactInfo::getEmail)
-            .filter(email -> !email.isBlank())
+        contactInfoService
+            .getContactInfo()
+            .map(ci -> ci.getEmail())
+            .filter(email -> email != null && !email.isBlank())
             .orElseThrow(
                 () ->
                     new IllegalStateException(

@@ -2,7 +2,7 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.contact.infrastructure.rest;
 
-import com.feurle.tg.contact.application.ContactService;
+import com.feurle.tg.contact.application.ContactMessageService;
 import com.feurle.tg.contact.infrastructure.rest.dto.SendMessageRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ContactController {
 
-  private final ContactService contactService;
+  private final ContactMessageService contactService;
 
   @PostMapping("/message")
   public ResponseEntity<Void> sendMessage(@Valid @RequestBody SendMessageRequest request) {

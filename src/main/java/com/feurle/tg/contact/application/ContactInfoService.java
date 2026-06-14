@@ -24,6 +24,7 @@ public class ContactInfoService {
 
   @Transactional
   public ContactInfo upsertContactInfo(
+      String name,
       String phone,
       String email,
       String street,
@@ -31,6 +32,7 @@ public class ContactInfoService {
       String zip,
       List<OfficeHour> officeHours) {
     ContactInfo contactInfo = contactInfoRepository.findFirst().orElseGet(ContactInfo::new);
+    contactInfo.setName(name);
     contactInfo.setPhone(phone);
     contactInfo.setEmail(email);
     contactInfo.setStreet(street);

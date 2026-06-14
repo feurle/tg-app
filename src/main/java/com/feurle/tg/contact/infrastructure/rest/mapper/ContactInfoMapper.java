@@ -19,6 +19,7 @@ public class ContactInfoMapper {
             .toList();
     return new ContactInfoResponse(
         contactInfo.getId(),
+        contactInfo.getName(),
         contactInfo.getPhone(),
         contactInfo.getEmail(),
         contactInfo.getStreet(),

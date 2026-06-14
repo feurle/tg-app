@@ -7,6 +7,7 @@ import java.util.List;
 
 public record ContactInfoResponse(
     Long id,
+    String name,
     String phone,
     String email,
     String street,

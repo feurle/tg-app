@@ -25,6 +25,7 @@ class ContactInfoMapperTest {
   @Test
   void toResponse_mapsAllFields() {
     ContactInfo contactInfo = new ContactInfo();
+    contactInfo.setName("Tiergesund Praxis");
     contactInfo.setPhone("+49 89 123456");
     contactInfo.setEmail("praxis@example.de");
     contactInfo.setStreet("Musterstr. 1");
@@ -35,6 +36,7 @@ class ContactInfoMapperTest {
 
     ContactInfoResponse response = mapper.toResponse(contactInfo);
 
+    assertThat(response.name()).isEqualTo("Tiergesund Praxis");
     assertThat(response.phone()).isEqualTo("+49 89 123456");
     assertThat(response.email()).isEqualTo("praxis@example.de");
     assertThat(response.street()).isEqualTo("Musterstr. 1");

@@ -60,6 +60,7 @@ class ContactInfoControllerIT {
   @Test
   void getContactInfo_returnsOk_withData() throws Exception {
     contactInfoService.upsertContactInfo(
+        "Tiergesund Praxis",
         "+49 89 123456",
         "praxis@example.de",
         "Musterstr. 1",
@@ -120,7 +121,13 @@ class ContactInfoControllerIT {
   void upsertContactInfo_withInvalidEmail_returns400() throws Exception {
     UpsertContactInfoRequest request =
         new UpsertContactInfoRequest(
-            "+49 89 123456", "kein-gültiges-email", "Musterstr. 1", "München", "80331", List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "kein-gültiges-email",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            List.of());
 
     mockMvc
         .perform(
@@ -148,7 +155,8 @@ class ContactInfoControllerIT {
 
     UpsertContactInfoRequest updated =
         new UpsertContactInfoRequest(
-            "+49 89 999999", "neu@example.de", "Neue Str. 2", "Berlin", "10115", List.of());
+            "Neue Praxis", "+49 89 999999", "neu@example.de", "Neue Str. 2", "Berlin", "10115",
+            List.of());
 
     mockMvc
         .perform(
@@ -165,6 +173,7 @@ class ContactInfoControllerIT {
 
   private UpsertContactInfoRequest defaultRequest() {
     return new UpsertContactInfoRequest(
+        "Tiergesund Praxis",
         "+49 89 123456",
         "praxis@example.de",
         "Musterstr. 1",

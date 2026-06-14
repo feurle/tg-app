@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.ContactInfoRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,28 +22,28 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
-class ContactServiceTest {
+class ContactMessageServiceTest {
 
   private static final String MAIL_FROM = "Tier Gesund App <agent@tier-gesund.at>";
 
   @Mock private JavaMailSender mailSender;
 
-  @Mock private ContactInfoRepository contactInfoRepository;
+  @Mock private ContactInfoService contactInfoService;
 
-  @InjectMocks private ContactService contactService;
+  @InjectMocks private ContactMessageService contactMessageService;
 
   @BeforeEach
   void setUp() {
-    ReflectionTestUtils.setField(contactService, "mailFrom", MAIL_FROM);
+    ReflectionTestUtils.setField(contactMessageService, "mailFrom", MAIL_FROM);
   }
 
   @Test
   void sendMessage_sendsMailWithCorrectFields() {
     ContactInfo contactInfo = new ContactInfo();
     contactInfo.setEmail("empfaenger@example.com");
-    when(contactInfoRepository.findFirst()).thenReturn(Optional.of(contactInfo));
+    when(contactInfoService.getContactInfo()).thenReturn(Optional.of(contactInfo));
 
-    contactService.sendMessage(
+    contactMessageService.sendMessage(
         "Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann");
 
     ArgumentCaptor<SimpleMailMessage> captor = forClass(SimpleMailMessage.class);
@@ -60,11 +59,11 @@ class ContactServiceTest {
 
   @Test
   void sendMessage_throwsWhenNoContactInfoConfigured() {
-    when(contactInfoRepository.findFirst()).thenReturn(Optional.empty());
+    when(contactInfoService.getContactInfo()).thenReturn(Optional.empty());
 
     assertThatThrownBy(
             () ->
-                contactService.sendMessage(
+                contactMessageService.sendMessage(
                     "Betreff", "Nachrichtentext", "absender@example.com", "Max Mustermann"))
         .isInstanceOf(IllegalStateException.class);
   }

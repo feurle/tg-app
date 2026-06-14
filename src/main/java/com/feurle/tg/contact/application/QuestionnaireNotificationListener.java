@@ -3,7 +3,6 @@
 package com.feurle.tg.contact.application;
 
 import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.ContactInfoRepository;
 import com.feurle.tg.questionnaire.QuestionnaireSubmittedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +28,13 @@ public class QuestionnaireNotificationListener {
   private String mailFrom;
 
   private final JavaMailSender mailSender;
-  private final ContactInfoRepository contactInfoRepository;
+  private final ContactInfoService contactInfoService;
 
   @ApplicationModuleListener
   public void onQuestionnaireSubmitted(QuestionnaireSubmittedEvent event) {
     String recipientEmail =
-        contactInfoRepository
-            .findFirst()
+        contactInfoService
+            .getContactInfo()
             .map(ContactInfo::getEmail)
             .filter(email -> email != null && !email.isBlank())
             .orElse(null);

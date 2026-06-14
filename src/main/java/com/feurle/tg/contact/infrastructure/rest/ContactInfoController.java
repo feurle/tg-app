@@ -40,6 +40,7 @@ public class ContactInfoController {
     log.info("upsertContactInfo: PUT /api/contact/info");
     ContactInfo saved =
         contactInfoService.upsertContactInfo(
+            request.name(),
             request.phone(),
             request.email(),
             request.street(),
