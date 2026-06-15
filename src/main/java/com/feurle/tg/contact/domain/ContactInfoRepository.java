@@ -9,9 +9,15 @@ public interface ContactInfoRepository {
 
   Optional<ContactInfo> findFirst();
 
+  Optional<ContactInfo> findByPrimaryTrue();
+
   List<ContactInfo> findAll();
 
+  Optional<ContactInfo> findById(Long id);
+
   ContactInfo save(ContactInfo contactInfo);
+
+  void deleteById(Long id);
 
   void deleteAll();
 }

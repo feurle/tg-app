@@ -31,6 +31,7 @@ class ContactInfoMapperTest {
     contactInfo.setStreet("Musterstr. 1");
     contactInfo.setCity("München");
     contactInfo.setZip("80331");
+    contactInfo.setPrimary(true);
     LocalDateTime now = LocalDateTime.now();
     contactInfo.setUpdatedAt(now);
 
@@ -42,6 +43,7 @@ class ContactInfoMapperTest {
     assertThat(response.street()).isEqualTo("Musterstr. 1");
     assertThat(response.city()).isEqualTo("München");
     assertThat(response.zip()).isEqualTo("80331");
+    assertThat(response.primary()).isTrue();
     assertThat(response.updatedAt()).isEqualTo(now);
   }
 

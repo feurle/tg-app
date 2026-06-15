@@ -14,4 +14,5 @@ public record UpsertContactInfoRequest(
     String street,
     String city,
     String zip,
+    boolean primary,
     @NotNull @Valid List<OfficeHourDto> officeHours) {}

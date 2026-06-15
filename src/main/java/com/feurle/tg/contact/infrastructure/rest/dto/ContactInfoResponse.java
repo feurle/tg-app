@@ -13,5 +13,6 @@ public record ContactInfoResponse(
     String street,
     String city,
     String zip,
+    boolean primary,
     List<OfficeHourDto> officeHours,
     LocalDateTime updatedAt) {}

@@ -30,6 +30,9 @@ public class ContactInfo {
 
   private String zip;
 
+  @Column(name = "is_primary")
+  private boolean primary;
+
   @ElementCollection
   @CollectionTable(
       name = "contact_office_hour",

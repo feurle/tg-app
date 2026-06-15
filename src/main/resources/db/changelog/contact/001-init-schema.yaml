@@ -15,6 +15,9 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
                   name: phone
                   type: VARCHAR(50)
               - column:
@@ -29,6 +32,12 @@ databaseChangeLog:
               - column:
                   name: zip
                   type: VARCHAR(20)
+              - column:
+                  name: is_primary
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
               - column:
                   name: updated_at
                   type: TIMESTAMP
@@ -63,3 +72,13 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_office_hour_contact_info
             onDelete: CASCADE
+
+  - changeSet:
+      id: 003-add-primary-unique-index-contact-info
+      author: system
+      dbms: mysql,mariadb
+      changes:
+        - sql:
+            sql: >
+              CREATE UNIQUE INDEX idx_one_primary_contact_info
+              ON contact_info ((CASE WHEN is_primary = TRUE THEN 1 ELSE NULL END));

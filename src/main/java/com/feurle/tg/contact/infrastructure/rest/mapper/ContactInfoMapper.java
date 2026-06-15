@@ -25,6 +25,7 @@ public class ContactInfoMapper {
         contactInfo.getStreet(),
         contactInfo.getCity(),
         contactInfo.getZip(),
+        contactInfo.isPrimary(),
         officeHours,
         contactInfo.getUpdatedAt());
   }
