@@ -423,6 +423,7 @@ class WebContentControllerIT {
             ArticleType.NEWS_PAGE,
             Language.ENGLISH,
             null,
+            null,
             Collections.singletonList(testImage.getId()),
             null);
 
@@ -449,7 +450,7 @@ class WebContentControllerIT {
     // Arrange
     CreateArticleRequest request =
         new CreateArticleRequest(
-            "Article", "Content", ArticleType.HOME_TEASER, Language.GERMAN, null, null, null);
+            "Article", "Content", ArticleType.HOME_TEASER, Language.GERMAN, null, null, null, null);
 
     // Act & Assert - POST requires auth
     mockMvc
@@ -477,6 +478,7 @@ class WebContentControllerIT {
             ArticleState.PUBLISHED,
             Language.GERMAN,
             null,
+            null,
             null);
 
     // Act & Assert
@@ -502,7 +504,7 @@ class WebContentControllerIT {
     // Arrange
     UpdateArticleRequest request =
         new UpdateArticleRequest(
-            "Title", "Content", ArticleState.CREATED, Language.GERMAN, null, null);
+            "Title", "Content", ArticleState.CREATED, Language.GERMAN, null, null, null);
 
     // Act & Assert
     mockMvc
@@ -560,6 +562,7 @@ class WebContentControllerIT {
             "Content",
             ArticleType.HOME_TEASER,
             Language.GERMAN,
+            null,
             null,
             List.of(testImage.getId(), image2.getId()),
             null);
