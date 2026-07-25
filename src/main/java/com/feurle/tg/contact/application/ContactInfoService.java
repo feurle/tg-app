@@ -100,9 +100,12 @@ public class ContactInfoService {
   }
 
   private void clearPrimaryFlag() {
-    contactInfoRepository.findByPrimaryTrue().ifPresent(existing -> {
-      existing.setPrimary(false);
-      contactInfoRepository.save(existing);
-    });
+    contactInfoRepository
+        .findByPrimaryTrue()
+        .ifPresent(
+            existing -> {
+              existing.setPrimary(false);
+              contactInfoRepository.save(existing);
+            });
   }
 }

@@ -86,8 +86,13 @@ class ContactInfoControllerIT {
   void getContactInfoById_returnsRecord() throws Exception {
     ContactInfo saved =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", true,
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            true,
             List.of(new OfficeHour("Montag – Freitag", "09:00 – 18:00")));
 
     mockMvc
@@ -160,8 +165,14 @@ class ContactInfoControllerIT {
   void createContactInfo_withInvalidEmail_returns400() throws Exception {
     UpsertContactInfoRequest request =
         new UpsertContactInfoRequest(
-            "Tiergesund Praxis", "+49 89 123456", "kein-gültiges-email", "Musterstr. 1", "München",
-            "80331", false, List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "kein-gültiges-email",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
+            List.of());
 
     mockMvc
         .perform(
@@ -178,13 +189,25 @@ class ContactInfoControllerIT {
   void updateContactInfo_asAdmin_returns200() throws Exception {
     ContactInfo saved =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", false, List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
+            List.of());
 
     UpsertContactInfoRequest updated =
         new UpsertContactInfoRequest(
-            "Neue Praxis", "+49 89 999999", "neu@example.de", "Neue Str. 2", "Berlin", "10115",
-            false, List.of());
+            "Neue Praxis",
+            "+49 89 999999",
+            "neu@example.de",
+            "Neue Str. 2",
+            "Berlin",
+            "10115",
+            false,
+            List.of());
 
     mockMvc
         .perform(
@@ -227,12 +250,16 @@ class ContactInfoControllerIT {
   void deleteContactInfo_asAdmin_returns204() throws Exception {
     ContactInfo saved =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", false, List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
+            List.of());
 
-    mockMvc
-        .perform(delete("/api/contact/info/" + saved.getId()))
-        .andExpect(status().isNoContent());
+    mockMvc.perform(delete("/api/contact/info/" + saved.getId())).andExpect(status().isNoContent());
 
     assertThat(contactInfoRepository.findAll()).isEmpty();
   }

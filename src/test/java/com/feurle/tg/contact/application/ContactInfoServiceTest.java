@@ -45,7 +45,8 @@ class ContactInfoServiceTest {
         contactInfoService.createContactInfo(
             "Praxis B", "+49 89 2", "b@example.de", null, null, null, true, List.of());
 
-    assertThat(contactInfoService.getContactInfo()).isPresent()
+    assertThat(contactInfoService.getContactInfo())
+        .isPresent()
         .get()
         .extracting(ContactInfo::getId)
         .isEqualTo(primary.getId());
@@ -69,8 +70,14 @@ class ContactInfoServiceTest {
   void getContactInfoById_returnsRecord() {
     ContactInfo created =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", false, List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
+            List.of());
 
     ContactInfo found = contactInfoService.getContactInfoById(created.getId());
 
@@ -92,8 +99,14 @@ class ContactInfoServiceTest {
 
     ContactInfo result =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", true, officeHours);
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            true,
+            officeHours);
 
     assertThat(result.getId()).isNotNull();
     assertThat(result.getName()).isEqualTo("Tiergesund Praxis");
@@ -137,13 +150,26 @@ class ContactInfoServiceTest {
   void updateContactInfo_updatesExistingRecord() {
     ContactInfo created =
         contactInfoService.createContactInfo(
-            "Alte Praxis", "+49 89 111111", "alt@example.de", "Alte Str. 1", "Hamburg", "20095",
-            false, List.of());
+            "Alte Praxis",
+            "+49 89 111111",
+            "alt@example.de",
+            "Alte Str. 1",
+            "Hamburg",
+            "20095",
+            false,
+            List.of());
 
     ContactInfo updated =
         contactInfoService.updateContactInfo(
-            created.getId(), "Neue Praxis", "+49 89 999999", "neu@example.de", "Neue Str. 2",
-            "Berlin", "10115", false, List.of());
+            created.getId(),
+            "Neue Praxis",
+            "+49 89 999999",
+            "neu@example.de",
+            "Neue Str. 2",
+            "Berlin",
+            "10115",
+            false,
+            List.of());
 
     assertThat(updated.getId()).isEqualTo(created.getId());
     assertThat(updated.getName()).isEqualTo("Neue Praxis");
@@ -172,16 +198,27 @@ class ContactInfoServiceTest {
   void updateContactInfo_replacesOfficeHours() {
     ContactInfo created =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", false,
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
             List.of(
                 new OfficeHour("Montag – Freitag", "09:00 – 18:00"),
                 new OfficeHour("Samstag", "09:00 – 13:00")));
 
     ContactInfo result =
         contactInfoService.updateContactInfo(
-            created.getId(), "Tiergesund Praxis", "+49 89 123456", "praxis@example.de",
-            "Musterstr. 1", "München", "80331", false,
+            created.getId(),
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
             List.of(new OfficeHour("Montag – Freitag", "10:00 – 17:00")));
 
     assertThat(result.getOfficeHours()).hasSize(1);
@@ -203,8 +240,14 @@ class ContactInfoServiceTest {
   void deleteContactInfo_removesRecord() {
     ContactInfo created =
         contactInfoService.createContactInfo(
-            "Tiergesund Praxis", "+49 89 123456", "praxis@example.de", "Musterstr. 1", "München",
-            "80331", false, List.of());
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            false,
+            List.of());
 
     contactInfoService.deleteContactInfo(created.getId());
 
