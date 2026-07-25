@@ -29,16 +29,15 @@ public class ContactInfoController {
   public ResponseEntity<List<ContactInfoResponse>> getAllContactInfo() {
     log.info("getAllContactInfo: GET /api/contact/info");
     List<ContactInfoResponse> response =
-        contactInfoService.getAllContactInfo().stream()
-            .map(contactInfoMapper::toResponse)
-            .toList();
+        contactInfoService.getAllContactInfo().stream().map(contactInfoMapper::toResponse).toList();
     return ResponseEntity.ok(response);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ContactInfoResponse> getContactInfoById(@PathVariable Long id) {
     log.info("getContactInfoById: GET /api/contact/info/{}", id);
-    return ResponseEntity.ok(contactInfoMapper.toResponse(contactInfoService.getContactInfoById(id)));
+    return ResponseEntity.ok(
+        contactInfoMapper.toResponse(contactInfoService.getContactInfoById(id)));
   }
 
   @PostMapping
