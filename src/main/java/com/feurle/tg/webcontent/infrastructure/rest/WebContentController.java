@@ -219,6 +219,7 @@ public class WebContentController {
             request.articleType(),
             request.language(),
             request.pageId(),
+            request.order(),
             request.imageIds(),
             request.tagIds());
     return ResponseEntity.status(HttpStatus.CREATED).body(articleMapper.toResponse(article));
@@ -234,9 +235,23 @@ public class WebContentController {
             request.content(),
             request.state(),
             request.language(),
+            request.order(),
             request.imageIds(),
             request.tagIds());
     return ResponseEntity.ok(articleMapper.toResponse(article));
+  }
+
+  /**
+   * Swaps an article with its neighbour within its page + language scope and returns that whole
+   * scope in its new order, so the caller can replace its list in one go.
+   */
+  @PutMapping("/articles/{id}/move")
+  public ResponseEntity<List<ArticleResponse>> moveArticle(
+      @PathVariable Long id, @Valid @RequestBody MoveArticleRequest request) {
+    return ResponseEntity.ok(
+        articleService.moveArticle(id, request.direction()).stream()
+            .map(articleMapper::toResponse)
+            .toList());
   }
 
   @DeleteMapping("/articles/{id}")

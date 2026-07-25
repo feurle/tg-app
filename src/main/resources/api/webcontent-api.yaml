@@ -116,6 +116,34 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 
+  /articles/{id}/move:
+    put:
+      tags: [Articles]
+      summary: Move an article one position up or down
+      description: >-
+        Swaps the article with its neighbour inside its page and language group.
+        Moving past either end is a no-op. The group is renumbered to a gapless
+        1..N sequence, and returned in its new order.
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveArticleRequest'
+      responses:
+        '200':
+          description: The article's page and language group, reordered
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
   /articles/page/{slug}:
     get:
       tags: [Articles]
@@ -589,6 +617,13 @@ components:
           type: integer
           format: int64
           nullable: true
+        order:
+          type: integer
+          minimum: 1
+          nullable: true
+          description: >-
+            Position within the article's page and language. Omit to append the
+            article at the end of that group.
         imageIds:
           type: array
           items:
@@ -599,6 +634,14 @@ components:
           items:
             type: integer
             format: int64
+
+    MoveArticleRequest:
+      type: object
+      required: [direction]
+      properties:
+        direction:
+          type: string
+          enum: [UP, DOWN]
 
     UpdateArticleRequest:
       type: object
@@ -612,6 +655,13 @@ components:
           $ref: '#/components/schemas/ArticleState'
         language:
           $ref: '#/components/schemas/Language'
+        order:
+          type: integer
+          minimum: 1
+          nullable: true
+          description: >-
+            Position within the article's page and language. Omit to keep the
+            current position.
         imageIds:
           type: array
           items:

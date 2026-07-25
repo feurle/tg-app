@@ -25,6 +25,6 @@ public class Page {
   @Column private String description;
 
   @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("order ASC")
+  @OrderBy("order ASC, id ASC")
   private List<Article> articles = new ArrayList<>();
 }
