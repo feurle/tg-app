@@ -146,8 +146,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: BRANCH_NAME
-          script_stop: true
           script: |
+            set -e
             export BRANCH_NAME="${{ github.ref_name }}"
             docker pull ${{ env.IMAGE_NAME }}:snapshot
             docker compose -f /appbase/tg-app/test-compose.yml up tg-app-test -d
@@ -192,8 +192,8 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_stop: true
           script: |
+            set -e
             docker pull ${{ env.IMAGE_NAME }}:latest
             docker compose -f /appbase/tg-app/prod-compose.yml up tg-app-prod -d
             docker image prune -f
