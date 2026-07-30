@@ -3,6 +3,7 @@
 package com.feurle.tg.contact.infrastructure.rest;
 
 import com.feurle.tg.contact.application.ContactMessageService;
+import com.feurle.tg.contact.infrastructure.rest.dto.RequestAppointmentRequest;
 import com.feurle.tg.contact.infrastructure.rest.dto.SendMessageRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,20 @@ public class ContactController {
     log.info("sendMessage: GET /api/contact/message");
     contactService.sendMessage(
         request.title(), request.text(), request.replyToEmail(), request.senderName());
+    return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/appointment")
+  public ResponseEntity<Void> requestAppointment(
+      @Valid @RequestBody RequestAppointmentRequest request) {
+    log.info("requestAppointment: POST /api/contact/appointment");
+    contactService.requestAppointment(
+        request.senderName(),
+        request.replyToEmail(),
+        request.phone(),
+        request.preferredDate(),
+        request.preferredTime(),
+        request.text());
     return ResponseEntity.noContent().build();
   }
 }
