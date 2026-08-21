@@ -84,4 +84,9 @@ const server = (await (await fetch('/api/webcontent/articles/page/home')).json()
   diff. Format only what you touched, or revert the rest.
 - Killing the backend: `kill $(ss -ltnp | grep ':8080' | grep -oP 'pid=\K[0-9]+')`.
   `pkill -f bootRun` catches the Gradle wrapper but leaves the forked JVM holding
-  the port.
+  the port. This kill command can report a non-zero/odd shell exit code even when
+  it succeeds — check `ss -ltnp | grep :8080` (or the combined check below) instead
+  of trusting the exit code.
+- Killing the frontend: `pkill -f vite` — the `npm run dev` wrapper doesn't hold
+  the port itself, `vite` does.
+- Confirm both are down: `ss -ltnp | grep -E ':8080|:5173' || echo "both ports free"`.
