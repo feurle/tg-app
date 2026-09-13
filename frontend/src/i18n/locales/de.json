@@ -1,0 +1,393 @@
+{
+  "app": {
+    "name": "Tier. Gesund.",
+    "claim": "Ganzheitlich-integrative Tiermedizin"
+  },
+  "nav": {
+    "home": "Home",
+    "forPetOwners": "Für Tierhalter",
+    "forVets": "Für Tierärzte",
+    "requests": "Anfragen",
+    "news": "Aktuelles",
+    "administration": "Verwaltung",
+    "customers": "Kunden",
+    "users": "Benutzer",
+    "questionnaires": "Erhebungsbögen",
+    "articles": "Artikel",
+    "images": "Bilder",
+    "tags": "Tags",
+    "about": "Über uns",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "contact": "Kontakt",
+    "contactInfo": "Kontaktdaten",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "sidebar": {
+      "management": "Verwaltung",
+      "webcontent": "Webcontent",
+      "admin": "Administrator",
+      "pages": "Seiten"
+    }
+  },
+  "common": {
+    "save": "Speichern",
+    "saving": "Speichern…",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "view": "Ansehen",
+    "edit": "Bearbeiten",
+    "loading": "Laden…",
+    "saveError": "Speichern fehlgeschlagen.",
+    "deleteError": "Löschen fehlgeschlagen.",
+    "empty": "—",
+    "all": "Alle"
+  },
+  "pages": {
+    "home": "Willkommen",
+    "news": "Fachbeiträge & Publikationen",
+    "about": "Über uns"
+  },
+  "home": {
+    "tagline": "Tiergesundheit im Fokus",
+    "title": {
+      "line1": "Gesunde Tiere,",
+      "line2": "glückliche Halter."
+    },
+    "subtitle": "Expertenwissen rund um Tierernährung, Vorsorge und Pflege — verständlich aufbereitet für jeden Tierhalter.",
+    "cta": {
+      "primary": "Termin vereinbaren",
+      "secondary": "Kontakt"
+    },
+    "articles": {
+      "title": "Unsere Behandlungsmethoden",
+      "sub": "Ein individueller Ansatz für jedes Tier"
+    },
+    "contact": {
+      "title": "Kontakt & Spechzeiten",
+      "sub": "Wir sind für Sie und Ihr Tier da"
+    }
+  },
+  "news": {
+    "subtitle": "Alle Beiträge rund um Tiergesundheit, Ernährung und Pflege."
+  },
+  "about": {
+    "subtitle": "Erfahre mehr über uns und unser Team."
+  },
+  "questionnaire": {
+    "page": {
+      "title": "Erhebungsbogen für die Verhaltensberatung",
+      "subtitle": "Bitte beantworten Sie die folgenden Fragen so genau wie möglich.",
+      "intro": "Ihre Angaben sind ein wichtiges Hilfsmittel für die Diagnostik und Behandlung des Problems Ihres Tieres und werden selbstverständlich vertraulich behandelt."
+    },
+    "section": {
+      "owner": "Fragen zum Tierhalter",
+      "pet": "Allgemeine Fragen zu Ihrem Tier"
+    },
+    "form": {
+      "owner": {
+        "name": "Name, Vorname",
+        "email": "E-Mail",
+        "firstPet": "Ist das Ihr erstes Tier?",
+        "reasonForChoosing": "Warum haben Sie sich gerade für dieses Tier entschieden?"
+      },
+      "pet": {
+        "name": "Name des Tieres",
+        "origin": "Herkunft des Tieres",
+        "breederRearing": "Falls vom Züchter: Beschreiben Sie Haltung und Aufzucht. Haben Sie die Elterntiere gesehen?",
+        "historyBeforeOwner": "Falls Sie nicht der erste Besitzer sind: Wissen Sie etwas aus der Vergangenheit Ihres Tieres, bevor es zu Ihnen kam?",
+        "ageWhenAcquired": "Wie alt war Ihr Tier, als es zu Ihnen kam?",
+        "ownedSince": "Seit wann lebt das Tier bei Ihnen?",
+        "neutered": "Ist Ihr Tier kastriert?",
+        "neuteredAge": "In welchem Alter wurde Ihr Tier kastriert?",
+        "neuteringReason": "Gab es einen speziellen Grund für die Kastration?",
+        "behaviorChangesAfterNeutering": "Traten Verhaltensänderungen nach der Kastration auf? Wenn ja, welche?",
+        "school": "Haben Sie eine Hundeschule besucht oder Ihr Tier selbst ausgebildet? Benutzen Sie Hilfsmittel wie z. B. einen Clicker?",
+        "knownCommands": "Welche Kommandos kennt Ihr Tier (z. B. Sitz, Platz, Aus)?",
+        "feeding": "Was bekommt Ihr Tier, wie oft zu fressen?",
+        "supplements": "Bekommt Ihr Tier Nahrungsergänzungsmittel?",
+        "digestion": "Wie oft setzt Ihr Tier am Tag Kot ab? Hat es Magen-Darm-Probleme? Wenn ja, welche Symptome?",
+        "lastDeworming": "Wann wurde Ihr Tier das letzte Mal entwurmt?",
+        "bloodTest": "Ist in letzter Zeit eine Blutuntersuchung erfolgt? Gab es Auffälligkeiten?"
+      }
+    },
+    "yes": "Ja",
+    "no": "Nein",
+    "submit": "Absenden",
+    "submitting": "Senden…",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "success": {
+      "title": "Vielen Dank!",
+      "body": "Ihr Erhebungsbogen wurde übermittelt. Wir melden uns bei Ihnen."
+    },
+    "cta": {
+      "title": "Erhebungsbogen ausfüllen",
+      "text": "Bereiten Sie Ihren Termin zur Verhaltensberatung vor und füllen Sie den Erhebungsbogen bequem online aus.",
+      "button": "Zum Erhebungsbogen"
+    },
+    "management": "Erhebungsbögen",
+    "subtitle": "Eingegangene Erhebungsbögen ansehen",
+    "empty": "Keine Erhebungsbögen vorhanden.",
+    "loadError": "Erhebungsbögen konnten nicht geladen werden.",
+    "deleteConfirm": "Erhebungsbogen von „{{owner}}“ ({{pet}}) wirklich löschen?",
+    "col": {
+      "owner": "Tierhalter",
+      "pet": "Tier",
+      "submittedAt": "Eingegangen am"
+    }
+  },
+  "contact": {
+    "appointment": "Termin vereinbaren",
+    "message": "Nachricht schreiben"
+  },
+  "contactForm": {
+    "message": {
+      "heading": "Nachricht schreiben",
+      "text": "Ihre Nachricht"
+    },
+    "appointment": {
+      "heading": "Termin vereinbaren"
+    },
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon (optional)",
+    "subject": "Betreff",
+    "preferredDate": "Wunschtermin",
+    "preferredTime": "Uhrzeit (optional)",
+    "note": "Anliegen (optional)",
+    "submit": "Absenden",
+    "sending": "Wird gesendet…",
+    "success": "Vielen Dank! Wir melden uns so bald wie möglich bei Ihnen.",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut.",
+    "close": "Schließen"
+  },
+  "contactInfoAdmin": {
+    "management": "Kontaktdaten",
+    "subtitle": "Kontaktinformationen und Sprechzeiten verwalten",
+    "primary": "Primär",
+    "new": "Neuer Eintrag",
+    "newHeading": "Kontaktdaten anlegen",
+    "editHeading": "Kontaktdaten bearbeiten",
+    "deleteConfirm": "Kontaktdaten für „{{city}}“ wirklich löschen?",
+    "loadError": "Kontaktdaten konnten nicht geladen werden.",
+    "empty": "Keine Kontaktdaten vorhanden.",
+    "col": {
+      "name": "Name",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "city": "Ort",
+      "actions": "Aktionen"
+    },
+    "form": {
+      "name": "Name *",
+      "primary": "Als primär festlegen",
+      "phone": "Telefon *",
+      "email": "E-Mail *",
+      "street": "Straße *",
+      "zip": "PLZ *",
+      "city": "Ort *",
+      "officeHours": "Sprechzeiten",
+      "addHour": "Sprechzeit hinzufügen",
+      "hourLabel": "Bezeichnung (z. B. Mo–Fr)",
+      "hourTime": "Uhrzeit (z. B. 09:00–17:00)"
+    }
+  },
+  "contactInfo": {
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "officeHours": "Sprechzeiten"
+  },
+  "footer": {
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "contact": "Kontakt",
+    "language": "Sprache"
+  },
+  "section": {
+    "add": "Abschnitt hinzufügen",
+    "addHeading": "Abschnitt hinzufügen",
+    "editHeading": "Abschnitt bearbeiten",
+    "deleteConfirm": "Abschnitt „{{title}}“ wirklich löschen?",
+    "empty": "Keine Abschnitte vorhanden.",
+    "col": {
+      "title": "Titel",
+      "content": "Inhalt",
+      "order": "Nr.",
+      "actions": "Aktionen"
+    },
+    "form": {
+      "order": "Reihenfolge",
+      "title": "Titel *",
+      "content": "Inhalt"
+    }
+  },
+  "article": {
+    "management": "Artikelverwaltung",
+    "subtitle": "Verwalten Sie Ihre Artikel und Inhalte",
+    "page": {
+      "home":    { "title": "Home-Inhalte",   "subtitle": "Teaser und Seiteninhalte für die Startseite" },
+      "news":    { "title": "Fachbeiträge",   "subtitle": "Artikel und Teaser für den News-Bereich" },
+      "about":   { "title": "Über uns",       "subtitle": "Inhalte der Über-uns-Seite" },
+      "privacy": { "title": "Datenschutz",    "subtitle": "Datenschutzerklärung" },
+      "imprint": { "title": "Impressum",      "subtitle": "Impressum und rechtliche Angaben" },
+      "contact": { "title": "Kontakt",        "subtitle": "Kontaktseite und Sprechzeiten" }
+    },
+    "new": "Neuer Artikel",
+    "newHeading": "Neuer Artikel",
+    "editHeading": "Artikel bearbeiten",
+    "deleteConfirm": "Artikel \u201E{{title}}\u201C wirklich löschen?",
+    "loadError": "Artikel konnten nicht geladen werden.",
+    "empty": "Keine Artikel vorhanden.",
+    "col": {
+      "order": "Nr.",
+      "title": "Titel",
+      "pageType": "Seiten Typ",
+      "language": "Sprache",
+      "status": "Status",
+      "published": "Veröffentlicht",
+      "actions": "Aktionen"
+    },
+    "form": {
+      "title": "Titel *",
+      "content": "Inhalt *",
+      "pageType": "Seiten Typ",
+      "language": "Sprache",
+      "status": "Status",
+      "order": "Reihenfolge",
+      "orderPlaceholder": "auto",
+      "orderHint": "Leer lassen, um den Artikel am Ende einzufügen.",
+      "images": "Bilder",
+      "tags": "Tags"
+    },
+    "moveUp": "Nach oben",
+    "moveDown": "Nach unten",
+    "pageType": {
+      "DEFAULT": "Standard",
+      "HERO": "Hero (teaser) Komponente",
+      "HOME_TEASER": "Home Teaser",
+      "HOME_PAGE": "Home Page",
+      "NEWS_TEASER": "News Teaser",
+      "NEWS_PAGE": "News Page",
+      "ABOUT_TEASER": "Über mich Teaser",
+      "ABOUT_PAGE": "Über mich Seite"
+    },
+    "language": {
+      "GERMAN": "Deutsch",
+      "ENGLISH": "Englisch",
+      "SWEDISH": "Schwedisch",
+      "RUSSIAN": "Russisch"
+    },
+    "state": {
+      "CREATED": "Erstellt",
+      "PUBLISHED": "Veröffentlicht",
+      "CLOSED": "Geschlossen"
+    }
+  },
+  "image": {
+    "management": "Bildverwaltung",
+    "subtitle": "Verwalten Sie Ihre Bilder und Medien",
+    "upload": "Bild hochladen",
+    "uploadHeading": "Bild hochladen",
+    "uploading": "Hochladen…",
+    "uploadAction": "Hochladen",
+    "selectFile": "Datei auswählen…",
+    "deleteConfirm": "Bild \u201E{{fileName}}\u201C wirklich löschen?",
+    "loadError": "Bilder konnten nicht geladen werden.",
+    "uploadError": "Hochladen fehlgeschlagen.",
+    "empty": "Keine Bilder vorhanden.",
+    "editHeading": "Bild bearbeiten",
+    "title": "Titel",
+    "fileName": "Dateiname"
+  },
+  "tag": {
+    "management": "Tag-Verwaltung",
+    "subtitle": "Verwalten Sie Ihre Tags",
+    "new": "Neuer Tag",
+    "newHeading": "Neuer Tag",
+    "editHeading": "Tag bearbeiten",
+    "deleteConfirm": "Tag \u201E{{name}}\u201C wirklich löschen?",
+    "loadError": "Tags konnten nicht geladen werden.",
+    "empty": "Keine Tags vorhanden.",
+    "name": "Tag-Name *",
+    "col": {
+      "name": "Name",
+      "actions": "Aktionen"
+    }
+  },
+  "customer": {
+    "management": "Kundenverwaltung",
+    "subtitle": "Alle registrierten Kunden und deren Tiere",
+    "new": "Neuer Kunde",
+    "newHeading": "Neuer Kunde",
+    "editHeading": "Kunde bearbeiten",
+    "deleteConfirm": "Kunde \u201E{{firstName}} {{lastName}}\u201C wirklich löschen?",
+    "loadError": "Kunden konnten nicht geladen werden.",
+    "empty": "Keine Kunden vorhanden.",
+    "col": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "city": "Ort",
+      "actions": "Aktionen"
+    },
+    "form": {
+      "firstName": "Vorname *",
+      "lastName": "Nachname *",
+      "email": "E-Mail *",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "zip": "PLZ",
+      "city": "Ort",
+      "state": "Bundesland",
+      "country": "Land"
+    }
+  },
+  "user": {
+    "management": "Benutzerverwaltung",
+    "subtitle": "Benutzer und ihre Rollen verwalten",
+    "new": "Neuer Benutzer",
+    "newHeading": "Neuer Benutzer",
+    "editHeading": "Benutzer bearbeiten: {{login}}",
+    "deleteConfirm": "Benutzer \u201E{{login}}\u201C wirklich löschen?",
+    "loadError": "Benutzer konnten nicht geladen werden.",
+    "createError": "Erstellen fehlgeschlagen.",
+    "empty": "Keine Benutzer vorhanden.",
+    "col": {
+      "login": "Login",
+      "name": "Name",
+      "email": "E-Mail",
+      "roles": "Rollen",
+      "active": "Aktiv",
+      "actions": "Aktionen"
+    },
+    "form": {
+      "login": "Login *",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail *",
+      "password": "Passwort *",
+      "passwordEdit": "Neues Passwort (leer = unverändert)",
+      "language": "Sprache",
+      "imageUrl": "Bild-URL",
+      "roles": "Rollen",
+      "activated": "Aktiviert"
+    },
+    "active": {
+      "yes": "Ja",
+      "no": "Nein"
+    }
+  },
+  "auth": {
+    "loginHeading": "Willkommen zurück",
+    "loginSub": "Melden Sie sich an um fortzufahren",
+    "accessNote": "Zugang nur für autorisierte Benutzer",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "loggingIn": "Anmelden...",
+    "cancel": "Abbrechen",
+    "errorInvalid": "Benutzername oder Passwort falsch.",
+    "errorGeneral": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+  }
+}

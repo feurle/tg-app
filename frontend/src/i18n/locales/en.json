@@ -1,0 +1,358 @@
+{
+  "app": {
+    "name": "Tier Gesund",
+    "claim": "Ganzheitlich-integrative Tiermedizin"
+  },
+  "nav": {
+    "home": "Home",
+    "forPetOwners": "For Pet Owners",
+    "forVets": "For Vets",
+    "requests": "Requests",
+    "news": "Articles",
+    "administration": "Administration",
+    "customers": "Customers",
+    "users": "Users",
+    "questionnaires": "Questionnaires",
+    "articles": "Articles",
+    "images": "Images",
+    "tags": "Tags",
+    "contactInfo": "Contact Info",
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "sidebar": {
+      "management": "Management",
+      "webcontent": "Webcontent",
+      "admin": "Administrator"
+    }
+  },
+  "common": {
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "loading": "Loading…",
+    "saveError": "Saving failed.",
+    "deleteError": "Deletion failed.",
+    "empty": "—",
+    "all": "All"
+  },
+  "pages": {
+    "home": "Welcome",
+    "news": "Articles & Publications",
+    "about": "About Us"
+  },
+  "home": {
+    "tagline": "Pet Health in Focus",
+    "title": {
+      "line1": "Healthy Pets,",
+      "line2": "Happy Owners."
+    },
+    "subtitle": "Expert knowledge on pet nutrition, prevention and care — clearly presented for every pet owner.",
+    "cta": {
+      "primary": "Discover Articles",
+      "secondary": "Learn More"
+    },
+    "articles": {
+      "title": "Recent Articles",
+      "viewAll": "View all"
+    },
+    "contact": {
+      "title": "Contact & Office Hours",
+      "sub": "We are here for you and your pet"
+    }
+  },
+  "news": {
+    "subtitle": "All posts about pet health, nutrition and care."
+  },
+  "about": {
+    "subtitle": "Learn more about us and our team."
+  },
+  "questionnaire": {
+    "page": {
+      "title": "Behaviour Consultation Questionnaire",
+      "subtitle": "Please answer the following questions as precisely as possible.",
+      "intro": "Your answers are an important aid for diagnosing and treating your pet's problem and will of course be treated confidentially."
+    },
+    "section": {
+      "owner": "About the pet owner",
+      "pet": "General questions about your pet"
+    },
+    "form": {
+      "owner": {
+        "name": "Name, first name",
+        "email": "Email",
+        "firstPet": "Is this your first pet?",
+        "reasonForChoosing": "Why did you choose this particular pet?"
+      },
+      "pet": {
+        "name": "Pet's name",
+        "origin": "Where does your pet come from?",
+        "breederRearing": "If from a breeder: describe the keeping and rearing. Did you see the parent animals?",
+        "historyBeforeOwner": "If you are not the first owner: do you know anything about your pet's past before it came to you?",
+        "ageWhenAcquired": "How old was your pet when it came to you?",
+        "ownedSince": "Since when has the pet lived with you?",
+        "neutered": "Is your pet neutered?",
+        "neuteredAge": "At what age was your pet neutered?",
+        "neuteringReason": "Was there a particular reason for neutering?",
+        "behaviorChangesAfterNeutering": "Did any behavioural changes occur after neutering? If so, which?",
+        "school": "Did you attend a dog school or train your pet yourself? Do you use aids such as a clicker?",
+        "knownCommands": "Which commands does your pet know (e.g. sit, down, leave)?",
+        "feeding": "What and how often does your pet eat?",
+        "supplements": "Does your pet receive any food supplements?",
+        "digestion": "How often does your pet defecate per day? Does it have digestive problems? If so, which symptoms?",
+        "lastDeworming": "When was your pet last dewormed?",
+        "bloodTest": "Has a blood test been done recently? Were there any abnormalities?"
+      }
+    },
+    "yes": "Yes",
+    "no": "No",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "error": "Submission failed. Please try again.",
+    "success": {
+      "title": "Thank you!",
+      "body": "Your questionnaire has been submitted. We will get in touch with you."
+    },
+    "cta": {
+      "title": "Fill out the questionnaire",
+      "text": "Prepare for your behaviour consultation appointment and complete the questionnaire conveniently online.",
+      "button": "Open questionnaire"
+    },
+    "management": "Questionnaires",
+    "subtitle": "Review submitted questionnaires",
+    "empty": "No questionnaires yet.",
+    "loadError": "Questionnaires could not be loaded.",
+    "deleteConfirm": "Really delete the questionnaire from \"{{owner}}\" ({{pet}})?",
+    "col": {
+      "owner": "Pet owner",
+      "pet": "Pet",
+      "submittedAt": "Submitted at"
+    }
+  },
+  "contact": {
+    "appointment": "Book Appointment",
+    "message": "Send Message"
+  },
+  "contactForm": {
+    "message": {
+      "heading": "Send a message",
+      "text": "Your message"
+    },
+    "appointment": {
+      "heading": "Book an appointment"
+    },
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "subject": "Subject",
+    "preferredDate": "Preferred date",
+    "preferredTime": "Time (optional)",
+    "note": "Reason for visit (optional)",
+    "submit": "Send",
+    "sending": "Sending…",
+    "success": "Thank you! We will get back to you as soon as possible.",
+    "error": "Sending failed. Please try again later.",
+    "close": "Close"
+  },
+  "contactInfoAdmin": {
+    "management": "Contact Info",
+    "subtitle": "Manage contact information and office hours",
+    "primary": "Primary",
+    "new": "New Entry",
+    "newHeading": "Create Contact Info",
+    "editHeading": "Edit Contact Info",
+    "deleteConfirm": "Really delete contact info for “{{city}}”?",
+    "loadError": "Failed to load contact info.",
+    "empty": "No contact info found.",
+    "col": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "city": "City",
+      "actions": "Actions"
+    },
+    "form": {
+      "name": "Name *",
+      "primary": "Set as primary",
+      "phone": "Phone *",
+      "email": "Email *",
+      "street": "Street *",
+      "zip": "ZIP *",
+      "city": "City *",
+      "officeHours": "Office Hours",
+      "addHour": "Add office hour",
+      "hourLabel": "Label (e.g. Mon–Fri)",
+      "hourTime": "Time (e.g. 09:00–17:00)"
+    }
+  },
+  "contactInfo": {
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "officeHours": "Office Hours"
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "imprint": "Imprint",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "article": {
+    "management": "Article Management",
+    "subtitle": "Manage your articles and content",
+    "new": "New Article",
+    "newHeading": "New Article",
+    "editHeading": "Edit Article",
+    "deleteConfirm": "Really delete article \"{{title}}\"?",
+    "loadError": "Failed to load articles.",
+    "empty": "No articles found.",
+    "col": {
+      "order": "No.",
+      "title": "Title",
+      "page": "Page",
+      "language": "Language",
+      "status": "Status",
+      "published": "Published",
+      "actions": "Actions"
+    },
+    "form": {
+      "title": "Title *",
+      "content": "Content *",
+      "page": "Page",
+      "language": "Language",
+      "status": "Status",
+      "order": "Order",
+      "orderPlaceholder": "auto",
+      "orderHint": "Leave empty to append the article at the end.",
+      "images": "Images",
+      "tags": "Tags"
+    },
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "page": {
+      "HOME_TEASER": "Home Teaser",
+      "HOME_PAGE": "Home",
+      "NEWS_TEASER": "News Teaser",
+      "NEWS_PAGE": "News"
+    },
+    "language": {
+      "GERMAN": "German",
+      "ENGLISH": "English",
+      "SWEDISH": "Swedish",
+      "RUSSIAN": "Russian"
+    },
+    "state": {
+      "CREATED": "Created",
+      "PUBLISHED": "Published",
+      "CLOSED": "Closed"
+    }
+  },
+  "image": {
+    "management": "Image Management",
+    "subtitle": "Manage your images and media",
+    "upload": "Upload Image",
+    "uploadHeading": "Upload Image",
+    "uploading": "Uploading…",
+    "uploadAction": "Upload",
+    "selectFile": "Select file…",
+    "deleteConfirm": "Really delete image \"{{fileName}}\"?",
+    "loadError": "Failed to load images.",
+    "uploadError": "Upload failed.",
+    "empty": "No images found.",
+    "editHeading": "Edit Image",
+    "title": "Title",
+    "fileName": "File name"
+  },
+  "tag": {
+    "management": "Tag Management",
+    "subtitle": "Manage your tags",
+    "new": "New Tag",
+    "newHeading": "New Tag",
+    "editHeading": "Edit Tag",
+    "deleteConfirm": "Really delete tag \"{{name}}\"?",
+    "loadError": "Failed to load tags.",
+    "empty": "No tags found.",
+    "name": "Tag Name *",
+    "col": {
+      "name": "Name",
+      "actions": "Actions"
+    }
+  },
+  "customer": {
+    "management": "Customer Management",
+    "subtitle": "All registered customers and their pets",
+    "new": "New Customer",
+    "newHeading": "New Customer",
+    "editHeading": "Edit Customer",
+    "deleteConfirm": "Really delete customer \"{{firstName}} {{lastName}}\"?",
+    "loadError": "Failed to load customers.",
+    "empty": "No customers found.",
+    "col": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City",
+      "actions": "Actions"
+    },
+    "form": {
+      "firstName": "First Name *",
+      "lastName": "Last Name *",
+      "email": "Email *",
+      "phone": "Phone",
+      "address": "Address",
+      "zip": "ZIP",
+      "city": "City",
+      "state": "State",
+      "country": "Country"
+    }
+  },
+  "user": {
+    "management": "User Management",
+    "subtitle": "Manage users and their roles",
+    "new": "New User",
+    "newHeading": "New User",
+    "editHeading": "Edit User: {{login}}",
+    "deleteConfirm": "Really delete user \"{{login}}\"?",
+    "loadError": "Failed to load users.",
+    "createError": "Creation failed.",
+    "empty": "No users found.",
+    "col": {
+      "login": "Login",
+      "name": "Name",
+      "email": "Email",
+      "roles": "Roles",
+      "active": "Active",
+      "actions": "Actions"
+    },
+    "form": {
+      "login": "Login *",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email *",
+      "password": "Password *",
+      "passwordEdit": "New Password (empty = unchanged)",
+      "language": "Language",
+      "imageUrl": "Image URL",
+      "roles": "Roles",
+      "activated": "Activated"
+    },
+    "active": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+  "auth": {
+    "loginHeading": "Welcome Back",
+    "loginSub": "Sign in to continue",
+    "accessNote": "Access restricted to authorized users",
+    "username": "Username",
+    "password": "Password",
+    "login": "Sign In",
+    "loggingIn": "Signing in...",
+    "cancel": "Cancel",
+    "errorInvalid": "Invalid username or password.",
+    "errorGeneral": "Login failed. Please try again."
+  }
+}

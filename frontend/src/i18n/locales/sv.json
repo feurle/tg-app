@@ -1,0 +1,348 @@
+{
+  "app": {
+    "name": "Tier Gesund",
+    "claim": "Ganzheitlich-integrative Tiermedizin"
+  },
+  "nav": {
+    "home": "Hem",
+    "forPetOwners": "För djurägare",
+    "forVets": "För veterinärer",
+    "requests": "Förfrågningar",
+    "news": "Fackartiklar",
+    "administration": "Förvaltning",
+    "customers": "Kunder",
+    "users": "Användare",
+    "questionnaires": "Frågeformulär",
+    "articles": "Artiklar",
+    "images": "Bilder",
+    "tags": "Taggar",
+    "contactInfo": "Kontaktuppgifter",
+    "login": "Logga in",
+    "logout": "Logga ut",
+    "sidebar": {
+      "management": "Hantering",
+      "webcontent": "Webbinnehål",
+      "admin": "Administrator"
+    }
+  },
+  "common": {
+    "save": "Spara",
+    "saving": "Sparar…",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "edit": "Redigera",
+    "view": "Visa",
+    "loading": "Laddar…",
+    "saveError": "Sparandet misslyckades.",
+    "deleteError": "Borttagningen misslyckades.",
+    "empty": "—",
+    "all": "Alla"
+  },
+  "pages": {
+    "home": "Välkommen",
+    "news": "Fackartiklar & Publikationer",
+    "about": "Om oss"
+  },
+  "home": {
+    "tagline": "Djurhälsa i fokus",
+    "title": {
+      "line1": "Friska djur,",
+      "line2": "glada ägare."
+    },
+    "subtitle": "Expertkunskap om djurhälsa, prevention och vård — presenterad på ett enkelt sätt för varje djurägare.",
+    "cta": {
+      "primary": "Utforska artiklar",
+      "secondary": "Läs mer"
+    },
+    "articles": {
+      "title": "Senaste artiklarna",
+      "viewAll": "Visa alla"
+    }
+  },
+  "news": {
+    "subtitle": "Alla inlägg om djurhälsa, nutrition och vård."
+  },
+  "about": {
+    "subtitle": "Läs mer om oss och vårt team."
+  },
+  "questionnaire": {
+    "page": {
+      "title": "Frågeformulär för beteenderådgivning",
+      "subtitle": "Vänligen svara på följande frågor så noggrant som möjligt.",
+      "intro": "Dina uppgifter är ett viktigt hjälpmedel för att diagnostisera och behandla ditt djurs problem och behandlas naturligtvis konfidentiellt."
+    },
+    "section": {
+      "owner": "Frågor om djurägaren",
+      "pet": "Allmänna frågor om ditt djur"
+    },
+    "form": {
+      "owner": {
+        "name": "Namn, förnamn",
+        "email": "E-post",
+        "firstPet": "Är detta ditt första djur?",
+        "reasonForChoosing": "Varför valde du just detta djur?"
+      },
+      "pet": {
+        "name": "Djurets namn",
+        "origin": "Var kommer ditt djur ifrån?",
+        "breederRearing": "Om från en uppfödare: beskriv hållning och uppfödning. Såg du föräldradjuren?",
+        "historyBeforeOwner": "Om du inte är den första ägaren: vet du något om djurets förflutna innan det kom till dig?",
+        "ageWhenAcquired": "Hur gammalt var ditt djur när det kom till dig?",
+        "ownedSince": "Sedan när bor djuret hos dig?",
+        "neutered": "Är ditt djur kastrerat?",
+        "neuteredAge": "Vid vilken ålder kastrerades ditt djur?",
+        "neuteringReason": "Fanns det en särskild anledning till kastreringen?",
+        "behaviorChangesAfterNeutering": "Uppstod beteendeförändringar efter kastreringen? Om ja, vilka?",
+        "school": "Har du gått på hundskola eller tränat djuret själv? Använder du hjälpmedel som en klicker?",
+        "knownCommands": "Vilka kommandon kan ditt djur (t.ex. sitt, ligg, släpp)?",
+        "feeding": "Vad och hur ofta äter ditt djur?",
+        "supplements": "Får ditt djur kosttillskott?",
+        "digestion": "Hur ofta bajsar ditt djur per dag? Har det mag-tarmproblem? Om ja, vilka symtom?",
+        "lastDeworming": "När avmaskades ditt djur senast?",
+        "bloodTest": "Har en blodanalys gjorts nyligen? Fanns det några avvikelser?"
+      }
+    },
+    "yes": "Ja",
+    "no": "Nej",
+    "submit": "Skicka",
+    "submitting": "Skickar…",
+    "error": "Det gick inte att skicka. Försök igen.",
+    "success": {
+      "title": "Tack!",
+      "body": "Ditt frågeformulär har skickats. Vi hör av oss till dig."
+    },
+    "cta": {
+      "title": "Fyll i frågeformuläret",
+      "text": "Förbered ditt besök för beteenderådgivning och fyll i frågeformuläret bekvämt online.",
+      "button": "Öppna frågeformuläret"
+    },
+    "management": "Frågeformulär",
+    "subtitle": "Granska inkomna frågeformulär",
+    "empty": "Inga frågeformulär ännu.",
+    "loadError": "Frågeformulären kunde inte laddas.",
+    "deleteConfirm": "Vill du verkligen ta bort frågeformuläret från ”{{owner}}” ({{pet}})?",
+    "col": {
+      "owner": "Djurägare",
+      "pet": "Djur",
+      "submittedAt": "Inkom"
+    }
+  },
+  "contact": {
+    "appointment": "Boka tid",
+    "message": "Skicka meddelande"
+  },
+  "contactForm": {
+    "message": {
+      "heading": "Skicka meddelande",
+      "text": "Ditt meddelande"
+    },
+    "appointment": {
+      "heading": "Boka tid"
+    },
+    "name": "Namn",
+    "email": "E-post",
+    "phone": "Telefon (valfritt)",
+    "subject": "Ämne",
+    "preferredDate": "Önskat datum",
+    "preferredTime": "Tid (valfritt)",
+    "note": "Ärende (valfritt)",
+    "submit": "Skicka",
+    "sending": "Skickar…",
+    "success": "Tack! Vi återkommer så snart som möjligt.",
+    "error": "Det gick inte att skicka. Försök igen senare.",
+    "close": "Stäng"
+  },
+  "contactInfoAdmin": {
+    "management": "Kontaktuppgifter",
+    "subtitle": "Hantera kontaktuppgifter och öppettider",
+    "primary": "Primär",
+    "new": "Ny post",
+    "newHeading": "Skapa kontaktuppgifter",
+    "editHeading": "Redigera kontaktuppgifter",
+    "deleteConfirm": "Vill du verkligen ta bort kontaktuppgifterna för \"{{city}}\"?",
+    "loadError": "Det gick inte att läsa in kontaktuppgifter.",
+    "empty": "Inga kontaktuppgifter hittades.",
+    "col": {
+      "name": "Namn",
+      "phone": "Telefon",
+      "email": "E-post",
+      "city": "Stad",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "name": "Namn *",
+      "primary": "Ange som primär",
+      "phone": "Telefon *",
+      "email": "E-post *",
+      "street": "Gata *",
+      "zip": "Postnummer *",
+      "city": "Stad *",
+      "officeHours": "Öppettider",
+      "addHour": "Lägg till öppettid",
+      "hourLabel": "Beteckning (t.ex. Mån–Fre)",
+      "hourTime": "Tid (t.ex. 09:00–17:00)"
+    }
+  },
+  "footer": {
+    "privacy": "Integritet",
+    "imprint": "Impressum",
+    "contact": "Kontakt",
+    "language": "Språk"
+  },
+  "article": {
+    "management": "Artikelhantering",
+    "subtitle": "Hantera dina artiklar och innehål",
+    "new": "Ny artikel",
+    "newHeading": "Ny artikel",
+    "editHeading": "Redigera artikel",
+    "deleteConfirm": "Vill du verkligen ta bort artikeln \"{{title}}\"?",
+    "loadError": "Det gick inte att läsa in artiklar.",
+    "empty": "Inga artiklar hittades.",
+    "col": {
+      "order": "Nr.",
+      "title": "Titel",
+      "page": "Sida",
+      "language": "Språk",
+      "status": "Status",
+      "published": "Publicerad",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "title": "Titel *",
+      "content": "Innehål *",
+      "page": "Sida",
+      "language": "Språk",
+      "status": "Status",
+      "order": "Ordning",
+      "orderPlaceholder": "auto",
+      "orderHint": "Lämna tomt för att lägga artikeln sist.",
+      "images": "Bilder",
+      "tags": "Taggar"
+    },
+    "moveUp": "Flytta upp",
+    "moveDown": "Flytta ner",
+    "page": {
+      "HOME_TEASER": "Startsida teaser",
+      "HOME_PAGE": "Startsida",
+      "NEWS_TEASER": "Nyheter teaser",
+      "NEWS_PAGE": "Nyheter"
+    },
+    "language": {
+      "GERMAN": "Tyska",
+      "ENGLISH": "Engelska",
+      "SWEDISH": "Svenska",
+      "RUSSIAN": "Ryska"
+    },
+    "state": {
+      "CREATED": "Skapad",
+      "PUBLISHED": "Publicerad",
+      "CLOSED": "Stängd"
+    }
+  },
+  "image": {
+    "management": "Bildhantering",
+    "subtitle": "Hantera dina bilder och media",
+    "upload": "Ladda upp bild",
+    "uploadHeading": "Ladda upp bild",
+    "uploading": "Laddar upp…",
+    "uploadAction": "Ladda upp",
+    "selectFile": "Välj fil…",
+    "deleteConfirm": "Vill du verkligen ta bort bilden \"{{fileName}}\"?",
+    "loadError": "Det gick inte att läsa in bilder.",
+    "uploadError": "Uppladdningen misslyckades.",
+    "empty": "Inga bilder hittades.",
+    "editHeading": "Redigera bild",
+    "title": "Titel",
+    "fileName": "Filnamn"
+  },
+  "tag": {
+    "management": "Tagghantering",
+    "subtitle": "Hantera dina taggar",
+    "new": "Ny tagg",
+    "newHeading": "Ny tagg",
+    "editHeading": "Redigera tagg",
+    "deleteConfirm": "Vill du verkligen ta bort taggen \"{{name}}\"?",
+    "loadError": "Det gick inte att läsa in taggar.",
+    "empty": "Inga taggar hittades.",
+    "name": "Taggnamn *",
+    "col": {
+      "name": "Namn",
+      "actions": "Åtgärder"
+    }
+  },
+  "customer": {
+    "management": "Kundhantering",
+    "subtitle": "Alla registrerade kunder och deras djur",
+    "new": "Ny kund",
+    "newHeading": "Ny kund",
+    "editHeading": "Redigera kund",
+    "deleteConfirm": "Vill du verkligen ta bort kunden \"{{firstName}} {{lastName}}\"?",
+    "loadError": "Det gick inte att läsa in kunder.",
+    "empty": "Inga kunder hittades.",
+    "col": {
+      "name": "Namn",
+      "email": "E-post",
+      "phone": "Telefon",
+      "city": "Stad",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "firstName": "Förnamn *",
+      "lastName": "Efternamn *",
+      "email": "E-post *",
+      "phone": "Telefon",
+      "address": "Adress",
+      "zip": "Postnummer",
+      "city": "Stad",
+      "state": "Län/Region",
+      "country": "Land"
+    }
+  },
+  "user": {
+    "management": "Användarhantering",
+    "subtitle": "Hantera användare och deras roller",
+    "new": "Ny användare",
+    "newHeading": "Ny användare",
+    "editHeading": "Redigera användare: {{login}}",
+    "deleteConfirm": "Vill du verkligen ta bort användaren \"{{login}}\"?",
+    "loadError": "Det gick inte att läsa in användare.",
+    "createError": "Skapandet misslyckades.",
+    "empty": "Inga användare hittades.",
+    "col": {
+      "login": "Inloggning",
+      "name": "Namn",
+      "email": "E-post",
+      "roles": "Roller",
+      "active": "Aktiv",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "login": "Inloggning *",
+      "firstName": "Förnamn",
+      "lastName": "Efternamn",
+      "email": "E-post *",
+      "password": "Lösenord *",
+      "passwordEdit": "Nytt lösenord (tomt = oförändrat)",
+      "language": "Språk",
+      "imageUrl": "Bild-URL",
+      "roles": "Roller",
+      "activated": "Aktiverad"
+    },
+    "active": {
+      "yes": "Ja",
+      "no": "Nej"
+    }
+  },
+  "auth": {
+    "loginHeading": "Välkommen tillbaka",
+    "loginSub": "Logga in för att fortsätta",
+    "accessNote": "Åtkomst begränsad till auktoriserade användare",
+    "username": "Användarnamn",
+    "password": "Lösenord",
+    "login": "Logga in",
+    "loggingIn": "Loggar in...",
+    "cancel": "Avbryt",
+    "errorInvalid": "Ogiltigt användarnamn eller lösenord.",
+    "errorGeneral": "Inloggningen misslyckades. Försök igen."
+  }
+}
