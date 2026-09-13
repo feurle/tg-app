@@ -16,11 +16,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```
 
 ### Local Development
-The frontend lives in a sibling repo (`../tg-web`). For full-stack development:
+The frontend lives in [`frontend/`](frontend/) (see its own `CLAUDE.md` for frontend-specific architecture). For full-stack development:
 - Terminal 1: `./gradlew bootRun` → backend on `http://localhost:8080`
-- Terminal 2: `npm run dev` (in `../tg-web`) → frontend on `http://localhost:5173`
+- Terminal 2: `cd frontend && npm run dev` → frontend on `http://localhost:5173`
 
 Vite proxies `/api/*` to the backend, so no CORS issues in dev.
+
+### Frontend
+React 19 + TypeScript + Vite, under `frontend/`. Talks to this backend exclusively through `frontend/src/lib/apiClient.ts` (cookie-session fetch wrapper). See [`frontend/CLAUDE.md`](frontend/CLAUDE.md) for its project structure, routing, auth, and i18n conventions.
 
 ## Architecture
 

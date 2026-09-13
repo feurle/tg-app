@@ -5,6 +5,14 @@ on:
     branches:
       - trunk
       - 'feature/**'
+    paths:
+      - 'src/**'
+      - 'build.gradle'
+      - 'settings.gradle'
+      - 'gradle/**'
+      - 'gradlew'
+      - 'gradlew.bat'
+      - '.github/workflows/deploy.yml'
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/tg-app

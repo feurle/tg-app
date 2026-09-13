@@ -98,6 +98,11 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.POST, "/api/questionnaire")
               .permitAll();
+          if (isDevProfile()) {
+            authz
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                .permitAll();
+          }
           authz.anyRequest().authenticated();
         });
 

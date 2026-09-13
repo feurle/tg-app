@@ -66,3 +66,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+### OpenAPI contract (generated, regenerate with `make api-sync`)
+/api-contract/
+frontend/src/api/schema.d.ts

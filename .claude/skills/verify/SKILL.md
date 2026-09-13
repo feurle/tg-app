@@ -1,21 +1,20 @@
 ---
 name: verify
-description: Build, launch and drive the tg-app backend + tg-web frontend to observe a change at runtime. Use when verifying webcontent/article/customer/contact changes end-to-end.
+description: Build, launch and drive the tg-app backend + frontend to observe a change at runtime. Use when verifying webcontent/article/customer/contact changes end-to-end.
 ---
 
-# Verifying tg-app + tg-web
+# Verifying tg-app (backend + frontend)
 
-Most changes here span both repos (`/home/daniel/Workspace/tg-app` backend,
-`/home/daniel/Workspace/tg-web` frontend). Verify through the running stack, not
-either half alone.
+Most changes here span both the backend (repo root) and the frontend (`frontend/`).
+Verify through the running stack, not either half alone.
 
 ## Launch
 
 Both in background; they take ~10s and ~1s respectively.
 
 ```bash
-cd /home/daniel/Workspace/tg-app && ./gradlew bootRun    # :8080, dev profile, H2
-cd /home/daniel/Workspace/tg-web && npm run dev          # :5173, proxies /api -> :8080
+./gradlew bootRun                    # :8080, dev profile, H2
+cd frontend && npm run dev           # :5173, proxies /api -> :8080
 ```
 
 Wait on readiness rather than sleeping:
@@ -77,8 +76,8 @@ const server = (await (await fetch('/api/webcontent/articles/page/home')).json()
   clears but component state keeps its previous value, so the form submits stale
   data. This looks exactly like an app bug. To genuinely clear a controlled input,
   focus it and send `Control+A` then `Backspace`.
-- Writing scratch files (snapshots, dumps) into either repo pollutes `git status` —
-  use a temp dir outside the working trees.
+- Writing scratch files (snapshots, dumps) into the repo pollutes `git status` —
+  use a temp dir outside the working tree.
 - `./gradlew spotlessApply` reformats the **whole** codebase. The `contact` module
   is committed unformatted, so a blanket run silently adds unrelated churn to your
   diff. Format only what you touched, or revert the rest.
