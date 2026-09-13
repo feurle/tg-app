@@ -13,7 +13,7 @@ npm run preview  # Preview production build
 
 No test runner is configured yet.
 
-The Java backend lives in a sibling repo (`../tg-web`).
+The Java backend lives at the repo root (see the root `CLAUDE.md`).
 
 ## Architecture
 

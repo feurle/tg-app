@@ -1,6 +1,6 @@
 # TG App
 
-Spring Boot backend for a veterinary content management site. Serves articles, images, pages, and customer data via a REST API consumed by the sibling frontend repo (`tg-web`).
+Spring Boot backend for a veterinary content management site. Serves articles, images, pages, and customer data via a REST API consumed by the frontend in [`frontend/`](frontend/).
 
 **Stack:** Spring Boot 4.0.3 · Java 21 · Spring Modulith · Spring Security · Liquibase · H2 (dev) · MySQL 9 (test/prod)
 
@@ -8,14 +8,14 @@ Spring Boot backend for a veterinary content management site. Serves articles, i
 
 ## Local Development
 
-The frontend lives in `../tg-web`. Run both together for full-stack development:
+The frontend lives in [`frontend/`](frontend/). Run both together for full-stack development:
 
 ```bash
 # Terminal 1 — backend on http://localhost:8080
 ./gradlew bootRun
 
 # Terminal 2 — frontend on http://localhost:5173 (proxies /api to backend)
-cd ../tg-web && npm run dev
+cd frontend && npm run dev
 ```
 
 Open **http://localhost:5173** in your browser.
