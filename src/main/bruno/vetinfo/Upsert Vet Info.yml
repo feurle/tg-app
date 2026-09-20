@@ -1,0 +1,30 @@
+info:
+  name: Upsert Vet Info
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/vetinfo"
+  body:
+    type: json
+    data: |-
+      {
+        "phone": "+49 89 123456",
+        "email": "info@tier-gesund.at",
+        "street": "Musterstraße 1",
+        "city": "Bregenz",
+        "zip": "6900",
+        "officeHours": [
+          { "label": "Montag – Freitag", "hours": "09:00 – 18:00" },
+          { "label": "Samstag", "hours": "09:00 – 13:00" },
+          { "label": "Sonntag", "hours": "Geschlossen" }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

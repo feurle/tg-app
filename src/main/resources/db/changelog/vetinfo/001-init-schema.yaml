@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-contact-info-table
+      id: 001-create-vet-info-table
       author: system
       changes:
         - createTable:
-            tableName: contact_info
+            tableName: vet_info
             columns:
               - column:
                   name: id
@@ -43,14 +43,14 @@ databaseChangeLog:
                   type: TIMESTAMP
 
   - changeSet:
-      id: 002-create-contact-office-hour-table
+      id: 002-create-vet-office-hour-table
       author: system
       changes:
         - createTable:
-            tableName: contact_office_hour
+            tableName: vet_office_hour
             columns:
               - column:
-                  name: contact_info_id
+                  name: vet_info_id
                   type: BIGINT
                   constraints:
                     nullable: false
@@ -66,19 +66,19 @@ databaseChangeLog:
                   name: hours
                   type: VARCHAR(100)
         - addForeignKeyConstraint:
-            baseTableName: contact_office_hour
-            baseColumnNames: contact_info_id
-            referencedTableName: contact_info
+            baseTableName: vet_office_hour
+            baseColumnNames: vet_info_id
+            referencedTableName: vet_info
             referencedColumnNames: id
-            constraintName: fk_office_hour_contact_info
+            constraintName: fk_office_hour_vet_info
             onDelete: CASCADE
 
   - changeSet:
-      id: 003-add-primary-unique-index-contact-info
+      id: 003-add-primary-unique-index-vet-info
       author: system
       dbms: mysql,mariadb
       changes:
         - sql:
             sql: >
-              CREATE UNIQUE INDEX idx_one_primary_contact_info
-              ON contact_info ((CASE WHEN is_primary = TRUE THEN 1 ELSE NULL END));
+              CREATE UNIQUE INDEX idx_one_primary_vet_info
+              ON vet_info ((CASE WHEN is_primary = TRUE THEN 1 ELSE NULL END));
