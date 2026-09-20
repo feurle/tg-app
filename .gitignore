@@ -70,3 +70,6 @@ dist-ssr
 ### OpenAPI contract (generated, regenerate with `make api-sync`)
 /api-contract/
 frontend/src/api/schema.d.ts
+
+### opencode (local MCP config, not shared)
+opencode.json
