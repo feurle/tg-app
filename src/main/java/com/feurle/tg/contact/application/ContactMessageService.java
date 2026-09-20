@@ -2,14 +2,13 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.contact.application;
 
+import com.feurle.tg.notification.MailService;
+import com.feurle.tg.vetinfo.PrimaryContactEmailLookup;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -17,11 +16,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ContactMessageService {
 
-  @Value("${app.mail.from}")
-  private String mailFrom;
-
-  private final JavaMailSender mailSender;
-  private final ContactInfoService contactInfoService;
+  private final MailService mailService;
+  private final PrimaryContactEmailLookup primaryContactEmailLookup;
 
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
@@ -70,21 +66,13 @@ public class ContactMessageService {
 
   private void send(String subject, String body, String replyToEmail) {
     String recipientEmail =
-        contactInfoService
-            .getContactInfo()
-            .map(ci -> ci.getEmail())
-            .filter(email -> email != null && !email.isBlank())
+        primaryContactEmailLookup
+            .primaryEmail()
             .orElseThrow(
                 () ->
                     new IllegalStateException(
-                        "Keine Kontakt-E-Mail konfiguriert. Bitte ContactInfo über die Admin-Oberfläche pflegen."));
+                        "Keine Kontakt-E-Mail konfiguriert. Bitte VetInfo über die Admin-Oberfläche pflegen."));
 
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setFrom(mailFrom);
-    message.setTo(recipientEmail);
-    message.setReplyTo(replyToEmail);
-    message.setSubject(subject);
-    message.setText(body);
-    mailSender.send(message);
+    mailService.send(recipientEmail, subject, body, replyToEmail);
   }
 }

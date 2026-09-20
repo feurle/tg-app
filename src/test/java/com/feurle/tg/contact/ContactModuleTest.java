@@ -7,8 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 
-@ApplicationModuleTest
+@ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES)
 class ContactModuleTest {
 
   @Test
