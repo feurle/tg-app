@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact;
+package com.feurle.tg.notification;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,7 +10,7 @@ import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 
 @ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES)
-class ContactModuleTest {
+class NotificationModuleTest {
 
   @Test
   void verifyModuleStructure() {

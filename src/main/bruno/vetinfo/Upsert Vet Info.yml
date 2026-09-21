@@ -1,11 +1,11 @@
 info:
-  name: Upsert Contact Info
+  name: Upsert Vet Info
   type: http
-  seq: 3
+  seq: 2
 
 http:
   method: PUT
-  url: "{{baseUrl}}/api/contact/info"
+  url: "{{baseUrl}}/api/vetinfo"
   body:
     type: json
     data: |-

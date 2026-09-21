@@ -1,41 +1,41 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact.infrastructure.rest.mapper;
+package com.feurle.tg.vetinfo.infrastructure.rest.mapper;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.OfficeHour;
-import com.feurle.tg.contact.infrastructure.rest.dto.ContactInfoResponse;
-import com.feurle.tg.contact.infrastructure.rest.dto.OfficeHourDto;
+import com.feurle.tg.vetinfo.domain.OfficeHour;
+import com.feurle.tg.vetinfo.domain.VetInfo;
+import com.feurle.tg.vetinfo.infrastructure.rest.dto.OfficeHourDto;
+import com.feurle.tg.vetinfo.infrastructure.rest.dto.VetInfoResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ContactInfoMapperTest {
+class VetInfoMapperTest {
 
-  private ContactInfoMapper mapper;
+  private VetInfoMapper mapper;
 
   @BeforeEach
   void setUp() {
-    mapper = new ContactInfoMapper();
+    mapper = new VetInfoMapper();
   }
 
   @Test
   void toResponse_mapsAllFields() {
-    ContactInfo contactInfo = new ContactInfo();
-    contactInfo.setName("Tiergesund Praxis");
-    contactInfo.setPhone("+49 89 123456");
-    contactInfo.setEmail("praxis@example.de");
-    contactInfo.setStreet("Musterstr. 1");
-    contactInfo.setCity("München");
-    contactInfo.setZip("80331");
-    contactInfo.setPrimary(true);
+    VetInfo vetInfo = new VetInfo();
+    vetInfo.setName("Tiergesund Praxis");
+    vetInfo.setPhone("+49 89 123456");
+    vetInfo.setEmail("praxis@example.de");
+    vetInfo.setStreet("Musterstr. 1");
+    vetInfo.setCity("München");
+    vetInfo.setZip("80331");
+    vetInfo.setPrimary(true);
     LocalDateTime now = LocalDateTime.now();
-    contactInfo.setUpdatedAt(now);
+    vetInfo.setUpdatedAt(now);
 
-    ContactInfoResponse response = mapper.toResponse(contactInfo);
+    VetInfoResponse response = mapper.toResponse(vetInfo);
 
     assertThat(response.name()).isEqualTo("Tiergesund Praxis");
     assertThat(response.phone()).isEqualTo("+49 89 123456");
@@ -49,11 +49,11 @@ class ContactInfoMapperTest {
 
   @Test
   void toResponse_mapsOfficeHours() {
-    ContactInfo contactInfo = new ContactInfo();
-    contactInfo.getOfficeHours().add(new OfficeHour("Montag – Freitag", "09:00 – 18:00"));
-    contactInfo.getOfficeHours().add(new OfficeHour("Samstag", "09:00 – 13:00"));
+    VetInfo vetInfo = new VetInfo();
+    vetInfo.getOfficeHours().add(new OfficeHour("Montag – Freitag", "09:00 – 18:00"));
+    vetInfo.getOfficeHours().add(new OfficeHour("Samstag", "09:00 – 13:00"));
 
-    ContactInfoResponse response = mapper.toResponse(contactInfo);
+    VetInfoResponse response = mapper.toResponse(vetInfo);
 
     assertThat(response.officeHours()).hasSize(2);
     assertThat(response.officeHours().get(0).label()).isEqualTo("Montag – Freitag");

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact.domain;
+package com.feurle.tg.vetinfo.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class ContactInfo {
+public class VetInfo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,7 @@ public class ContactInfo {
   private boolean primary;
 
   @ElementCollection
-  @CollectionTable(
-      name = "contact_office_hour",
-      joinColumns = @JoinColumn(name = "contact_info_id"))
+  @CollectionTable(name = "vet_office_hour", joinColumns = @JoinColumn(name = "vet_info_id"))
   @OrderColumn(name = "sort_order")
   private List<OfficeHour> officeHours = new ArrayList<>();
 

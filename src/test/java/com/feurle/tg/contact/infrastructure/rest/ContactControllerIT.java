@@ -11,10 +11,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.ContactInfoRepository;
 import com.feurle.tg.contact.infrastructure.rest.dto.RequestAppointmentRequest;
 import com.feurle.tg.contact.infrastructure.rest.dto.SendMessageRequest;
+import com.feurle.tg.vetinfo.domain.VetInfo;
+import com.feurle.tg.vetinfo.domain.VetInfoRepository;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import org.junit.jupiter.api.AfterEach;
@@ -50,7 +50,7 @@ class ContactControllerIT {
 
   @Autowired private ObjectMapper objectMapper;
 
-  @Autowired private ContactInfoRepository contactInfoRepository;
+  @Autowired private VetInfoRepository vetInfoRepository;
 
   @MockitoBean private JavaMailSender mailSender;
 
@@ -59,20 +59,20 @@ class ContactControllerIT {
   @BeforeEach
   void setUp() {
     mockMvc = webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
-    contactInfoRepository.deleteAll();
+    vetInfoRepository.deleteAll();
   }
 
   @AfterEach
   void tearDown() {
-    contactInfoRepository.deleteAll();
+    vetInfoRepository.deleteAll();
   }
 
   private void givenConfiguredContactEmail() {
-    ContactInfo contactInfo = new ContactInfo();
-    contactInfo.setName("Praxis");
-    contactInfo.setEmail("praxis@example.com");
-    contactInfo.setPrimary(true);
-    contactInfoRepository.save(contactInfo);
+    VetInfo vetInfo = new VetInfo();
+    vetInfo.setName("Praxis");
+    vetInfo.setEmail("praxis@example.com");
+    vetInfo.setPrimary(true);
+    vetInfoRepository.save(vetInfo);
   }
 
   private SimpleMailMessage capturedMail() {

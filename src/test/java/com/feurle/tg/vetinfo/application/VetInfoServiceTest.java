@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact.application;
+package com.feurle.tg.vetinfo.application;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.feurle.tg.contact.domain.ContactInfo;
-import com.feurle.tg.contact.domain.ContactInfoRepository;
-import com.feurle.tg.contact.domain.OfficeHour;
+import com.feurle.tg.vetinfo.domain.OfficeHour;
+import com.feurle.tg.vetinfo.domain.VetInfo;
+import com.feurle.tg.vetinfo.domain.VetInfoRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,59 +17,71 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
-class ContactInfoServiceTest {
+class VetInfoServiceTest {
 
-  @Autowired private ContactInfoService contactInfoService;
+  @Autowired private VetInfoService vetInfoService;
 
-  @Autowired private ContactInfoRepository contactInfoRepository;
+  @Autowired private VetInfoRepository vetInfoRepository;
 
   @BeforeEach
   void setUp() {
-    contactInfoRepository.deleteAll();
+    vetInfoRepository.deleteAll();
   }
 
-  // ========== getContactInfo (primary) ==========
+  // ========== getVetInfo (primary) ==========
 
   @Test
-  void getContactInfo_returnsEmpty_whenNoPrimaryExists() {
-    contactInfoService.createContactInfo(
-        "Praxis A", null, null, null, null, null, false, List.of());
-    assertThat(contactInfoService.getContactInfo()).isEmpty();
+  void getVetInfo_returnsEmpty_whenNoPrimaryExists() {
+    vetInfoService.createVetInfo("Praxis A", null, null, null, null, null, false, List.of());
+    assertThat(vetInfoService.getVetInfo()).isEmpty();
   }
 
   @Test
-  void getContactInfo_returnsPrimaryRecord() {
-    contactInfoService.createContactInfo(
-        "Praxis A", null, null, null, null, null, false, List.of());
-    ContactInfo primary =
-        contactInfoService.createContactInfo(
+  void getVetInfo_returnsPrimaryRecord() {
+    vetInfoService.createVetInfo("Praxis A", null, null, null, null, null, false, List.of());
+    VetInfo primary =
+        vetInfoService.createVetInfo(
             "Praxis B", "+49 89 2", "b@example.de", null, null, null, true, List.of());
 
-    assertThat(contactInfoService.getContactInfo())
+    assertThat(vetInfoService.getVetInfo())
         .isPresent()
         .get()
-        .extracting(ContactInfo::getId)
+        .extracting(VetInfo::getId)
         .isEqualTo(primary.getId());
   }
 
-  // ========== getAllContactInfo ==========
+  // ========== primaryEmail ==========
 
   @Test
-  void getAllContactInfo_returnsAllRecords() {
-    contactInfoService.createContactInfo(
-        "Praxis A", "+49 89 1", "a@example.de", "Str. 1", "München", "80331", false, List.of());
-    contactInfoService.createContactInfo(
-        "Praxis B", "+49 89 2", "b@example.de", "Str. 2", "Berlin", "10115", false, List.of());
-
-    assertThat(contactInfoService.getAllContactInfo()).hasSize(2);
+  void primaryEmail_returnsEmpty_whenNoPrimaryExists() {
+    assertThat(vetInfoService.primaryEmail()).isEmpty();
   }
 
-  // ========== getContactInfoById ==========
+  @Test
+  void primaryEmail_returnsEmailOfPrimaryRecord() {
+    vetInfoService.createVetInfo(
+        "Praxis A", null, "a@example.de", null, null, null, true, List.of());
+    assertThat(vetInfoService.primaryEmail()).contains("a@example.de");
+  }
+
+  // ========== getAllVetInfo ==========
 
   @Test
-  void getContactInfoById_returnsRecord() {
-    ContactInfo created =
-        contactInfoService.createContactInfo(
+  void getAllVetInfo_returnsAllRecords() {
+    vetInfoService.createVetInfo(
+        "Praxis A", "+49 89 1", "a@example.de", "Str. 1", "München", "80331", false, List.of());
+    vetInfoService.createVetInfo(
+        "Praxis B", "+49 89 2", "b@example.de", "Str. 2", "Berlin", "10115", false, List.of());
+
+    assertThat(vetInfoService.getAllVetInfo()).hasSize(2);
+  }
+
+  // ========== getVetInfoById ==========
+
+  @Test
+  void getVetInfoById_returnsRecord() {
+    VetInfo created =
+        vetInfoService.createVetInfo(
             "Tiergesund Praxis",
             "+49 89 123456",
             "praxis@example.de",
@@ -79,26 +91,26 @@ class ContactInfoServiceTest {
             false,
             List.of());
 
-    ContactInfo found = contactInfoService.getContactInfoById(created.getId());
+    VetInfo found = vetInfoService.getVetInfoById(created.getId());
 
     assertThat(found.getId()).isEqualTo(created.getId());
     assertThat(found.getName()).isEqualTo("Tiergesund Praxis");
   }
 
   @Test
-  void getContactInfoById_throwsWhenNotFound() {
-    assertThatThrownBy(() -> contactInfoService.getContactInfoById(999L))
+  void getVetInfoById_throwsWhenNotFound() {
+    assertThatThrownBy(() -> vetInfoService.getVetInfoById(999L))
         .isInstanceOf(NoSuchElementException.class);
   }
 
-  // ========== createContactInfo ==========
+  // ========== createVetInfo ==========
 
   @Test
-  void createContactInfo_persistsNewRecord() {
+  void createVetInfo_persistsNewRecord() {
     List<OfficeHour> officeHours = List.of(new OfficeHour("Montag – Freitag", "09:00 – 18:00"));
 
-    ContactInfo result =
-        contactInfoService.createContactInfo(
+    VetInfo result =
+        vetInfoService.createVetInfo(
             "Tiergesund Praxis",
             "+49 89 123456",
             "praxis@example.de",
@@ -121,35 +133,33 @@ class ContactInfoServiceTest {
   }
 
   @Test
-  void createContactInfo_settingPrimary_clearsPreviousPrimary() {
-    ContactInfo first =
-        contactInfoService.createContactInfo(
-            "Praxis A", null, null, null, null, null, true, List.of());
-    ContactInfo second =
-        contactInfoService.createContactInfo(
-            "Praxis B", null, null, null, null, null, true, List.of());
+  void createVetInfo_settingPrimary_clearsPreviousPrimary() {
+    VetInfo first =
+        vetInfoService.createVetInfo("Praxis A", null, null, null, null, null, true, List.of());
+    VetInfo second =
+        vetInfoService.createVetInfo("Praxis B", null, null, null, null, null, true, List.of());
 
-    assertThat(contactInfoService.getContactInfoById(first.getId()).isPrimary()).isFalse();
-    assertThat(contactInfoService.getContactInfoById(second.getId()).isPrimary()).isTrue();
+    assertThat(vetInfoService.getVetInfoById(first.getId()).isPrimary()).isFalse();
+    assertThat(vetInfoService.getVetInfoById(second.getId()).isPrimary()).isTrue();
   }
 
   @Test
-  void createContactInfo_allowsMultipleNonPrimaryRecords() {
-    contactInfoService.createContactInfo(
+  void createVetInfo_allowsMultipleNonPrimaryRecords() {
+    vetInfoService.createVetInfo(
         "Praxis A", "+49 89 1", "a@example.de", "Str. 1", "München", "80331", false, List.of());
-    contactInfoService.createContactInfo(
+    vetInfoService.createVetInfo(
         "Praxis B", "+49 89 2", "b@example.de", "Str. 2", "Berlin", "10115", false, List.of());
 
-    assertThat(contactInfoRepository.findAll()).hasSize(2);
-    assertThat(contactInfoRepository.findByPrimaryTrue()).isEmpty();
+    assertThat(vetInfoRepository.findAll()).hasSize(2);
+    assertThat(vetInfoRepository.findByPrimaryTrue()).isEmpty();
   }
 
-  // ========== updateContactInfo ==========
+  // ========== updateVetInfo ==========
 
   @Test
-  void updateContactInfo_updatesExistingRecord() {
-    ContactInfo created =
-        contactInfoService.createContactInfo(
+  void updateVetInfo_updatesExistingRecord() {
+    VetInfo created =
+        vetInfoService.createVetInfo(
             "Alte Praxis",
             "+49 89 111111",
             "alt@example.de",
@@ -159,8 +169,8 @@ class ContactInfoServiceTest {
             false,
             List.of());
 
-    ContactInfo updated =
-        contactInfoService.updateContactInfo(
+    VetInfo updated =
+        vetInfoService.updateVetInfo(
             created.getId(),
             "Neue Praxis",
             "+49 89 999999",
@@ -179,25 +189,23 @@ class ContactInfoServiceTest {
   }
 
   @Test
-  void updateContactInfo_settingPrimary_clearsPreviousPrimary() {
-    ContactInfo first =
-        contactInfoService.createContactInfo(
-            "Praxis A", null, null, null, null, null, true, List.of());
-    ContactInfo second =
-        contactInfoService.createContactInfo(
-            "Praxis B", null, null, null, null, null, false, List.of());
+  void updateVetInfo_settingPrimary_clearsPreviousPrimary() {
+    VetInfo first =
+        vetInfoService.createVetInfo("Praxis A", null, null, null, null, null, true, List.of());
+    VetInfo second =
+        vetInfoService.createVetInfo("Praxis B", null, null, null, null, null, false, List.of());
 
-    contactInfoService.updateContactInfo(
+    vetInfoService.updateVetInfo(
         second.getId(), "Praxis B", null, null, null, null, null, true, List.of());
 
-    assertThat(contactInfoService.getContactInfoById(first.getId()).isPrimary()).isFalse();
-    assertThat(contactInfoService.getContactInfoById(second.getId()).isPrimary()).isTrue();
+    assertThat(vetInfoService.getVetInfoById(first.getId()).isPrimary()).isFalse();
+    assertThat(vetInfoService.getVetInfoById(second.getId()).isPrimary()).isTrue();
   }
 
   @Test
-  void updateContactInfo_replacesOfficeHours() {
-    ContactInfo created =
-        contactInfoService.createContactInfo(
+  void updateVetInfo_replacesOfficeHours() {
+    VetInfo created =
+        vetInfoService.createVetInfo(
             "Tiergesund Praxis",
             "+49 89 123456",
             "praxis@example.de",
@@ -209,8 +217,8 @@ class ContactInfoServiceTest {
                 new OfficeHour("Montag – Freitag", "09:00 – 18:00"),
                 new OfficeHour("Samstag", "09:00 – 13:00")));
 
-    ContactInfo result =
-        contactInfoService.updateContactInfo(
+    VetInfo result =
+        vetInfoService.updateVetInfo(
             created.getId(),
             "Tiergesund Praxis",
             "+49 89 123456",
@@ -226,20 +234,20 @@ class ContactInfoServiceTest {
   }
 
   @Test
-  void updateContactInfo_throwsWhenNotFound() {
+  void updateVetInfo_throwsWhenNotFound() {
     assertThatThrownBy(
             () ->
-                contactInfoService.updateContactInfo(
+                vetInfoService.updateVetInfo(
                     999L, "X", null, null, null, null, null, false, List.of()))
         .isInstanceOf(NoSuchElementException.class);
   }
 
-  // ========== deleteContactInfo ==========
+  // ========== deleteVetInfo ==========
 
   @Test
-  void deleteContactInfo_removesRecord() {
-    ContactInfo created =
-        contactInfoService.createContactInfo(
+  void deleteVetInfo_removesRecord() {
+    VetInfo created =
+        vetInfoService.createVetInfo(
             "Tiergesund Praxis",
             "+49 89 123456",
             "praxis@example.de",
@@ -249,14 +257,14 @@ class ContactInfoServiceTest {
             false,
             List.of());
 
-    contactInfoService.deleteContactInfo(created.getId());
+    vetInfoService.deleteVetInfo(created.getId());
 
-    assertThat(contactInfoRepository.findAll()).isEmpty();
+    assertThat(vetInfoRepository.findAll()).isEmpty();
   }
 
   @Test
-  void deleteContactInfo_throwsWhenNotFound() {
-    assertThatThrownBy(() -> contactInfoService.deleteContactInfo(999L))
+  void deleteVetInfo_throwsWhenNotFound() {
+    assertThatThrownBy(() -> vetInfoService.deleteVetInfo(999L))
         .isInstanceOf(NoSuchElementException.class);
   }
 }

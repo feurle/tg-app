@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact.infrastructure.rest.dto;
+package com.feurle.tg.vetinfo.infrastructure.rest.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

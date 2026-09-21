@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact;
+package com.feurle.tg.vetinfo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.modulith.test.ApplicationModuleTest;
-import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 
-@ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES)
-class ContactModuleTest {
+@ApplicationModuleTest
+class VetInfoModuleTest {
 
   @Test
   void verifyModuleStructure() {

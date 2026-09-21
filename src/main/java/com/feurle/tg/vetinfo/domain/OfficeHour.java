@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2026 Daniel Feurle
-package com.feurle.tg.contact.domain;
+package com.feurle.tg.vetinfo.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

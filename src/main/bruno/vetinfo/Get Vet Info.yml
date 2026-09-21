@@ -1,11 +1,11 @@
 info:
-  name: Get Contact Info
+  name: Get Vet Info
   type: http
-  seq: 2
+  seq: 1
 
 http:
   method: GET
-  url: "{{baseUrl}}/api/contact/info"
+  url: "{{baseUrl}}/api/vetinfo"
   auth: none
 
 settings:

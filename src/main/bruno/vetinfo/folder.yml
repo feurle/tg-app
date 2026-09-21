@@ -1,0 +1,7 @@
+info:
+  name: vetinfo
+  type: folder
+  seq: 7
+
+request:
+  auth: none
