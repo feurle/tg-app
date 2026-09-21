@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.feurle'
-version = "1.0.${System.getenv('BUILD_NUMBER') ?: 'SNAPSHOT'}"
+version = System.getenv('APP_VERSION') ?: '0.0.0-SNAPSHOT'
 description = 'Animal Health Application'
 
 java {

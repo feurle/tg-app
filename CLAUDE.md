@@ -75,3 +75,10 @@ CI/CD runs on GitHub Actions (`.github/workflows/deploy.yml`):
    - `trunk` branch → tag `latest` → deployed to production
    - feature branches → tag `snapshot` → deployed to staging
 3. SSH deploy using `prod-compose.yml` or `test-compose.yml` in `src/main/docker/`
+4. `.github/workflows/release.yml` runs after a successful prod deploy (backend or frontend) on `trunk`:
+   - Only if `## [Unreleased]` in `CHANGELOG.md` has at least one bullet — otherwise nothing is released
+   - Next version via `.github/scripts/next-version.sh` from the squash-commit subject: `feat` → minor, `!`/`BREAKING CHANGE` → major, anything else → patch (first release is `1.0.0`)
+   - `cut-changelog.py` moves `[Unreleased]` into `## [x.y.z] - date`, the bot commits `chore(release): vx.y.z` to `trunk`, pushes tag `vx.y.z` and creates a GitHub Release
+   - The same version is baked into the app via `APP_VERSION` (`build.gradle`, actuator `/info`) and pushed as Docker tag `feurle/tg-app:x.y.z`; non-release builds get `x.y.z-SNAPSHOT`
+
+Because of this, every feature/fix PR must add its changelog bullet under `[Unreleased]` — that is what turns the merge into a release.
