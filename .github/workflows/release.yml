@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ["Build & Deploy", "Frontend Build & Deploy"]
+    types: [completed]
+    branches: [trunk]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-trunk
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag & Changelog
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Checkout trunk
+        uses: actions/checkout@v4
+        with:
+          ref: trunk
+          fetch-depth: 0
+
+      - name: Skip if trunk moved on since the deployed commit
+        id: guard
+        run: |
+          if [ "$(git rev-parse HEAD)" != "${{ github.event.workflow_run.head_sha }}" ]; then
+            echo "::notice::trunk HEAD is newer than deployed ${{ github.event.workflow_run.head_sha }} – a later run will release."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine version
+        id: version
+        if: steps.guard.outputs.skip != 'true'
+        run: bash .github/scripts/next-version.sh >> $GITHUB_OUTPUT
+
+      - name: Skip if [Unreleased] is empty
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release != 'true'
+        run: echo "::notice::No entries under [Unreleased] – nothing to release."
+
+      - name: Cut changelog
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        run: |
+          python3 .github/scripts/cut-changelog.py \
+            "${{ steps.version.outputs.version }}" "$(date -u +%F)" > "$RUNNER_TEMP/release-notes.md"
+
+      - name: Commit, tag and push
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore(release): v${VERSION} [skip ci]"
+          git tag -a "v${VERSION}" -m "v${VERSION}"
+          git push origin trunk --follow-tags
+
+      - name: Create GitHub release
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --notes-file "$RUNNER_TEMP/release-notes.md"
