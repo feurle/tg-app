@@ -28,6 +28,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 ### Changed
 
 - Frontend und Backend laufen jetzt in einem Container: Spring Boot baut und liefert das React-Frontend selbst aus (`docs/adr/0001-single-container-deployment.md`).
+- Abhängigkeiten aktualisiert: Gradle 9.8.0, Spring Boot 4.1.1, Spring Modulith 2.1.1, Spring Boot Admin Client 4.1.3, Spotless 8.10.2, SonarQube-Plugin 7.5.0.8588; Frontend auf Vite 8, ESLint 10, i18next 26/react-i18next 17, React 19.3, react-router-dom 7.18 sowie weitere kleinere Bumps (TypeScript bleibt auf 5.x, da `typescript-eslint` TypeScript 7 noch nicht unterstützt).
 
 ### Removed
 
