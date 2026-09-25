@@ -17,6 +17,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- CI: Test- und Prod-Deploy haben sich gegenseitig den App-Container entfernt (`docker compose ... --remove-orphans` sah den jeweils anderen Container als verwaist an, sobald dessen Compose-Datei nicht mitgeladen war).
+
 ### Security
 
 ## [1.0.1] - 2026-09-25
