@@ -9,13 +9,25 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.0.1] - 2026-09-25
+
+### Added
+
 - `./gradlew devAll` startet Backend (`bootRun`) und Frontend-Dev-Server (`npm run dev`) parallel in einem Terminal.
 
 ### Changed
 
 - Frontend und Backend laufen jetzt in einem Container: Spring Boot baut und liefert das React-Frontend selbst aus (`docs/adr/0001-single-container-deployment.md`).
-
-### Deprecated
 
 ### Removed
 
@@ -37,5 +49,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/feurle/tg-app/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/feurle/tg-app/releases/tag/v1.0.0
