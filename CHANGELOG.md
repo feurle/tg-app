@@ -17,9 +17,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
-- CI: Test- und Prod-Deploy haben sich gegenseitig den App-Container entfernt (`docker compose ... --remove-orphans` sah den jeweils anderen Container als verwaist an, sobald dessen Compose-Datei nicht mitgeladen war).
-
 ### Security
+
+## [1.0.2] - 2026-09-25
+
+### Fixed
+
+- CI: Test- und Prod-Deploy haben sich gegenseitig den App-Container entfernt (`docker compose ... --remove-orphans` sah den jeweils anderen Container als verwaist an, sobald dessen Compose-Datei nicht mitgeladen war).
 
 ## [1.0.1] - 2026-09-25
 
@@ -52,6 +56,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/feurle/tg-app/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/feurle/tg-app/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/feurle/tg-app/releases/tag/v1.0.0
