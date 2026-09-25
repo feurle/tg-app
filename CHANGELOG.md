@@ -23,6 +23,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- CI: `docker compose up` bezieht jetzt auch `services.yml` (`tg-database`, `tg-admin`) mit ein, damit `--remove-orphans` diese Container nicht mehr fälschlich löscht und dadurch der Health Check mit 502 fehlschlägt.
+
 ### Security
 
 - Sicherheits-Header (HSTS, `X-Content-Type-Options`, `Referrer-Policy`), die zuvor von `tg-web`s nginx gesetzt wurden, kommen jetzt von Spring Security.
