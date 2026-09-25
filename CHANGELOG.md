@@ -11,13 +11,19 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Frontend und Backend laufen jetzt in einem Container: Spring Boot baut und liefert das React-Frontend selbst aus (`docs/adr/0001-single-container-deployment.md`).
+
 ### Deprecated
 
 ### Removed
 
+- Separates `tg-web`-Image, dessen Dockerfile/nginx-Config und den zweiten Deploy-Workflow (`frontend-deploy.yml`).
+
 ### Fixed
 
 ### Security
+
+- Sicherheits-Header (HSTS, `X-Content-Type-Options`, `Referrer-Policy`), die zuvor von `tg-web`s nginx gesetzt wurden, kommen jetzt von Spring Security.
 
 ## [1.0.0] - 2026-09-21
 
