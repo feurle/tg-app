@@ -130,6 +130,47 @@ bootRun {
 	args = ["--spring.profiles.active=dev"]
 }
 
+tasks.register("devAll") {
+	group = "application"
+	description = "Starts backend (bootRun) and frontend (vite dev server) in parallel for local development."
+	dependsOn("npmInstall")
+	notCompatibleWithConfigurationCache("starts long-running child processes")
+	doLast {
+		def backend = null
+		def frontend = null
+		def stopAll = {
+			backend?.destroyForcibly()
+			frontend?.destroyForcibly()
+		}
+		// A shutdown hook alone is not enough: this task runs inside the
+		// persistent Gradle daemon, which stays alive across Ctrl+C. Also hook
+		// into buildFinished (fired for this build session even when cancelled)
+		// so the child processes never outlive the terminal session.
+		Runtime.runtime.addShutdownHook(new Thread(stopAll))
+		gradle.buildFinished { stopAll() }
+		try {
+			backend =
+					new ProcessBuilder("./gradlew", "bootRun")
+							.directory(projectDir)
+							.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+							.redirectError(ProcessBuilder.Redirect.INHERIT)
+							.start()
+			frontend =
+					new ProcessBuilder("npm", "run", "dev")
+							.directory(frontendDir)
+							.redirectOutput(ProcessBuilder.Redirect.INHERIT)
+							.redirectError(ProcessBuilder.Redirect.INHERIT)
+							.start()
+
+			while (backend.isAlive() && frontend.isAlive()) {
+				Thread.sleep(500)
+			}
+		} finally {
+			stopAll()
+		}
+	}
+}
+
 spotless {
 	java {
 		googleJavaFormat('1.35.0')

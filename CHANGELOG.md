@@ -9,6 +9,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- `./gradlew devAll` startet Backend (`bootRun`) und Frontend-Dev-Server (`npm run dev`) parallel in einem Terminal.
+
 ### Changed
 
 - Frontend und Backend laufen jetzt in einem Container: Spring Boot baut und liefert das React-Frontend selbst aus (`docs/adr/0001-single-container-deployment.md`).
