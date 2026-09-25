@@ -22,6 +22,9 @@ The frontend lives in [`frontend/`](frontend/) (see its own `CLAUDE.md` for fron
 
 Vite proxies `/api/*` to the backend, so no CORS issues in dev.
 
+Alternatively, `./gradlew devAll` starts both backend and frontend dev server
+in parallel in one terminal (`Ctrl+C` stops both).
+
 ### Frontend
 React 19 + TypeScript + Vite, under `frontend/`. Talks to this backend exclusively through `frontend/src/lib/apiClient.ts` (cookie-session fetch wrapper). See [`frontend/CLAUDE.md`](frontend/CLAUDE.md) for its project structure, routing, auth, and i18n conventions.
 

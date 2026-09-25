@@ -9,15 +9,25 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- `./gradlew devAll` startet Backend (`bootRun`) und Frontend-Dev-Server (`npm run dev`) parallel in einem Terminal.
+
 ### Changed
+
+- Frontend und Backend laufen jetzt in einem Container: Spring Boot baut und liefert das React-Frontend selbst aus (`docs/adr/0001-single-container-deployment.md`).
 
 ### Deprecated
 
 ### Removed
 
+- Separates `tg-web`-Image, dessen Dockerfile/nginx-Config und den zweiten Deploy-Workflow (`frontend-deploy.yml`).
+
 ### Fixed
 
+- CI: `docker compose up` bezieht jetzt auch `services.yml` (`tg-database`, `tg-admin`) mit ein, damit `--remove-orphans` diese Container nicht mehr fälschlich löscht und dadurch der Health Check mit 502 fehlschlägt.
+
 ### Security
+
+- Sicherheits-Header (HSTS, `X-Content-Type-Options`, `Referrer-Policy`), die zuvor von `tg-web`s nginx gesetzt wurden, kommen jetzt von Spring Security.
 
 ## [1.0.0] - 2026-09-21
 

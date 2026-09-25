@@ -19,15 +19,6 @@ services:
       - ACTUATOR_PASSWORD=${ACTUATOR_PASSWORD}
       - SERVICE_BASE_URL=http://tg-app-prod:8080
       - BRANCH_NAME=trunk
-    networks:
-      - nginx-proxy-network
-
-  tg-web-prod:
-    image: feurle/tg-web:latest
-    container_name: tg-web-prod
-    restart: unless-stopped
-    environment:
-      - BACKEND_URL=http://tg-app-prod:8080
       - VIRTUAL_HOST=${VIRTUAL_HOST_PROD}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST_PROD}
     networks:

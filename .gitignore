@@ -71,5 +71,9 @@ dist-ssr
 /api-contract/
 frontend/src/api/schema.d.ts
 
+### Frontend build output, synced into here by the `syncFrontend` Gradle task
+# see docs/adr/0001-single-container-deployment.md
+/src/main/resources/static/
+
 ### opencode (local MCP config, not shared)
-opencode.json
+_opencode.json_

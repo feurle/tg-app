@@ -15,9 +15,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -53,7 +55,8 @@ public class SecurityConfig {
   public SecurityFilterChain healthFilterChain(HttpSecurity http) throws Exception {
     http.securityMatcher("/actuator/health")
         .authorizeHttpRequests(authz -> authz.anyRequest().permitAll())
-        .csrf(csrf -> csrf.disable());
+        .csrf(csrf -> csrf.disable())
+        .headers(SecurityConfig::withBaselineHeaders);
     return http.build();
   }
 
@@ -65,7 +68,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(authz -> authz.anyRequest().hasRole("ADMIN"))
         .httpBasic(withDefaults())
         .csrf(csrf -> csrf.disable())
-        .headers(headers -> headers.frameOptions(frame -> frame.disable()));
+        .headers(headers -> withBaselineHeaders(headers).frameOptions(frame -> frame.disable()));
     return http.build();
   }
 
@@ -111,13 +114,26 @@ public class SecurityConfig {
 
     if (isDevProfile()) {
       http.httpBasic(withDefaults());
-      http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
+      http.headers(headers -> withBaselineHeaders(headers).frameOptions(frame -> frame.disable()));
     } else {
       http.httpBasic(basic -> basic.disable());
-      http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
+      http.headers(headers -> withBaselineHeaders(headers).frameOptions(frame -> frame.disable()));
     }
 
     return http.build();
+  }
+
+  /**
+   * Headers that used to be set by tg-web's nginx (removed in favor of Spring Boot serving the
+   * frontend itself, see docs/adr/0001-single-container-deployment.md). Frame options are left to
+   * each call site: some contexts (dev tools, the actuator) need framing enabled.
+   */
+  private static HeadersConfigurer<HttpSecurity> withBaselineHeaders(
+      HeadersConfigurer<HttpSecurity> headers) {
+    return headers
+        .contentTypeOptions(withDefaults())
+        .referrerPolicy(referrer -> referrer.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+        .httpStrictTransportSecurity(withDefaults());
   }
 
   private boolean isDevProfile() {

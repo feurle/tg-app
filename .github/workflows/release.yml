@@ -2,7 +2,7 @@ name: Release
 
 on:
   workflow_run:
-    workflows: ["Build & Deploy", "Frontend Build & Deploy"]
+    workflows: ["Build & Deploy"]
     types: [completed]
     branches: [trunk]
 
