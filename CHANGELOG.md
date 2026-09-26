@@ -11,11 +11,16 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Projektdoku für Coding-Agenten (bisher `CLAUDE.md`/`TODO.md`) in eine einzige `AGENTS.md` zusammengeführt; das `verify`-Skill liegt jetzt unter `.agents/skills/`, damit es auch von anderen Agenten als OpenCode genutzt werden kann.
+- `tg-admin` nutzt jetzt Spring Boot 4.1.1.
+
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- `./gradlew devAll` gibt die Ausgabe von Backend und Frontend jetzt zuverlässig im aufrufenden Terminal aus, statt sie im getrennten Gradle-Daemon verschwinden zu lassen.
 
 ### Security
 
