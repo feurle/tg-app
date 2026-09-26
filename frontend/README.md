@@ -73,12 +73,6 @@ export default defineConfig([
 ```
 
 
-## Build Docker Image
+## Docker
 
-```shell
-# Build
-docker build -t tg-web .
-
-# Start with Backend-URL
-docker run -p 80:80 -e BACKEND_URL=http://dein-backend:8080 tg-web
-```
+There is no standalone frontend Docker image. The frontend is built by the root Gradle build (`npmInstall` → `buildFrontend` → `syncFrontend` tasks) and copied into `src/main/resources/static`, so it ships inside the single `feurle/tg-app` backend image produced by `./gradlew bootBuildImage`. See the root `AGENTS.md` ("Deployment" section) and `docs/adr/0001-single-container-deployment.md`.
