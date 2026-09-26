@@ -138,9 +138,11 @@ tasks.register("devAll") {
 	doLast {
 		def backend = null
 		def frontend = null
+		def pumps = []
 		def stopAll = {
 			backend?.destroyForcibly()
 			frontend?.destroyForcibly()
+			pumps.each { it.interrupt() }
 		}
 		// A shutdown hook alone is not enough: this task runs inside the
 		// persistent Gradle daemon, which stays alive across Ctrl+C. Also hook
@@ -148,19 +150,33 @@ tasks.register("devAll") {
 		// so the child processes never outlive the terminal session.
 		Runtime.runtime.addShutdownHook(new Thread(stopAll))
 		gradle.buildFinished { stopAll() }
+		// Redirect.INHERIT would inherit the Gradle Daemon's own (detached,
+		// unusable) stdout/stderr rather than the terminal that invoked
+		// `./gradlew devAll` — the Daemon relays its own task output to the
+		// client over a separate RPC channel, not raw file descriptors. So we
+		// pump each child process's output line-by-line into the Gradle
+		// logger instead, which *is* relayed to the client console.
+		def pump = { Process proc, String prefix ->
+			def thread =
+					Thread.start {
+						proc.inputStream.eachLine { line -> logger.lifecycle("[${prefix}] ${line}") }
+					}
+			pumps << thread
+			thread
+		}
 		try {
 			backend =
 					new ProcessBuilder("./gradlew", "bootRun")
 							.directory(projectDir)
-							.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-							.redirectError(ProcessBuilder.Redirect.INHERIT)
+							.redirectErrorStream(true)
 							.start()
+			pump(backend, "backend")
 			frontend =
 					new ProcessBuilder("npm", "run", "dev")
 							.directory(frontendDir)
-							.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-							.redirectError(ProcessBuilder.Redirect.INHERIT)
+							.redirectErrorStream(true)
 							.start()
+			pump(frontend, "frontend")
 
 			while (backend.isAlive() && frontend.isAlive()) {
 				Thread.sleep(500)

@@ -1,8 +1,8 @@
 # TG App
 
-Spring Boot backend for a veterinary content management site. Serves articles, images, pages, and customer data via a REST API consumed by the frontend in [`frontend/`](frontend/).
+Spring Boot backend for a veterinary content management site. Serves articles, images, pages, customer data, contact/appointment requests, questionnaires, and vet office info via a REST API consumed by the frontend in [`frontend/`](frontend/).
 
-**Stack:** Spring Boot 4.0.3 · Java 21 · Spring Modulith · Spring Security · Liquibase · H2 (dev) · MySQL 9 (test/prod)
+**Stack:** Spring Boot 4.1.1 · Java 21 · Spring Modulith · Spring Security · Liquibase · H2 (dev) · MySQL 9 (test/prod)
 
 ---
 
@@ -23,12 +23,15 @@ Open **http://localhost:5173** in your browser.
 - H2 console (dev only): http://localhost:8080/h2-console
 - Spring Boot DevTools reloads the backend on Java file changes
 
+Alternatively, `./gradlew devAll` starts both dev servers in parallel in one terminal (`Ctrl+C` stops both).
+
 ---
 
 ## Commands
 
 ```bash
 ./gradlew bootRun              # Run with dev profile (H2, hot reload)
+./gradlew devAll               # Run backend + frontend dev server in parallel
 ./gradlew test                 # Run all tests
 ./gradlew build                # Full build including tests
 ./gradlew spotlessApply        # Format code (run before committing)
@@ -58,8 +61,10 @@ Seeding is split into three Liquibase layers:
 | Context | Data | Active in |
 |---------|------|-----------|
 | *(none)* | Schema, users, authorities, images, tags, pages | all profiles |
-| `seed` | Articles (DE), sections, article–image links | dev, test, prod, JUnit |
+| `seed` | Articles (DE only), sections, article–image links | dev, test, prod, JUnit |
 | `test` | Reserved for future JUnit-only fixtures | JUnit tests only |
+
+No customer seed data exists yet.
 
 Data files live under `src/main/resources/db/data/`.
 
@@ -82,7 +87,15 @@ CI/CD via GitHub Actions (`.github/workflows/deploy.yml`):
 1. `./gradlew test bootJar sonar` — tests + SonarQube analysis
 2. `./gradlew bootBuildImage` — Docker image pushed to Docker Hub (`feurle/tg-app`)
    - `trunk` → tag `latest` → deployed to production via `prod-compose.yml`
-   - `feature/**` → tag `snapshot` → deployed to staging via `test-compose.yml`
+   - `feature/**`, `fix/**`, `hotfix/**`, `chore/**`, `refactor/**` → tag `snapshot` → deployed to staging via `test-compose.yml`
 3. Deployed over SSH using Docker Compose files in `src/main/docker/`
 
 Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS.
+
+**Single-container build:** the Gradle build also builds the frontend (`npmInstall` → `buildFrontend` → `syncFrontend` tasks) and copies it into `src/main/resources/static`, so the one `feurle/tg-app` image serves both frontend and backend — there is no separate frontend Docker image (see `docs/adr/0001-single-container-deployment.md`).
+
+**`tg-admin/`** is a separate, independently built Spring Boot Admin monitoring server, deployed manually (no GitHub Actions workflow of its own).
+
+---
+
+For module architecture, layer conventions, and the frontend's structure/routing/i18n conventions, see [`AGENTS.md`](AGENTS.md) — kept as the single source of truth to avoid this README drifting out of sync.

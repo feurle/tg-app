@@ -84,7 +84,7 @@ tasks.register('devAll') {
 (Exact error/exit-code handling to be refined during implementation.)
 
 ### 3. Documentation
-Add a short note under "Local Development" in the root `CLAUDE.md`:
+Add a short note under "Local Development" in the root `AGENTS.md`:
 `./gradlew devAll` as a one-command alternative to running backend and
 frontend in two separate terminals (existing two-terminal instructions stay,
 just supplemented).
