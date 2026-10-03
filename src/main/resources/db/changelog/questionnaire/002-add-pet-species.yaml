@@ -1,0 +1,19 @@
+databaseChangeLog:
+
+  # The questionnaire used to be dog-only, so existing submissions are dogs.
+  - changeSet:
+      id: 002-add-pet-species
+      author: system
+      changes:
+        - addColumn:
+            tableName: questionnaire
+            columns:
+              - column:
+                  name: pet_species
+                  type: VARCHAR(20)
+        - update:
+            tableName: questionnaire
+            columns:
+              - column:
+                  name: pet_species
+                  value: DOG

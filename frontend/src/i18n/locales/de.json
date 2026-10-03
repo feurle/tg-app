@@ -107,6 +107,7 @@
       },
       "pet": {
         "name": "Name des Tieres",
+        "species": "Tierart",
         "origin": "Herkunft des Tieres",
         "breederRearing": "Falls vom Züchter: Beschreiben Sie Haltung und Aufzucht. Haben Sie die Elterntiere gesehen?",
         "historyBeforeOwner": "Falls Sie nicht der erste Besitzer sind: Wissen Sie etwas aus der Vergangenheit Ihres Tieres, bevor es zu Ihnen kam?",
@@ -124,6 +125,12 @@
         "lastDeworming": "Wann wurde Ihr Tier das letzte Mal entwurmt?",
         "bloodTest": "Ist in letzter Zeit eine Blutuntersuchung erfolgt? Gab es Auffälligkeiten?"
       }
+    },
+    "species": {
+      "DOG": "Hund",
+      "CAT": "Katze",
+      "SMALL_ANIMAL": "Kleintier",
+      "OTHER": "Anderes"
     },
     "yes": "Ja",
     "no": "Nein",

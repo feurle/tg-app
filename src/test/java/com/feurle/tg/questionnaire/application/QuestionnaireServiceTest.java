@@ -8,6 +8,7 @@ import com.feurle.tg.questionnaire.domain.OwnerDetails;
 import com.feurle.tg.questionnaire.domain.PetDetails;
 import com.feurle.tg.questionnaire.domain.Questionnaire;
 import com.feurle.tg.questionnaire.domain.QuestionnaireRepository;
+import com.feurle.tg.questionnaire.domain.Species;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,7 @@ class QuestionnaireServiceTest {
   private PetDetails samplePet() {
     return new PetDetails(
         "Rex",
+        Species.DOG,
         "Vom Züchter",
         "Elterntiere gesehen",
         null,
@@ -62,6 +64,7 @@ class QuestionnaireServiceTest {
     assertThat(saved.getOwner().getName()).isEqualTo("Max Mustermann");
     assertThat(saved.getOwner().getFirstPet()).isTrue();
     assertThat(saved.getPet().getName()).isEqualTo("Rex");
+    assertThat(saved.getPet().getSpecies()).isEqualTo(Species.DOG);
     assertThat(saved.getPet().getNeutered()).isFalse();
     assertThat(saved.getPet().getFeeding()).isEqualTo("Trockenfutter 2x täglich");
   }

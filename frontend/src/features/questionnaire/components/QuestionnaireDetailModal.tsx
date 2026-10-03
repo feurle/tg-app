@@ -31,6 +31,10 @@ export default function QuestionnaireDetailModal({ questionnaire, onClose }: Pro
 
         <h3 className="questionnaire-detail-section">{t('questionnaire.section.pet')}</h3>
         <Row label={t('questionnaire.form.pet.name')} value={pet.name} />
+        <Row
+          label={t('questionnaire.form.pet.species')}
+          value={pet.species ? t(`questionnaire.species.${pet.species}`) : null}
+        />
         <Row label={t('questionnaire.form.pet.origin')} value={pet.origin} />
         <Row label={t('questionnaire.form.pet.breederRearing')} value={pet.breederRearing} />
         <Row label={t('questionnaire.form.pet.historyBeforeOwner')} value={pet.historyBeforeOwner} />
@@ -40,8 +44,12 @@ export default function QuestionnaireDetailModal({ questionnaire, onClose }: Pro
         <Row label={t('questionnaire.form.pet.neuteredAge')} value={pet.neuteredAge} />
         <Row label={t('questionnaire.form.pet.neuteringReason')} value={pet.neuteringReason} />
         <Row label={t('questionnaire.form.pet.behaviorChangesAfterNeutering')} value={pet.behaviorChangesAfterNeutering} />
-        <Row label={t('questionnaire.form.pet.school')} value={pet.school} />
-        <Row label={t('questionnaire.form.pet.knownCommands')} value={pet.knownCommands} />
+        {(pet.species === 'DOG' || pet.school || pet.knownCommands) && (
+          <>
+            <Row label={t('questionnaire.form.pet.school')} value={pet.school} />
+            <Row label={t('questionnaire.form.pet.knownCommands')} value={pet.knownCommands} />
+          </>
+        )}
         <Row label={t('questionnaire.form.pet.feeding')} value={pet.feeding} />
         <Row label={t('questionnaire.form.pet.supplements')} value={pet.supplements} />
         <Row label={t('questionnaire.form.pet.digestion')} value={pet.digestion} />

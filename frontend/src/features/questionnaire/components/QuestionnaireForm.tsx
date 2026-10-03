@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { questionnaireApi } from '../api';
-import { EMPTY_QUESTIONNAIRE, type QuestionnaireFormData } from '../types';
+import { EMPTY_QUESTIONNAIRE, SPECIES, type QuestionnaireFormData, type Species } from '../types';
 import { ApiError } from '../../../lib/apiClient';
 
 type Section = 'owner' | 'pet';
@@ -15,6 +15,18 @@ export default function QuestionnaireForm() {
 
   function update<S extends Section>(section: S, name: keyof QuestionnaireFormData[S], value: string | boolean | null) {
     setForm((prev) => ({ ...prev, [section]: { ...prev[section], [name]: value } }));
+  }
+
+  function selectSpecies(species: Species) {
+    // School and commands only apply to dogs: drop answers that are no longer asked.
+    setForm((prev) => ({
+      ...prev,
+      pet: {
+        ...prev.pet,
+        species,
+        ...(species !== 'DOG' && { school: '', knownCommands: '' }),
+      },
+    }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -65,6 +77,26 @@ export default function QuestionnaireForm() {
 
         <Text label={t('questionnaire.form.pet.name')} value={pet.name}
           onChange={(v) => update('pet', 'name', v)} required />
+        <div className="form-group" style={{ marginBottom: '16px' }}>
+          <span className="form-label" id="questionnaire-species-label">
+            {t('questionnaire.form.pet.species')} *
+          </span>
+          <div className="questionnaire-yesno" role="radiogroup" aria-labelledby="questionnaire-species-label">
+            {SPECIES.map((species, index) => (
+              <label key={species} className="questionnaire-radio">
+                <input
+                  type="radio"
+                  name="species"
+                  value={species}
+                  checked={pet.species === species}
+                  required={index === 0}
+                  onChange={() => selectSpecies(species)}
+                />{' '}
+                {t(`questionnaire.species.${species}`)}
+              </label>
+            ))}
+          </div>
+        </div>
         <Area label={t('questionnaire.form.pet.origin')} value={pet.origin}
           onChange={(v) => update('pet', 'origin', v)} />
         <Area label={t('questionnaire.form.pet.breederRearing')} value={pet.breederRearing}
@@ -87,10 +119,14 @@ export default function QuestionnaireForm() {
               onChange={(v) => update('pet', 'behaviorChangesAfterNeutering', v)} />
           </>
         )}
-        <Area label={t('questionnaire.form.pet.school')} value={pet.school}
-          onChange={(v) => update('pet', 'school', v)} />
-        <Area label={t('questionnaire.form.pet.knownCommands')} value={pet.knownCommands}
-          onChange={(v) => update('pet', 'knownCommands', v)} />
+        {pet.species === 'DOG' && (
+          <>
+            <Area label={t('questionnaire.form.pet.school')} value={pet.school}
+              onChange={(v) => update('pet', 'school', v)} />
+            <Area label={t('questionnaire.form.pet.knownCommands')} value={pet.knownCommands}
+              onChange={(v) => update('pet', 'knownCommands', v)} />
+          </>
+        )}
         <Area label={t('questionnaire.form.pet.feeding')} value={pet.feeding}
           onChange={(v) => update('pet', 'feeding', v)} />
         <Area label={t('questionnaire.form.pet.supplements')} value={pet.supplements}

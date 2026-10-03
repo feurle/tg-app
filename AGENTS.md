@@ -59,7 +59,7 @@ This is a **Spring Modulith** (modular monolith) backend. Module boundaries are 
 
 **`contact`** — Public "send message" / "request appointment" / "refer a patient" forms (`ContactController`, `ContactMessageService`); all of them only send mail (no persistence). A referral mails the practice (reply-to = referring vet) and sends a confirmation to the referring vet
 
-**`questionnaire`** — Pet owner questionnaire submissions (`Questionnaire`, `PetDetails`, `OwnerDetails`); publishes a `QuestionnaireSubmittedEvent`
+**`questionnaire`** — Pet owner questionnaire submissions (`Questionnaire`, `PetDetails` incl. `Species`, `OwnerDetails`); only dogs get the school/commands questions; publishes a `QuestionnaireSubmittedEvent`
 
 **`vetinfo`** — Vet office info and opening hours (`VetInfo`, `OfficeHour` = weekday + opens/closes time, several intervals per day allowed); exposes `PrimaryContactEmailLookup` for other modules and the public `GET /api/vetinfo/primary`, the single source for phone, address and hours in the frontend (`useVetInfo`, `features/contact/officeHours.ts`; "open now" is evaluated in Europe/Vienna time)
 

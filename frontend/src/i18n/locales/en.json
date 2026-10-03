@@ -102,6 +102,7 @@
       },
       "pet": {
         "name": "Pet's name",
+        "species": "Species",
         "origin": "Where does your pet come from?",
         "breederRearing": "If from a breeder: describe the keeping and rearing. Did you see the parent animals?",
         "historyBeforeOwner": "If you are not the first owner: do you know anything about your pet's past before it came to you?",
@@ -119,6 +120,12 @@
         "lastDeworming": "When was your pet last dewormed?",
         "bloodTest": "Has a blood test been done recently? Were there any abnormalities?"
       }
+    },
+    "species": {
+      "DOG": "Dog",
+      "CAT": "Cat",
+      "SMALL_ANIMAL": "Small animal",
+      "OTHER": "Other"
     },
     "yes": "Yes",
     "no": "No",

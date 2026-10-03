@@ -2,10 +2,13 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.questionnaire.infrastructure.rest.dto;
 
+import com.feurle.tg.questionnaire.domain.Species;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record PetDto(
     @NotBlank String name,
+    @NotNull Species species,
     String origin,
     String breederRearing,
     String historyBeforeOwner,

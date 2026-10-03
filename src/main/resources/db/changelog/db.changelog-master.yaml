@@ -19,3 +19,5 @@ databaseChangeLog:
       file: db/changelog/vetinfo/003-load-initial-data.yaml
   - include:
       file: db/changelog/questionnaire/001-init-schema.yaml
+  - include:
+      file: db/changelog/questionnaire/002-add-pet-species.yaml

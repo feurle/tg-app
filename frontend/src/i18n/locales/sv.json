@@ -102,6 +102,7 @@
       },
       "pet": {
         "name": "Djurets namn",
+        "species": "Djurslag",
         "origin": "Var kommer ditt djur ifrån?",
         "breederRearing": "Om från en uppfödare: beskriv hållning och uppfödning. Såg du föräldradjuren?",
         "historyBeforeOwner": "Om du inte är den första ägaren: vet du något om djurets förflutna innan det kom till dig?",
@@ -119,6 +120,12 @@
         "lastDeworming": "När avmaskades ditt djur senast?",
         "bloodTest": "Har en blodanalys gjorts nyligen? Fanns det några avvikelser?"
       }
+    },
+    "species": {
+      "DOG": "Hund",
+      "CAT": "Katt",
+      "SMALL_ANIMAL": "Smådjur",
+      "OTHER": "Annat"
     },
     "yes": "Ja",
     "no": "Nej",

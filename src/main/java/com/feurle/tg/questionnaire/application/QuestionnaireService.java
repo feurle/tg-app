@@ -33,7 +33,8 @@ public class QuestionnaireService {
         new QuestionnaireSubmittedEvent(
             saved.getId(),
             owner != null ? owner.getName() : null,
-            pet != null ? pet.getName() : null));
+            pet != null ? pet.getName() : null,
+            pet != null && pet.getSpecies() != null ? pet.getSpecies().name() : null));
     return saved;
   }
 
