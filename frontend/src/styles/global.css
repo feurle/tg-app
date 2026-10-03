@@ -149,6 +149,7 @@ body {
 
 .nav-link {
     position: relative;
+    white-space: nowrap;
     padding: 8px 14px;
     font-size: var(--fs-base);
     font-weight: 400;
@@ -3145,5 +3146,139 @@ tbody tr:hover td {
 @media (max-width: 560px) {
     .symptom-list {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ── Practice contact data & opening hours (VetInfo) ─────────────────── */
+.hero-portrait-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+}
+
+.hero-portrait-phone {
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: var(--brand);
+    border-bottom: 2px solid var(--wood);
+}
+
+.open-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+}
+
+.open-status-dot {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-strong);
+}
+
+.open-status-open {
+    color: var(--ink);
+}
+
+.open-status-open .open-status-dot {
+    background: var(--brand);
+}
+
+.home-heading + .vet-contact-grid {
+    margin-top: var(--space-5);
+}
+
+.vet-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+}
+
+.vet-contact-label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-1);
+}
+
+.vet-contact-col > .vet-contact-label:not(:first-child) {
+    margin-top: var(--space-3);
+}
+
+.vet-contact-link,
+.vet-contact-address {
+    display: block;
+    font-size: var(--fs-base);
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--ink);
+}
+
+.vet-contact-link:hover {
+    color: var(--brand);
+}
+
+.vet-hours {
+    margin: 0;
+}
+
+.vet-hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--fs-base);
+    line-height: 1.7;
+    max-width: 320px;
+}
+
+.vet-hours-row dt {
+    color: var(--ink);
+}
+
+.vet-hours-row dd {
+    margin: 0;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.footer-address {
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-xs);
+    font-style: normal;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.footer-address a:hover {
+    color: var(--brand);
+}
+
+.mobile-cta-call {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .vet-contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+    }
+
+    .mobile-cta-bar {
+        gap: var(--space-2);
+    }
+
+    .mobile-cta-call {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 52px;
+        padding: 0;
+        border-radius: var(--radius-sm);
     }
 }

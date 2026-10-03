@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
 import logoImg from '../assets/logo.png';
+import { useVetInfo } from '../features/contact/useVetInfo';
+import { telHref } from '../features/contact/officeHours';
 import LoginModal from '../features/auth/components/LoginModal';
 
 const LANGUAGES = [
@@ -15,6 +17,7 @@ const LANGUAGES = [
 export default function Footer() {
     const { t, i18n: i18nInstance } = useTranslation();
     const [showLogin, setShowLogin] = useState(false);
+    const vetInfo = useVetInfo();
     const [showLangMenu, setShowLangMenu] = useState(false);
     const langRef = useRef<HTMLDivElement>(null);
     const currentLang = i18nInstance.language;
@@ -46,6 +49,15 @@ export default function Footer() {
                         {t('app.name')}
                     </Link>
                     <p className="footer-tagline">{t('home.tagline')}</p>
+                    {vetInfo && (
+                        <address className="footer-address">
+                            {vetInfo.street}, {vetInfo.zip} {vetInfo.city}
+                            <br />
+                            <a href={telHref(vetInfo.phone)}>{vetInfo.phone}</a>
+                            <br />
+                            <a href={`mailto:${vetInfo.email}`}>{vetInfo.email}</a>
+                        </address>
+                    )}
                 </div>
 
                 <div className="footer-col">

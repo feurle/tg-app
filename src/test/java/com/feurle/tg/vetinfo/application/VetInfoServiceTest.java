@@ -7,6 +7,8 @@ import static org.assertj.core.api.Assertions.*;
 import com.feurle.tg.vetinfo.domain.OfficeHour;
 import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.domain.VetInfoRepository;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
@@ -107,7 +109,8 @@ class VetInfoServiceTest {
 
   @Test
   void createVetInfo_persistsNewRecord() {
-    List<OfficeHour> officeHours = List.of(new OfficeHour("Montag – Freitag", "09:00 – 18:00"));
+    List<OfficeHour> officeHours =
+        List.of(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0)));
 
     VetInfo result =
         vetInfoService.createVetInfo(
@@ -214,8 +217,8 @@ class VetInfoServiceTest {
             "80331",
             false,
             List.of(
-                new OfficeHour("Montag – Freitag", "09:00 – 18:00"),
-                new OfficeHour("Samstag", "09:00 – 13:00")));
+                new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0)),
+                new OfficeHour(DayOfWeek.SATURDAY, LocalTime.of(9, 0), LocalTime.of(13, 0))));
 
     VetInfo result =
         vetInfoService.updateVetInfo(
@@ -227,10 +230,23 @@ class VetInfoServiceTest {
             "München",
             "80331",
             false,
-            List.of(new OfficeHour("Montag – Freitag", "10:00 – 17:00")));
+            List.of(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(17, 0))));
 
     assertThat(result.getOfficeHours()).hasSize(1);
-    assertThat(result.getOfficeHours().get(0).getHours()).isEqualTo("10:00 – 17:00");
+    assertThat(result.getOfficeHours().get(0).getOpensAt()).isEqualTo(LocalTime.of(10, 0));
+    assertThat(result.getOfficeHours().get(0).getClosesAt()).isEqualTo(LocalTime.of(17, 0));
+  }
+
+  @Test
+  void createVetInfo_throwsWhenOfficeHourDoesNotCloseAfterOpening() {
+    List<OfficeHour> invalid =
+        List.of(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(18, 0), LocalTime.of(18, 0)));
+
+    assertThatThrownBy(
+            () ->
+                vetInfoService.createVetInfo(
+                    "Praxis", "1", "p@example.de", "S 1", "Wien", "1010", false, invalid))
+        .isInstanceOf(IllegalArgumentException.class);
   }
 
   @Test

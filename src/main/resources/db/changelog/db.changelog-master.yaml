@@ -14,4 +14,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/vetinfo/001-init-schema.yaml
   - include:
+      file: db/changelog/vetinfo/002-structured-office-hours.yaml
+  - include:
+      file: db/changelog/vetinfo/003-load-initial-data.yaml
+  - include:
       file: db/changelog/questionnaire/001-init-schema.yaml

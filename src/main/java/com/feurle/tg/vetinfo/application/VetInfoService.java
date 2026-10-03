@@ -56,6 +56,7 @@ public class VetInfoService implements PrimaryContactEmailLookup {
     if (primary) {
       clearPrimaryFlag();
     }
+    requireValidOfficeHours(officeHours);
     VetInfo vetInfo = new VetInfo();
     vetInfo.setName(name);
     vetInfo.setPhone(phone);
@@ -83,6 +84,7 @@ public class VetInfoService implements PrimaryContactEmailLookup {
         vetInfoRepository
             .findById(id)
             .orElseThrow(() -> new NoSuchElementException("VetInfo not found: " + id));
+    requireValidOfficeHours(officeHours);
     if (primary && !vetInfo.isPrimary()) {
       clearPrimaryFlag();
     }
@@ -104,6 +106,15 @@ public class VetInfoService implements PrimaryContactEmailLookup {
       throw new NoSuchElementException("VetInfo not found: " + id);
     }
     vetInfoRepository.deleteById(id);
+  }
+
+  private static void requireValidOfficeHours(List<OfficeHour> officeHours) {
+    for (OfficeHour hour : officeHours) {
+      if (!hour.getClosesAt().isAfter(hour.getOpensAt())) {
+        throw new IllegalArgumentException(
+            "Office hour on " + hour.getDayOfWeek() + " must close after it opens");
+      }
+    }
   }
 
   private void clearPrimaryFlag() {

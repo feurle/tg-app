@@ -4,6 +4,9 @@ import DOMPurify from 'dompurify';
 import type { ArticleResponse } from '../types';
 import { imageApi } from '../api';
 import ContactFormModal from '../../contact/components/ContactFormModal';
+import OpenStatusLine from '../../contact/components/OpenStatusLine';
+import { useVetInfo } from '../../contact/useVetInfo';
+import { telHref } from '../../contact/officeHours';
 
 interface Props {
     article: ArticleResponse;
@@ -13,6 +16,7 @@ interface Props {
 export default function HeroPortraitComponent({ article }: Props) {
     const { t } = useTranslation();
     const [showAppointment, setShowAppointment] = useState(false);
+    const vetInfo = useVetInfo();
     const portrait = article.images[0] ?? null;
     const statement = [...article.sections].sort((a, b) => a.order - b.order)[0];
 
@@ -35,9 +39,17 @@ export default function HeroPortraitComponent({ article }: Props) {
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(statement.content) }}
                     />
                 )}
-                <button type="button" className="btn-primary btn-large" onClick={() => setShowAppointment(true)}>
-                    {t('nav.appointment')}
-                </button>
+                <div className="hero-portrait-actions">
+                    <button type="button" className="btn-primary btn-large" onClick={() => setShowAppointment(true)}>
+                        {t('nav.appointment')}
+                    </button>
+                    {vetInfo?.phone && (
+                        <a className="hero-portrait-phone" href={telHref(vetInfo.phone)}>
+                            {vetInfo.phone}
+                        </a>
+                    )}
+                </div>
+                {vetInfo && <OpenStatusLine officeHours={vetInfo.officeHours} />}
             </div>
             {portrait && (
                 <img

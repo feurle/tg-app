@@ -68,6 +68,10 @@
       "primary": "Utforska artiklar",
       "secondary": "Läs mer"
     },
+    "contact": {
+      "title": "Kontakt & öppettider",
+      "sub": "Vi finns här för dig och ditt djur"
+    },
     "articles": {
       "title": "Senaste artiklarna",
       "viewAll": "Visa alla"
@@ -193,9 +197,25 @@
       "city": "Stad *",
       "officeHours": "Öppettider",
       "addHour": "Lägg till öppettid",
-      "hourLabel": "Beteckning (t.ex. Mån–Fre)",
-      "hourTime": "Tid (t.ex. 09:00–17:00)"
+      "hourDay": "Veckodag",
+      "hourOpens": "Från",
+      "hourCloses": "Till"
     }
+  },
+  "openStatus": {
+    "open": "Öppet nu, till {{time}}",
+    "later": "Öppet idag från {{time}}",
+    "closed": "Stängt idag",
+    "next": "Nästa öppettid: {{day}} från {{time}}"
+  },
+  "contactInfo": {
+    "phone": "Telefon",
+    "email": "E-post",
+    "address": "Adress",
+    "officeHours": "Öppettider",
+    "call": "Ring",
+    "route": "Visa vägen",
+    "closed": "Stängt"
   },
   "footer": {
     "privacy": "Integritet",

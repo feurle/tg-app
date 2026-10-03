@@ -14,6 +14,7 @@ import AboutTeaserComponent from './AboutTeaserComponent';
 import StepsComponent from './StepsComponent';
 import VetBandComponent from './VetBandComponent';
 import ContactButton from './ContactButton';
+import ContactSection from '../../contact/components/ContactSection';
 import PageSkeleton from '../../../components/PageSkeleton';
 
 interface Props {
@@ -63,6 +64,7 @@ export default function PublicPage({ pageSlug }: Props) {
                 if (article.articleType === 'TEXT') return <ArticleBlock key={article.id} article={article} />;
                 return null;
             })}
+            {!loading && <ContactSection />}
             {!loading && (
                 <div className="cta-section">
                     <p className="cta-tagline">{t('home.contact.sub')}</p>

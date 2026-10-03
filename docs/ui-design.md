@@ -157,7 +157,8 @@ Kurztext: wann eine Überweisung sinnvoll ist (Schmerz, Bewegungsapparat, Therap
 ## 9. Kontaktdaten aus einer Quelle
 
 - `VetInfo` wird die einzige Quelle für das Telefon im Hero, die Kontaktsektion und den Footer. Der Freitext in COL4 auf der Home entfällt.
-- `OfficeHour` wird um Wochentag, Beginn und Ende erweitert. Erst dann lässt sich „Heute 14–18 Uhr geöffnet“ berechnen.
+- `OfficeHour` besteht aus Wochentag, Beginn und Ende (mehrere Intervalle pro Tag möglich). Daraus berechnet das Frontend „Jetzt geöffnet, bis 18:00 Uhr“ bzw. die nächste Sprechzeit, immer in Wiener Zeit.
+- Öffentlich lesbar über `GET /api/vetinfo/primary`; Hero, Kontaktbereich (Home und `/contact`), Footer und der Anruf-Button der mobilen Leiste lesen daraus.
 - Geklärte Daten:
   - **Adresse:** Holzackergasse 13, 6900 Bregenz. Das Impressum („Holzackerstraße“) wird korrigiert.
   - **Telefon:** Das Festnetz +43 (0)5574 83500 ist die Praxisnummer (`VetInfo.phone`, Hero, Click-to-call, Kontakt, Footer). Die Mobilnummer +43 681 20302253 steht nur im Impressum.

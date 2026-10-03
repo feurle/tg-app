@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ContactInfoResponse, ContactInfoFormData, OfficeHour } from '../types';
+import { DAYS, formatTime, weekdayName } from '../officeHours';
 
 interface Props {
   initial: ContactInfoResponse | null;
@@ -23,13 +24,17 @@ function toFormData(c: ContactInfoResponse): ContactInfoFormData {
     street: c.street,
     city: c.city,
     zip: c.zip,
-    officeHours: c.officeHours.map((oh) => ({ ...oh })),
+    officeHours: c.officeHours.map((oh) => ({
+      ...oh,
+      opensAt: formatTime(oh.opensAt),
+      closesAt: formatTime(oh.closesAt),
+    })),
   };
 }
 
 export default function ContactInfoFormModal({ initial, primaryTaken, onSave, onCancel, saving }: Props) {
   const [form, setForm] = useState<ContactInfoFormData>(initial ? toFormData(initial) : EMPTY);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -47,7 +52,7 @@ export default function ContactInfoFormModal({ initial, primaryTaken, onSave, on
   function addHour() {
     setForm((prev) => ({
       ...prev,
-      officeHours: [...prev.officeHours, { label: '', hours: '' }],
+      officeHours: [...prev.officeHours, { dayOfWeek: 'MONDAY', opensAt: '09:00', closesAt: '17:00' }],
     }));
   }
 
@@ -98,18 +103,33 @@ export default function ContactInfoFormModal({ initial, primaryTaken, onSave, on
             <label className="form-label">{t('contactInfoAdmin.form.officeHours')}</label>
             {form.officeHours.map((oh, i) => (
               <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
+                <select
+                  className="form-input"
+                  aria-label={t('contactInfoAdmin.form.hourDay')}
+                  value={oh.dayOfWeek}
+                  onChange={(e) => handleHourChange(i, 'dayOfWeek', e.target.value)}
+                  style={{ flex: 2 }}
+                >
+                  {DAYS.map((day) => (
+                    <option key={day} value={day}>{weekdayName(day, i18n.language)}</option>
+                  ))}
+                </select>
                 <input
                   className="form-input"
-                  placeholder={t('contactInfoAdmin.form.hourLabel')}
-                  value={oh.label}
-                  onChange={(e) => handleHourChange(i, 'label', e.target.value)}
+                  type="time"
+                  required
+                  aria-label={t('contactInfoAdmin.form.hourOpens')}
+                  value={oh.opensAt}
+                  onChange={(e) => handleHourChange(i, 'opensAt', e.target.value)}
                   style={{ flex: 1 }}
                 />
                 <input
                   className="form-input"
-                  placeholder={t('contactInfoAdmin.form.hourTime')}
-                  value={oh.hours}
-                  onChange={(e) => handleHourChange(i, 'hours', e.target.value)}
+                  type="time"
+                  required
+                  aria-label={t('contactInfoAdmin.form.hourCloses')}
+                  value={oh.closesAt}
+                  onChange={(e) => handleHourChange(i, 'closesAt', e.target.value)}
                   style={{ flex: 1 }}
                 />
                 <button type="button" onClick={() => removeHour(i)} className="icon-btn danger">

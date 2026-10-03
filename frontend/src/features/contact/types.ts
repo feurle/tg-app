@@ -1,6 +1,10 @@
+export type DayOfWeek = 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
+
+/** One opening interval; times are `HH:mm` or `HH:mm:ss`. A day with a break has two entries. */
 export interface OfficeHour {
-    label: string;
-    hours: string;
+    dayOfWeek: DayOfWeek;
+    opensAt: string;
+    closesAt: string;
 }
 
 export interface ContactInfoResponse {

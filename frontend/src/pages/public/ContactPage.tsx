@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { pageApi } from '../../features/webcontent/api';
 import type { ArticleResponse } from '../../features/webcontent/types';
 import ArticleBlock from '../../features/webcontent/components/ArticleBlock';
+import ContactSection from '../../features/contact/components/ContactSection';
 import { resolveLanguage } from '../../features/webcontent/language';
 
 export default function ContactPage() {
@@ -36,6 +37,7 @@ export default function ContactPage() {
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: 'calc(100vh - 60px)' }}>
+      <ContactSection />
       <div className="section">
         {loading ? (
           <p>{t('common.loading')}</p>

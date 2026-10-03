@@ -61,7 +61,7 @@ This is a **Spring Modulith** (modular monolith) backend. Module boundaries are 
 
 **`questionnaire`** — Pet owner questionnaire submissions (`Questionnaire`, `PetDetails`, `OwnerDetails`); publishes a `QuestionnaireSubmittedEvent`
 
-**`vetinfo`** — Vet office info and opening hours (`VetInfo`, `OfficeHour`); exposes `PrimaryContactEmailLookup` for other modules
+**`vetinfo`** — Vet office info and opening hours (`VetInfo`, `OfficeHour` = weekday + opens/closes time, several intervals per day allowed); exposes `PrimaryContactEmailLookup` for other modules and the public `GET /api/vetinfo/primary`, the single source for phone, address and hours in the frontend (`useVetInfo`, `features/contact/officeHours.ts`; "open now" is evaluated in Europe/Vienna time)
 
 **`notification`** — Outbound email (`MailService`), reacts to `QuestionnaireSubmittedEvent` via `QuestionnaireNotificationListener`
 
@@ -79,7 +79,7 @@ Not every module has all three layers: `common` and `notification` have no `doma
 - **Dev profile:** H2 in-memory, H2 console at `http://localhost:8080/h2-console`
 - **Prod/Test:** MySQL 9.2 (Liquibase drops & re-migrates on deploy)
 - Migrations in `src/main/resources/db/changelog/` (Liquibase YAML)
-- Fake data is loaded by Liquibase in dev: ~15 articles (German only, other locales are supported by the model but not seeded), plus tags, images, pages, and users. No customer seed data exists yet.
+- Fake data is loaded by Liquibase in dev: the practice's `VetInfo` with opening hours, ~15 articles (German only, other locales are supported by the model but not seeded), plus tags, images, pages, and users. No customer seed data exists yet.
 
 ### Profiles
 - `dev` — default for local, H2, hot reload

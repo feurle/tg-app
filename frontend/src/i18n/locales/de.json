@@ -78,7 +78,7 @@
       "sub": "Ein individueller Ansatz für jedes Tier"
     },
     "contact": {
-      "title": "Kontakt & Spechzeiten",
+      "title": "Kontakt & Sprechzeiten",
       "sub": "Wir sind für Sie und Ihr Tier da"
     }
   },
@@ -202,11 +202,21 @@
       "city": "Ort *",
       "officeHours": "Sprechzeiten",
       "addHour": "Sprechzeit hinzufügen",
-      "hourLabel": "Bezeichnung (z. B. Mo–Fr)",
-      "hourTime": "Uhrzeit (z. B. 09:00–17:00)"
+      "hourDay": "Wochentag",
+      "hourOpens": "Von",
+      "hourCloses": "Bis"
     }
   },
+  "openStatus": {
+    "open": "Jetzt geöffnet, bis {{time}} Uhr",
+    "later": "Heute ab {{time}} Uhr geöffnet",
+    "closed": "Heute geschlossen",
+    "next": "Nächste Sprechzeit: {{day}} ab {{time}} Uhr"
+  },
   "contactInfo": {
+    "call": "Anrufen",
+    "route": "Route anzeigen",
+    "closed": "Geschlossen",
     "phone": "Telefon",
     "email": "E-Mail",
     "address": "Adresse",

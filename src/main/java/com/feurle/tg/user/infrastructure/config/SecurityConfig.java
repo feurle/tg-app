@@ -99,6 +99,8 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/contact/info")
               .permitAll()
+              .requestMatchers(HttpMethod.GET, "/api/vetinfo/primary")
+              .permitAll()
               .requestMatchers(HttpMethod.POST, "/api/questionnaire")
               .permitAll();
           if (isDevProfile()) {

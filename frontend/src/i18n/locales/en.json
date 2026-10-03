@@ -197,11 +197,21 @@
       "city": "City *",
       "officeHours": "Office Hours",
       "addHour": "Add office hour",
-      "hourLabel": "Label (e.g. Mon–Fri)",
-      "hourTime": "Time (e.g. 09:00–17:00)"
+      "hourDay": "Weekday",
+      "hourOpens": "From",
+      "hourCloses": "To"
     }
   },
+  "openStatus": {
+    "open": "Open now, until {{time}}",
+    "later": "Open today from {{time}}",
+    "closed": "Closed today",
+    "next": "Next opening: {{day}} from {{time}}"
+  },
   "contactInfo": {
+    "call": "Call",
+    "route": "Show route",
+    "closed": "Closed",
     "phone": "Phone",
     "email": "Email",
     "address": "Address",

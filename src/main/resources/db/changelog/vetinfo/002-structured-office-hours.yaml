@@ -1,0 +1,34 @@
+databaseChangeLog:
+
+  # Free-text hours ("Mo-Fr", "09:00 - 17:00") cannot be converted into structured
+  # intervals, so existing rows are dropped and have to be re-entered in the admin area.
+  - changeSet:
+      id: 004-structure-office-hours
+      author: system
+      changes:
+        - sql:
+            sql: DELETE FROM vet_office_hour
+        - dropColumn:
+            tableName: vet_office_hour
+            columnName: label
+        - dropColumn:
+            tableName: vet_office_hour
+            columnName: hours
+        - addColumn:
+            tableName: vet_office_hour
+            columns:
+              - column:
+                  name: day_of_week
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: opens_at
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: closes_at
+                  type: TIME
+                  constraints:
+                    nullable: false
