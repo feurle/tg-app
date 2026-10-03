@@ -18,11 +18,14 @@ import ArticlesPage from '../pages/protected/ArticlesPage.tsx';
 import ImagesPage from '../pages/protected/ImagesPage';
 import TagsPage from '../pages/protected/TagsPage';
 import ContactInfoPage from '../pages/protected/ContactInfoPage';
+import NotFoundPage from '../pages/public/NotFoundPage';
+import RouteErrorPage from '../pages/RouteErrorPage';
 import { ROUTES } from './routes';
 
 const router = createBrowserRouter([
   {
     element: <PublicLayout />,
+    errorElement: <RouteErrorPage />,
     children: [
       { path: ROUTES.HOME, element: <HomePage /> },
       { path: ROUTES.TREATMENTS, element: <TreatmentsPage /> },
@@ -33,11 +36,13 @@ const router = createBrowserRouter([
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.PRIVACY, element: <PrivacyPage /> },
       { path: ROUTES.IMPRESS, element: <ImprintPage /> },
-      { path: ROUTES.CONTACT, element: <ContactPage /> }
+      { path: ROUTES.CONTACT, element: <ContactPage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
   {
     element: <ProtectedRoute />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         element: <AppLayout />,

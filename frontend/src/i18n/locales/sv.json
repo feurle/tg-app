@@ -260,6 +260,16 @@
       "URGENT": "Brådskande"
     }
   },
+  "notFound": {
+    "title": "Sidan hittades inte",
+    "text": "Den här sidan finns inte (längre). Startsidan kan hjälpa dig vidare.",
+    "back": "Till startsidan"
+  },
+  "routeError": {
+    "title": "Något gick fel",
+    "text": "Sidan kunde inte visas. Ladda om sidan eller kontakta oss.",
+    "reload": "Ladda om"
+  },
   "footer": {
     "privacy": "Integritet",
     "imprint": "Impressum",

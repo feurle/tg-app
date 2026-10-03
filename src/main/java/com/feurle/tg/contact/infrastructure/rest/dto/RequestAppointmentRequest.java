@@ -9,11 +9,15 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/** {@code phone}, {@code preferredTime} and {@code text} are optional. */
+/**
+ * {@code phone}, {@code preferredTime} and {@code text} are optional. {@code website} is a honeypot
+ * field that real visitors never fill.
+ */
 public record RequestAppointmentRequest(
     @NotBlank String senderName,
     @Email @NotBlank String replyToEmail,
     String phone,
     @NotNull @FutureOrPresent LocalDate preferredDate,
     LocalTime preferredTime,
-    String text) {}
+    String text,
+    String website) {}

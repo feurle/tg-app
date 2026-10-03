@@ -11,6 +11,7 @@
     "generate:api": "openapi-typescript ../api-contract/openapi.json -o src/api/schema.d.ts"
   },
   "dependencies": {
+    "@fontsource-variable/figtree": "^5.3.0",
     "@tiptap/extension-link": "^3.31.3",
     "@tiptap/pm": "^3.31.3",
     "@tiptap/react": "^3.31.3",

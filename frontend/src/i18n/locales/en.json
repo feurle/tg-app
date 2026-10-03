@@ -260,6 +260,16 @@
       "URGENT": "Urgent"
     }
   },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page does not exist (any more). The home page might help.",
+    "back": "Back to home"
+  },
+  "routeError": {
+    "title": "Something went wrong",
+    "text": "The page could not be displayed. Please reload it or contact us.",
+    "reload": "Reload"
+  },
   "footer": {
     "privacy": "Privacy",
     "imprint": "Imprint",

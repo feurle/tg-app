@@ -9,10 +9,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Spamschutz für die öffentlichen Formulare (Nachricht, Termin, Überweisung, Erhebungsbogen): ein unsichtbares Feld, das Bots verrät (solche Einsendungen werden verworfen), und eine Begrenzung auf 5 Einsendungen pro Adresse und 10 Minuten (konfigurierbar über `app.rate-limit.*`, Antwort 429).
+- Eigene 404-Seite und eine Fehlerseite statt einer weißen Seite, wenn eine Seite nicht angezeigt werden kann. Seitentitel passen sich Seite und Sprache an, `<html lang>` folgt der gewählten Sprache, und die Startseite hat eine Meta-Beschreibung.
 - Überweisungsformular für Tierärzte auf `/for-vets`: Praxis, Tierhalter, Patient, Fragestellung, Vorbehandlung und Dringlichkeit; die Praxis bekommt eine Mail (Antworten gehen direkt an den überweisenden Tierarzt), der Tierarzt eine Bestätigung. Es werden keine Gesundheitsdaten gespeichert. Befunde werden weiterhin per E-Mail nachgereicht. Neuer öffentlicher Endpoint `POST /api/contact/referral`.
 
 ### Changed
 
+- Die Schrift Figtree wird jetzt von der eigenen Website ausgeliefert statt von Google Fonts (keine Verbindung zu Google beim Seitenaufruf). Die Datenschutzerklärung nennt jetzt Kontakt-, Termin- und Überweisungsformulare, den Erhebungsbogen, den Google-Maps-Link und den lokalen Speicher der Sprachwahl; sie sollte vor dem Go-live rechtlich geprüft werden.
 - Kontaktseite zeigt nur noch die Kontaktdaten aus VetInfo, mit Seitenüberschrift und den Buttons „Termin vereinbaren“ und „Nachricht schreiben“. Das CMS-Pendant (Seite `contact` samt Artikel, Eintrag „Kontakt“ in der Admin-Seitenleiste und Seed-Daten) ist entfernt, der Link „Kontakt“ aus der Navbar ebenfalls; im Footer bleibt er.
 - Erhebungsbogen: neues Pflichtfeld „Tierart“ (Hund, Katze, Kleintier, Anderes); Hundeschule und Kommandos werden nur bei Hunden abgefragt. Bisherige Einsendungen gelten als Hunde. Die Praxis-Mail nennt die Tierart, der Admin-Bereich zeigt sie in Liste und Detailansicht. Das Formular ist optisch an das neue Design angepasst.
 - Kontaktdaten kommen jetzt aus einer Quelle (VetInfo): Hero (Telefon und „Heute geöffnet“), Kontaktbereich auf Home und Kontaktseite, Footer und der Anruf-Button der mobilen Leiste. Die Sprechzeiten sind strukturiert (Wochentag, von, bis) statt Freitext; das Admin-Formular hat dafür Wochentag-Auswahl und Zeitfelder. **Bestehende Sprechzeiten werden dabei gelöscht und müssen im Admin-Bereich neu erfasst werden.** Neuer öffentlicher Endpoint `GET /api/vetinfo/primary`. Das Impressum nennt jetzt „Holzackergasse 13".

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { contactApi } from '../api';
+import HoneypotField from '../../../components/HoneypotField';
 
 export type ContactFormMode = 'message' | 'appointment';
 
@@ -30,6 +31,7 @@ export default function ContactFormModal({ mode, onClose }: Props) {
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
     const [error, setError] = useState(false);
+    const [website, setWebsite] = useState('');
 
     function handleChange(
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,6 +51,7 @@ export default function ContactFormModal({ mode, onClose }: Props) {
                     text: form.text,
                     replyToEmail: form.replyToEmail,
                     senderName: form.senderName,
+                    ...(website && { website }),
                 });
             } else {
                 await contactApi.requestAppointment({
@@ -58,6 +61,7 @@ export default function ContactFormModal({ mode, onClose }: Props) {
                     ...(form.phone.trim() && { phone: form.phone.trim() }),
                     ...(form.preferredTime && { preferredTime: form.preferredTime }),
                     ...(form.text.trim() && { text: form.text.trim() }),
+                    ...(website && { website }),
                 });
             }
             setSent(true);
@@ -91,6 +95,7 @@ export default function ContactFormModal({ mode, onClose }: Props) {
                     </>
                 ) : (
                     <form onSubmit={handleSubmit}>
+                        <HoneypotField value={website} onChange={setWebsite} />
                         <Field
                             label={t('contactForm.name')}
                             name="senderName"

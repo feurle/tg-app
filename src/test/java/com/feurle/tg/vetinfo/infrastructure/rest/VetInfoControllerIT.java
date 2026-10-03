@@ -4,6 +4,7 @@ package com.feurle.tg.vetinfo.infrastructure.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -45,7 +46,7 @@ class VetInfoControllerIT {
 
   @BeforeEach
   void setUp() {
-    mockMvc = webAppContextSetup(webApplicationContext).build();
+    mockMvc = webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
     vetInfoRepository.deleteAll();
   }
 
@@ -57,6 +58,7 @@ class VetInfoControllerIT {
   // ========== GET /api/vetinfo ==========
 
   @Test
+  @WithMockUser
   void getAllVetInfo_returnsEmptyList_whenNoData() throws Exception {
     mockMvc
         .perform(get("/api/vetinfo"))
@@ -65,6 +67,7 @@ class VetInfoControllerIT {
   }
 
   @Test
+  @WithMockUser
   void getAllVetInfo_returnsAllRecords() throws Exception {
     vetInfoService.createVetInfo(
         "Praxis A", "+49 89 1", "a@example.de", "Str. 1", "München", "80331", false, List.of());
@@ -78,13 +81,21 @@ class VetInfoControllerIT {
   }
 
   @Test
-  void getAllVetInfo_isPublic_withoutAuth() throws Exception {
-    mockMvc.perform(get("/api/vetinfo")).andExpect(status().isOk());
+  void getAllVetInfo_requiresLogin() throws Exception {
+    // Only /api/vetinfo/primary is public; the full list and single records need a login.
+    // (Without login the app answers 403, it has no 401 entry point configured.)
+    mockMvc.perform(get("/api/vetinfo")).andExpect(status().isForbidden());
+  }
+
+  @Test
+  void getVetInfoById_requiresLogin() throws Exception {
+    mockMvc.perform(get("/api/vetinfo/1")).andExpect(status().isForbidden());
   }
 
   // ========== GET /api/vetinfo/{id} ==========
 
   @Test
+  @WithMockUser
   void getVetInfoById_returnsRecord() throws Exception {
     VetInfo saved =
         vetInfoService.createVetInfo(
@@ -144,6 +155,7 @@ class VetInfoControllerIT {
   }
 
   @Test
+  @WithMockUser
   void getVetInfoById_returns404_whenNotFound() throws Exception {
     mockMvc.perform(get("/api/vetinfo/999")).andExpect(status().isNotFound());
   }

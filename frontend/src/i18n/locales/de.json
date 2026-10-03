@@ -264,6 +264,16 @@
       "URGENT": "Dringend"
     }
   },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite gibt es nicht (mehr). Vielleicht hilft Ihnen die Startseite weiter.",
+    "back": "Zur Startseite"
+  },
+  "routeError": {
+    "title": "Etwas ist schiefgelaufen",
+    "text": "Die Seite konnte nicht angezeigt werden. Bitte laden Sie sie neu oder kontaktieren Sie uns.",
+    "reload": "Neu laden"
+  },
   "footer": {
     "privacy": "Datenschutz",
     "imprint": "Impressum",

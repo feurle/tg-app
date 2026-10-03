@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,11 @@ public class QuestionnaireController {
   public ResponseEntity<QuestionnaireResponse> submit(
       @Valid @RequestBody SubmitQuestionnaireRequest request) {
     log.info("submit: POST /api/questionnaire");
+    if (StringUtils.hasText(request.website())) {
+      // Bots fill every field. Pretend success so they get no hint, but store nothing.
+      log.warn("submit: honeypot field filled, request ignored");
+      return ResponseEntity.noContent().build();
+    }
     Questionnaire saved =
         questionnaireService.submit(
             questionnaireMapper.toDomain(request.owner()),

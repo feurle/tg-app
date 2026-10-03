@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { questionnaireApi } from '../api';
 import { EMPTY_QUESTIONNAIRE, SPECIES, type QuestionnaireFormData, type Species } from '../types';
 import { ApiError } from '../../../lib/apiClient';
+import HoneypotField from '../../../components/HoneypotField';
 
 type Section = 'owner' | 'pet';
 
@@ -12,6 +13,7 @@ export default function QuestionnaireForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [website, setWebsite] = useState('');
 
   function update<S extends Section>(section: S, name: keyof QuestionnaireFormData[S], value: string | boolean | null) {
     setForm((prev) => ({ ...prev, [section]: { ...prev[section], [name]: value } }));
@@ -34,7 +36,7 @@ export default function QuestionnaireForm() {
     setSubmitting(true);
     setError(null);
     try {
-      await questionnaireApi.submit(form);
+      await questionnaireApi.submit({ ...form, ...(website && { website }) });
       setSubmitted(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -59,6 +61,7 @@ export default function QuestionnaireForm() {
 
   return (
     <form className="questionnaire-form" onSubmit={handleSubmit}>
+      <HoneypotField value={website} onChange={setWebsite} />
       <fieldset className="questionnaire-section">
         <legend className="questionnaire-legend">{t('questionnaire.section.owner')}</legend>
 

@@ -95,7 +95,8 @@ class ContactControllerIT {
             "Frage zur Impfung",
             "Wann ist die nächste Auffrischung?",
             "kunde@example.com",
-            "Max Mustermann");
+            "Max Mustermann",
+            null);
 
     mockMvc
         .perform(
@@ -114,7 +115,7 @@ class ContactControllerIT {
   void sendMessage_returnsBadRequest_whenEmailIsMalformed() throws Exception {
     givenConfiguredContactEmail();
     SendMessageRequest request =
-        new SendMessageRequest("Betreff", "Text", "keine-email", "Max Mustermann");
+        new SendMessageRequest("Betreff", "Text", "keine-email", "Max Mustermann", null);
 
     mockMvc
         .perform(
@@ -139,7 +140,8 @@ class ContactControllerIT {
             "+43 660 1234567",
             LocalDate.now().plusDays(7),
             LocalTime.of(14, 30),
-            "Mein Hund hinkt seit gestern.");
+            "Mein Hund hinkt seit gestern.",
+            null);
 
     mockMvc
         .perform(
@@ -160,7 +162,13 @@ class ContactControllerIT {
     givenConfiguredContactEmail();
     RequestAppointmentRequest request =
         new RequestAppointmentRequest(
-            "Max Mustermann", "kunde@example.com", null, LocalDate.now().plusDays(7), null, null);
+            "Max Mustermann",
+            "kunde@example.com",
+            null,
+            LocalDate.now().plusDays(7),
+            null,
+            null,
+            null);
 
     mockMvc
         .perform(
@@ -178,7 +186,7 @@ class ContactControllerIT {
     givenConfiguredContactEmail();
     RequestAppointmentRequest request =
         new RequestAppointmentRequest(
-            "Max Mustermann", "kunde@example.com", null, null, null, null);
+            "Max Mustermann", "kunde@example.com", null, null, null, null, null);
 
     mockMvc
         .perform(
@@ -195,7 +203,13 @@ class ContactControllerIT {
     givenConfiguredContactEmail();
     RequestAppointmentRequest request =
         new RequestAppointmentRequest(
-            "Max Mustermann", "kunde@example.com", null, LocalDate.now().minusDays(1), null, null);
+            "Max Mustermann",
+            "kunde@example.com",
+            null,
+            LocalDate.now().minusDays(1),
+            null,
+            null,
+            null);
 
     mockMvc
         .perform(
@@ -212,7 +226,7 @@ class ContactControllerIT {
     givenConfiguredContactEmail();
     RequestAppointmentRequest request =
         new RequestAppointmentRequest(
-            "Max Mustermann", "keine-email", null, LocalDate.now().plusDays(7), null, null);
+            "Max Mustermann", "keine-email", null, LocalDate.now().plusDays(7), null, null, null);
 
     mockMvc
         .perform(
@@ -241,7 +255,8 @@ class ContactControllerIT {
         "Chronische Lahmheit hinten links",
         null,
         ReferralUrgency.SOON,
-        ownerConsent);
+        ownerConsent,
+        null);
   }
 
   @Test
@@ -293,6 +308,56 @@ class ContactControllerIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(referralRequest(true, "keine-email"))))
         .andExpect(status().isBadRequest());
+
+    verifyNoInteractions(mailSender);
+  }
+
+  // ========== honeypot ==========
+
+  @Test
+  void sendMessage_returnsNoContentButSendsNothing_whenHoneypotFieldIsFilled() throws Exception {
+    givenConfiguredContactEmail();
+    SendMessageRequest request =
+        new SendMessageRequest("Betreff", "Text", "bot@example.com", "Bot", "http://spam.example");
+
+    mockMvc
+        .perform(
+            post("/api/contact/message")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isNoContent());
+
+    verifyNoInteractions(mailSender);
+  }
+
+  @Test
+  void requestReferral_returnsNoContentButSendsNothing_whenHoneypotFieldIsFilled()
+      throws Exception {
+    givenConfiguredContactEmail();
+    RequestReferralRequest request =
+        new RequestReferralRequest(
+            "Praxis",
+            "Dr. X",
+            "x@example.com",
+            null,
+            "Halter",
+            "0660",
+            null,
+            "Hund",
+            null,
+            null,
+            "Frage",
+            null,
+            ReferralUrgency.ROUTINE,
+            true,
+            "http://spam.example");
+
+    mockMvc
+        .perform(
+            post("/api/contact/referral")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isNoContent());
 
     verifyNoInteractions(mailSender);
   }

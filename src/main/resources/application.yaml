@@ -43,6 +43,10 @@ spring:
 app:
   mail:
     from: ${MAIL_FROM:Webapp <app@foo.bar>}
+  rate-limit:
+    # public forms (message, appointment, referral, questionnaire): submissions per client and window
+    max-requests: 5
+    window: 10m
 
 info:
   app:

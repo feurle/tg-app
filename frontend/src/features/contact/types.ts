@@ -26,6 +26,8 @@ export interface SendMessageRequest {
     text: string;
     replyToEmail: string;
     senderName: string;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }
 
 export interface RequestAppointmentRequest {
@@ -38,6 +40,8 @@ export interface RequestAppointmentRequest {
     /** Optional 24h time, `HH:mm`. */
     preferredTime?: string;
     text?: string;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }
 
 export interface ContactInfoFormData {
@@ -69,4 +73,6 @@ export interface RequestReferralRequest {
     previousTreatment?: string;
     urgency: ReferralUrgency;
     ownerConsent: boolean;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { contactApi } from '../api';
 import { useVetInfo } from '../useVetInfo';
+import HoneypotField from '../../../components/HoneypotField';
 import type { ReferralUrgency } from '../types';
 
 const URGENCIES: ReferralUrgency[] = ['ROUTINE', 'SOON', 'URGENT'];
@@ -33,6 +34,7 @@ export default function ReferralForm() {
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
     const [error, setError] = useState(false);
+    const [website, setWebsite] = useState('');
 
     function set<K extends keyof FormState>(key: K, value: FormState[K]) {
         setForm((prev) => ({ ...prev, [key]: value }));
@@ -68,6 +70,7 @@ export default function ReferralForm() {
                 previousTreatment: optional(form.previousTreatment),
                 urgency: form.urgency,
                 ownerConsent: form.ownerConsent,
+                ...(website && { website }),
             });
             setSent(true);
         } catch {
@@ -100,6 +103,7 @@ export default function ReferralForm() {
         <section className="referral">
             <h2 className="home-heading">{t('referral.heading')}</h2>
             <form className="referral-form" onSubmit={handleSubmit}>
+                <HoneypotField value={website} onChange={setWebsite} />
                 <fieldset className="referral-fieldset">
                     <legend>{t('referral.practice')}</legend>
                     <div className="referral-grid">

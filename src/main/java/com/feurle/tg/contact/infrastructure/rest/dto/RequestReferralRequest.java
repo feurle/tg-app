@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * {@code referringPhone}, {@code patientName}, {@code breed}, {@code age} and {@code
  * previousTreatment} are optional. {@code ownerConsent} confirms that the owner agreed to pass on
- * their contact details.
+ * their contact details. {@code website} is a honeypot field that real visitors never fill.
  */
 public record RequestReferralRequest(
     @NotBlank String referringPractice,
@@ -27,4 +27,5 @@ public record RequestReferralRequest(
     @NotBlank String question,
     String previousTreatment,
     @NotNull ReferralUrgency urgency,
-    @AssertTrue boolean ownerConsent) {}
+    @AssertTrue boolean ownerConsent,
+    String website) {}
