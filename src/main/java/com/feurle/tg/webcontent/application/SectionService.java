@@ -4,6 +4,8 @@ package com.feurle.tg.webcontent.application;
 
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.ArticleRepository;
+import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.domain.Section;
 import com.feurle.tg.webcontent.domain.SectionRepository;
 import com.feurle.tg.webcontent.domain.enumeration.MoveDirection;
@@ -21,8 +23,10 @@ public class SectionService {
 
   private final SectionRepository sectionRepository;
   private final ArticleRepository articleRepository;
+  private final ImageRepository imageRepository;
 
-  public Section createSection(Long articleId, int order, String title, String content) {
+  public Section createSection(
+      Long articleId, int order, String title, String content, Long imageId) {
     Article article =
         articleRepository
             .findById(articleId)
@@ -31,11 +35,12 @@ public class SectionService {
     section.setOrder(order);
     section.setTitle(title);
     section.setContent(content);
+    section.setImage(findImage(imageId));
     section.setArticle(article);
     return sectionRepository.save(section);
   }
 
-  public Section updateSection(Long id, int order, String title, String content) {
+  public Section updateSection(Long id, int order, String title, String content, Long imageId) {
     Section section =
         sectionRepository
             .findById(id)
@@ -43,6 +48,7 @@ public class SectionService {
     section.setOrder(order);
     section.setTitle(title);
     section.setContent(content);
+    section.setImage(findImage(imageId));
     return sectionRepository.save(section);
   }
 
@@ -97,6 +103,15 @@ public class SectionService {
       }
     }
     throw new IllegalStateException("Section " + id + " is missing from its own ordering scope");
+  }
+
+  private Image findImage(Long imageId) {
+    if (imageId == null) {
+      return null;
+    }
+    return imageRepository
+        .findById(imageId)
+        .orElseThrow(() -> new NoSuchElementException("Image not found: " + imageId));
   }
 
   public void deleteSection(Long id) {

@@ -48,7 +48,7 @@ This is a **Spring Modulith** (modular monolith) backend. Module boundaries are 
 
 **`webcontent`** — Article, Image, Tag management
 - Articles have multilingual content (DE, EN, SV, RU), states (`CREATED`, `PUBLISHED`, `CLOSED`), and an `ArticleType` that picks the frontend component (`PublicPage.tsx`); home page types: `HERO_PORTRAIT`, `SYMPTOMS`, `METHODS`, `ABOUT_TEASER`, `STEPS`, `VET_BAND`, `COL4`
-- Images are linked to articles
+- Images are linked to articles; sections of a `METHODS` article additionally carry one optional image (`section.image_id`)
 
 **`user`** — Authentication and user management
 - Spring Security form-based, session-based auth (no JWT)

@@ -20,6 +20,7 @@ export interface SectionResponse {
   order: number;
   title: string;
   content: string;
+  image: ImageResponse | null;
 }
 
 export interface ArticleResponse {
@@ -84,12 +85,14 @@ export interface CreateSectionRequest {
   order: number;
   title: string;
   content: string;
+  imageId: number | null;
 }
 
 export interface UpdateSectionRequest {
   order: number;
   title: string;
   content: string;
+  imageId: number | null;
 }
 
 export interface PageSummary {

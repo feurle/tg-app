@@ -117,7 +117,7 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
 7 KONTAKT        Adresse + Karten-Link | Sprechzeiten | Telefon   (aus VetInfo)
 ```
 
-**Umsetzung (Phase 3):** Jede Sektion ist ein CMS-Artikel mit eigenem Typ: 1 `HERO_PORTRAIT`, 2 `SYMPTOMS`, 3 `METHODS` (Bilder werden den Abschnitten in aufsteigender Bild-ID zugeordnet), 4 `ABOUT_TEASER`, 5 `STEPS`, 6 `VET_BAND`, 7 `COL4` (bis Phase 4). Die Seed-Texte stehen in `src/main/resources/db/data/` (`article_de.csv`, `section_de.csv`).
+**Umsetzung (Phase 3):** Jede Sektion ist ein CMS-Artikel mit eigenem Typ: 1 `HERO_PORTRAIT`, 2 `SYMPTOMS`, 3 `METHODS` (jeder Abschnitt hat optional ein eigenes Bild, `section.image_id`), 4 `ABOUT_TEASER`, 5 `STEPS`, 6 `VET_BAND`, 7 `COL4` (bis Phase 4). Die Seed-Texte stehen in `src/main/resources/db/data/` (`article_de.csv`, `section_de.csv`).
 
 **Mobile:** Das Porträt steht oben, Headline, Statement und CTA folgen darunter. Die Sektionen 2 und 3 werden einspaltig gestapelt, die Termin-Leiste bleibt sticky.
 

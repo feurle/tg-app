@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-add-section-image
+      author: system
+      changes:
+        - addColumn:
+            tableName: section
+            columns:
+              - column:
+                  name: image_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: section
+            baseColumnNames: image_id
+            constraintName: fk_section_image
+            referencedTableName: image
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+  # Seed: the "Schwerpunkte" sections of the home page get their photo directly
+  # (formerly paired by ascending image id via article_images).
+  - changeSet:
+      id: 009-seed-section-images
+      author: system
+      context: seed
+      changes:
+        - update:
+            tableName: section
+            columns:
+              - column:
+                  name: image_id
+                  valueNumeric: 4
+            where: id = 110
+        - update:
+            tableName: section
+            columns:
+              - column:
+                  name: image_id
+                  valueNumeric: 5
+            where: id = 111

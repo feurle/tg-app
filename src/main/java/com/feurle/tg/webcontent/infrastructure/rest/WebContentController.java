@@ -60,7 +60,11 @@ public class WebContentController {
         .body(
             sectionMapper.toResponse(
                 sectionService.createSection(
-                    articleId, request.order(), request.title(), request.content())));
+                    articleId,
+                    request.order(),
+                    request.title(),
+                    request.content(),
+                    request.imageId())));
   }
 
   @PutMapping("/sections/{id}")
@@ -68,7 +72,8 @@ public class WebContentController {
       @PathVariable Long id, @Valid @RequestBody UpdateSectionRequest request) {
     return ResponseEntity.ok(
         sectionMapper.toResponse(
-            sectionService.updateSection(id, request.order(), request.title(), request.content())));
+            sectionService.updateSection(
+                id, request.order(), request.title(), request.content(), request.imageId())));
   }
 
   /**

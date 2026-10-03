@@ -10,14 +10,12 @@ interface Props {
 }
 
 /**
- * Focus areas as alternating image/text rows. Each section is one area; the article's
- * images are matched to the sections in ascending image-id order. Sections without a
- * matching image render as text only.
+ * Focus areas as alternating image/text rows. Each section is one area with an optional
+ * photo; sections without an image render as text only.
  */
 export default function MethodsComponent({ article }: Props) {
     const { t } = useTranslation();
     const sections = [...article.sections].sort((a, b) => a.order - b.order);
-    const images = [...article.images].sort((a, b) => a.id - b.id);
 
     return (
         <section className="home-section">
@@ -27,7 +25,7 @@ export default function MethodsComponent({ article }: Props) {
             )}
             <div className="method-list">
                 {sections.map((section, idx) => {
-                    const image = images[idx];
+                    const image = section.image;
                     return (
                         <article key={section.id} className={`method-row${idx % 2 === 1 ? ' method-row-flip' : ''}`}>
                             {image && (

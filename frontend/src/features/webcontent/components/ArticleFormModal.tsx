@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RichTextEditor from '../../../components/RichTextEditor';
+import { imageApi } from '../api';
 import type {
   ArticleResponse,
   ArticleState,
@@ -180,6 +181,12 @@ export default function ArticleFormModal(props: Props) {
                       type="checkbox"
                       checked={selectedImageIds.has(img.id)}
                       onChange={() => toggleImage(img.id)}
+                    />
+                    <img
+                      src={imageApi.getDownloadUrl(img.id)}
+                      alt=""
+                      loading="lazy"
+                      style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
                     />
                     {img.title || img.fileName}
                   </label>

@@ -4,6 +4,7 @@ package com.feurle.tg.webcontent.infrastructure.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,13 +12,17 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.ArticleRepository;
+import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.domain.Section;
 import com.feurle.tg.webcontent.domain.SectionRepository;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleState;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
 import com.feurle.tg.webcontent.domain.enumeration.MoveDirection;
+import com.feurle.tg.webcontent.infrastructure.rest.dto.CreateSectionRequest;
 import com.feurle.tg.webcontent.infrastructure.rest.dto.MoveArticleRequest;
+import com.feurle.tg.webcontent.infrastructure.rest.dto.UpdateSectionRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +35,16 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 import tools.jackson.databind.ObjectMapper;
 
-/** Covers up/down moves of sections inside their article. */
+/** Covers sections: up/down moves inside their article and the optional image. */
 @SpringBootTest
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
-class SectionOrderingIT {
+class SectionIT {
 
   @Autowired private WebApplicationContext webApplicationContext;
   @Autowired private ObjectMapper objectMapper;
   @Autowired private ArticleRepository articleRepository;
   @Autowired private SectionRepository sectionRepository;
+  @Autowired private ImageRepository imageRepository;
 
   private MockMvc mockMvc;
   private Article article;
@@ -126,6 +132,55 @@ class SectionOrderingIT {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new MoveArticleRequest(MoveDirection.UP))))
         .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  @WithMockUser(roles = "ADMIN")
+  void sectionImageCanBeSetChangedAndCleared() throws Exception {
+    Image image = new Image();
+    image.setFileName("a.jpg");
+    image.setTitle("A");
+    image.setMimeType("image/jpeg");
+    image.setImageData(new byte[] {1});
+    image = imageRepository.save(image);
+
+    String created =
+        mockMvc
+            .perform(
+                post("/api/webcontent/articles/{id}/sections", article.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(
+                        objectMapper.writeValueAsString(
+                            new CreateSectionRequest(1, "With image", "c", image.getId()))))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.image.id").value(image.getId()))
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+    long id = objectMapper.readTree(created).get("id").asLong();
+
+    mockMvc
+        .perform(
+            put("/api/webcontent/sections/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    objectMapper.writeValueAsString(
+                        new UpdateSectionRequest(1, "With image", "c", null))))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.image").doesNotExist());
+  }
+
+  @Test
+  @WithMockUser(roles = "ADMIN")
+  void sectionWithUnknownImageIsRejected() throws Exception {
+    mockMvc
+        .perform(
+            post("/api/webcontent/articles/{id}/sections", article.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    objectMapper.writeValueAsString(
+                        new CreateSectionRequest(1, "Bad", "c", 999_999L))))
+        .andExpect(status().is4xxClientError());
   }
 
   private ResultActions move(Section section, MoveDirection direction) throws Exception {

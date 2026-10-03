@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RichTextEditor from '../../../components/RichTextEditor';
-import type { CreateSectionRequest, SectionResponse, UpdateSectionRequest } from '../types';
+import { imageApi } from '../api';
+import type { CreateSectionRequest, ImageResponse, SectionResponse, UpdateSectionRequest } from '../types';
 
 interface CreateProps {
   mode: 'create';
   articleTitle: string;
   nextOrder: number;
+  images: ImageResponse[];
   onSave: (data: CreateSectionRequest) => void;
   onCancel: () => void;
   saving: boolean;
@@ -15,6 +17,7 @@ interface CreateProps {
 interface EditProps {
   mode: 'edit';
   initial: SectionResponse;
+  images: ImageResponse[];
   onSave: (data: UpdateSectionRequest) => void;
   onCancel: () => void;
   saving: boolean;
@@ -31,10 +34,12 @@ export default function SectionFormModal(props: Props) {
   const order = props.mode === 'edit' ? props.initial.order : props.nextOrder;
   const [title, setTitle] = useState(initial?.title ?? '');
   const [content, setContent] = useState(initial?.content ?? '');
+  const [imageId, setImageId] = useState<number | null>(initial?.image?.id ?? null);
+  const { images } = props;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    props.onSave({ order, title, content });
+    props.onSave({ order, title, content, imageId });
   }
 
   const heading = mode === 'create'
@@ -61,6 +66,32 @@ export default function SectionFormModal(props: Props) {
             {t('section.form.content')}
             <RichTextEditor value={content} onChange={setContent} />
           </label>
+
+          {images.length > 0 && (
+            <fieldset className="form-fieldset">
+              <legend>{t('section.form.image')}</legend>
+              <div className="image-picker">
+                <button
+                  type="button"
+                  className={imageId === null ? 'image-picker-item selected' : 'image-picker-item'}
+                  onClick={() => setImageId(null)}
+                >
+                  <span className="image-picker-none">{t('section.form.noImage')}</span>
+                </button>
+                {images.map((img) => (
+                  <button
+                    key={img.id}
+                    type="button"
+                    className={imageId === img.id ? 'image-picker-item selected' : 'image-picker-item'}
+                    onClick={() => setImageId(img.id)}
+                    title={img.title || img.fileName}
+                  >
+                    <img src={imageApi.getDownloadUrl(img.id)} alt={img.title || img.fileName} loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          )}
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
             <button type="button" onClick={onCancel} disabled={saving} className="btn-secondary">

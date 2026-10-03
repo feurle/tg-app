@@ -319,6 +319,7 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
           mode="create"
           articleTitle={modal.article.title}
           nextOrder={Math.max(0, ...modal.article.sections.map((s) => s.order)) + 1}
+          images={images}
           onSave={handleAddSection}
           onCancel={() => setModal(null)}
           saving={saving}
@@ -329,6 +330,7 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
         <SectionFormModal
           mode="edit"
           initial={modal.section}
+          images={images}
           onSave={handleEditSection}
           onCancel={() => setModal(null)}
           saving={saving}

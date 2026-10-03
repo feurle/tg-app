@@ -297,7 +297,9 @@
     "form": {
       "order": "Reihenfolge",
       "title": "Titel *",
-      "content": "Inhalt"
+      "content": "Inhalt",
+      "image": "Bild",
+      "noImage": "Kein Bild"
     }
   },
   "article": {

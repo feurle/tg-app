@@ -25,6 +25,10 @@ public class Section {
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "image_id")
+  private Image image;
+
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "article_id")
   private Article article;
 }
