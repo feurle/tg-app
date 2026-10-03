@@ -1,78 +1,46 @@
-# React + TypeScript + Vite
+# tg-app Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + TypeScript + Vite + React Router v7 + react-i18next. Talks to the Spring Boot backend only through `src/lib/apiClient.ts` (cookie sessions). Architecture, routing, auth and i18n conventions: see [`../AGENTS.md`](../AGENTS.md).
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev           # Vite dev server on :5173, proxies /api to :8080
+npm run build         # tsc -b && vite build
+npm run lint          # ESLint
+npm run generate:api  # OpenAPI types into src/api (gitignored)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+No test runner is configured. `./gradlew build` builds this app and copies `dist/` into the Spring Boot static resources.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/   shared components (RichTextEditor, ConfirmDialog, PageSkeleton, ...)
+├── features/     auth, contact, customers, questionnaire, users, webcontent
+├── i18n/         locales de (default), en, sv, ru
+├── layout/       PublicLayout (Navbar, Footer), AppLayout (Sidebar)
+├── pages/        public/ and protected/ route components
+├── router/       routes.ts (path constants) and index.tsx
+└── styles/       variables.css (design tokens), global.css
 ```
 
+## Routes
 
-## Docker
+| Public | Content |
+|---|---|
+| `/` | CMS page `home` plus contact block |
+| `/treatments`, `/for-vets`, `/about`, `/news` | CMS pages `treatments`, `for-vets`, `about`, `news` |
+| `/privacy`, `/impress` | CMS pages `privacy`, `imprint` |
+| `/questionnaire`, `/contact` | Questionnaire form, contact data |
 
-There is no standalone frontend Docker image. The frontend is built by the root Gradle build (`npmInstall` → `buildFrontend` → `syncFrontend` tasks) and copied into `src/main/resources/static`, so it ships inside the single `feurle/tg-app` backend image produced by `./gradlew bootBuildImage`. See the root `AGENTS.md` ("Deployment" section) and `docs/adr/0001-single-container-deployment.md`.
+Admin (login required): `/customers`, `/users`, `/questionnaires`, `/contact-info`, `/webcontent/images`, `/webcontent/tags`, `/webcontent/page/:slug` (articles of any CMS page) and `/webcontent/page/:slug/preview?lang=de` (page preview incl. drafts). Writing CMS content needs `ROLE_ADMIN`.
+
+## CMS article types
+
+`features/webcontent/components/PageBlocks.tsx` renders one component per `ArticleType` (list in `features/webcontent/blockTypes.ts`). The admin form shows a help text per type (`article.pageTypeHelp.*`). Home: `HERO_PORTRAIT`, `SYMPTOMS`, `METHODS` (sections carry an optional image), `ABOUT_TEASER`, `STEPS`, `VET_BAND`. Generic: `HERO`, `COL2`, `COL3`, `COL4`, `TEXT`.
+
+## Design
+
+Tokens (colour, type scale, spacing, radius) live in `src/styles/variables.css`; direction and rules are in [`../docs/ui-design.md`](../docs/ui-design.md). Figtree is self-hosted via `@fontsource-variable/figtree`.

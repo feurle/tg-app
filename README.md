@@ -61,7 +61,7 @@ Seeding is split into three Liquibase layers:
 | Context | Data | Active in |
 |---------|------|-----------|
 | *(none)* | Schema, users, authorities, images, tags, pages | all profiles |
-| `seed` | Articles (DE only), sections, article–image links | dev, test, prod, JUnit |
+| `seed` | Articles (DE only; drafts for the practice to review), sections incl. their optional image, article–image links | dev, test, prod, JUnit |
 | `test` | Reserved for future JUnit-only fixtures | JUnit tests only |
 
 No customer seed data exists yet.

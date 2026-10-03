@@ -25,7 +25,8 @@
     "sidebar": {
       "management": "Hantering",
       "webcontent": "Webbinnehål",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "pages": "Sidor"
     }
   },
   "common": {
@@ -73,10 +74,6 @@
     "contact": {
       "title": "Kontakt & öppettider",
       "sub": "Vi finns här för dig och ditt djur"
-    },
-    "articles": {
-      "title": "Senaste artiklarna",
-      "viewAll": "Visa alla"
     }
   },
   "news": {
@@ -365,6 +362,26 @@
     "previewDrafts": "({{count}} opublicerade)",
     "previewBack": "Tillbaka till hanteringen",
     "previewEmpty": "Det finns inga artiklar på det här språket än."
+  },
+  "section": {
+    "add": "Lägg till avsnitt",
+    "addHeading": "Lägg till avsnitt",
+    "editHeading": "Redigera avsnitt",
+    "deleteConfirm": "Vill du verkligen radera avsnittet \"{{title}}\"?",
+    "empty": "Inga avsnitt ännu.",
+    "col": {
+      "title": "Titel",
+      "content": "Innehåll",
+      "order": "Nr.",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "order": "Ordning",
+      "title": "Titel *",
+      "content": "Innehåll",
+      "image": "Bild",
+      "noImage": "Ingen bild"
+    }
   },
   "image": {
     "management": "Bildhantering",

@@ -16,6 +16,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Aufräumen: ungenutzte Komponenten (`ServiceCard`, `EditorialBlock`, `ArticleCard`), Vorlagen-Reste (`App.css`, `vite.svg`, `react.svg`, `tg-layout-preview.jsx`, `logo-footer.png`) und zugehöriges CSS entfernt; Versalien-Überschriften („Leistungen“, „Kontakt“, News) entfernt. Über mich, Aktuelles, Datenschutz und Impressum nutzen jetzt denselben Seitenkopf und die Schrift-Tokens wie die übrigen Seiten. Fehlende Übersetzungen (Abschnitts-Admin, Seitenleiste) in Englisch, Schwedisch und Russisch ergänzt, tote Schlüssel entfernt. `frontend/README.md` beschreibt jetzt das Projekt statt der Vite-Vorlage.
 - Admin-Bereich: Artikel lassen sich mit Abschnitten, Bildern und Tags als Entwurf in eine andere Sprache kopieren (`POST /api/webcontent/articles/{id}/copy?language=…`). Neue „Vorschau“ je Seite (`/webcontent/page/:slug/preview?lang=…`) zeigt die Seite wie für Besucher inklusive Entwürfen, das Auge-Symbol zeigt einen einzelnen Artikel mit denselben Bausteinen.
 - **Sicherheit:** Alle schreibenden Webcontent-Endpoints (Artikel, Abschnitte, Bilder, Tags) verlangen jetzt `ROLE_ADMIN`; ein angemeldeter Benutzer mit nur `ROLE_USER` bekommt 403. Lesen bleibt für Angemeldete möglich.
 - Admin-Bereich: Beim Artikelformular erklärt ein Hilfetext unter dem Seiten-Typ, wofür Titel, Inhalt, Abschnitte und Bilder dieses Typs auf der Seite verwendet werden. Die Typ-Bezeichnungen sind jetzt für alle Typen in Deutsch, Englisch, Schwedisch und Russisch vorhanden.

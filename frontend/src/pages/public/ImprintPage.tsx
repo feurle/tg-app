@@ -35,14 +35,19 @@ export default function ImprintPage() {
   }, [language]);
 
   return (
-    <div style={{ background: 'var(--bg)', minHeight: 'calc(100vh - 60px)' }}>
+    <div className="about-page">
+      <div className="legal-feed">
+        <header className="public-page-header">
+          <h1 className="public-page-title">{t('footer.imprint')}</h1>
+        </header>
         {loading ? (
           <p>{t('common.loading')}</p>
         ) : (
-            articles.map((article) => (
-              <ArticleBlock key={article.id} article={article} />
-            ))
+          articles.map((article) => (
+            <ArticleBlock key={article.id} article={article} />
+          ))
         )}
+      </div>
     </div>
   );
 }

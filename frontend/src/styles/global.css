@@ -977,17 +977,6 @@ body {
     margin-bottom: 40px;
 }
 
-/* Service section header — new editorial style */
-.section-eyebrow {
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--brand);
-    font-family: var(--font);
-    margin: 0 0 12px;
-}
-
 .section-heading {
     font-family: var(--font);
     font-size: 30px;
@@ -1116,47 +1105,6 @@ body {
     gap: 16px;
 }
 
-/* Editorial (About page) */
-.editorial-feed {
-    padding: 48px 64px 64px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.editorial-block {
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
-}
-
-.editorial-block:first-child {
-    border-top: none;
-    padding-top: 0;
-}
-
-.editorial-title {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    margin: 0 0 16px 0;
-}
-
-.editorial-content {
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.editorial-section {
-    margin-top: 24px;
-}
-
-.editorial-section-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 8px 0;
-}
-
 .article-grid-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1185,47 +1133,6 @@ body {
     .news-feed {
         padding: 64px 40px 96px;
     }
-}
-
-/* News page header */
-.news-page-header {
-    padding: 0 0 40px;
-    border-bottom: 2px solid var(--text-primary);
-    margin-bottom: 0;
-}
-
-.news-page-eyebrow {
-    font-family: var(--font);
-    font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    color: var(--accent);
-    margin: 0 0 10px;
-}
-
-.news-page-title {
-    font-family: var(--font);
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--text-primary);
-    letter-spacing: -0.6px;
-    margin: 0 0 10px;
-    line-height: 1.15;
-}
-
-@media (min-width: 640px) {
-    .news-page-title {
-        font-size: 42px;
-    }
-}
-
-.news-page-sub {
-    font-size: 14px;
-    color: var(--text-secondary);
-    font-weight: 300;
-    margin: 0;
-    line-height: 1.65;
 }
 
 /* News list — single column feed */
@@ -1639,11 +1546,6 @@ body {
     border-color: var(--border-strong);
 }
 
-.article-card--interactive:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-}
-
 .article-card-tags,
 .article-modal-tags {
     display: flex;
@@ -1659,15 +1561,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 10px;
-}
-
-.article-card-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.4;
-    margin-bottom: 8px;
-    letter-spacing: -0.2px;
 }
 
 .article-content {
@@ -1690,12 +1583,8 @@ body {
     list-style: decimal;
 }
 
-.article-card-content {
-    font-size: 13px;
-}
-
 .article-block-content {
-    font-size: 15px;
+    font-size: var(--fs-base);
 }
 
 .article-modal-content {
@@ -1703,9 +1592,9 @@ body {
 }
 
 .article-title {
-    font-size: 22px;
+    font-size: var(--fs-lg);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--ink);
     margin: 0 0 12px 0;
 }
 
@@ -1723,17 +1612,10 @@ body {
 }
 
 .article-section-title {
-    font-size: 16px;
+    font-size: var(--fs-sm);
     font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 8px 0;
-}
-
-.article-card-date {
-    margin-top: 14px;
-    font-size: 12px;
-    color: var(--text-muted);
-    font-family: var(--font);
 }
 
 /* Sidebar Layout */
@@ -2506,19 +2388,18 @@ tbody tr:hover td {
 
 .col2-title {
     font-family: var(--font);
-    font-size: 38px;
-    font-weight: 400;
-    color: var(--text-primary);
-    letter-spacing: -0.7px;
-    line-height: 1.2;
+    font-size: var(--fs-2xl);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
     margin: 0 0 22px;
 }
 
 .col2-lead {
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: var(--fs-base);
+    line-height: 1.6;
     color: var(--text-secondary);
-    font-weight: 300;
 }
 
 .col2-section {
@@ -2529,18 +2410,16 @@ tbody tr:hover td {
 
 .col2-section-title {
     font-family: var(--font);
-    font-size: 18px;
+    font-size: var(--fs-lg);
     font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 12px;
-    letter-spacing: -0.2px;
+    color: var(--ink);
+    margin: 0 0 var(--space-2);
 }
 
 .col2-section-content {
-    font-size: 15px;
-    line-height: 1.75;
+    font-size: var(--fs-base);
+    line-height: 1.6;
     color: var(--text-secondary);
-    font-weight: 300;
 }
 
 .col2-media {
@@ -2594,19 +2473,18 @@ tbody tr:hover td {
 
 .about-text-title {
     font-family: var(--font);
-    font-size: 30px;
-    font-weight: 400;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
     line-height: 1.25;
     margin: 0 0 18px;
 }
 
 .about-text-content {
-    font-size: 15.5px;
-    line-height: 1.8;
+    font-size: var(--fs-base);
+    line-height: 1.6;
     color: var(--text-secondary);
-    font-weight: 300;
 }
 
 .about-text-section {
@@ -2619,18 +2497,16 @@ tbody tr:hover td {
 
 .about-text-section-title {
     font-family: var(--font);
-    font-size: 17px;
+    font-size: var(--fs-lg);
     font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 10px;
-    letter-spacing: -0.2px;
+    color: var(--ink);
+    margin: 0 0 var(--space-2);
 }
 
 .about-text-section-content {
-    font-size: 15px;
-    line-height: 1.75;
+    font-size: var(--fs-base);
+    line-height: 1.6;
     color: var(--text-secondary);
-    font-weight: 300;
 }
 
 @media (max-width: 1024px) {
@@ -3566,4 +3442,20 @@ tbody tr:hover td {
     max-height: 90vh;
     overflow-y: auto;
     border-radius: var(--radius);
+}
+
+/* Legal pages (privacy, imprint) */
+.legal-feed {
+    padding: var(--space-7) var(--space-4) var(--space-8);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.legal-feed {
+    max-width: 760px;
+}
+
+.legal-feed .section {
+    padding: 0 0 var(--space-5);
+    border-top: none;
 }

@@ -50,7 +50,7 @@ Regeln:
 
 ## 4. Typografie
 
-- **Figtree** (Google Fonts) für Headlines und Text. Lora, DM Sans und DM Mono entfallen.
+- **Figtree** für Headlines und Text, selbst gehostet über `@fontsource-variable/figtree` (kein Aufruf an Google beim Seitenaufruf, passend zum Datenschutztext). Lora, DM Sans und DM Mono entfallen.
 - Die Wärme kommt aus der Form der Schrift. Die Kühnheit kommt aus Foto und Größe, nicht aus einer zweiten Schrift.
 - Type-Scale als Tokens:
 
@@ -117,7 +117,7 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
 7 KONTAKT        Adresse + Karten-Link | Sprechzeiten | Telefon   (aus VetInfo)
 ```
 
-**Umsetzung (Phase 3):** Jede Sektion ist ein CMS-Artikel mit eigenem Typ: 1 `HERO_PORTRAIT`, 2 `SYMPTOMS`, 3 `METHODS` (jeder Abschnitt hat optional ein eigenes Bild, `section.image_id`), 4 `ABOUT_TEASER`, 5 `STEPS`, 6 `VET_BAND`, 7 `COL4` (bis Phase 4). Die Seed-Texte stehen in `src/main/resources/db/data/` (`article_de.csv`, `section_de.csv`).
+**Umsetzung (Phase 3):** Jede Sektion ist ein CMS-Artikel mit eigenem Typ: 1 `HERO_PORTRAIT`, 2 `SYMPTOMS`, 3 `METHODS` (jeder Abschnitt hat optional ein eigenes Bild, `section.image_id`), 4 `ABOUT_TEASER`, 5 `STEPS`, 6 `VET_BAND`, 7 Kontakt als eigener Block aus VetInfo (`ContactSection`). Die Seed-Texte stehen in `src/main/resources/db/data/` (`article_de.csv`, `section_de.csv`).
 
 **Mobile:** Das Porträt steht oben, Headline, Statement und CTA folgen darunter. Die Sektionen 2 und 3 werden einspaltig gestapelt, die Termin-Leiste bleibt sticky.
 
@@ -170,6 +170,8 @@ Kurztext: wann eine Überweisung sinnvoll ist (Schmerz, Bewegungsapparat, Therap
 Der Admin-Bereich (`AppLayout`) übernimmt nur die neuen Tokens und die Schrift. Die Admin-Screens werden nicht neu gestaltet.
 
 ## 11. Roadmap
+
+**Stand: alle sechs Phasen sind umgesetzt** (Branch `feature/ui-foundation-tokens`); die Nacharbeit steht in `docs/post-redesign-plan.md`.
 
 Jede Phase ist ein eigener PR mit einem Changelog-Bullet unter `[Unreleased]`.
 

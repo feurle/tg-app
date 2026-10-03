@@ -1,7 +1,7 @@
 # CTA as an editable content block
 
 **Date:** 2026-07-30
-**Status:** Approved design, ready for implementation planning
+**Status:** Überholt (Stand 2026-10-03): verweist auf das frühere `tg-web` und `ForPetOwnersPage`; das Frontend liegt jetzt in `frontend/`, `ForPetOwnersPage` ist die Seite „Behandlungen“. `ContactButton` ist weiterhin in mehreren Komponenten fest verdrahtet. Vor einer Umsetzung neu bewerten.
 **Repos:** `tg-app` (backend), `tg-web` (frontend)
 
 ## Problem

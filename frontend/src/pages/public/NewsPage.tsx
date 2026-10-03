@@ -19,10 +19,9 @@ export default function NewsPage() {
                 {!loading && (
                     <>
                         {fallback && <p className="language-fallback">{t('pages.fallbackNotice')}</p>}
-                        <header className="news-page-header">
-                            <p className="news-page-eyebrow">{t('nav.news')}</p>
-                            <h1 className="news-page-title">{t('pages.news')}</h1>
-                            <p className="news-page-sub">{t('news.subtitle')}</p>
+                        <header className="public-page-header">
+                            <h1 className="public-page-title">{t('pages.news')}</h1>
+                            <p className="public-page-subtitle">{t('news.subtitle')}</p>
                         </header>
                         <div className="news-list">
                             {articles.map((article) => (

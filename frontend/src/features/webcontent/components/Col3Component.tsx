@@ -38,7 +38,6 @@ export default function Col3Component({ article }: Props) {
   return (
     <div className="section">
       <div className="section-header">
-        <p className="section-eyebrow">Leistungen</p>
         <h2
           className="section-heading"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.title) }}

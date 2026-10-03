@@ -19,9 +19,6 @@
     "articles": "Artikel",
     "images": "Bilder",
     "tags": "Tags",
-    "about": "Über uns",
-    "privacy": "Datenschutz",
-    "imprint": "Impressum",
     "contactInfo": "Kontaktdaten",
     "login": "Anmelden",
     "logout": "Abmelden",
@@ -73,10 +70,6 @@
     "cta": {
       "primary": "Termin vereinbaren",
       "secondary": "Kontakt"
-    },
-    "articles": {
-      "title": "Unsere Behandlungsmethoden",
-      "sub": "Ein individueller Ansatz für jedes Tier"
     },
     "contact": {
       "title": "Kontakt & Sprechzeiten",
@@ -306,13 +299,6 @@
   "article": {
     "management": "Artikelverwaltung",
     "subtitle": "Verwalten Sie Ihre Artikel und Inhalte",
-    "page": {
-      "home":    { "title": "Home-Inhalte",   "subtitle": "Teaser und Seiteninhalte für die Startseite" },
-      "news":    { "title": "Fachbeiträge",   "subtitle": "Artikel und Teaser für den News-Bereich" },
-      "about":   { "title": "Über uns",       "subtitle": "Inhalte der Über-uns-Seite" },
-      "privacy": { "title": "Datenschutz",    "subtitle": "Datenschutzerklärung" },
-      "imprint": { "title": "Impressum",      "subtitle": "Impressum und rechtliche Angaben" }
-    },
     "new": "Neuer Artikel",
     "newHeading": "Neuer Artikel",
     "editHeading": "Artikel bearbeiten",

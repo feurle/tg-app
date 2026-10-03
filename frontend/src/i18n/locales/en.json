@@ -25,7 +25,8 @@
     "sidebar": {
       "management": "Management",
       "webcontent": "Webcontent",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "pages": "Pages"
     }
   },
   "common": {
@@ -69,10 +70,6 @@
     "cta": {
       "primary": "Discover Articles",
       "secondary": "Learn More"
-    },
-    "articles": {
-      "title": "Recent Articles",
-      "viewAll": "View all"
     },
     "contact": {
       "title": "Contact & Office Hours",
@@ -365,6 +362,26 @@
     "previewDrafts": "({{count}} unpublished)",
     "previewBack": "Back to management",
     "previewEmpty": "There are no articles in this language yet."
+  },
+  "section": {
+    "add": "Add section",
+    "addHeading": "Add section",
+    "editHeading": "Edit section",
+    "deleteConfirm": "Really delete section \"{{title}}\"?",
+    "empty": "No sections yet.",
+    "col": {
+      "title": "Title",
+      "content": "Content",
+      "order": "No.",
+      "actions": "Actions"
+    },
+    "form": {
+      "order": "Order",
+      "title": "Title *",
+      "content": "Content",
+      "image": "Image",
+      "noImage": "No image"
+    }
   },
   "image": {
     "management": "Image Management",
