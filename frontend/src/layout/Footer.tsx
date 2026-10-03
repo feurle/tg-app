@@ -50,9 +50,10 @@ export default function Footer() {
 
                 <div className="footer-col">
                     <div className="footer-col-label">Navigation</div>
-                    <Link className="footer-link" to={ROUTES.HOME}>{t('nav.home')}</Link>
+                    <Link className="footer-link" to={ROUTES.TREATMENTS}>{t('nav.treatments')}</Link>
+                    <Link className="footer-link" to={ROUTES.ABOUT}>{t('nav.aboutMe')}</Link>
                     <Link className="footer-link" to={ROUTES.NEWS}>{t('nav.news')}</Link>
-                    <Link className="footer-link" to={ROUTES.ABOUT}>{t('pages.about')}</Link>
+                    <Link className="footer-link" to={ROUTES.FOR_VETS}>{t('nav.forVets')}</Link>
                 </div>
 
                 <div className="footer-col">

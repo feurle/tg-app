@@ -5,9 +5,12 @@
   },
   "nav": {
     "home": "Home",
-    "forPetOwners": "For Pet Owners",
     "forVets": "For Vets",
-    "requests": "Requests",
+    "treatments": "Treatments",
+    "aboutMe": "About me",
+    "appointment": "Request appointment",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "news": "Articles",
     "administration": "Administration",
     "customers": "Customers",
@@ -37,6 +40,10 @@
     "deleteError": "Deletion failed.",
     "empty": "—",
     "all": "All"
+  },
+  "treatments": {
+    "title": "Treatments",
+    "subtitle": "What I can do for your pet and how the first appointment works."
   },
   "pages": {
     "home": "Welcome",

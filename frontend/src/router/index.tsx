@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import PublicLayout from '../layout/PublicLayout';
 import AppLayout from '../layout/AppLayout';
 import ProtectedRoute from './ProtectedRoute';
@@ -8,7 +8,7 @@ import AboutPage from '../pages/public/AboutPage';
 import PrivacyPage from '../pages/public/PrivacyPage';
 import ImprintPage from '../pages/public/ImprintPage';
 import ContactPage from '../pages/public/ContactPage';
-import ForPetOwnersPage from '../pages/public/ForPetOwnersPage';
+import TreatmentsPage from '../pages/public/TreatmentsPage';
 import ForVetsPage from '../pages/public/ForVetsPage';
 import QuestionnairePage from '../pages/public/QuestionnairePage';
 import QuestionnairesPage from '../pages/protected/QuestionnairesPage';
@@ -25,7 +25,8 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       { path: ROUTES.HOME, element: <HomePage /> },
-      { path: ROUTES.FOR_PET_OWNERS, element: <ForPetOwnersPage /> },
+      { path: ROUTES.TREATMENTS, element: <TreatmentsPage /> },
+      { path: ROUTES.FOR_PET_OWNERS, element: <Navigate to={ROUTES.TREATMENTS} replace /> },
       { path: ROUTES.FOR_VETS, element: <ForVetsPage /> },
       { path: ROUTES.QUESTIONNAIRE, element: <QuestionnairePage /> },
       { path: ROUTES.NEWS, element: <NewsPage /> },

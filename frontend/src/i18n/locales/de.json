@@ -5,9 +5,12 @@
   },
   "nav": {
     "home": "Home",
-    "forPetOwners": "Für Tierhalter",
     "forVets": "Für Tierärzte",
-    "requests": "Anfragen",
+    "treatments": "Behandlungen",
+    "aboutMe": "Über mich",
+    "appointment": "Termin anfragen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
     "news": "Aktuelles",
     "administration": "Verwaltung",
     "customers": "Kunden",
@@ -42,6 +45,10 @@
     "deleteError": "Löschen fehlgeschlagen.",
     "empty": "—",
     "all": "Alle"
+  },
+  "treatments": {
+    "title": "Behandlungen",
+    "subtitle": "Was ich für Ihr Tier tun kann und wie der erste Termin abläuft."
   },
   "pages": {
     "home": "Willkommen",

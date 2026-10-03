@@ -46,7 +46,7 @@ function TextBlock({ article }: { article: ArticleResponse }) {
     );
 }
 
-export default function ForPetOwnersPage() {
+export default function TreatmentsPage() {
     const [articles, setArticles] = useState<ArticleResponse[]>([]);
     const [fetchedLanguage, setFetchedLanguage] = useState<string | null>(null);
     const { t, i18n: i18nInstance } = useTranslation();
@@ -55,7 +55,7 @@ export default function ForPetOwnersPage() {
 
     useEffect(() => {
         let cancelled = false;
-        articleApi.getPublishedByPage('for-pet-owners', language)
+        articleApi.getPublishedByPage('treatments', language)
             .then((data) => {
                 if (!cancelled) {
                     setArticles(data);
@@ -74,6 +74,10 @@ export default function ForPetOwnersPage() {
     return (
         <div className="about-page">
             <div className="about-feed">
+                <header className="public-page-header">
+                    <h1 className="public-page-title">{t('treatments.title')}</h1>
+                    <p className="public-page-subtitle">{t('treatments.subtitle')}</p>
+                </header>
                 {loading && <PageSkeleton />}
                 {!loading && articles.map((article) => {
                     if (article.articleType === 'COL2') return <Col2Component key={article.id} article={article} />;

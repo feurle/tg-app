@@ -149,8 +149,8 @@ body {
 
 .nav-link {
     position: relative;
-    padding: 8px 16px;
-    font-size: 20px;
+    padding: 8px 14px;
+    font-size: var(--fs-base);
     font-weight: 400;
     color: var(--text-secondary);
     cursor: pointer;
@@ -268,7 +268,7 @@ body {
     border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 20px;
+    font-size: var(--fs-sm);
     font-weight: 400;
     color: var(--text-secondary);
     padding: 4px 0;
@@ -279,6 +279,52 @@ body {
 
 .nav-login-link:hover {
     color: var(--ink);
+}
+
+.nav-vets-link {
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding: 4px 0;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-vets-link:hover,
+.nav-vets-link.active {
+    color: var(--ink);
+    border-bottom-color: var(--wood);
+}
+
+.nav-cta {
+    padding: 11px 20px;
+    font-size: var(--fs-sm);
+    white-space: nowrap;
+}
+
+.mobile-cta-bar {
+    display: none;
+}
+
+.public-page-header {
+    max-width: 720px;
+    margin: 0 0 var(--space-6);
+}
+
+.public-page-title {
+    font-size: var(--fs-2xl);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin: 0 0 var(--space-2);
+}
+
+.public-page-subtitle {
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
 }
 
 .nav-hamburger {
@@ -387,6 +433,9 @@ body {
     padding: 6px 32px;
     letter-spacing: -0.3px;
     transition: color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .mobile-overlay-sublink:hover {
@@ -738,8 +787,33 @@ body {
         display: none;
     }
 
-    .nav-login-link {
+    .nav-login-link,
+    .nav-vets-link,
+    .nav-cta {
         display: none;
+    }
+
+    .mobile-cta-bar {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 8;
+        padding: var(--space-2) var(--space-3);
+        padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom));
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+    }
+
+    .mobile-cta-button {
+        width: 100%;
+        padding: 14px 18px;
+        font-size: var(--fs-sm);
+    }
+
+    .footer {
+        padding-bottom: 72px;
     }
 
     .nav-hamburger {

@@ -11,6 +11,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Öffentliche Navigation neu aufgebaut: Behandlungen · Über mich · Aktuelles · Kontakt mit festem Button „Termin anfragen“, dezentem Link „Für Tierärzte“ und auf dem Handy einer festen Termin-Leiste unten; das „Anfragen“-Dropdown entfällt. `/for-pet-owners` ist jetzt die Seite „Behandlungen“ (`/treatments`) und leitet weiter.
 - Neues Design-Fundament „Bodensee & Holz“ (siehe `docs/ui-design.md`): zentrale Tokens für Farbe, Typografie (Figtree statt Lora/DM Sans), Abstände und Radien; fest codierte Farben und Schriften in `global.css` und den Formular-Modals durch Tokens ersetzt.
 
 ### Deprecated

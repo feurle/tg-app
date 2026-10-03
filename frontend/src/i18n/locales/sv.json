@@ -5,9 +5,12 @@
   },
   "nav": {
     "home": "Hem",
-    "forPetOwners": "För djurägare",
     "forVets": "För veterinärer",
-    "requests": "Förfrågningar",
+    "treatments": "Behandlingar",
+    "aboutMe": "Om mig",
+    "appointment": "Begär tid",
+    "openMenu": "Öppna menyn",
+    "closeMenu": "Stäng menyn",
     "news": "Fackartiklar",
     "administration": "Förvaltning",
     "customers": "Kunder",
@@ -37,6 +40,10 @@
     "deleteError": "Borttagningen misslyckades.",
     "empty": "—",
     "all": "Alla"
+  },
+  "treatments": {
+    "title": "Behandlingar",
+    "subtitle": "Vad jag kan göra för ditt djur och hur det första besöket går till."
   },
   "pages": {
     "home": "Välkommen",

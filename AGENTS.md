@@ -117,7 +117,7 @@ src/
 **Auth:** [frontend/src/features/auth/authStore.ts](frontend/src/features/auth/authStore.ts) is a plain module-level singleton (not React context). It calls `GET /api/auth/me` on startup to restore the session. Use the `useAuth()` hook in components to read auth state.
 
 **Routing:** Two layout tracks in [frontend/src/router/index.tsx](frontend/src/router/index.tsx):
-- `PublicLayout` — wraps public pages (`/`, `/news`) for unauthenticated users
+- `PublicLayout` — wraps public pages (`/`, `/treatments`, `/about`, `/news`, `/contact`, `/for-vets`, …) for unauthenticated users; `/for-pet-owners` redirects to `/treatments`
 - `ProtectedRoute` — checks auth before rendering, then passes to `AppLayout` for authenticated pages (`/customers`, `/users`, `/webcontent/*`)
 
 Route path constants live in [frontend/src/router/routes.ts](frontend/src/router/routes.ts).
