@@ -34,7 +34,7 @@ export default function Navbar() {
     <>
       <nav className="navbar">
         <NavLink to={ROUTES.HOME} className="nav-logo">
-          <img src={logoImg} alt="Tier Gesund" className="nav-logo-img" width="44" height="44" />
+          <img src={logoImg} alt="Tier. Gesund." className="nav-logo-img" width="44" height="44" />
           <span className="nav-logo-text">
             <span className="nav-logo-name">{t('app.name')}</span>
             <span className="nav-logo-claim">{t('app.claim')}</span>

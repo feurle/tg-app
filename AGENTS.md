@@ -80,7 +80,7 @@ Not every module has all three layers: `common` and `notification` have no `doma
 - **Dev profile:** H2 in-memory, H2 console at `http://localhost:8080/h2-console`
 - **Prod/Test:** MySQL 9.2 (Liquibase drops & re-migrates on deploy)
 - Migrations in `src/main/resources/db/changelog/` (Liquibase YAML)
-- The site is not live yet and all profiles use `drop-first`, so the `webcontent` changesets (`001-init-schema`, `002-load-initial-data`) are edited in place instead of adding new ones (e.g. `section.image_id`). Once production is live and `drop-first` is switched off, every schema/data change needs its own new changeset.
+- The site is not live yet and all profiles use `drop-first`, so each module's changesets (`001-init-schema`, `002-load-initial-data`) are edited in place instead of adding new ones (e.g. `section.image_id`, structured `vet_office_hour`, `questionnaire.pet_species`). Once production is live and `drop-first` is switched off, every schema/data change needs its own new changeset.
 - Fake data is loaded by Liquibase in dev: the practice's `VetInfo` with opening hours, ~21 articles on the pages home, treatments, for-vets, about, news, privacy and imprint (German only, other locales are supported by the model but not seeded), plus tags, images, pages, and users. No customer seed data exists yet.
 
 ### Profiles

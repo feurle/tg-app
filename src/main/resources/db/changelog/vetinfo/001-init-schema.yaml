@@ -60,11 +60,20 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: label
-                  type: VARCHAR(255)
+                  name: day_of_week
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
               - column:
-                  name: hours
-                  type: VARCHAR(100)
+                  name: opens_at
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: closes_at
+                  type: TIME
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: vet_office_hour
             baseColumnNames: vet_info_id

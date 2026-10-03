@@ -29,6 +29,9 @@ databaseChangeLog:
                   type: TEXT
               # --- pet (Allgemeine Fragen zu Ihrem Hund) ---
               - column:
+                  name: pet_species
+                  type: VARCHAR(20)
+              - column:
                   name: pet_name
                   type: VARCHAR(255)
               - column:
