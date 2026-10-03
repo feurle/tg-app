@@ -1,6 +1,8 @@
 id;slug;title;description
 100;home;Home;Willkommen bei Tier Gesund
 200;news;Aktuelles;Neuigkeiten, Fachbeiträge und Publikationen
-300;about;Über uns;Erfahren Sie mehr über Tier Gesund
+300;about;Über mich;Dr. Lisa Feurle-Elsäßer, Qualifikationen und Mitgliedschaften
 400;privacy;Datenschutz;Datenschutz bei Tier Gesund
 500;imprint;Impressum;Impressung von Tier Gesund
+700;treatments;Behandlungen;Methoden und Ablauf (Entwurf, bitte prüfen)
+800;for-vets;Für Tierärzte;Überweisung von Patienten (Entwurf, bitte prüfen)

@@ -75,6 +75,7 @@ export default function Footer() {
                     <Link className="footer-link" to={ROUTES.ABOUT}>{t('nav.aboutMe')}</Link>
                     <Link className="footer-link" to={ROUTES.NEWS}>{t('nav.news')}</Link>
                     <Link className="footer-link" to={ROUTES.FOR_VETS}>{t('nav.forVets')}</Link>
+                    <Link className="footer-link" to={ROUTES.QUESTIONNAIRE}>{t('footer.questionnaire')}</Link>
                 </div>
 
                 <div className="footer-col">

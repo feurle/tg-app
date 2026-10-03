@@ -46,6 +46,7 @@
     "subtitle": "What I can do for your pet and how the first appointment works."
   },
   "pages": {
+    "fallbackNotice": "This content is not available in your language yet and is shown in German.",
     "home": "Welcome",
     "news": "Articles & Publications",
     "about": "About Us"
@@ -271,6 +272,7 @@
     "reload": "Reload"
   },
   "footer": {
+    "questionnaire": "Questionnaire",
     "privacy": "Privacy",
     "imprint": "Imprint",
     "contact": "Contact",

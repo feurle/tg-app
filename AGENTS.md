@@ -79,7 +79,7 @@ Not every module has all three layers: `common` and `notification` have no `doma
 - **Dev profile:** H2 in-memory, H2 console at `http://localhost:8080/h2-console`
 - **Prod/Test:** MySQL 9.2 (Liquibase drops & re-migrates on deploy)
 - Migrations in `src/main/resources/db/changelog/` (Liquibase YAML)
-- Fake data is loaded by Liquibase in dev: the practice's `VetInfo` with opening hours, ~15 articles (German only, other locales are supported by the model but not seeded), plus tags, images, pages, and users. No customer seed data exists yet.
+- Fake data is loaded by Liquibase in dev: the practice's `VetInfo` with opening hours, ~21 articles on the pages home, treatments, for-vets, about, news, privacy and imprint (German only, other locales are supported by the model but not seeded), plus tags, images, pages, and users. No customer seed data exists yet.
 
 ### Profiles
 - `dev` — default for local, H2, hot reload
@@ -128,6 +128,8 @@ Route path constants live in [frontend/src/router/routes.ts](frontend/src/router
 - `components/` — feature-specific components (tables, modals, etc.)
 
 Current features: `auth`, `contact`, `customers`, `questionnaire`, `users`, `webcontent` (articles + images).
+
+**Page content:** CMS pages are rendered with `features/webcontent/components/PageContent` (loading state, German fallback hint, `PageBlocks` = one component per `ArticleType`) and the hook `usePublishedArticles(slug)`. If a page has no articles in the visitor's language, the German ones are shown.
 
 **i18n:** Four locales (de, en, sv, ru) in [frontend/src/i18n/locales/](frontend/src/i18n/locales/). Default language is German (`de`), persisted to `localStorage` as `lang`. The backend uses enum values (`GERMAN`, `ENGLISH`, `SWEDISH`, `RUSSIAN`) — [frontend/src/features/webcontent/language.ts](frontend/src/features/webcontent/language.ts) maps between locale codes and backend enums.
 

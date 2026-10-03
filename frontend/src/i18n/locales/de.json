@@ -50,6 +50,7 @@
     "subtitle": "Was ich für Ihr Tier tun kann und wie der erste Termin abläuft."
   },
   "pages": {
+    "fallbackNotice": "Dieser Inhalt ist in Ihrer Sprache noch nicht verfügbar und wird auf Deutsch angezeigt.",
     "home": "Willkommen",
     "news": "Fachbeiträge & Publikationen",
     "about": "Über uns"
@@ -275,6 +276,7 @@
     "reload": "Neu laden"
   },
   "footer": {
+    "questionnaire": "Erhebungsbogen",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
     "contact": "Kontakt",

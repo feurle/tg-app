@@ -46,6 +46,7 @@
     "subtitle": "Vad jag kan göra för ditt djur och hur det första besöket går till."
   },
   "pages": {
+    "fallbackNotice": "Det här innehållet finns ännu inte på ditt språk och visas på tyska.",
     "home": "Välkommen",
     "news": "Fackartiklar & Publikationer",
     "about": "Om oss"
@@ -271,6 +272,7 @@
     "reload": "Ladda om"
   },
   "footer": {
+    "questionnaire": "Frågeformulär",
     "privacy": "Integritet",
     "imprint": "Impressum",
     "contact": "Kontakt",

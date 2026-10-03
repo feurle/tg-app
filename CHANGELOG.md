@@ -9,12 +9,14 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Entwürfe für die Inhalte der Seiten „Behandlungen“ (Chiropraktik, Goldimplantation, Blutegeltherapie, Ablauf), „Für Tierärzte“ (Überweisungsgründe, Angebot, Ablauf) und „Über mich“ (Ich-Form, Mission). Sie sind aus den vorhandenen Texten abgeleitet und von Dr. Feurle-Elsäßer zu prüfen. Die Seiten `treatments` und `for-vets` sind als CMS-Seiten angelegt.
 - Spamschutz für die öffentlichen Formulare (Nachricht, Termin, Überweisung, Erhebungsbogen): ein unsichtbares Feld, das Bots verrät (solche Einsendungen werden verworfen), und eine Begrenzung auf 5 Einsendungen pro Adresse und 10 Minuten (konfigurierbar über `app.rate-limit.*`, Antwort 429).
 - Eigene 404-Seite und eine Fehlerseite statt einer weißen Seite, wenn eine Seite nicht angezeigt werden kann. Seitentitel passen sich Seite und Sprache an, `<html lang>` folgt der gewählten Sprache, und die Startseite hat eine Meta-Beschreibung.
 - Überweisungsformular für Tierärzte auf `/for-vets`: Praxis, Tierhalter, Patient, Fragestellung, Vorbehandlung und Dringlichkeit; die Praxis bekommt eine Mail (Antworten gehen direkt an den überweisenden Tierarzt), der Tierarzt eine Bestätigung. Es werden keine Gesundheitsdaten gespeichert. Befunde werden weiterhin per E-Mail nachgereicht. Neuer öffentlicher Endpoint `POST /api/contact/referral`.
 
 ### Changed
 
+- Alle CMS-Seiten (Start, Behandlungen, Für Tierärzte, Über mich, Aktuelles) werden über denselben Baustein gerendert (`PageContent`/`PageBlocks`). Dadurch funktionieren alle Artikeltypen auf jeder Seite. Gibt es für Englisch, Schwedisch oder Russisch noch keinen Inhalt, zeigt die Seite den deutschen Inhalt mit einem Hinweis statt einer leeren Seite. Der Erhebungsbogen ist jetzt auch im Footer verlinkt.
 - Die Schrift Figtree wird jetzt von der eigenen Website ausgeliefert statt von Google Fonts (keine Verbindung zu Google beim Seitenaufruf). Die Datenschutzerklärung nennt jetzt Kontakt-, Termin- und Überweisungsformulare, den Erhebungsbogen, den Google-Maps-Link und den lokalen Speicher der Sprachwahl; sie sollte vor dem Go-live rechtlich geprüft werden.
 - Kontaktseite zeigt nur noch die Kontaktdaten aus VetInfo, mit Seitenüberschrift und den Buttons „Termin vereinbaren“ und „Nachricht schreiben“. Das CMS-Pendant (Seite `contact` samt Artikel, Eintrag „Kontakt“ in der Admin-Seitenleiste und Seed-Daten) ist entfernt, der Link „Kontakt“ aus der Navbar ebenfalls; im Footer bleibt er.
 - Erhebungsbogen: neues Pflichtfeld „Tierart“ (Hund, Katze, Kleintier, Anderes); Hundeschule und Kommandos werden nur bei Hunden abgefragt. Bisherige Einsendungen gelten als Hunde. Die Praxis-Mail nennt die Tierart, der Admin-Bereich zeigt sie in Liste und Detailansicht. Das Formular ist optisch an das neue Design angepasst.

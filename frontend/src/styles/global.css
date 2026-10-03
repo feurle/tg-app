@@ -3443,3 +3443,25 @@ tbody tr:hover td {
     height: 1px;
     overflow: hidden;
 }
+
+/* "Not translated yet" hint above German fallback content */
+.language-fallback {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-3) var(--space-6) 0;
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+}
+
+/* Home-style sections inside an `about-feed` page: the feed already provides the side padding. */
+.about-feed .home-section {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+}
+
+.about-text-section-content p + p,
+.about-text-content p + p {
+    margin-top: var(--space-2);
+}
