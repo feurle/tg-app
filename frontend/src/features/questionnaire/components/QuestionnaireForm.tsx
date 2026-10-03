@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { questionnaireApi } from '../api';
 import { EMPTY_QUESTIONNAIRE, SPECIES, type QuestionnaireFormData, type Species } from '../types';
@@ -162,20 +162,22 @@ interface TextProps {
 }
 
 function Text({ label, value, onChange, required, type = 'text' }: TextProps) {
+  const id = useId();
   return (
     <div className="form-group" style={{ marginBottom: '16px' }}>
-      <label className="form-label">{label}{required && ' *'}</label>
-      <input className="form-input" type={type} value={value} required={required}
+      <label className="form-label" htmlFor={id}>{label}{required && ' *'}</label>
+      <input id={id} className="form-input" type={type} value={value} required={required}
         onChange={(e) => onChange(e.target.value)} />
     </div>
   );
 }
 
 function Area({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
+  const id = useId();
   return (
     <div className="form-group" style={{ marginBottom: '16px' }}>
-      <label className="form-label">{label}</label>
-      <textarea className="form-input" rows={3} value={value}
+      <label className="form-label" htmlFor={id}>{label}</label>
+      <textarea id={id} className="form-input" rows={3} value={value}
         onChange={(e) => onChange(e.target.value)} style={{ resize: 'vertical' }} />
     </div>
   );
@@ -190,9 +192,10 @@ interface YesNoProps {
 }
 
 function YesNo({ label, value, onChange, yes, no }: YesNoProps) {
+  const id = useId();
   return (
-    <div className="form-group" style={{ marginBottom: '16px' }}>
-      <label className="form-label">{label}</label>
+    <div className="form-group" style={{ marginBottom: '16px' }} role="group" aria-labelledby={id}>
+      <span className="form-label" id={id}>{label}</span>
       <div className="questionnaire-yesno">
         <label className="questionnaire-radio">
           <input type="radio" checked={value === true} onChange={() => onChange(true)} /> {yes}
