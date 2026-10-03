@@ -11,6 +11,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Neue Startseite: Hero mit Porträt von Dr. Feurle-Elsäßer, Beschwerdebilder, Schwerpunkte mit Fotos, „Über mich“-Teaser, Ablauf des ersten Termins und ein Band für überweisende Tierärzte. Dafür gibt es die neuen Artikeltypen `HERO_PORTRAIT`, `SYMPTOMS`, `METHODS`, `STEPS` und `VET_BAND` (im Admin-Bereich wählbar); die Inhalte bleiben im CMS pflegbar. Der Hero-Text nennt keine Pferde mehr.
 - Öffentliche Navigation neu aufgebaut: Behandlungen · Über mich · Aktuelles · Kontakt mit festem Button „Termin anfragen“, dezentem Link „Für Tierärzte“ und auf dem Handy einer festen Termin-Leiste unten; das „Anfragen“-Dropdown entfällt. `/for-pet-owners` ist jetzt die Seite „Behandlungen“ (`/treatments`) und leitet weiter.
 - Neues Design-Fundament „Bodensee & Holz“ (siehe `docs/ui-design.md`): zentrale Tokens für Farbe, Typografie (Figtree statt Lora/DM Sans), Abstände und Radien; fest codierte Farben und Schriften in `global.css` und den Formular-Modals durch Tokens ersetzt.
 

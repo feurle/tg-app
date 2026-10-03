@@ -51,6 +51,13 @@
     "about": "Om oss"
   },
   "home": {
+    "more": {
+      "treatments": "Alla behandlingar",
+      "about": "Mer om mig"
+    },
+    "vetBand": {
+      "cta": "Remittera en patient"
+    },
     "tagline": "Djurhälsa i fokus",
     "title": {
       "line1": "Friska djur,",

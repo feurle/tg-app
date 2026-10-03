@@ -56,6 +56,13 @@
     "about": "Über uns"
   },
   "home": {
+    "more": {
+      "treatments": "Alle Behandlungen",
+      "about": "Mehr über mich"
+    },
+    "vetBand": {
+      "cta": "Patient überweisen"
+    },
     "tagline": "Tiergesundheit im Fokus",
     "title": {
       "line1": "Gesunde Tiere,",
@@ -276,6 +283,11 @@
       "HOME_PAGE": "Home Page",
       "NEWS_TEASER": "News Teaser",
       "NEWS_PAGE": "News Page",
+      "HERO_PORTRAIT": "Hero mit Porträt (Home)",
+      "SYMPTOMS": "Beschwerdebilder (Home)",
+      "METHODS": "Schwerpunkte mit Bildern (Home)",
+      "STEPS": "Ablauf in Schritten (Home)",
+      "VET_BAND": "Band für Tierärzte (Home)",
       "ABOUT_TEASER": "Über mich Teaser",
       "ABOUT_PAGE": "Über mich Seite"
     },

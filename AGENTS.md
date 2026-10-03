@@ -47,7 +47,7 @@ This is a **Spring Modulith** (modular monolith) backend. Module boundaries are 
 ### Domain modules under `com.feurle.tg`:
 
 **`webcontent`** — Article, Image, Tag management
-- Articles have multilingual content (DE, EN, SV, RU), states (`CREATED`, `PUBLISHED`, `CLOSED`), and a `PageType`
+- Articles have multilingual content (DE, EN, SV, RU), states (`CREATED`, `PUBLISHED`, `CLOSED`), and an `ArticleType` that picks the frontend component (`PublicPage.tsx`); home page types: `HERO_PORTRAIT`, `SYMPTOMS`, `METHODS`, `ABOUT_TEASER`, `STEPS`, `VET_BAND`, `COL4`
 - Images are linked to articles
 
 **`user`** — Authentication and user management

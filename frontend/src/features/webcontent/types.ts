@@ -1,5 +1,5 @@
 export type ArticleState = 'CREATED' | 'PUBLISHED' | 'CLOSED';
-export type ArticleType = 'DEFAULT' | 'HERO' | 'COL2' | 'COL3' | 'COL4' | 'TEXT' | 'NEWS_TEASER' | 'NEWS_PAGE' | 'ABOUT_TEASER' | 'ABOUT_PAGE';
+export type ArticleType = 'DEFAULT' | 'HERO' | 'COL2' | 'COL3' | 'COL4' | 'TEXT' | 'HERO_PORTRAIT' | 'SYMPTOMS' | 'METHODS' | 'STEPS' | 'VET_BAND' | 'NEWS_TEASER' | 'NEWS_PAGE' | 'ABOUT_TEASER' | 'ABOUT_PAGE';
 export type Language = 'GERMAN' | 'ENGLISH' | 'SWEDISH' | 'RUSSIAN';
 
 export interface ImageResponse {

@@ -7,6 +7,12 @@ import HeroComponent from './HeroComponent';
 import Col3Component from './Col3Component';
 import Col4Component from './Col4Component';
 import ArticleBlock from './ArticleBlock';
+import HeroPortraitComponent from './HeroPortraitComponent';
+import SymptomsComponent from './SymptomsComponent';
+import MethodsComponent from './MethodsComponent';
+import AboutTeaserComponent from './AboutTeaserComponent';
+import StepsComponent from './StepsComponent';
+import VetBandComponent from './VetBandComponent';
 import ContactButton from './ContactButton';
 import PageSkeleton from '../../../components/PageSkeleton';
 
@@ -45,6 +51,12 @@ export default function PublicPage({ pageSlug }: Props) {
         <div style={{ background: 'var(--bg)', minHeight: 'calc(100vh - 72px)' }}>
             {loading && <PageSkeleton />}
             {!loading && articles.map((article) => {
+                if (article.articleType === 'HERO_PORTRAIT') return <HeroPortraitComponent key={article.id} article={article} />;
+                if (article.articleType === 'SYMPTOMS') return <SymptomsComponent key={article.id} article={article} />;
+                if (article.articleType === 'METHODS') return <MethodsComponent key={article.id} article={article} />;
+                if (article.articleType === 'ABOUT_TEASER') return <AboutTeaserComponent key={article.id} article={article} />;
+                if (article.articleType === 'STEPS') return <StepsComponent key={article.id} article={article} />;
+                if (article.articleType === 'VET_BAND') return <VetBandComponent key={article.id} article={article} />;
                 if (article.articleType === 'HERO') return <HeroComponent key={article.id} article={article} />;
                 if (article.articleType === 'COL3') return <Col3Component key={article.id} article={article} />;
                 if (article.articleType === 'COL4') return <Col4Component key={article.id} article={article} />;

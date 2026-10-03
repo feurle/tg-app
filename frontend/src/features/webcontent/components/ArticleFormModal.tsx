@@ -35,7 +35,7 @@ interface EditProps {
 
 type Props = CreateProps | EditProps;
 
-const PAGE_TYPE_VALUES: ArticleType[] = ['DEFAULT', 'HERO', 'COL2', 'COL3', 'COL4', 'TEXT', 'NEWS_TEASER', 'NEWS_PAGE', 'ABOUT_TEASER', 'ABOUT_PAGE'];
+const PAGE_TYPE_VALUES: ArticleType[] = ['DEFAULT', 'HERO', 'COL2', 'COL3', 'COL4', 'TEXT', 'HERO_PORTRAIT', 'SYMPTOMS', 'METHODS', 'STEPS', 'VET_BAND', 'NEWS_TEASER', 'NEWS_PAGE', 'ABOUT_TEASER', 'ABOUT_PAGE'];
 const LANGUAGE_VALUES: Language[] = ['GERMAN', 'ENGLISH', 'SWEDISH', 'RUSSIAN'];
 const STATE_VALUES: ArticleState[] = ['CREATED', 'PUBLISHED', 'CLOSED'];
 

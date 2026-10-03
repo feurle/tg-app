@@ -51,6 +51,13 @@
     "about": "About Us"
   },
   "home": {
+    "more": {
+      "treatments": "All treatments",
+      "about": "More about me"
+    },
+    "vetBand": {
+      "cta": "Refer a patient"
+    },
     "tagline": "Pet Health in Focus",
     "title": {
       "line1": "Healthy Pets,",
