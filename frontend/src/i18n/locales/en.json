@@ -216,6 +216,7 @@
     "next": "Next opening: {{day}} from {{time}}"
   },
   "contactInfo": {
+    "unavailable": "You can reach us via “Request appointment” or “Send message”.",
     "call": "Call",
     "route": "Show route",
     "closed": "Closed",

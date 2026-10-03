@@ -220,6 +220,7 @@
     "next": "Nächste Sprechzeit: {{day}} ab {{time}} Uhr"
   },
   "contactInfo": {
+    "unavailable": "Sie erreichen uns über „Termin vereinbaren“ oder „Nachricht schreiben“.",
     "call": "Anrufen",
     "route": "Route anzeigen",
     "closed": "Geschlossen",

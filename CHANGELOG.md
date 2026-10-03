@@ -26,6 +26,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Öffentliche Seiten stürzten ab (weiße Seite), wenn in den Kontaktdaten die Telefonnummer fehlte. Kontaktbereich, Footer und Links berücksichtigen jetzt fehlende Angaben; ohne Kontaktdaten zeigt die Kontaktseite einen Hinweis auf die Formulare, und beim Laden wird Platz reserviert. Auf der Kontaktseite folgen auf die Überschrift jetzt Überschriften der zweiten Ebene.
+
 ### Security
 
 ## [1.0.3] - 2026-09-26

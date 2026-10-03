@@ -216,6 +216,7 @@
     "next": "Nästa öppettid: {{day}} från {{time}}"
   },
   "contactInfo": {
+    "unavailable": "Du når oss via ”Boka tid” eller ”Skicka meddelande”.",
     "phone": "Telefon",
     "email": "E-post",
     "address": "Adress",

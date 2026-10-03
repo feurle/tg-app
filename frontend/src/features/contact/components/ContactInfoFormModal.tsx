@@ -17,13 +17,13 @@ const EMPTY: ContactInfoFormData = {
 
 function toFormData(c: ContactInfoResponse): ContactInfoFormData {
   return {
-    name: c.name,
+    name: c.name ?? '',
     primary: c.primary,
-    phone: c.phone,
-    email: c.email,
-    street: c.street,
-    city: c.city,
-    zip: c.zip,
+    phone: c.phone ?? '',
+    email: c.email ?? '',
+    street: c.street ?? '',
+    city: c.city ?? '',
+    zip: c.zip ?? '',
     officeHours: c.officeHours.map((oh) => ({
       ...oh,
       opensAt: formatTime(oh.opensAt),

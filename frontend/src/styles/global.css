@@ -3230,6 +3230,11 @@ tbody tr:hover td {
     margin-top: var(--space-5);
 }
 
+.vet-contact-placeholder {
+    min-height: 220px;
+    margin-top: var(--space-5);
+}
+
 .vet-contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

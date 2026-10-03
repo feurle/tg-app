@@ -7,15 +7,16 @@ export interface OfficeHour {
     closesAt: string;
 }
 
+/** The API accepts incomplete records, so every contact field may be missing. */
 export interface ContactInfoResponse {
     id: number;
-    name: string;
+    name: string | null;
     primary: boolean;
-    phone: string;
-    email: string;
-    street: string;
-    city: string;
-    zip: string;
+    phone: string | null;
+    email: string | null;
+    street: string | null;
+    city: string | null;
+    zip: string | null;
     officeHours: OfficeHour[];
     updatedAt: string;
 }

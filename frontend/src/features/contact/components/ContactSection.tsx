@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useVetInfo } from '../useVetInfo';
+import { useVetInfoState } from '../useVetInfo';
 import { formatTime, groupByDay, telHref, weekdayName } from '../officeHours';
+import { addressLines, filled, mapUrl } from '../contactInfo';
 import OpenStatusLine from './OpenStatusLine';
 
 interface Props {
@@ -8,59 +9,85 @@ interface Props {
     headingLevel?: 'h1' | 'h2';
 }
 
-/** Phone, e-mail, address and office hours of the practice, all from the primary VetInfo. */
+/**
+ * Phone, e-mail, address and office hours of the practice, all from the primary VetInfo.
+ * Parts that are missing in the data are left out; without any data a hint points to the forms.
+ */
 export default function ContactSection({ headingLevel: Heading = 'h2' }: Props) {
     const { t, i18n } = useTranslation();
-    const info = useVetInfo();
+    const { info, loaded } = useVetInfoState();
+    // The labels sit one level below the section heading.
+    const Label = Heading === 'h1' ? 'h2' : 'h3';
 
-    if (!info) return null;
-
-    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        `${info.street}, ${info.zip} ${info.city}`,
-    )}`;
+    const { street, place } = info ? addressLines(info) : { street: null, place: null };
+    const route = info ? mapUrl(info) : null;
+    const hours = info ? groupByDay(info.officeHours) : [];
+    const hasData = filled(info?.phone) || filled(info?.email) || !!street || !!place || hours.length > 0;
 
     return (
         <section className="home-section">
             <Heading className="home-heading">{t('home.contact.title')}</Heading>
-            <div className="vet-contact-grid">
-                <div className="vet-contact-col">
-                    <h3 className="vet-contact-label">{t('contactInfo.phone')}</h3>
-                    <a className="vet-contact-link" href={telHref(info.phone)}>
-                        {info.phone}
-                    </a>
-                    <h3 className="vet-contact-label">{t('contactInfo.email')}</h3>
-                    <a className="vet-contact-link" href={`mailto:${info.email}`}>
-                        {info.email}
-                    </a>
+
+            {!loaded && <div className="vet-contact-placeholder" aria-hidden="true" />}
+            {loaded && !hasData && <p className="home-lead">{t('contactInfo.unavailable')}</p>}
+
+            {info && hasData && (
+                <div className="vet-contact-grid">
+                    {(filled(info.phone) || filled(info.email)) && (
+                        <div className="vet-contact-col">
+                            {filled(info.phone) && (
+                                <>
+                                    <Label className="vet-contact-label">{t('contactInfo.phone')}</Label>
+                                    <a className="vet-contact-link" href={telHref(info.phone)}>
+                                        {info.phone}
+                                    </a>
+                                </>
+                            )}
+                            {filled(info.email) && (
+                                <>
+                                    <Label className="vet-contact-label">{t('contactInfo.email')}</Label>
+                                    <a className="vet-contact-link" href={`mailto:${info.email}`}>
+                                        {info.email}
+                                    </a>
+                                </>
+                            )}
+                        </div>
+                    )}
+                    {(street || place) && (
+                        <div className="vet-contact-col">
+                            <Label className="vet-contact-label">{t('contactInfo.address')}</Label>
+                            <address className="vet-contact-address">
+                                {street}
+                                {street && place && <br />}
+                                {place}
+                            </address>
+                            {route && (
+                                <a className="home-more-link" href={route} target="_blank" rel="noopener noreferrer">
+                                    {t('contactInfo.route')} →
+                                </a>
+                            )}
+                        </div>
+                    )}
+                    {hours.length > 0 && (
+                        <div className="vet-contact-col">
+                            <Label className="vet-contact-label">{t('contactInfo.officeHours')}</Label>
+                            <dl className="vet-hours">
+                                {hours.map(({ day, intervals }) => (
+                                    <div key={day} className="vet-hours-row">
+                                        <dt>{weekdayName(day, i18n.language)}</dt>
+                                        <dd>
+                                            {intervals
+                                                .map((h) => `${formatTime(h.opensAt)}–${formatTime(h.closesAt)}`)
+                                                .join(', ')}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                            <OpenStatusLine officeHours={info.officeHours} />
+                        </div>
+                    )}
                 </div>
-                <div className="vet-contact-col">
-                    <h3 className="vet-contact-label">{t('contactInfo.address')}</h3>
-                    <address className="vet-contact-address">
-                        {info.street}
-                        <br />
-                        {info.zip} {info.city}
-                    </address>
-                    <a className="home-more-link" href={mapUrl} target="_blank" rel="noopener noreferrer">
-                        {t('contactInfo.route')} →
-                    </a>
-                </div>
-                <div className="vet-contact-col">
-                    <h3 className="vet-contact-label">{t('contactInfo.officeHours')}</h3>
-                    <dl className="vet-hours">
-                        {groupByDay(info.officeHours).map(({ day, intervals }) => (
-                            <div key={day} className="vet-hours-row">
-                                <dt>{weekdayName(day, i18n.language)}</dt>
-                                <dd>
-                                    {intervals
-                                        .map((h) => `${formatTime(h.opensAt)}–${formatTime(h.closesAt)}`)
-                                        .join(', ')}
-                                </dd>
-                            </div>
-                        ))}
-                    </dl>
-                    <OpenStatusLine officeHours={info.officeHours} />
-                </div>
-            </div>
+            )}
         </section>
     );
 }
