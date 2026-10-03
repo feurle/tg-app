@@ -3524,3 +3524,18 @@ tbody tr:hover td {
     font-size: var(--fs-xs);
     color: var(--text-secondary);
 }
+
+/* Hint text under a form field group */
+.form-help {
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--brand-light);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.form-help:empty {
+    display: none;
+}

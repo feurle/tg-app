@@ -16,6 +16,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Admin-Bereich: Beim Artikelformular erklärt ein Hilfetext unter dem Seiten-Typ, wofür Titel, Inhalt, Abschnitte und Bilder dieses Typs auf der Seite verwendet werden. Die Typ-Bezeichnungen sind jetzt für alle Typen in Deutsch, Englisch, Schwedisch und Russisch vorhanden.
 - Admin-Bereich: Bilder werden gezielt einem Abschnitt zugeordnet (Bildauswahl mit Vorschau im Abschnittsformular, neue Spalte `section.image_id`, `imageId` in den Abschnitts-Endpoints). Die Schwerpunkte auf der Startseite zeigen das Bild ihres Abschnitts statt einer Zuordnung nach Bild-ID; in der Bildliste des Artikelformulars gibt es Vorschaubilder.
 - Admin-Bereich: Abschnitte werden mit dem Rich-Text-Editor gepflegt (Fett, Listen, Links) und lassen sich mit ↑/↓ in der Artikelliste sortieren (neuer Endpoint `PUT /api/webcontent/sections/{id}/move`). Die öffentlichen Seiten stellen formatierte Abschnitte korrekt dar. Das Feld „Reihenfolge“ im Abschnittsformular entfällt, neue Abschnitte kommen ans Ende.
 - Admin-Bereich: Die Seitenliste in der Seitenleiste kommt jetzt aus der API (`GET /api/webcontent/pages`, nur mit Login) und eine einzige Route `/webcontent/page/:slug` bearbeitet jede Seite. Damit sind auch „Behandlungen“ und „Für Tierärzte“ pflegbar. Neue Seiten erscheinen automatisch.

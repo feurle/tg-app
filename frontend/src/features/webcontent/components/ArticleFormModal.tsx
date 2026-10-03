@@ -171,6 +171,8 @@ export default function ArticleFormModal(props: Props) {
             </label>
           </div>
 
+          <p className="form-help">{t(`article.pageTypeHelp.${articleType}`, '')}</p>
+
           {images.length > 0 && (
             <fieldset className="form-fieldset">
               <legend>{t('article.form.images')}</legend>

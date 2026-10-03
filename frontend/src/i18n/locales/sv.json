@@ -290,7 +290,7 @@
     "col": {
       "order": "Nr.",
       "title": "Titel",
-      "page": "Sida",
+      "pageType": "Sida",
       "language": "Språk",
       "status": "Status",
       "published": "Publicerad",
@@ -299,7 +299,7 @@
     "form": {
       "title": "Titel *",
       "content": "Innehål *",
-      "page": "Sida",
+      "pageType": "Sida",
       "language": "Språk",
       "status": "Status",
       "order": "Ordning",
@@ -310,11 +310,39 @@
     },
     "moveUp": "Flytta upp",
     "moveDown": "Flytta ner",
-    "page": {
-      "HOME_TEASER": "Startsida teaser",
-      "HOME_PAGE": "Startsida",
+    "pageType": {
+      "DEFAULT": "Standard",
+      "HERO": "Hero",
+      "COL2": "Två kolumner",
+      "COL3": "Tre kolumner",
+      "COL4": "Fyra kolumner",
+      "TEXT": "Textblock",
+      "HERO_PORTRAIT": "Hero med porträtt (Hem)",
+      "SYMPTOMS": "Besvär (Hem)",
+      "METHODS": "Fokusområden med bilder (Hem)",
+      "STEPS": "Förlopp i steg (Hem)",
+      "VET_BAND": "Band för veterinärer (Hem)",
       "NEWS_TEASER": "Nyheter teaser",
-      "NEWS_PAGE": "Nyheter"
+      "NEWS_PAGE": "Nyheter",
+      "ABOUT_TEASER": "Om mig teaser",
+      "ABOUT_PAGE": "Om mig-sida"
+    },
+    "pageTypeHelp": {
+      "DEFAULT": "Löptext med bilder, som på Integritet och Impressum: innehållet fördelas runt bilderna, avsnitt följer under. Visas inte på blockbaserade sidor (t.ex. Hem).",
+      "HERO": "Titel = rubrik, innehåll = underrad, taggar = etikett ovanför rubriken, 1:a bilden = bild bredvid texten.",
+      "COL2": "Titel = rubrik, innehåll = inledning, avsnitt = textblock, 1:a bilden = bild bredvid texten.",
+      "COL3": "Titel och innehåll = huvud, varje avsnitt = en av tre kolumner.",
+      "COL4": "Titel och innehåll = huvud, varje avsnitt = en av fyra kolumner.",
+      "TEXT": "Titel = rubrik, innehåll = inledning, avsnitt = textblock under.",
+      "HERO_PORTRAIT": "Titel = rubrik, innehåll = underrad, 1:a avsnittet = jag-påstående, 1:a bilden = porträtt.",
+      "SYMPTOMS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett besvär (titel + en mening).",
+      "METHODS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett fokusområde med egen bild (väljs i avsnittet).",
+      "STEPS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett steg, ordnade med pilarna.",
+      "VET_BAND": "Titel = fråga, innehåll = mening under; knappen leder till \"För veterinärer\".",
+      "NEWS_TEASER": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
+      "NEWS_PAGE": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
+      "ABOUT_TEASER": "Titel = rubrik, innehåll = text, avsnitt = kvalifikationsrad, 1:a bilden = foto; länk till \"Om mig\".",
+      "ABOUT_PAGE": "Artikel på sidan \"Om mig\"."
     },
     "language": {
       "GERMAN": "Tyska",

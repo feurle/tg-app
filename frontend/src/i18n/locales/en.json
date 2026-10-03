@@ -290,7 +290,7 @@
     "col": {
       "order": "No.",
       "title": "Title",
-      "page": "Page",
+      "pageType": "Page",
       "language": "Language",
       "status": "Status",
       "published": "Published",
@@ -299,7 +299,7 @@
     "form": {
       "title": "Title *",
       "content": "Content *",
-      "page": "Page",
+      "pageType": "Page",
       "language": "Language",
       "status": "Status",
       "order": "Order",
@@ -310,11 +310,39 @@
     },
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "page": {
-      "HOME_TEASER": "Home Teaser",
-      "HOME_PAGE": "Home",
+    "pageType": {
+      "DEFAULT": "Default",
+      "HERO": "Hero",
+      "COL2": "Two columns",
+      "COL3": "Three columns",
+      "COL4": "Four columns",
+      "TEXT": "Text block",
+      "HERO_PORTRAIT": "Hero with portrait (Home)",
+      "SYMPTOMS": "Complaints (Home)",
+      "METHODS": "Focus areas with images (Home)",
+      "STEPS": "Process in steps (Home)",
+      "VET_BAND": "Band for vets (Home)",
       "NEWS_TEASER": "News Teaser",
-      "NEWS_PAGE": "News"
+      "NEWS_PAGE": "News",
+      "ABOUT_TEASER": "About me teaser",
+      "ABOUT_PAGE": "About me page"
+    },
+    "pageTypeHelp": {
+      "DEFAULT": "Running text with images, as on Privacy and Imprint: the content is spread around the images, sections follow below. Not shown on block-based pages (e.g. Home).",
+      "HERO": "Title = heading, content = subline, tags = label above the heading, 1st image = image next to the text.",
+      "COL2": "Title = heading, content = intro, sections = text blocks, 1st image = image next to the text.",
+      "COL3": "Title and content = header, each section = one of three columns.",
+      "COL4": "Title and content = header, each section = one of four columns.",
+      "TEXT": "Title = heading, content = intro, sections = text blocks below.",
+      "HERO_PORTRAIT": "Title = heading, content = subline, 1st section = first-person statement, 1st image = portrait.",
+      "SYMPTOMS": "Title = heading, content = intro, each section = one complaint (title + one sentence).",
+      "METHODS": "Title = heading, content = intro, each section = one focus area with its own image (choose it in the section).",
+      "STEPS": "Title = heading, content = intro, each section = one step, ordered with the arrows.",
+      "VET_BAND": "Title = question, content = sentence below; the button leads to \"For vets\".",
+      "NEWS_TEASER": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
+      "NEWS_PAGE": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
+      "ABOUT_TEASER": "Title = heading, content = text, sections = qualifications line, 1st image = photo; links to \"About me\".",
+      "ABOUT_PAGE": "Article of the \"About me\" page."
     },
     "language": {
       "GERMAN": "German",
