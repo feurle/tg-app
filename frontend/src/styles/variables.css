@@ -1,16 +1,62 @@
+/* Design tokens — see docs/ui-design.md ("Bodensee & Holz") */
 :root {
-  --bg: #FAFAF8;
+  /* Surfaces */
+  --bg: #F4F3EF;
+  --bg-alt: #ECEBE5;
   --surface: #FFFFFF;
-  --border: #E8E6E1;
-  --border-strong: #D4D0C8;
-  --text-primary: #1A1916;
-  --text-secondary: #6B6860;
-  --text-muted: #9C9A94;
-  --accent: #16A34A;
-  --accent-light: #DCFCE7;
-  --accent-hover: #15803D;
+
+  /* Lines */
+  --border: #DAD8D1;
+  --border-strong: #C4C2BA;
+
+  /* Text */
+  --ink: #1F2A2C;
+  --text-primary: var(--ink);
+  --text-secondary: #566063;
+  --text-muted: #5F696C;
+  --on-ink-muted: #A9B4B6;
+
+  /* Brand: Seepetrol. Buttons, links, active states. */
+  --brand: #1E5A5E;
+  --brand-hover: #174749;
+  --brand-light: #DCEBEA;
+
+  /* Eichenholz: details only (underlines, icons, rules, hover).
+     ~3:1 on white, never use for text or button fills. */
+  --wood: #C08A4A;
+
+  /* Legacy names, aliased to brand so existing rules keep working */
+  --accent: var(--brand);
+  --accent-hover: var(--brand-hover);
+  --accent-light: var(--brand-light);
+
+  /* Status */
   --danger: #DC2626;
   --danger-light: #FEE2E2;
   --warning: #D97706;
   --warning-light: #FEF3C7;
+
+  /* Typography */
+  --font: 'Figtree', system-ui, sans-serif;
+  --fs-xs: 14px;
+  --fs-sm: 16px;
+  --fs-base: 18px;
+  --fs-lg: 22px;
+  --fs-xl: 28px;
+  --fs-2xl: 36px;
+  --fs-3xl: 52px;
+
+  /* Spacing (8pt grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius: 12px;
 }

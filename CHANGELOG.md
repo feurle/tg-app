@@ -11,6 +11,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Neues Design-Fundament „Bodensee & Holz“ (siehe `docs/ui-design.md`): zentrale Tokens für Farbe, Typografie (Figtree statt Lora/DM Sans), Abstände und Radien; fest codierte Farben und Schriften in `global.css` und den Formular-Modals durch Tokens ersetzt.
+
 ### Deprecated
 
 ### Removed

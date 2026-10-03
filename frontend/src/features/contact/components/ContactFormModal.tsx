@@ -161,7 +161,7 @@ export default function ContactFormModal({ mode, onClose }: Props) {
                         )}
 
                         {error && (
-                            <p role="alert" style={{ marginBottom: '16px', color: 'var(--danger, #c0392b)' }}>
+                            <p role="alert" style={{ marginBottom: '16px', color: 'var(--danger)' }}>
                                 {t('contactForm.error')}
                             </p>
                         )}

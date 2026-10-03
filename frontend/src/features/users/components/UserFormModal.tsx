@@ -209,7 +209,7 @@ function Field({ label, name, value, onChange, required, type = 'text' }: FieldP
         value={value}
         onChange={onChange}
         required={required}
-        style={{ padding: '0.35rem 0.5rem', border: '1px solid #ccc', borderRadius: '4px' }}
+        style={{ padding: '0.35rem 0.5rem', border: '1px solid var(--border-strong)', borderRadius: '4px' }}
       />
     </div>
   );
@@ -221,7 +221,7 @@ const overlay: React.CSSProperties = {
 };
 
 const modal: React.CSSProperties = {
-  background: '#fff', padding: '2rem', borderRadius: '8px',
+  background: 'var(--surface)', padding: '2rem', borderRadius: '8px',
   width: '100%', maxWidth: '520px', maxHeight: '90vh', overflowY: 'auto',
 };
 
@@ -230,5 +230,5 @@ const row: React.CSSProperties = { display: 'flex', gap: '0.75rem' };
 const labelStyle: React.CSSProperties = { fontSize: '0.8rem', fontWeight: 500, marginBottom: '2px' };
 
 const selectStyle: React.CSSProperties = {
-  padding: '0.35rem 0.5rem', border: '1px solid #ccc', borderRadius: '4px',
+  padding: '0.35rem 0.5rem', border: '1px solid var(--border-strong)', borderRadius: '4px',
 };
