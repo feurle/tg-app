@@ -150,7 +150,7 @@ Kurztext: wann eine Überweisung sinnvoll ist (Schmerz, Bewegungsapparat, Therap
 └───────────────────────────────────────────────────────┘
 ```
 
-- Das Formular ist öffentlich und braucht keinen Login.
+- Das Formular ist öffentlich und braucht keinen Login. Eine Pflicht-Checkbox bestätigt, dass der Tierhalter der Weitergabe seiner Kontaktdaten zugestimmt hat.
 - **v1 ohne Datei-Upload.** Befunde werden per E-Mail an info@tier-gesund.at geschickt. Die Adresse kommt aus VetInfo über `PrimaryContactEmailLookup`. Ein Upload ist eine spätere Ausbaustufe; sie bringt Speicher-, Viren- und DSGVO-Themen mit sich.
 - **Verarbeitung wie im `contact`-Modul:** Die Praxis bekommt eine Mail, der überweisende Tierarzt eine Bestätigungsmail. Es werden **keine Gesundheitsdaten in der DB** gespeichert.
 

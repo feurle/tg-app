@@ -1,0 +1,28 @@
+info:
+  name: Request Referral
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/contact/referral"
+  body:
+    type: json
+    data: |-
+      {
+        "referringPractice": "Tierarztpraxis Muster",
+        "referringVetName": "Dr. Erika Muster",
+        "referringEmail": "muster@example.com",
+        "ownerName": "Hans Halter",
+        "ownerContact": "hans@example.com",
+        "species": "Hund",
+        "question": "Chronische Lahmheit hinten links.",
+        "urgency": "SOON",
+        "ownerConsent": true
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

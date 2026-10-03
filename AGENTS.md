@@ -57,7 +57,7 @@ This is a **Spring Modulith** (modular monolith) backend. Module boundaries are 
 
 **`customer`** — Customer data
 
-**`contact`** — Public "send message" / "request appointment" forms (`ContactController`, `ContactMessageService`)
+**`contact`** — Public "send message" / "request appointment" / "refer a patient" forms (`ContactController`, `ContactMessageService`); all of them only send mail (no persistence). A referral mails the practice (reply-to = referring vet) and sends a confirmation to the referring vet
 
 **`questionnaire`** — Pet owner questionnaire submissions (`Questionnaire`, `PetDetails`, `OwnerDetails`); publishes a `QuestionnaireSubmittedEvent`
 

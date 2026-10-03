@@ -3,7 +3,9 @@
 package com.feurle.tg.contact.infrastructure.rest;
 
 import com.feurle.tg.contact.application.ContactMessageService;
+import com.feurle.tg.contact.application.Referral;
 import com.feurle.tg.contact.infrastructure.rest.dto.RequestAppointmentRequest;
+import com.feurle.tg.contact.infrastructure.rest.dto.RequestReferralRequest;
 import com.feurle.tg.contact.infrastructure.rest.dto.SendMessageRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,27 @@ public class ContactController {
         request.preferredDate(),
         request.preferredTime(),
         request.text());
+    return ResponseEntity.noContent().build();
+  }
+
+  @PostMapping("/referral")
+  public ResponseEntity<Void> requestReferral(@Valid @RequestBody RequestReferralRequest request) {
+    log.info("requestReferral: POST /api/contact/referral");
+    contactService.requestReferral(
+        new Referral(
+            request.referringPractice(),
+            request.referringVetName(),
+            request.referringEmail(),
+            request.referringPhone(),
+            request.ownerName(),
+            request.ownerContact(),
+            request.patientName(),
+            request.species(),
+            request.breed(),
+            request.age(),
+            request.question(),
+            request.previousTreatment(),
+            request.urgency()));
     return ResponseEntity.noContent().build();
   }
 }

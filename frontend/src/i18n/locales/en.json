@@ -217,6 +217,41 @@
     "address": "Address",
     "officeHours": "Office Hours"
   },
+  "forVets": {
+    "title": "For vets",
+    "subtitle": "Refer patients with pain or mobility problems directly to me. You will receive a confirmation by e-mail."
+  },
+  "referral": {
+    "heading": "Refer a patient",
+    "practice": "Referring practice",
+    "practiceName": "Practice",
+    "vetName": "Veterinarian",
+    "email": "E-mail",
+    "phone": "Phone (optional)",
+    "owner": "Owner",
+    "ownerName": "Name",
+    "ownerContact": "Phone or e-mail",
+    "patient": "Patient",
+    "patientName": "Name (optional)",
+    "species": "Species",
+    "breed": "Breed (optional)",
+    "age": "Age (optional)",
+    "question": "Reason for referral",
+    "previous": "Previous treatment and medication (optional)",
+    "urgency": "Urgency",
+    "consent": "The owner agrees to their contact details being passed on.",
+    "reports": "Please send findings (x-rays, lab results) by e-mail to {{email}}.",
+    "submit": "Send referral",
+    "sending": "Sending…",
+    "success": "Thank you! Your referral has been received. You will get a confirmation by e-mail.",
+    "error": "Sending failed. Please try again later or call us.",
+    "again": "Refer another patient",
+    "urgencyOption": {
+      "ROUTINE": "Routine",
+      "SOON": "Soon",
+      "URGENT": "Urgent"
+    }
+  },
   "footer": {
     "privacy": "Privacy",
     "imprint": "Imprint",

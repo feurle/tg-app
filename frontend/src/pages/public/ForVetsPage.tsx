@@ -9,6 +9,7 @@ import HeroComponent from '../../features/webcontent/components/HeroComponent';
 import Col3Component from '../../features/webcontent/components/Col3Component';
 import Col4Component from '../../features/webcontent/components/Col4Component';
 import ContactButton from '../../features/webcontent/components/ContactButton';
+import ReferralForm from '../../features/contact/components/ReferralForm';
 import PageSkeleton from '../../components/PageSkeleton';
 
 function TextBlock({ article }: { article: ArticleResponse }) {
@@ -47,7 +48,7 @@ function TextBlock({ article }: { article: ArticleResponse }) {
 export default function ForVetsPage() {
     const [articles, setArticles] = useState<ArticleResponse[]>([]);
     const [fetchedLanguage, setFetchedLanguage] = useState<string | null>(null);
-    const { i18n: i18nInstance } = useTranslation();
+    const { t, i18n: i18nInstance } = useTranslation();
     const language = resolveLanguage(i18nInstance.language);
     const loading = fetchedLanguage !== language;
 
@@ -72,6 +73,10 @@ export default function ForVetsPage() {
     return (
         <div className="about-page">
             <div className="about-feed">
+                <header className="public-page-header">
+                    <h1 className="public-page-title">{t('forVets.title')}</h1>
+                    <p className="public-page-subtitle">{t('forVets.subtitle')}</p>
+                </header>
                 {loading && <PageSkeleton />}
                 {!loading && articles.map((article) => {
                     if (article.articleType === 'COL2') return <Col2Component key={article.id} article={article} />;
@@ -82,6 +87,7 @@ export default function ForVetsPage() {
                     return null;
                 })}
             </div>
+            <ReferralForm />
             <div className="cta-section">
                 <ContactButton />
             </div>

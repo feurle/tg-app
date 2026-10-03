@@ -222,6 +222,41 @@
     "address": "Adresse",
     "officeHours": "Sprechzeiten"
   },
+  "forVets": {
+    "title": "Für Tierärzte",
+    "subtitle": "Überweisen Sie Patienten mit Schmerz- und Bewegungsproblemen direkt zu mir. Sie erhalten eine Bestätigung per E-Mail."
+  },
+  "referral": {
+    "heading": "Patient überweisen",
+    "practice": "Überweisende Praxis",
+    "practiceName": "Praxis",
+    "vetName": "Tierärztin/Tierarzt",
+    "email": "E-Mail",
+    "phone": "Telefon (optional)",
+    "owner": "Tierhalter",
+    "ownerName": "Name",
+    "ownerContact": "Telefon oder E-Mail",
+    "patient": "Patient",
+    "patientName": "Name (optional)",
+    "species": "Tierart",
+    "breed": "Rasse (optional)",
+    "age": "Alter (optional)",
+    "question": "Fragestellung",
+    "previous": "Vorbehandlung und Medikation (optional)",
+    "urgency": "Dringlichkeit",
+    "consent": "Der Tierhalter ist mit der Weitergabe seiner Kontaktdaten einverstanden.",
+    "reports": "Befunde (Röntgen, Labor) senden Sie bitte per E-Mail an {{email}}.",
+    "submit": "Überweisung senden",
+    "sending": "Wird gesendet…",
+    "success": "Vielen Dank! Ihre Überweisung ist eingegangen. Sie erhalten eine Bestätigung per E-Mail.",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut oder rufen Sie uns an.",
+    "again": "Weiteren Patienten überweisen",
+    "urgencyOption": {
+      "ROUTINE": "Routine",
+      "SOON": "Zeitnah",
+      "URGENT": "Dringend"
+    }
+  },
   "footer": {
     "privacy": "Datenschutz",
     "imprint": "Impressum",

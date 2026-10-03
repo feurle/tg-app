@@ -217,6 +217,41 @@
     "route": "Visa vägen",
     "closed": "Stängt"
   },
+  "forVets": {
+    "title": "För veterinärer",
+    "subtitle": "Remittera patienter med smärta eller rörelseproblem direkt till mig. Du får en bekräftelse via e-post."
+  },
+  "referral": {
+    "heading": "Remittera en patient",
+    "practice": "Remitterande klinik",
+    "practiceName": "Klinik",
+    "vetName": "Veterinär",
+    "email": "E-post",
+    "phone": "Telefon (valfritt)",
+    "owner": "Djurägare",
+    "ownerName": "Namn",
+    "ownerContact": "Telefon eller e-post",
+    "patient": "Patient",
+    "patientName": "Namn (valfritt)",
+    "species": "Djurslag",
+    "breed": "Ras (valfritt)",
+    "age": "Ålder (valfritt)",
+    "question": "Frågeställning",
+    "previous": "Tidigare behandling och medicinering (valfritt)",
+    "urgency": "Brådskande",
+    "consent": "Djurägaren samtycker till att kontaktuppgifterna förs vidare.",
+    "reports": "Skicka provsvar och bilder (röntgen, labb) via e-post till {{email}}.",
+    "submit": "Skicka remiss",
+    "sending": "Skickar…",
+    "success": "Tack! Din remiss har kommit in. Du får en bekräftelse via e-post.",
+    "error": "Det gick inte att skicka. Försök igen senare eller ring oss.",
+    "again": "Remittera en till patient",
+    "urgencyOption": {
+      "ROUTINE": "Rutin",
+      "SOON": "Snart",
+      "URGENT": "Brådskande"
+    }
+  },
   "footer": {
     "privacy": "Integritet",
     "imprint": "Impressum",

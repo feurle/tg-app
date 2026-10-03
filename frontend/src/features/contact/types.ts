@@ -49,3 +49,23 @@ export interface ContactInfoFormData {
     zip: string;
     officeHours: OfficeHour[];
 }
+
+export type ReferralUrgency = 'ROUTINE' | 'SOON' | 'URGENT';
+
+/** Optional fields are omitted when left blank. */
+export interface RequestReferralRequest {
+    referringPractice: string;
+    referringVetName: string;
+    referringEmail: string;
+    referringPhone?: string;
+    ownerName: string;
+    ownerContact: string;
+    patientName?: string;
+    species: string;
+    breed?: string;
+    age?: string;
+    question: string;
+    previousTreatment?: string;
+    urgency: ReferralUrgency;
+    ownerConsent: boolean;
+}

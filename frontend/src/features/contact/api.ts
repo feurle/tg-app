@@ -3,6 +3,7 @@ import type {
     ContactInfoResponse,
     ContactInfoFormData,
     RequestAppointmentRequest,
+    RequestReferralRequest,
     SendMessageRequest,
 } from './types';
 
@@ -10,6 +11,7 @@ export const contactApi = {
     sendMessage: (data: SendMessageRequest) => apiClient.post<void>('/api/contact/message', data),
     requestAppointment: (data: RequestAppointmentRequest) =>
         apiClient.post<void>('/api/contact/appointment', data),
+    requestReferral: (data: RequestReferralRequest) => apiClient.post<void>('/api/contact/referral', data),
     /** Public contact data of the practice (the primary VetInfo). */
     getPrimary: () => apiClient.get<ContactInfoResponse>('/api/vetinfo/primary'),
     getAll: () => apiClient.get<ContactInfoResponse[]>('/api/vetinfo'),

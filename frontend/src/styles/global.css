@@ -3282,3 +3282,113 @@ tbody tr:hover td {
         border-radius: var(--radius-sm);
     }
 }
+
+/* ── Referral form for vets (/for-vets) ──────────────────────────────── */
+.referral {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-6) 64px var(--space-7);
+}
+
+.referral-form {
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.referral-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.referral-fieldset legend {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0;
+    margin-bottom: var(--space-2);
+}
+
+.referral-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--space-4);
+}
+
+.referral-form .form-group {
+    margin-bottom: var(--space-3);
+}
+
+.referral-form .form-label {
+    font-size: var(--fs-sm);
+}
+
+.referral-form .form-input {
+    font-size: var(--fs-sm);
+    padding: 12px 14px;
+}
+
+.referral-urgency {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+}
+
+.referral-radio {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.referral-radio input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--brand);
+}
+
+.referral-consent {
+    align-items: flex-start;
+}
+
+.referral-note {
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.referral-error {
+    color: var(--danger);
+    font-size: var(--fs-sm);
+    margin: 0;
+}
+
+.referral-success {
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--ink);
+    margin: var(--space-3) 0 var(--space-4);
+}
+
+.referral-form .btn-large {
+    align-self: flex-start;
+}
+
+@media (max-width: 900px) {
+    .referral {
+        padding: var(--space-5) var(--space-3) var(--space-6);
+    }
+
+    .referral-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .referral-form .btn-large {
+        align-self: stretch;
+    }
+}

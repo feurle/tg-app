@@ -9,6 +9,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Überweisungsformular für Tierärzte auf `/for-vets`: Praxis, Tierhalter, Patient, Fragestellung, Vorbehandlung und Dringlichkeit; die Praxis bekommt eine Mail (Antworten gehen direkt an den überweisenden Tierarzt), der Tierarzt eine Bestätigung. Es werden keine Gesundheitsdaten gespeichert. Befunde werden weiterhin per E-Mail nachgereicht. Neuer öffentlicher Endpoint `POST /api/contact/referral`.
+
 ### Changed
 
 - Kontaktdaten kommen jetzt aus einer Quelle (VetInfo): Hero (Telefon und „Heute geöffnet“), Kontaktbereich auf Home und Kontaktseite, Footer und der Anruf-Button der mobilen Leiste. Die Sprechzeiten sind strukturiert (Wochentag, von, bis) statt Freitext; das Admin-Formular hat dafür Wochentag-Auswahl und Zeitfelder. **Bestehende Sprechzeiten werden dabei gelöscht und müssen im Admin-Bereich neu erfasst werden.** Neuer öffentlicher Endpoint `GET /api/vetinfo/primary`. Das Impressum nennt jetzt „Holzackergasse 13".

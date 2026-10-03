@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -42,6 +43,93 @@ public class ContactMessageService {
     log.info("requestAppointment: SEND SUCCESS");
   }
 
+  /**
+   * Mails the referral to the practice and a confirmation to the referring vet. The practice mail
+   * is what counts: if it fails the request fails, a failing confirmation is only logged.
+   */
+  public void requestReferral(Referral referral) {
+    String practiceEmail = practiceEmail();
+    mailService.send(
+        practiceEmail,
+        referralSubject(referral),
+        referralBody(referral),
+        referral.referringEmail());
+    log.info("requestReferral: SEND SUCCESS");
+
+    try {
+      mailService.send(
+          referral.referringEmail(),
+          "Ihre Überweisung ist eingegangen",
+          referralConfirmationBody(referral, practiceEmail));
+    } catch (MailException ex) {
+      log.warn("requestReferral: could not send confirmation: {}", ex.getMessage());
+    }
+  }
+
+  private String referralSubject(Referral referral) {
+    String urgency =
+        referral.urgency() == ReferralUrgency.ROUTINE
+            ? ""
+            : " (" + referral.urgency().label() + ")";
+    return "Überweisung"
+        + urgency
+        + ": "
+        + referral.species().strip()
+        + " – "
+        + referral.referringPractice().strip();
+  }
+
+  private String referralBody(Referral referral) {
+    StringBuilder body = new StringBuilder("Überweisung über die Website.\n\n");
+    body.append("Dringlichkeit: ").append(referral.urgency().label()).append("\n\n");
+    body.append("ÜBERWEISENDE PRAXIS\n");
+    appendLine(body, "Praxis", referral.referringPractice());
+    appendLine(body, "Tierärztin/Tierarzt", referral.referringVetName());
+    appendLine(body, "E-Mail", referral.referringEmail());
+    appendLine(body, "Telefon", referral.referringPhone());
+    body.append("\nTIERHALTER\n");
+    appendLine(body, "Name", referral.ownerName());
+    appendLine(body, "Kontakt", referral.ownerContact());
+    body.append("\nPATIENT\n");
+    appendLine(body, "Name", referral.patientName());
+    appendLine(body, "Tierart", referral.species());
+    appendLine(body, "Rasse", referral.breed());
+    appendLine(body, "Alter", referral.age());
+    body.append("\nFRAGESTELLUNG\n").append(referral.question().strip()).append('\n');
+    if (hasText(referral.previousTreatment())) {
+      body.append("\nVORBEHANDLUNG\n").append(referral.previousTreatment().strip()).append('\n');
+    }
+    return body.toString();
+  }
+
+  private String referralConfirmationBody(Referral referral, String practiceEmail) {
+    return "Guten Tag "
+        + referral.referringVetName().strip()
+        + ",\n\n"
+        + "vielen Dank für Ihre Überweisung. Sie ist bei uns eingegangen, wir melden uns bei"
+        + " dem Tierhalter und halten Sie auf dem Laufenden.\n\n"
+        + "Patient: "
+        + referral.species().strip()
+        + (hasText(referral.patientName()) ? " (" + referral.patientName().strip() + ")" : "")
+        + "\nTierhalter: "
+        + referral.ownerName().strip()
+        + "\nDringlichkeit: "
+        + referral.urgency().label()
+        + "\n\nBefunde senden Sie bitte an "
+        + practiceEmail
+        + ".\n\nFreundliche Grüße\nTier. Gesund.";
+  }
+
+  private static void appendLine(StringBuilder body, String label, String value) {
+    if (hasText(value)) {
+      body.append(label).append(": ").append(value.strip()).append('\n');
+    }
+  }
+
+  private static boolean hasText(String value) {
+    return value != null && !value.isBlank();
+  }
+
   private String formatAppointment(LocalDate preferredDate, LocalTime preferredTime) {
     String formatted = DATE_FORMAT.format(preferredDate);
     return preferredTime == null
@@ -65,14 +153,15 @@ public class ContactMessageService {
   }
 
   private void send(String subject, String body, String replyToEmail) {
-    String recipientEmail =
-        primaryContactEmailLookup
-            .primaryEmail()
-            .orElseThrow(
-                () ->
-                    new IllegalStateException(
-                        "Keine Kontakt-E-Mail konfiguriert. Bitte VetInfo über die Admin-Oberfläche pflegen."));
+    mailService.send(practiceEmail(), subject, body, replyToEmail);
+  }
 
-    mailService.send(recipientEmail, subject, body, replyToEmail);
+  private String practiceEmail() {
+    return primaryContactEmailLookup
+        .primaryEmail()
+        .orElseThrow(
+            () ->
+                new IllegalStateException(
+                    "Keine Kontakt-E-Mail konfiguriert. Bitte VetInfo über die Admin-Oberfläche pflegen."));
   }
 }

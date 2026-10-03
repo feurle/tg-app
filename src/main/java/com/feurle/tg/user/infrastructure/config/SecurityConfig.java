@@ -97,6 +97,8 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.POST, "/api/contact/appointment")
               .permitAll()
+              .requestMatchers(HttpMethod.POST, "/api/contact/referral")
+              .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/contact/info")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/vetinfo/primary")
