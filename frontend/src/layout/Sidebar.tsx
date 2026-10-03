@@ -101,13 +101,6 @@ export default function Sidebar() {
                 <span className="sidebar-icon">📄</span>
                 {t('nav.imprint')}
             </NavLink>
-            <NavLink
-                to={ROUTES.PAGE_CONTACT}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">✉️</span>
-                {t('nav.contact')}
-            </NavLink>
 
 
 

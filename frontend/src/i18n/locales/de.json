@@ -22,7 +22,6 @@
     "about": "Über uns",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
-    "contact": "Kontakt",
     "contactInfo": "Kontaktdaten",
     "login": "Anmelden",
     "logout": "Abmelden",
@@ -296,8 +295,7 @@
       "news":    { "title": "Fachbeiträge",   "subtitle": "Artikel und Teaser für den News-Bereich" },
       "about":   { "title": "Über uns",       "subtitle": "Inhalte der Über-uns-Seite" },
       "privacy": { "title": "Datenschutz",    "subtitle": "Datenschutzerklärung" },
-      "imprint": { "title": "Impressum",      "subtitle": "Impressum und rechtliche Angaben" },
-      "contact": { "title": "Kontakt",        "subtitle": "Kontaktseite und Sprechzeiten" }
+      "imprint": { "title": "Impressum",      "subtitle": "Impressum und rechtliche Angaben" }
     },
     "new": "Neuer Artikel",
     "newHeading": "Neuer Artikel",

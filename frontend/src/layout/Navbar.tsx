@@ -13,7 +13,6 @@ const MAIN_LINKS = [
   { to: ROUTES.TREATMENTS, label: 'nav.treatments' },
   { to: ROUTES.ABOUT, label: 'nav.aboutMe' },
   { to: ROUTES.NEWS, label: 'nav.news' },
-  { to: ROUTES.CONTACT, label: 'nav.contact' },
 ] as const;
 
 export default function Navbar() {

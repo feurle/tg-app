@@ -76,7 +76,7 @@ Regeln:
 
 **Desktop:**
 ```
-[Logo] Tier. Gesund.        Behandlungen  Über mich  Aktuelles  Kontakt   [Termin anfragen]
+[Logo] Tier. Gesund.        Behandlungen  Über mich  Aktuelles   [Termin anfragen]
                                                                        Für Tierärzte →  (klein)
 ```
 

@@ -3,8 +3,13 @@ import { useVetInfo } from '../useVetInfo';
 import { formatTime, groupByDay, telHref, weekdayName } from '../officeHours';
 import OpenStatusLine from './OpenStatusLine';
 
+interface Props {
+    /** Heading level: `h1` where this is the main content of the page, `h2` inside a longer page. */
+    headingLevel?: 'h1' | 'h2';
+}
+
 /** Phone, e-mail, address and office hours of the practice, all from the primary VetInfo. */
-export default function ContactSection() {
+export default function ContactSection({ headingLevel: Heading = 'h2' }: Props) {
     const { t, i18n } = useTranslation();
     const info = useVetInfo();
 
@@ -16,7 +21,7 @@ export default function ContactSection() {
 
     return (
         <section className="home-section">
-            <h2 className="home-heading">{t('home.contact.title')}</h2>
+            <Heading className="home-heading">{t('home.contact.title')}</Heading>
             <div className="vet-contact-grid">
                 <div className="vet-contact-col">
                     <h3 className="vet-contact-label">{t('contactInfo.phone')}</h3>

@@ -18,7 +18,6 @@ export const ROUTES = {
   PAGE_ABOUT: '/webcontent/page/about',
   PAGE_PRIVACY: '/webcontent/page/privacy',
   PAGE_IMPRINT: '/webcontent/page/imprint',
-  PAGE_CONTACT: '/webcontent/page/contact',
   IMAGES: '/webcontent/images',
   TAGS: '/webcontent/tags',
   CONTACT_INFO: '/contact-info',

@@ -33,7 +33,7 @@ until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home
 
 **H2 is in-memory.** Restarting the backend resets to the Liquibase seed — the
 cheapest way to get clean data after probes pollute it. Seeded pages: `home`(100),
-`news`(200), `about`(300), `privacy`(400), `imprint`(500), `contact`(600).
+`news`(200), `about`(300), `privacy`(400), `imprint`(500).
 
 ## Authenticate
 
@@ -74,7 +74,7 @@ and image downloads are public.
   is mid-refactor (has a `@TODO: refactor this to articleType` comment) — check
   `ArticleType.java` and the dispatch component directly rather than trusting a
   hardcoded list of values here, it will go stale again.
-- **Admin pages** — `localhost:5173/webcontent/page/{home,news,about,privacy,imprint,contact}`.
+- **Admin pages** — `localhost:5173/webcontent/page/{home,news,about,privacy,imprint}`.
   Protected routes render **blank** when unauthenticated, not a redirect — a white
   page usually means the cookie is missing, not a crash.
 - Admin table interaction loop: `chrome-devtools_resize_page` to ~1500x900 (the

@@ -50,7 +50,6 @@ const router = createBrowserRouter([
           { path: ROUTES.PAGE_ABOUT, element: <ArticlesPage slug="about" /> },
           { path: ROUTES.PAGE_PRIVACY, element: <ArticlesPage slug="privacy" /> },
           { path: ROUTES.PAGE_IMPRINT, element: <ArticlesPage slug="imprint" /> },
-          { path: ROUTES.PAGE_CONTACT, element: <ArticlesPage slug="contact" /> },
           { path: ROUTES.IMAGES, element: <ImagesPage /> },
           { path: ROUTES.TAGS, element: <TagsPage /> },
           { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },
