@@ -3052,6 +3052,21 @@ tbody tr:hover td {
     font-size: var(--fs-base);
 }
 
+/* Section text is rich text (<p>, lists): keep the box tight like the old plain text. */
+.symptom-text > :first-child,
+.step-text > :first-child,
+.method-text > :first-child,
+.hero-portrait-statement > :first-child {
+    margin-top: 0;
+}
+
+.symptom-text > :last-child,
+.step-text > :last-child,
+.method-text > :last-child,
+.hero-portrait-statement > :last-child {
+    margin-bottom: 0;
+}
+
 .about-teaser {
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;

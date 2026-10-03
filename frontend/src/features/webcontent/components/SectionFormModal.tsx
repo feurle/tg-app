@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import RichTextEditor from '../../../components/RichTextEditor';
 import type { CreateSectionRequest, SectionResponse, UpdateSectionRequest } from '../types';
 
 interface CreateProps {
   mode: 'create';
   articleTitle: string;
+  nextOrder: number;
   onSave: (data: CreateSectionRequest) => void;
   onCancel: () => void;
   saving: boolean;
@@ -25,7 +27,8 @@ export default function SectionFormModal(props: Props) {
   const initial = mode === 'edit' ? props.initial : null;
   const { t } = useTranslation();
 
-  const [order, setOrder] = useState(initial?.order ?? 1);
+  // Position is changed with the arrows in the article table, not in this form.
+  const order = props.mode === 'edit' ? props.initial.order : props.nextOrder;
   const [title, setTitle] = useState(initial?.title ?? '');
   const [content, setContent] = useState(initial?.content ?? '');
 
@@ -40,22 +43,10 @@ export default function SectionFormModal(props: Props) {
 
   return (
     <div className="modal-overlay" onClick={onCancel}>
-      <div className="modal-card" style={{ maxWidth: 560 }} onClick={(e) => e.stopPropagation()}>
+      <div className="modal-card" style={{ maxWidth: 680 }} onClick={(e) => e.stopPropagation()}>
         <h2 style={{ marginBottom: '1.25rem' }}>{heading}</h2>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <label className="form-label" style={{ maxWidth: 120 }}>
-            {t('section.form.order')}
-            <input
-              className="form-input"
-              type="number"
-              min={1}
-              value={order}
-              onChange={(e) => setOrder(Number(e.target.value))}
-              required
-            />
-          </label>
-
           <label className="form-label">
             {t('section.form.title')}
             <input
@@ -68,13 +59,7 @@ export default function SectionFormModal(props: Props) {
 
           <label className="form-label">
             {t('section.form.content')}
-            <textarea
-              className="form-input"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={5}
-              style={{ resize: 'vertical' }}
-            />
+            <RichTextEditor value={content} onChange={setContent} />
           </label>
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '0.5rem' }}>

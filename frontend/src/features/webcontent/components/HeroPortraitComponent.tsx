@@ -34,7 +34,7 @@ export default function HeroPortraitComponent({ article }: Props) {
                     />
                 )}
                 {statement?.content && (
-                    <p
+                    <div
                         className="hero-portrait-statement"
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(statement.content) }}
                     />

@@ -10,11 +10,15 @@ interface Props {
   onAddSection?: (article: ArticleResponse) => void;
   onEditSection?: (article: ArticleResponse, section: SectionResponse) => void;
   onDeleteSection?: (article: ArticleResponse, section: SectionResponse) => void;
+  onMoveSection?: (article: ArticleResponse, section: SectionResponse, direction: MoveDirection) => void;
   onMove?: (article: ArticleResponse, direction: MoveDirection) => void;
   moving?: boolean;
 }
 
-export default function ArticleTable({ articles, onView, onEdit, onDelete, onAddSection, onEditSection, onDeleteSection, onMove, moving }: Props) {
+const sortedSections = (a: ArticleResponse) =>
+  [...a.sections].sort((x, y) => x.order - y.order || x.id - y.id);
+
+export default function ArticleTable({ articles, onView, onEdit, onDelete, onAddSection, onEditSection, onDeleteSection, onMoveSection, onMove, moving }: Props) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
 
@@ -131,9 +135,7 @@ export default function ArticleTable({ articles, onView, onEdit, onDelete, onAdd
                           <span>{t('section.col.order')}</span>
                           <span>{t('section.col.actions')}</span>
                         </div>
-                        {[...a.sections]
-                          .sort((x, y) => x.order - y.order)
-                          .map((s) => (
+                        {sortedSections(a).map((s, i, all) => (
                             <div key={s.id} className="section-item">
                               <span>{s.title}</span>
                               <span className="section-preview">
@@ -141,6 +143,26 @@ export default function ArticleTable({ articles, onView, onEdit, onDelete, onAdd
                               </span>
                               <span className="section-order">{s.order}</span>
                               <div className="row-actions" onClick={(e) => e.stopPropagation()}>
+                                {onMoveSection && (
+                                  <>
+                                    <button
+                                      onClick={() => onMoveSection(a, s, 'UP')}
+                                      className="icon-btn"
+                                      disabled={moving || i === 0}
+                                      title={t('article.moveUp')}
+                                    >
+                                      ↑
+                                    </button>
+                                    <button
+                                      onClick={() => onMoveSection(a, s, 'DOWN')}
+                                      className="icon-btn"
+                                      disabled={moving || i === all.length - 1}
+                                      title={t('article.moveDown')}
+                                    >
+                                      ↓
+                                    </button>
+                                  </>
+                                )}
                                 {onEditSection && (
                                   <button
                                     onClick={() => onEditSection(a, s)}

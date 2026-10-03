@@ -16,6 +16,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Admin-Bereich: Abschnitte werden mit dem Rich-Text-Editor gepflegt (Fett, Listen, Links) und lassen sich mit ↑/↓ in der Artikelliste sortieren (neuer Endpoint `PUT /api/webcontent/sections/{id}/move`). Die öffentlichen Seiten stellen formatierte Abschnitte korrekt dar. Das Feld „Reihenfolge“ im Abschnittsformular entfällt, neue Abschnitte kommen ans Ende.
 - Admin-Bereich: Die Seitenliste in der Seitenleiste kommt jetzt aus der API (`GET /api/webcontent/pages`, nur mit Login) und eine einzige Route `/webcontent/page/:slug` bearbeitet jede Seite. Damit sind auch „Behandlungen“ und „Für Tierärzte“ pflegbar. Neue Seiten erscheinen automatisch.
 - Alle CMS-Seiten (Start, Behandlungen, Für Tierärzte, Über mich, Aktuelles) werden über denselben Baustein gerendert (`PageContent`/`PageBlocks`). Dadurch funktionieren alle Artikeltypen auf jeder Seite. Gibt es für Englisch, Schwedisch oder Russisch noch keinen Inhalt, zeigt die Seite den deutschen Inhalt mit einem Hinweis statt einer leeren Seite. Der Erhebungsbogen ist jetzt auch im Footer verlinkt.
 - Die Schrift Figtree wird jetzt von der eigenen Website ausgeliefert statt von Google Fonts (keine Verbindung zu Google beim Seitenaufruf). Die Datenschutzerklärung nennt jetzt Kontakt-, Termin- und Überweisungsformulare, den Erhebungsbogen, den Google-Maps-Link und den lokalen Speicher der Sprachwahl; sie sollte vor dem Go-live rechtlich geprüft werden.

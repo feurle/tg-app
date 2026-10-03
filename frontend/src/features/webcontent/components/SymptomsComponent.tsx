@@ -19,7 +19,7 @@ export default function SymptomsComponent({ article }: Props) {
                 {sections.map((section) => (
                     <li key={section.id} className="symptom-item">
                         <h3 className="symptom-title">{section.title}</h3>
-                        <p
+                        <div
                             className="symptom-text"
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content) }}
                         />

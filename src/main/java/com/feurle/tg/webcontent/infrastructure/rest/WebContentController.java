@@ -71,6 +71,19 @@ public class WebContentController {
             sectionService.updateSection(id, request.order(), request.title(), request.content())));
   }
 
+  /**
+   * Swaps a section with its neighbour within its article and returns all sections of that article
+   * in their new order.
+   */
+  @PutMapping("/sections/{id}/move")
+  public ResponseEntity<List<SectionResponse>> moveSection(
+      @PathVariable Long id, @Valid @RequestBody MoveArticleRequest request) {
+    return ResponseEntity.ok(
+        sectionService.moveSection(id, request.direction()).stream()
+            .map(sectionMapper::toResponse)
+            .toList());
+  }
+
   @DeleteMapping("/sections/{id}")
   public ResponseEntity<Void> deleteSection(@PathVariable Long id) {
     sectionService.deleteSection(id);

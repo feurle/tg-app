@@ -40,7 +40,7 @@ export default function MethodsComponent({ article }: Props) {
                             )}
                             <div className="method-body">
                                 <h3 className="method-title">{section.title}</h3>
-                                <p
+                                <div
                                     className="method-text"
                                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content) }}
                                 />

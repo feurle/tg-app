@@ -119,6 +119,9 @@ export const sectionApi = {
   update: (sectionId: number, data: UpdateSectionRequest) =>
     apiClient.put<SectionResponse>(`${SECTIONS}/${sectionId}`, data),
 
+  move: (sectionId: number, direction: MoveDirection) =>
+    apiClient.put<SectionResponse[]>(`${SECTIONS}/${sectionId}/move`, { direction }),
+
   delete: (sectionId: number) =>
     apiClient.delete<void>(`${SECTIONS}/${sectionId}`),
 };

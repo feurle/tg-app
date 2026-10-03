@@ -19,7 +19,7 @@ export default function StepsComponent({ article }: Props) {
                 {sections.map((section) => (
                     <li key={section.id} className="step-item">
                         <h3 className="step-title">{section.title}</h3>
-                        <p
+                        <div
                             className="step-text"
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content) }}
                         />

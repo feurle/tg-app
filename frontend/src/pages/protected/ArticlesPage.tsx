@@ -186,6 +186,20 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
     }
   }
 
+  async function handleMoveSection(article: ArticleResponse, section: SectionResponse, direction: MoveDirection) {
+    setMoving(true);
+    try {
+      // The response is the article's whole section list, already reordered.
+      const reordered = await sectionApi.move(section.id, direction);
+      setArticles((prev) => prev.map((a) => (a.id === article.id ? { ...a, sections: reordered } : a)));
+    } catch (err) {
+      const message = err instanceof ApiError ? err.message : t('common.saveError');
+      setError(message);
+    } finally {
+      setMoving(false);
+    }
+  }
+
   async function handleDelete() {
     if (modal?.kind !== 'delete') return;
     setSaving(true);
@@ -266,6 +280,7 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
           onAddSection={(a) => setModal({ kind: 'addSection', article: a })}
           onEditSection={(a, s) => setModal({ kind: 'editSection', article: a, section: s })}
           onDeleteSection={(a, s) => setModal({ kind: 'deleteSection', article: a, section: s })}
+          onMoveSection={handleMoveSection}
           onMove={handleMove}
           moving={moving}
         />
@@ -303,6 +318,7 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
         <SectionFormModal
           mode="create"
           articleTitle={modal.article.title}
+          nextOrder={Math.max(0, ...modal.article.sections.map((s) => s.order)) + 1}
           onSave={handleAddSection}
           onCancel={() => setModal(null)}
           saving={saving}
