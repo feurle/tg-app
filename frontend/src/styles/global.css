@@ -3052,6 +3052,13 @@ tbody tr:hover td {
     font-size: var(--fs-base);
 }
 
+.symptom-text > * + *,
+.step-text > * + *,
+.method-text > * + *,
+.hero-portrait-statement > * + * {
+    margin-top: var(--space-2);
+}
+
 /* Section text is rich text (<p>, lists): keep the box tight like the old plain text. */
 .symptom-text > :first-child,
 .step-text > :first-child,
