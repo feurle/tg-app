@@ -8,6 +8,7 @@ import type {
   Language,
   MoveDirection,
   PageResponse,
+  PageSummary,
   ArticleType,
   SectionResponse,
   TagResponse,
@@ -104,6 +105,8 @@ export const tagApi = {
 };
 
 export const pageApi = {
+  /** All CMS pages without articles (login required); feeds the admin navigation. */
+  getAll: () => apiClient.get<PageSummary[]>(PAGES),
   getBySlug: (slug: string) => apiClient.get<PageResponse>(`${PAGES}/${slug}`),
 };
 

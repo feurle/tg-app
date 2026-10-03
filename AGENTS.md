@@ -118,7 +118,7 @@ src/
 
 **Routing:** Two layout tracks in [frontend/src/router/index.tsx](frontend/src/router/index.tsx):
 - `PublicLayout` — wraps public pages (`/`, `/treatments`, `/about`, `/news`, `/contact`, `/for-vets`, …) for unauthenticated users; `/for-pet-owners` redirects to `/treatments`
-- `ProtectedRoute` — checks auth before rendering, then passes to `AppLayout` for authenticated pages (`/customers`, `/users`, `/webcontent/*`)
+- `ProtectedRoute` — checks auth before rendering, then passes to `AppLayout` for authenticated pages (`/customers`, `/users`, `/webcontent/*`; the page list in the sidebar comes from `GET /api/webcontent/pages`, one route `/webcontent/page/:slug` edits any page)
 
 Route path constants live in [frontend/src/router/routes.ts](frontend/src/router/routes.ts).
 

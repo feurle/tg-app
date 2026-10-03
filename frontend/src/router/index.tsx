@@ -14,7 +14,7 @@ import QuestionnairePage from '../pages/public/QuestionnairePage';
 import QuestionnairesPage from '../pages/protected/QuestionnairesPage';
 import CustomersPage from '../pages/protected/CustomersPage';
 import UsersPage from '../pages/protected/UsersPage';
-import ArticlesPage from '../pages/protected/ArticlesPage.tsx'; 
+import ArticlesRoute from '../pages/protected/ArticlesRoute';
 import ImagesPage from '../pages/protected/ImagesPage';
 import TagsPage from '../pages/protected/TagsPage';
 import ContactInfoPage from '../pages/protected/ContactInfoPage';
@@ -50,11 +50,7 @@ const router = createBrowserRouter([
           { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
           { path: ROUTES.USERS, element: <UsersPage /> },
           { path: ROUTES.QUESTIONNAIRES, element: <QuestionnairesPage /> },
-          { path: ROUTES.PAGE_HOME, element: <ArticlesPage slug="home" /> },
-          { path: ROUTES.PAGE_NEWS, element: <ArticlesPage slug="news" /> },
-          { path: ROUTES.PAGE_ABOUT, element: <ArticlesPage slug="about" /> },
-          { path: ROUTES.PAGE_PRIVACY, element: <ArticlesPage slug="privacy" /> },
-          { path: ROUTES.PAGE_IMPRINT, element: <ArticlesPage slug="imprint" /> },
+          { path: ROUTES.PAGE, element: <ArticlesRoute /> },
           { path: ROUTES.IMAGES, element: <ImagesPage /> },
           { path: ROUTES.TAGS, element: <TagsPage /> },
           { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },

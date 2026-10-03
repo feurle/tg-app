@@ -73,7 +73,7 @@ Entscheidungen aus der Rückfrage:
 - **404 und Fehlerseite:** Catch-all-Route und `errorElement` in `frontend/src/router/index.tsx`, eigene Seite in `pages/public/`.
 - **Datenschutz-Ergänzung** (Entwurf, deutsch) in `src/main/resources/db/data/section_de.csv` (Artikel 400): Kontakt-, Termin- und Überweisungsformular, Erhebungsbogen (Gesundheitsdaten), Mailversand/SMTP, Google-Maps-Link (nur bei Klick), Speicherdauer. Als „rechtlich zu prüfen“ markieren.
 - **Spamschutz minimal:** Honeypot-Feld + einfaches IP-Rate-Limit (in-memory Filter) für die vier öffentlichen POSTs. Ort: neuer Filter unter `user/infrastructure/config/` oder `common/`, Tests per IT.
-- **Tests ehrlich machen:** `VetInfoControllerIT` mit `springSecurity()` bauen; `GET /api/vetinfo/primary` öffentlich, Liste/`{id}` 403 ohne Login; irreführenden Testnamen korrigieren.
+- **Tests ehrlich machen:** `VetInfoControllerIT` mit `springSecurity()` bauen; `GET /api/vetinfo/primary` öffentlich, Liste/`{id}` 403 ohne Login (401 nur im Dev-Profil, dort ist HTTP Basic aktiv); irreführenden Testnamen korrigieren.
 
 ### WP2 – Seiten, Seeds und gemeinsame Rendering-Bausteine
 - **Seeds** in `src/main/resources/db/data/`: `page.csv` (+ `treatments` id 700, `for-vets` id 800), `article_de.csv`, `section_de.csv`. Deutsche Entwürfe, in den Beschreibungen als „Entwurf“ markiert, aus vorhandenen Texten abgeleitet (Chiropraktik-, Goldimplantations-, Blutegel-Artikel, Therapieangebot der Über-uns-Seite). Keine neuen medizinischen Aussagen erfinden.

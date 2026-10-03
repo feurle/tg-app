@@ -83,7 +83,8 @@ class VetInfoControllerIT {
   @Test
   void getAllVetInfo_requiresLogin() throws Exception {
     // Only /api/vetinfo/primary is public; the full list and single records need a login.
-    // (Without login the app answers 403, it has no 401 entry point configured.)
+    // Without login the app answers 403 (HTTP Basic, which would give 401, is only enabled in the
+    // dev profile).
     mockMvc.perform(get("/api/vetinfo")).andExpect(status().isForbidden());
   }
 

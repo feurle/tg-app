@@ -13,12 +13,11 @@ export const ROUTES = {
   CUSTOMERS: '/customers',
   USERS: '/users',
   QUESTIONNAIRES: '/questionnaires',
-  PAGE_HOME: '/webcontent/page/home',
-  PAGE_NEWS: '/webcontent/page/news',
-  PAGE_ABOUT: '/webcontent/page/about',
-  PAGE_PRIVACY: '/webcontent/page/privacy',
-  PAGE_IMPRINT: '/webcontent/page/imprint',
+  /** Admin view of one CMS page; use `adminPagePath(slug)` to build links. */
+  PAGE: '/webcontent/page/:slug',
   IMAGES: '/webcontent/images',
   TAGS: '/webcontent/tags',
   CONTACT_INFO: '/contact-info',
 } as const;
+
+export const adminPagePath = (slug: string) => `/webcontent/page/${slug}`;

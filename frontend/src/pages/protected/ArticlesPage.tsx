@@ -42,7 +42,7 @@ type Modal =
   | null;
 
 interface Props {
-  slug: 'home' | 'news' | 'about' | 'privacy' | 'imprint';
+  slug: string;
 }
 
 export default function ArticlesPage({ slug }: Readonly<Props>) {

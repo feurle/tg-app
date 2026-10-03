@@ -92,6 +92,13 @@ export interface UpdateSectionRequest {
   content: string;
 }
 
+export interface PageSummary {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+}
+
 export interface PageResponse {
   id: number;
   slug: string;

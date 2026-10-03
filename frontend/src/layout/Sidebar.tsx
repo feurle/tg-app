@@ -1,11 +1,39 @@
+import {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {ROUTES} from '../router/routes';
+import {ROUTES, adminPagePath} from '../router/routes';
+import {pageApi} from '../features/webcontent/api';
+import type {PageSummary} from '../features/webcontent/types';
 import {useAuth} from '../features/auth/authStore';
+
+/** Order and icon of the known pages; pages not listed come last, ordered by id, with a generic icon. */
+const PAGE_ORDER = ['home', 'treatments', 'for-vets', 'news', 'about', 'privacy', 'imprint'];
+const PAGE_ICONS: Record<string, string> = {
+    home: '🏠',
+    treatments: '🩺',
+    'for-vets': '🤝',
+    news: '📰',
+    about: '🐾',
+    privacy: '🔒',
+    imprint: '📄',
+};
+
+function sortPages(pages: PageSummary[]): PageSummary[] {
+    const rank = (slug: string) => {
+        const index = PAGE_ORDER.indexOf(slug);
+        return index === -1 ? PAGE_ORDER.length : index;
+    };
+    return [...pages].sort((a, b) => rank(a.slug) - rank(b.slug) || a.id - b.id);
+}
 
 export default function Sidebar() {
     const {t} = useTranslation();
     const {user} = useAuth();
+    const [pages, setPages] = useState<PageSummary[]>([]);
+
+    useEffect(() => {
+        pageApi.getAll().then((data) => setPages(sortPages(data))).catch(() => setPages([]));
+    }, []);
 
     const getInitials = (username?: string) => {
         if (!username) return 'U';
@@ -66,43 +94,16 @@ export default function Sidebar() {
             </NavLink>
 
             <div className="sidebar-section-label">{t('nav.sidebar.pages')}</div>
-            <NavLink
-                to={ROUTES.PAGE_HOME}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">🏠</span>
-                {t('nav.home')}
-            </NavLink>
-            <NavLink
-                to={ROUTES.PAGE_NEWS}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">📰</span>
-                {t('nav.news')}
-            </NavLink>
-            <NavLink
-                to={ROUTES.PAGE_ABOUT}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">🐾</span>
-                {t('nav.about')}
-            </NavLink>
-            <NavLink
-                to={ROUTES.PAGE_PRIVACY}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">🔒</span>
-                {t('nav.privacy')}
-            </NavLink>
-            <NavLink
-                to={ROUTES.PAGE_IMPRINT}
-                className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
-            >
-                <span className="sidebar-icon">📄</span>
-                {t('nav.imprint')}
-            </NavLink>
-
-
+            {pages.map((page) => (
+                <NavLink
+                    key={page.slug}
+                    to={adminPagePath(page.slug)}
+                    className={({isActive}) => isActive ? 'sidebar-item active' : 'sidebar-item'}
+                >
+                    <span className="sidebar-icon">{PAGE_ICONS[page.slug] ?? '📄'}</span>
+                    {page.title}
+                </NavLink>
+            ))}
 
             <div className="sidebar-footer">
                 <div className="user-chip">

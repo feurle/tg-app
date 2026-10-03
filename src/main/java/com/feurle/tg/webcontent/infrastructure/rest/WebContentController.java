@@ -9,6 +9,7 @@ import com.feurle.tg.webcontent.application.SectionService;
 import com.feurle.tg.webcontent.application.TagService;
 import com.feurle.tg.webcontent.domain.Article;
 import com.feurle.tg.webcontent.domain.Image;
+import com.feurle.tg.webcontent.domain.Page;
 import com.feurle.tg.webcontent.domain.Tag;
 import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.Language;
@@ -20,6 +21,7 @@ import com.feurle.tg.webcontent.infrastructure.rest.mapper.SectionMapper;
 import com.feurle.tg.webcontent.infrastructure.rest.mapper.TagMapper;
 import jakarta.validation.Valid;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,9 +79,28 @@ public class WebContentController {
 
   // ========== Page Endpoints ==========
 
+  /** All CMS pages (without articles). Not public: it feeds the admin navigation. */
+  @GetMapping("/pages")
+  public ResponseEntity<List<PageSummaryResponse>> getAllPages() {
+    return ResponseEntity.ok(
+        pageService.getAllPages().stream()
+            .sorted(Comparator.comparing(Page::getId))
+            .map(pageMapper::toSummary)
+            .toList());
+  }
+
+  /**
+   * A page with its articles. Public, but anonymous visitors only get published articles; drafts
+   * and closed articles are for logged-in users (the admin area).
+   */
   @GetMapping("/pages/{slug}")
-  public ResponseEntity<PageResponse> getPageBySlug(@PathVariable String slug) {
-    return ResponseEntity.ok(pageMapper.toResponse(pageService.getPageBySlug(slug)));
+  public ResponseEntity<PageResponse> getPageBySlug(
+      @PathVariable String slug, Authentication authentication) {
+    boolean loggedIn =
+        authentication != null
+            && authentication.isAuthenticated()
+            && !(authentication instanceof AnonymousAuthenticationToken);
+    return ResponseEntity.ok(pageMapper.toResponse(pageService.getPageBySlug(slug), !loggedIn));
   }
 
   // ========== Image Endpoints ==========

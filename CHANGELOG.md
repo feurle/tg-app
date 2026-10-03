@@ -16,6 +16,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Admin-Bereich: Die Seitenliste in der Seitenleiste kommt jetzt aus der API (`GET /api/webcontent/pages`, nur mit Login) und eine einzige Route `/webcontent/page/:slug` bearbeitet jede Seite. Damit sind auch „Behandlungen“ und „Für Tierärzte“ pflegbar. Neue Seiten erscheinen automatisch.
 - Alle CMS-Seiten (Start, Behandlungen, Für Tierärzte, Über mich, Aktuelles) werden über denselben Baustein gerendert (`PageContent`/`PageBlocks`). Dadurch funktionieren alle Artikeltypen auf jeder Seite. Gibt es für Englisch, Schwedisch oder Russisch noch keinen Inhalt, zeigt die Seite den deutschen Inhalt mit einem Hinweis statt einer leeren Seite. Der Erhebungsbogen ist jetzt auch im Footer verlinkt.
 - Die Schrift Figtree wird jetzt von der eigenen Website ausgeliefert statt von Google Fonts (keine Verbindung zu Google beim Seitenaufruf). Die Datenschutzerklärung nennt jetzt Kontakt-, Termin- und Überweisungsformulare, den Erhebungsbogen, den Google-Maps-Link und den lokalen Speicher der Sprachwahl; sie sollte vor dem Go-live rechtlich geprüft werden.
 - Kontaktseite zeigt nur noch die Kontaktdaten aus VetInfo, mit Seitenüberschrift und den Buttons „Termin vereinbaren“ und „Nachricht schreiben“. Das CMS-Pendant (Seite `contact` samt Artikel, Eintrag „Kontakt“ in der Admin-Seitenleiste und Seed-Daten) ist entfernt, der Link „Kontakt“ aus der Navbar ebenfalls; im Footer bleibt er.
@@ -31,6 +32,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Entwürfe und geschlossene Artikel waren über `GET /api/webcontent/pages/{slug}` auch ohne Login lesbar. Anonyme Besucher bekommen dort jetzt nur veröffentlichte Artikel, angemeldete Benutzer wie bisher alle.
 - Öffentliche Seiten stürzten ab (weiße Seite), wenn in den Kontaktdaten die Telefonnummer fehlte. Kontaktbereich, Footer und Links berücksichtigen jetzt fehlende Angaben; ohne Kontaktdaten zeigt die Kontaktseite einen Hinweis auf die Formulare, und beim Laden wird Platz reserviert. Auf der Kontaktseite folgen auf die Überschrift jetzt Überschriften der zweiten Ebene.
 
 ### Security
