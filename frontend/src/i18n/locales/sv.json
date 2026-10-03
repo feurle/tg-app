@@ -32,6 +32,7 @@
     "save": "Spara",
     "saving": "Sparar…",
     "cancel": "Avbryt",
+    "close": "Stäng",
     "delete": "Ta bort",
     "edit": "Redigera",
     "view": "Visa",
@@ -354,7 +355,16 @@
       "CREATED": "Skapad",
       "PUBLISHED": "Publicerad",
       "CLOSED": "Stängd"
-    }
+    },
+    "copy": "Kopiera till annat språk",
+    "copyHeading": "Kopiera artikel",
+    "copyHint": "kopieras med avsnitt, bilder och taggar som utkast till slutet av det valda språket.",
+    "copyTo": "Målspråk",
+    "preview": "Förhandsvisning",
+    "previewBanner": "Förhandsvisning: så ser sidan ut för besökare, inklusive utkast.",
+    "previewDrafts": "({{count}} opublicerade)",
+    "previewBack": "Tillbaka till hanteringen",
+    "previewEmpty": "Det finns inga artiklar på det här språket än."
   },
   "image": {
     "management": "Bildhantering",

@@ -15,6 +15,7 @@ import QuestionnairesPage from '../pages/protected/QuestionnairesPage';
 import CustomersPage from '../pages/protected/CustomersPage';
 import UsersPage from '../pages/protected/UsersPage';
 import ArticlesRoute from '../pages/protected/ArticlesRoute';
+import ArticlesPreviewPage from '../pages/protected/ArticlesPreviewPage';
 import ImagesPage from '../pages/protected/ImagesPage';
 import TagsPage from '../pages/protected/TagsPage';
 import ContactInfoPage from '../pages/protected/ContactInfoPage';
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
           { path: ROUTES.USERS, element: <UsersPage /> },
           { path: ROUTES.QUESTIONNAIRES, element: <QuestionnairesPage /> },
           { path: ROUTES.PAGE, element: <ArticlesRoute /> },
+          { path: ROUTES.PAGE_PREVIEW, element: <ArticlesPreviewPage /> },
           { path: ROUTES.IMAGES, element: <ImagesPage /> },
           { path: ROUTES.TAGS, element: <TagsPage /> },
           { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },

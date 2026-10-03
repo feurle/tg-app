@@ -11,6 +11,7 @@ interface Props {
   onEditSection?: (article: ArticleResponse, section: SectionResponse) => void;
   onDeleteSection?: (article: ArticleResponse, section: SectionResponse) => void;
   onMoveSection?: (article: ArticleResponse, section: SectionResponse, direction: MoveDirection) => void;
+  onCopy?: (article: ArticleResponse) => void;
   onMove?: (article: ArticleResponse, direction: MoveDirection) => void;
   moving?: boolean;
 }
@@ -18,7 +19,7 @@ interface Props {
 const sortedSections = (a: ArticleResponse) =>
   [...a.sections].sort((x, y) => x.order - y.order || x.id - y.id);
 
-export default function ArticleTable({ articles, onView, onEdit, onDelete, onAddSection, onEditSection, onDeleteSection, onMoveSection, onMove, moving }: Props) {
+export default function ArticleTable({ articles, onView, onEdit, onDelete, onAddSection, onEditSection, onDeleteSection, onMoveSection, onCopy, onMove, moving }: Props) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
 
@@ -108,6 +109,11 @@ export default function ArticleTable({ articles, onView, onEdit, onDelete, onAdd
                     <button onClick={() => onView(a)} className="icon-btn" title={t('common.view')}>
                       👁️
                     </button>
+                    {onCopy && (
+                      <button onClick={() => onCopy(a)} className="icon-btn" title={t('article.copy')}>
+                        📋
+                      </button>
+                    )}
                     <button onClick={() => onEdit(a)} className="icon-btn" title={t('common.edit')}>
                       ✏️
                     </button>

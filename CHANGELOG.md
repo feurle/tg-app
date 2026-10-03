@@ -16,6 +16,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Changed
 
+- Admin-Bereich: Artikel lassen sich mit Abschnitten, Bildern und Tags als Entwurf in eine andere Sprache kopieren (`POST /api/webcontent/articles/{id}/copy?language=…`). Neue „Vorschau“ je Seite (`/webcontent/page/:slug/preview?lang=…`) zeigt die Seite wie für Besucher inklusive Entwürfen, das Auge-Symbol zeigt einen einzelnen Artikel mit denselben Bausteinen.
+- **Sicherheit:** Alle schreibenden Webcontent-Endpoints (Artikel, Abschnitte, Bilder, Tags) verlangen jetzt `ROLE_ADMIN`; ein angemeldeter Benutzer mit nur `ROLE_USER` bekommt 403. Lesen bleibt für Angemeldete möglich.
 - Admin-Bereich: Beim Artikelformular erklärt ein Hilfetext unter dem Seiten-Typ, wofür Titel, Inhalt, Abschnitte und Bilder dieses Typs auf der Seite verwendet werden. Die Typ-Bezeichnungen sind jetzt für alle Typen in Deutsch, Englisch, Schwedisch und Russisch vorhanden.
 - Admin-Bereich: Bilder werden gezielt einem Abschnitt zugeordnet (Bildauswahl mit Vorschau im Abschnittsformular, neue Spalte `section.image_id`, `imageId` in den Abschnitts-Endpoints). Die Schwerpunkte auf der Startseite zeigen das Bild ihres Abschnitts statt einer Zuordnung nach Bild-ID; in der Bildliste des Artikelformulars gibt es Vorschaubilder.
 - Admin-Bereich: Abschnitte werden mit dem Rich-Text-Editor gepflegt (Fett, Listen, Links) und lassen sich mit ↑/↓ in der Artikelliste sortieren (neuer Endpoint `PUT /api/webcontent/sections/{id}/move`). Die öffentlichen Seiten stellen formatierte Abschnitte korrekt dar. Das Feld „Reihenfolge“ im Abschnittsformular entfällt, neue Abschnitte kommen ans Ende.

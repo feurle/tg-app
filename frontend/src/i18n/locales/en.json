@@ -32,6 +32,7 @@
     "save": "Save",
     "saving": "Saving…",
     "cancel": "Cancel",
+    "close": "Close",
     "delete": "Delete",
     "edit": "Edit",
     "view": "View",
@@ -354,7 +355,16 @@
       "CREATED": "Created",
       "PUBLISHED": "Published",
       "CLOSED": "Closed"
-    }
+    },
+    "copy": "Copy to another language",
+    "copyHeading": "Copy article",
+    "copyHint": "is copied with sections, images and tags as a draft to the end of the chosen language.",
+    "copyTo": "Target language",
+    "preview": "Preview",
+    "previewBanner": "Preview: how the page looks to visitors, including drafts.",
+    "previewDrafts": "({{count}} unpublished)",
+    "previewBack": "Back to management",
+    "previewEmpty": "There are no articles in this language yet."
   },
   "image": {
     "management": "Image Management",

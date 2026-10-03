@@ -3539,3 +3539,31 @@ tbody tr:hover td {
 .form-help:empty {
     display: none;
 }
+
+/* Admin preview (page + single article) */
+.preview-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: var(--brand-light);
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    color: var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.preview-body {
+    background: var(--bg);
+}
+
+.preview-sheet {
+    background: var(--bg);
+    width: min(1100px, 95vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius);
+}

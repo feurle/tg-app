@@ -29,6 +29,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,7 @@ public class WebContentController {
 
   // ========== Section Endpoints ==========
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/articles/{articleId}/sections")
   public ResponseEntity<SectionResponse> createSection(
       @PathVariable Long articleId, @Valid @RequestBody CreateSectionRequest request) {
@@ -67,6 +69,7 @@ public class WebContentController {
                     request.imageId())));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/sections/{id}")
   public ResponseEntity<SectionResponse> updateSection(
       @PathVariable Long id, @Valid @RequestBody UpdateSectionRequest request) {
@@ -80,6 +83,7 @@ public class WebContentController {
    * Swaps a section with its neighbour within its article and returns all sections of that article
    * in their new order.
    */
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/sections/{id}/move")
   public ResponseEntity<List<SectionResponse>> moveSection(
       @PathVariable Long id, @Valid @RequestBody MoveArticleRequest request) {
@@ -89,6 +93,7 @@ public class WebContentController {
             .toList());
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/sections/{id}")
   public ResponseEntity<Void> deleteSection(@PathVariable Long id) {
     sectionService.deleteSection(id);
@@ -129,6 +134,7 @@ public class WebContentController {
         imageService.getAllImages().stream().map(imageMapper::toResponse).toList());
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping(value = "/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<ImageResponse> uploadImage(
       @RequestParam MultipartFile file, @RequestParam(required = false) String title)
@@ -151,6 +157,7 @@ public class WebContentController {
         .body(image.getImageData());
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/images/{imageId}")
   public ResponseEntity<ImageResponse> updateImage(
       @PathVariable Long imageId, @Valid @RequestBody UpdateImageRequest request) {
@@ -158,6 +165,7 @@ public class WebContentController {
     return ResponseEntity.ok(imageMapper.toResponse(image));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/images/{imageId}")
   public ResponseEntity<Void> deleteImage(@PathVariable Long imageId) {
     imageService.deleteImage(imageId);
@@ -176,12 +184,14 @@ public class WebContentController {
     return ResponseEntity.ok(tagMapper.toResponse(tagService.getTag(id)));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/tags")
   public ResponseEntity<TagResponse> createTag(@Valid @RequestBody CreateTagRequest request) {
     Tag tag = tagService.createTag(request.name());
     return ResponseEntity.status(HttpStatus.CREATED).body(tagMapper.toResponse(tag));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/tags/{id}")
   public ResponseEntity<TagResponse> updateTag(
       @PathVariable Long id, @Valid @RequestBody UpdateTagRequest request) {
@@ -189,6 +199,7 @@ public class WebContentController {
     return ResponseEntity.ok(tagMapper.toResponse(tag));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/tags/{id}")
   public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
     tagService.deleteTag(id);
@@ -250,6 +261,7 @@ public class WebContentController {
     return ResponseEntity.ok(articleMapper.toResponse(articleService.getArticleById(id)));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/articles")
   public ResponseEntity<ArticleResponse> createArticle(
       @Valid @RequestBody CreateArticleRequest request) {
@@ -266,6 +278,7 @@ public class WebContentController {
     return ResponseEntity.status(HttpStatus.CREATED).body(articleMapper.toResponse(article));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/articles/{id}")
   public ResponseEntity<ArticleResponse> updateArticle(
       @PathVariable Long id, @Valid @RequestBody UpdateArticleRequest request) {
@@ -286,6 +299,7 @@ public class WebContentController {
    * Swaps an article with its neighbour within its page + language scope and returns that whole
    * scope in its new order, so the caller can replace its list in one go.
    */
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/articles/{id}/move")
   public ResponseEntity<List<ArticleResponse>> moveArticle(
       @PathVariable Long id, @Valid @RequestBody MoveArticleRequest request) {
@@ -295,6 +309,19 @@ public class WebContentController {
             .toList());
   }
 
+  /**
+   * Copies an article (with sections, images and tags) into another language of the same page. The
+   * copy is a draft at the end of that language's list.
+   */
+  @PreAuthorize("hasRole('ADMIN')")
+  @PostMapping("/articles/{id}/copy")
+  public ResponseEntity<ArticleResponse> copyArticle(
+      @PathVariable Long id, @RequestParam Language language) {
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(articleMapper.toResponse(articleService.copyArticle(id, language)));
+  }
+
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/articles/{id}")
   public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
     articleService.deleteArticle(id);

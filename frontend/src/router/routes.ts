@@ -15,9 +15,13 @@ export const ROUTES = {
   QUESTIONNAIRES: '/questionnaires',
   /** Admin view of one CMS page; use `adminPagePath(slug)` to build links. */
   PAGE: '/webcontent/page/:slug',
+  PAGE_PREVIEW: '/webcontent/page/:slug/preview',
   IMAGES: '/webcontent/images',
   TAGS: '/webcontent/tags',
   CONTACT_INFO: '/contact-info',
 } as const;
+
+export const adminPagePreviewPath = (slug: string, locale = 'de') =>
+  `/webcontent/page/${slug}/preview?lang=${locale}`;
 
 export const adminPagePath = (slug: string) => `/webcontent/page/${slug}`;
