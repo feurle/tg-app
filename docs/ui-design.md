@@ -1,6 +1,6 @@
 # tg-app - UI Design
 
-Design-Richtung und Umsetzungs-Roadmap für das öffentliche Frontend von **Tier. Gesund.** Grundlage ist eine Grilling-Session vom 2026-10-03.
+Design-Referenz für das öffentliche Frontend von **Tier. Gesund.** Sie beschreibt, wie die Seite aussehen und sich verhalten soll. Offene Nacharbeit steht in [post-redesign-plan.md](post-redesign-plan.md).
 
 ## 1. Zielgruppen & Aufgaben
 
@@ -12,11 +12,11 @@ Design-Richtung und Umsetzungs-Roadmap für das öffentliche Frontend von **Tier
 **Praxisprofil:**
 - Kleintierpraxis in Bregenz (AT) für Hunde, Katzen und Kleintiere, **keine Pferde**.
 - Schwerpunkte: Chiropraktik, Goldimplantation zur Schmerztherapie und ganzheitlich-integrative Betreuung.
-- Positionierung als **Schwerpunktpraxis**: Die Schwerpunkte sind das Alleinstellungsmerkmal und zugleich der Grund, warum Tierärzte überweisen.
+- Die Schwerpunkte sind das Alleinstellungsmerkmal und zugleich der Grund, warum Tierärzte überweisen.
 
 ## 2. Gestaltungsprinzipien
 
-1. **Warm und persönlich.** Dr. Lisa Feurle-Elsäßer ist die Marke. Die Texte sind in Ich-Form geschrieben und sprechen Besucher mit „Sie“ an.
+1. **Warm und persönlich.** Dr. Lisa Feurle-Elsäßer ist die Marke. Texte sind in Ich-Form geschrieben und sprechen Besucher mit „Sie“ an.
 2. **Kühnheit an genau einer Stelle:** das große Porträt im Hero. Alles andere bleibt ruhig und mit viel Weißraum.
 3. **Beschwerdebilder vor Methoden.** Besitzer denken in Symptomen („mein Hund lahmt“), nicht in Verfahren.
 4. **Barrierearm:** WCAG AA, Fließtext 18px, Click-to-call und große Trefferflächen. Viele Besitzer sind älter und nutzen das Handy.
@@ -29,14 +29,14 @@ Design-Richtung und Umsetzungs-Roadmap für das öffentliche Frontend von **Tier
 
 ## 3. Farbe: „Bodensee & Holz“
 
-Die Palette ist aus dem Ort abgeleitet: Seewasser, Vorarlberger Holz und heller Kalkstein.
+Die Palette ist aus dem Ort abgeleitet: Seewasser, Vorarlberger Holz und heller Kalkstein. Die Werte stehen als Tokens in `frontend/src/styles/variables.css`.
 
 | Token | Wert | Verwendung |
 |---|---|---|
 | `--bg` | `#F4F3EF` | Steinweiß, Seitengrund |
 | `--surface` | `#FFFFFF` | Flächen, Formulare |
 | `--ink` | `#1F2A2C` | Text (ca. 13:1 auf `--bg`) |
-| `--ink-muted` | aus `--ink` ableiten, ≥ 4,5:1 | Sekundärtext |
+| `--ink-muted` | aus `--ink` abgeleitet, ≥ 4,5:1 | Sekundärtext |
 | `--brand` | `#1E5A5E` | Seepetrol: Primär-Button mit weißer Schrift, Links (ca. 7,8:1 auf Weiß) |
 | `--brand-light` | `#DCEBEA` | Hintergrund von Bändern und Hinweisen |
 | `--wood` | `#C08A4A` | Eichenholz, **nur als Detail**: Unterstreichungen, Icons, Trennlinien, Hover-Akzent |
@@ -44,13 +44,13 @@ Die Palette ist aus dem Ort abgeleitet: Seewasser, Vorarlberger Holz und heller 
 
 Regeln:
 - `--wood` erreicht auf Weiß nur ca. 3:1. Deshalb wird es **nie** für Text oder als Buttonfläche verwendet.
-- Die Status-Farben (`--danger*`, `--warning*`) bleiben wie sie sind.
-- Alle heute fest codierten Hex-Werte in `frontend/src/styles/global.css` werden auf Tokens umgestellt. Dazu gehören die Braun- und Salbeitöne `#2C2620`, `#5B7C5D`, `#F0EBE3` und weitere.
+- Die Status-Farben (`--danger*`, `--warning*`) bleiben unverändert.
+- Neue Farben gibt es nur als Tokens. Feste Hex-Werte in Komponenten oder `global.css` sind nicht erlaubt.
 - Dark Mode ist kein Ziel.
 
 ## 4. Typografie
 
-- **Figtree** für Headlines und Text, selbst gehostet über `@fontsource-variable/figtree` (kein Aufruf an Google beim Seitenaufruf, passend zum Datenschutztext). Lora, DM Sans und DM Mono entfallen.
+- **Figtree** für Headlines und Text, selbst gehostet über `@fontsource-variable/figtree`. Es gibt keinen Aufruf an Google beim Seitenaufruf, passend zum Datenschutztext.
 - Die Wärme kommt aus der Form der Schrift. Die Kühnheit kommt aus Foto und Größe, nicht aus einer zweiten Schrift.
 - Type-Scale als Tokens:
 
@@ -64,12 +64,12 @@ Regeln:
 | `--fs-2xl` | 36px | H2 |
 | `--fs-3xl` | 52px | Hero-Headline, leicht negatives Letter-Spacing |
 
-- Neu kommen Spacing-Tokens (8pt-Raster: 4, 8, 16, 24, 32, 48, 64, 96) und Radius-Tokens (`--radius-sm` 6px, `--radius` 12px) dazu. Beides gibt es heute nicht.
+- Spacing-Tokens (8pt-Raster: 4, 8, 16, 24, 32, 48, 64, 96) und Radius-Tokens (`--radius-sm` 6px, `--radius` 12px) gelten für alle neuen Komponenten.
 
 ## 5. Bildsprache
 
-- **Porträt:** Ein echtes Porträt von Dr. Feurle-Elsäßer ist schon vorhanden und wird heute auf der „Über uns“-Seite gezeigt (`aboutme.jpg`, id 7, in `src/main/resources/db/data/image.csv`). Der Hero verwendet dasselbe Bild über die bestehende Artikel-Bild-Verknüpfung (`article_images.csv`). Ein höher aufgelöster Zuschnitt für den Hero kann es später ersetzen.
-- **Behandlungsfotos „Hände am Tier“** liegen bereits in der DB (`chiro1.jpg`, `GoldImplantation2.jpg`, `GoldImplantation3.jpg`, `cat.png`). Sie werden in der Methoden-Sektion wiederverwendet.
+- **Porträt:** Das Porträt von Dr. Feurle-Elsäßer (`aboutme.jpg`) steht im Hero und auf der Seite „Über mich“. Ein höher aufgelöster Zuschnitt für den Hero kann es ersetzen.
+- **Behandlungsfotos „Hände am Tier“** werden in der Methoden-Sektion verwendet.
 - Gezeigt werden nur Hund, Katze und Kleintiere. Es gibt keine Stockfotos und keine Illustrationen.
 
 ## 6. Navigation
@@ -89,9 +89,9 @@ Regeln:
 └──────────────────────────────────┘
 ```
 
-- Das „Anfragen“-Dropdown in `frontend/src/layout/Navbar.tsx` entfällt.
+- Es gibt kein „Anfragen“-Dropdown in der Navigation.
 - „Für Tierärzte“ erscheint als dezenter Link in der Kopfzeile und im Footer.
-- `/for-pet-owners` wird zur Seite **Behandlungen**: Methoden im Detail, Ablauf des Erstbesuchs und ein Link zum Fragebogen. Die alte Route leitet weiter.
+- `/for-pet-owners` ist die Seite **Behandlungen**: Methoden im Detail, Ablauf des Erstbesuchs und ein Link zum Fragebogen. Die alte Route leitet weiter.
 - Das Menü-Label ist „Über mich“ (Ich-Form). Die Seite `/about` behält ihre Route.
 
 ## 7. Home
@@ -117,21 +117,29 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
 7 KONTAKT        Adresse + Karten-Link | Sprechzeiten | Telefon   (aus VetInfo)
 ```
 
-**Umsetzung (Phase 3):** Jede Sektion ist ein CMS-Artikel mit eigenem Typ: 1 `HERO_PORTRAIT`, 2 `SYMPTOMS`, 3 `METHODS` (jeder Abschnitt hat optional ein eigenes Bild, `section.image_id`), 4 `ABOUT_TEASER`, 5 `STEPS`, 6 `VET_BAND`, 7 Kontakt als eigener Block aus VetInfo (`ContactSection`). Die Seed-Texte stehen in `src/main/resources/db/data/` (`article_de.csv`, `section_de.csv`).
+Zuordnung zu Artikeltypen (`ArticleType`):
+
+| Sektion | Typ |
+|---|---|
+| 1 Hero | `HERO_PORTRAIT` |
+| 2 Wann zu mir | `SYMPTOMS` |
+| 3 Methoden | `METHODS` (jeder Abschnitt hat optional ein eigenes Bild, `section.image_id`) |
+| 4 Über mich | `ABOUT_TEASER` |
+| 5 Erster Termin | `STEPS` |
+| 6 Für Tierärzte | `VET_BAND` |
+| 7 Kontakt | `ContactSection` aus VetInfo |
 
 **Mobile:** Das Porträt steht oben, Headline, Statement und CTA folgen darunter. Die Sektionen 2 und 3 werden einspaltig gestapelt, die Termin-Leiste bleibt sticky.
 
-**Hero-Text (Entwurf):** Dr. Feurle-Elsäßer überarbeitet ihn, die finale Fassung wird im CMS gepflegt.
-- Headline: „Wenn Ihr Tier mehr braucht als eine Diagnose.“ (die bestehende Zeile bleibt)
-- Subline: „Ganzheitlich-integrative Tiermedizin für Hunde, Katzen und Kleintiere, mit Schwerpunkt auf Schmerz und Bewegung.“
-- Statement: „Ich bin Lisa Feurle-Elsäßer. Ich verbinde Schulmedizin mit Chiropraktik, Goldimplantation und integrativen Methoden, damit Ihr Tier wieder schmerzfrei und beweglich wird.“
-- Sprachregeln:
-  - Ich-Form und Sie-Anrede.
-  - Aktive Verben.
-  - Fachbegriffe nur mit Erklärung.
-  - Fehlermeldungen geben eine Richtung vor und entschuldigen sich nicht.
+**Sprachregeln für Texte:**
+- Ich-Form und Sie-Anrede.
+- Aktive Verben.
+- Fachbegriffe nur mit Erklärung.
+- Fehlermeldungen geben eine Richtung vor und entschuldigen sich nicht.
 
-## 8. Für Tierärzte: Überweisung (`/for-vets`)
+## 8. Formulare und Überweisung (`/for-vets`)
+
+Alle öffentlichen Formulare (Termin, Nachricht, Überweisung, Fragebogen) teilen ein Muster: Seitenkopf mit kurzem Einleitungstext, Fieldsets als weiße Karten (800px breit, `--radius`, Legend in `--fs-lg`), Absenden unten rechts (mobil volle Breite) und eine Bestätigungskarte statt des Formulars. Die Bausteine liegen in `frontend/src/components/form/`. Termin und Nachricht sind eigene Seiten (`/appointment`, `/message`), kein Modal. Der CTA heißt überall „Termin anfragen“.
 
 ```
 Für Tierärzte
@@ -145,55 +153,22 @@ Kurztext: wann eine Überweisung sinnvoll ist (Schmerz, Bewegungsapparat, Therap
 │ Fragestellung                                         │
 │ Vorbehandlung / Medikation                            │
 │ Dringlichkeit: ( ) Routine ( ) zeitnah ( ) dringend   │
-│ Hinweis: Befunde bitte an info@tier-gesund.at senden  │
+│ Hinweis: Befunde bitte an die Praxis-E-Mail senden    │
 │ [Überweisung senden]                                  │
 └───────────────────────────────────────────────────────┘
 ```
 
 - Das Formular ist öffentlich und braucht keinen Login. Eine Pflicht-Checkbox bestätigt, dass der Tierhalter der Weitergabe seiner Kontaktdaten zugestimmt hat.
-- **v1 ohne Datei-Upload.** Befunde werden per E-Mail an info@tier-gesund.at geschickt. Die Adresse kommt aus VetInfo über `PrimaryContactEmailLookup`. Ein Upload ist eine spätere Ausbaustufe; sie bringt Speicher-, Viren- und DSGVO-Themen mit sich.
+- **Kein Datei-Upload.** Befunde werden per E-Mail an die Praxis geschickt. Die Adresse kommt aus VetInfo über `PrimaryContactEmailLookup`. Ein Upload bringt Speicher-, Viren- und DSGVO-Themen mit sich und ist eine spätere Entscheidung.
 - **Verarbeitung wie im `contact`-Modul:** Die Praxis bekommt eine Mail, der überweisende Tierarzt eine Bestätigungsmail. Es werden **keine Gesundheitsdaten in der DB** gespeichert.
 
 ## 9. Kontaktdaten aus einer Quelle
 
-- `VetInfo` wird die einzige Quelle für das Telefon im Hero, die Kontaktsektion und den Footer. Der Freitext in COL4 auf der Home entfällt.
-- `OfficeHour` besteht aus Wochentag, Beginn und Ende (mehrere Intervalle pro Tag möglich). Daraus berechnet das Frontend „Jetzt geöffnet, bis 18:00 Uhr“ bzw. die nächste Sprechzeit, immer in Wiener Zeit.
-- Öffentlich lesbar über `GET /api/vetinfo/primary`; Hero, Kontaktbereich (Home und `/contact`), Footer und der Anruf-Button der mobilen Leiste lesen daraus.
-- Geklärte Daten:
-  - **Adresse:** Holzackergasse 13, 6900 Bregenz. Das Impressum („Holzackerstraße“) wird korrigiert.
-  - **Telefon:** Das Festnetz +43 (0)5574 83500 ist die Praxisnummer (`VetInfo.phone`, Hero, Click-to-call, Kontakt, Footer). Die Mobilnummer +43 681 20302253 steht nur im Impressum.
-  - **E-Mail:** info@tier-gesund.at
-  - **Sprechzeiten:** Mo 14–18, Di 8:30–12:30, Do 8:30–12:30
+- `VetInfo` ist die einzige Quelle für Telefon, Adresse, E-Mail und Sprechzeiten. Hero, Kontaktbereich (Home und `/contact`), Footer und der Anruf-Button der mobilen Leiste lesen daraus.
+- Öffentlich lesbar über `GET /api/vetinfo/primary`.
+- `OfficeHour` besteht aus Wochentag, Beginn und Ende (mehrere Intervalle pro Tag möglich). Das Frontend berechnet daraus „Jetzt geöffnet, bis 18:00 Uhr“ bzw. die nächste Sprechzeit, immer in Wiener Zeit.
+- Das Festnetz ist die Praxisnummer für Click-to-call. Eine Mobilnummer steht nur im Impressum.
 
 ## 10. Admin-Bereich
 
-Der Admin-Bereich (`AppLayout`) übernimmt nur die neuen Tokens und die Schrift. Die Admin-Screens werden nicht neu gestaltet.
-
-## 11. Roadmap
-
-**Stand: alle sechs Phasen sind umgesetzt** (Branch `feature/ui-foundation-tokens`); die Nacharbeit steht in `docs/post-redesign-plan.md`.
-
-Jede Phase ist ein eigener PR mit einem Changelog-Bullet unter `[Unreleased]`.
-
-1. **Fundament:**
-   - Tokens für Farbe, Typo, Spacing und Radius anlegen und Figtree einbinden.
-   - Fest codierte Farben aus `global.css` entfernen.
-   - Betrifft `frontend/src/styles/variables.css`, `frontend/src/styles/global.css` und `frontend/index.html`.
-2. **Gerüst:**
-   - Neue Navbar mit Termin-Button und mobiler Sticky-Leiste, neuer Footer.
-   - Seite „Behandlungen“ anlegen, `/for-pet-owners` weiterleiten.
-   - Betrifft `frontend/src/layout/Navbar.tsx`, `frontend/src/layout/Footer.tsx` und `frontend/src/router/`.
-3. **Home:**
-   - Neue oder erweiterte Sektionstypen (HERO mit Porträt, Beschwerdebilder, Ablauf, Tierärzte-Band) in `ArticleType` (Backend `webcontent/domain/enumeration/ArticleType.java` und `frontend/src/features/webcontent/types.ts`).
-   - Rendering in `PublicPage.tsx`.
-   - Seed-Inhalte für die Home inklusive Hero-Entwurf; „Pferde“ wird entfernt.
-4. **VetInfo:**
-   - Strukturierte Öffnungszeiten (Liquibase-Changeset).
-   - Seed-Daten mit den geklärten Werten.
-   - Anbindung von Hero, Kontakt und Footer; Impressum korrigieren.
-5. **Überweisung:**
-   - Formular auf `/for-vets` und ein Endpoint nach dem Muster des `contact`-Moduls.
-   - Mails über `notification`/`MailService`.
-6. **Fragebogen (Folgeaufgabe):**
-   - Ein Feld für die Tierart; hundespezifische Felder (Hundeschule, Kommandos) erscheinen nur bei Hund.
-   - Danach die optische Anpassung an die neuen Tokens.
+Der Admin-Bereich (`AppLayout`) übernimmt die Tokens und die Schrift. Die Admin-Screens werden nicht neu gestaltet.

@@ -77,6 +77,7 @@ Entscheidungen aus der Rückfrage:
 
 ### WP2 – Seiten, Seeds und gemeinsame Rendering-Bausteine
 - **Seeds** in `src/main/resources/db/data/`: `page.csv` (+ `treatments` id 700, `for-vets` id 800), `article_de.csv`, `section_de.csv`. Deutsche Entwürfe, in den Beschreibungen als „Entwurf“ markiert, aus vorhandenen Texten abgeleitet (Chiropraktik-, Goldimplantations-, Blutegel-Artikel, Therapieangebot der Über-uns-Seite). Keine neuen medizinischen Aussagen erfinden.
+- **Pferde entfernen:** Praxis behandelt keine Pferde. `section_de.csv` enthält noch Pferde-Texte (u. a. IDs 211 und 214, „Pferd“ in Beschreibungen). Entfernen oder auf Hund/Katze/Kleintiere umschreiben.
   - Behandlungen: Intro, Schwerpunkte (`METHODS`), Ablauf (`STEPS`).
   - Für Tierärzte: Intro (Indikationen aus vorhandenen Texten), Rückmeldung/Befunde.
   - Über mich: Artikel 300 in Ich-Form anpassen.
@@ -114,7 +115,7 @@ Heute: `article_images` hat keine Reihenfolge, `MethodsComponent` paart nach auf
 - **Toter Code entfernen** (laut Grep ohne Import): `ServiceCard.tsx`, `EditorialBlock.tsx`, `ArticleCard.tsx`, `frontend/src/App.css`, `frontend/tg-layout-preview.jsx`, `assets/logo-footer.png`, `assets/react.svg`, `public/vite.svg` samt zugehörigem CSS (`.editorial*`, `.article-card-*`, `.service-card`).
 - **Alte Optik:** About, News, Datenschutz, Impressum auf `public-page-header` und Tokens umstellen; Versalien-Eyebrows (`.section-eyebrow`, `.news-page-eyebrow`) entfernen oder in i18n legen (`Col3Component`/`Col4Component` haben „Leistungen“/„Kontakt“ hart verdrahtet).
 - **i18n-Lücken** in en/sv/ru: `nav.about`, `nav.privacy`, `nav.imprint`, `nav.sidebar.pages`, `home.articles.sub`, `section`.
-- **Doku:** `frontend/README.md` (derzeit Vite-Vorlage) mit Struktur, Routen, Artikeltypen; `README.md` (Seed-Beschreibung); `AGENTS.md` (Home-Typen ohne `COL4`, Admin-Seitenliste dynamisch, neue Endpoints); `docs/ui-design.md` (Roadmap als erledigt markieren, Schriftquelle); CTA-Spezifikation als überholt kennzeichnen. Changelog-Einträge je Arbeitspaket.
+- **Doku:** `frontend/README.md` (derzeit Vite-Vorlage) mit Struktur, Routen, Artikeltypen; `README.md` (Seed-Beschreibung); `AGENTS.md` (Home-Typen ohne `COL4`, Admin-Seitenliste dynamisch, neue Endpoints); `docs/ui-design.md` (bereits als Design-Referenz ohne Roadmap umgebaut; Schriftquelle Figtree wird mit WP1 erst umgesetzt); CTA-Spezifikation als überholt kennzeichnen. Changelog-Einträge je Arbeitspaket.
 
 ### WP9 – Abschlusstest und PR
 - Alles, was in A1 als ungeprüft steht, abarbeiten, soweit lokal möglich: Lighthouse (Chrome-DevTools-MCP) für Home, Behandlungen, Für Tierärzte, Kontakt, Fragebogen; Tastatur-/Fokus-Prüfung; Breiten 360, 768, 1024, 1100, 1280; Sprachwechsel; Admin-Rundgang mit Login `admin`/`user`.
