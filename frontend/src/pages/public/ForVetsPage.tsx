@@ -1,24 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import PageContent from '../../features/webcontent/components/PageContent';
 import ReferralForm from '../../features/contact/components/ReferralForm';
-import ContactButton from '../../features/webcontent/components/ContactButton';
+import FormPage from '../../components/form/FormPage';
 
 export default function ForVetsPage() {
     const { t } = useTranslation();
 
     return (
-        <div className="about-page">
-            <div className="about-feed">
-                <header className="public-page-header">
-                    <h1 className="public-page-title">{t('forVets.title')}</h1>
-                    <p className="public-page-subtitle">{t('forVets.subtitle')}</p>
-                </header>
-                <PageContent slug="for-vets" />
-            </div>
+        <FormPage title={t('forVets.title')} subtitle={t('forVets.subtitle')} requiredNote={false}>
+            <PageContent slug="for-vets" />
             <ReferralForm />
-            <div className="cta-section">
-                <ContactButton />
-            </div>
-        </div>
+        </FormPage>
     );
 }

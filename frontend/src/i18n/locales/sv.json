@@ -152,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Boka tid",
+    "appointment": "Begär tid",
     "message": "Skicka meddelande"
   },
   "contactForm": {
     "message": {
-      "heading": "Skicka meddelande",
       "text": "Ditt meddelande"
-    },
-    "appointment": {
-      "heading": "Boka tid"
     },
     "name": "Namn",
     "email": "E-post",
@@ -170,11 +166,14 @@
     "preferredDate": "Önskat datum",
     "preferredTime": "Tid (valfritt)",
     "note": "Ärende (valfritt)",
-    "submit": "Skicka",
     "sending": "Skickar…",
-    "success": "Tack! Vi återkommer så snart som möjligt.",
     "error": "Det gick inte att skicka. Försök igen senare.",
-    "close": "Stäng"
+    "section": {
+      "you": "Dina uppgifter",
+      "appointment": "Önskad tid",
+      "message": "Ditt meddelande"
+    },
+    "errorWithPhone": "Det gick inte att skicka. Försök igen eller ring oss: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Kontaktuppgifter",
@@ -488,5 +487,26 @@
     "cancel": "Avbryt",
     "errorInvalid": "Ogiltigt användarnamn eller lösenord.",
     "errorGeneral": "Inloggningen misslyckades. Försök igen."
+  },
+  "appointmentForm": {
+    "title": "Begär tid",
+    "intro": "Ange önskat datum och kort anledningen till besöket. Jag återkommer för att bekräfta tiden.",
+    "submit": "Begär tid",
+    "success": {
+      "title": "Förfrågan skickad",
+      "body": "Jag återkommer vanligtvis inom 1–2 arbetsdagar för att bekräfta tiden."
+    }
+  },
+  "messageForm": {
+    "title": "Skicka meddelande",
+    "intro": "Har du en fråga till mig? Skriv till mig så svarar jag via e-post.",
+    "submit": "Skicka meddelande",
+    "success": {
+      "title": "Meddelandet skickat",
+      "body": "Jag svarar vanligtvis via e-post inom 1–2 arbetsdagar."
+    }
+  },
+  "form": {
+    "requiredNote": "* Obligatoriskt fält"
   }
 }

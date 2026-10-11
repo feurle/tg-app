@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { contactApi } from '../api';
 import { useVetInfo } from '../useVetInfo';
 import HoneypotField from '../../../components/HoneypotField';
+import { ChoiceGroup, FormSection, TextAreaField, TextField } from '../../../components/form/FormFields';
+import FormSuccess from '../../../components/form/FormSuccess';
+import { ContactError } from './AppointmentForm';
 import type { ReferralUrgency } from '../types';
 
 const URGENCIES: ReferralUrgency[] = ['ROUTINE', 'SOON', 'URGENT'];
@@ -40,14 +43,10 @@ export default function ReferralForm() {
         setForm((prev) => ({ ...prev, [key]: value }));
     }
 
-    function bind(key: keyof FormState & string) {
-        return {
-            name: key,
-            value: form[key] as string,
-            onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-                set(key, e.target.value as never),
-        };
-    }
+    const text = (key: keyof FormState & string) => ({
+        value: form[key] as string,
+        onChange: (value: string) => set(key, value as never),
+    });
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -82,12 +81,11 @@ export default function ReferralForm() {
 
     if (sent) {
         return (
-            <section className="referral" aria-live="polite">
-                <h2 className="home-heading">{t('referral.heading')}</h2>
-                <p className="referral-success">{t('referral.success')}</p>
+            <FormSuccess title={t('referral.heading')}>
+                <p>{t('referral.success')}</p>
                 <button
                     type="button"
-                    className="btn-secondary btn-large"
+                    className="btn-secondary"
                     onClick={() => {
                         setForm(EMPTY);
                         setSent(false);
@@ -95,124 +93,63 @@ export default function ReferralForm() {
                 >
                     {t('referral.again')}
                 </button>
-            </section>
+            </FormSuccess>
         );
     }
 
     return (
-        <section className="referral">
-            <h2 className="home-heading">{t('referral.heading')}</h2>
-            <form className="referral-form" onSubmit={handleSubmit}>
-                <HoneypotField value={website} onChange={setWebsite} />
-                <fieldset className="referral-fieldset">
-                    <legend>{t('referral.practice')}</legend>
-                    <div className="referral-grid">
-                        <Field label={t('referral.practiceName')} required autoComplete="organization" {...bind('referringPractice')} />
-                        <Field label={t('referral.vetName')} required {...bind('referringVetName')} />
-                        <Field label={t('referral.email')} type="email" required autoComplete="email" {...bind('referringEmail')} />
-                        <Field label={t('referral.phone')} type="tel" autoComplete="tel" {...bind('referringPhone')} />
-                    </div>
-                </fieldset>
-
-                <fieldset className="referral-fieldset">
-                    <legend>{t('referral.owner')}</legend>
-                    <div className="referral-grid">
-                        <Field label={t('referral.ownerName')} required {...bind('ownerName')} />
-                        <Field label={t('referral.ownerContact')} required {...bind('ownerContact')} />
-                    </div>
-                </fieldset>
-
-                <fieldset className="referral-fieldset">
-                    <legend>{t('referral.patient')}</legend>
-                    <div className="referral-grid">
-                        <Field label={t('referral.patientName')} {...bind('patientName')} />
-                        <Field label={t('referral.species')} required {...bind('species')} />
-                        <Field label={t('referral.breed')} {...bind('breed')} />
-                        <Field label={t('referral.age')} {...bind('age')} />
-                    </div>
-                </fieldset>
-
-                <div className="form-group">
-                    <label className="form-label" htmlFor="referral-question">{t('referral.question')} *</label>
-                    <textarea id="referral-question" rows={5} className="form-input" required {...bind('question')} />
+        <form className="form-stack" onSubmit={handleSubmit}>
+            <HoneypotField value={website} onChange={setWebsite} />
+            <p className="form-required-note">{t('form.requiredNote')}</p>
+            <FormSection legend={t('referral.practice')}>
+                <div className="form-grid">
+                    <TextField label={t('referral.practiceName')} required autoComplete="organization" {...text('referringPractice')} />
+                    <TextField label={t('referral.vetName')} required {...text('referringVetName')} />
+                    <TextField label={t('referral.email')} type="email" required autoComplete="email" {...text('referringEmail')} />
+                    <TextField label={t('referral.phone')} type="tel" autoComplete="tel" {...text('referringPhone')} />
                 </div>
-                <div className="form-group">
-                    <label className="form-label" htmlFor="referral-previous">{t('referral.previous')}</label>
-                    <textarea id="referral-previous" rows={3} className="form-input" {...bind('previousTreatment')} />
+            </FormSection>
+
+            <FormSection legend={t('referral.owner')}>
+                <div className="form-grid">
+                    <TextField label={t('referral.ownerName')} required {...text('ownerName')} />
+                    <TextField label={t('referral.ownerContact')} required {...text('ownerContact')} />
                 </div>
+            </FormSection>
 
-                <fieldset className="referral-fieldset">
-                    <legend>{t('referral.urgency')}</legend>
-                    <div className="referral-urgency">
-                        {URGENCIES.map((urgency) => (
-                            <label key={urgency} className="referral-radio">
-                                <input
-                                    type="radio"
-                                    name="urgency"
-                                    value={urgency}
-                                    checked={form.urgency === urgency}
-                                    onChange={() => set('urgency', urgency)}
-                                />
-                                {t(`referral.urgencyOption.${urgency}`)}
-                            </label>
-                        ))}
-                    </div>
-                </fieldset>
+            <FormSection legend={t('referral.patient')}>
+                <div className="form-grid">
+                    <TextField label={t('referral.patientName')} {...text('patientName')} />
+                    <TextField label={t('referral.species')} required {...text('species')} />
+                    <TextField label={t('referral.breed')} {...text('breed')} />
+                    <TextField label={t('referral.age')} {...text('age')} />
+                </div>
+                <TextAreaField label={t('referral.question')} required rows={5} {...text('question')} />
+                <TextAreaField label={t('referral.previous')} {...text('previousTreatment')} />
+                <ChoiceGroup label={t('referral.urgency')} name="urgency" value={form.urgency}
+                    options={URGENCIES.map((urgency) => ({ value: urgency, label: t(`referral.urgencyOption.${urgency}`) }))}
+                    onChange={(urgency) => set('urgency', urgency)} />
+            </FormSection>
 
-                <label className="referral-radio referral-consent">
-                    <input
-                        type="checkbox"
-                        required
-                        checked={form.ownerConsent}
-                        onChange={(e) => set('ownerConsent', e.target.checked)}
-                    />
-                    {t('referral.consent')}
-                </label>
+            <label className="form-choice">
+                <input
+                    type="checkbox"
+                    required
+                    checked={form.ownerConsent}
+                    onChange={(e) => set('ownerConsent', e.target.checked)}
+                />
+                {t('referral.consent')} *
+            </label>
 
-                {vetInfo?.email && <p className="referral-note">{t('referral.reports', { email: vetInfo.email })}</p>}
+            {vetInfo?.email && <p className="form-note">{t('referral.reports', { email: vetInfo.email })}</p>}
 
-                {error && (
-                    <p role="alert" className="referral-error">
-                        {t('referral.error')}
-                    </p>
-                )}
+            {error && <ContactError phone={vetInfo?.phone} />}
 
-                <button type="submit" disabled={sending} className="btn-primary btn-large">
+            <div className="form-actions">
+                <button type="submit" disabled={sending} className="btn-primary">
                     {sending ? t('referral.sending') : t('referral.submit')}
                 </button>
-            </form>
-        </section>
-    );
-}
-
-interface FieldProps {
-    label: string;
-    name: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    required?: boolean;
-    type?: string;
-    autoComplete?: string;
-}
-
-function Field({ label, name, value, onChange, required, type = 'text', autoComplete }: FieldProps) {
-    const id = `referral-${name}`;
-    return (
-        <div className="form-group">
-            <label className="form-label" htmlFor={id}>
-                {label}
-                {required ? ' *' : ''}
-            </label>
-            <input
-                id={id}
-                name={name}
-                type={type}
-                className="form-input"
-                value={value}
-                onChange={onChange}
-                required={required}
-                autoComplete={autoComplete}
-            />
-        </div>
+            </div>
+        </form>
     );
 }

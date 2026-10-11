@@ -28,6 +28,15 @@ This file covers the conventions behind them.
 - Route path constants live in `frontend/src/router/routes.ts`.
 - `/for-pet-owners` redirects to `/treatments`.
 
+## Public forms
+
+- Questionnaire, appointment (`/appointment`), message (`/message`) and referral (`/for-vets`) are
+  pages, not modals. Buttons in the nav, hero and contact area are plain links (`ContactButton`).
+- All four share `components/form/`: `FormPage` (title, intro, frame), `FormSection` (fieldset
+  card), `TextField`, `TextAreaField`, `ChoiceGroup`, `YesNo` and `FormSuccess` (confirmation card
+  that takes focus). Styling is the `.form-*` classes in `global.css`.
+- Spam trap: every form includes `HoneypotField`.
+
 ## Feature folders
 
 Each domain lives in `frontend/src/features/<feature>/`, with `api.ts`, `types.ts` and

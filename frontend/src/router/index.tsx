@@ -11,6 +11,8 @@ import ContactPage from '../pages/public/ContactPage';
 import TreatmentsPage from '../pages/public/TreatmentsPage';
 import ForVetsPage from '../pages/public/ForVetsPage';
 import QuestionnairePage from '../pages/public/QuestionnairePage';
+import AppointmentPage from '../pages/public/AppointmentPage';
+import MessagePage from '../pages/public/MessagePage';
 import QuestionnairesPage from '../pages/protected/QuestionnairesPage';
 import CustomersPage from '../pages/protected/CustomersPage';
 import UsersPage from '../pages/protected/UsersPage';
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: ROUTES.FOR_PET_OWNERS, element: <Navigate to={ROUTES.TREATMENTS} replace /> },
       { path: ROUTES.FOR_VETS, element: <ForVetsPage /> },
       { path: ROUTES.QUESTIONNAIRE, element: <QuestionnairePage /> },
+      { path: ROUTES.APPOINTMENT, element: <AppointmentPage /> },
+      { path: ROUTES.MESSAGE, element: <MessagePage /> },
       { path: ROUTES.NEWS, element: <NewsPage /> },
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.PRIVACY, element: <PrivacyPage /> },

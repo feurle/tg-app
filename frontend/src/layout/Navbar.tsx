@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
 import { useAuth } from '../features/auth/authStore';
 import LoginModal from '../features/auth/components/LoginModal';
-import ContactFormModal from '../features/contact/components/ContactFormModal';
 import { useVetInfo } from '../features/contact/useVetInfo';
 import { telHref } from '../features/contact/officeHours';
 import logoImg from '../assets/logo.png';
@@ -19,9 +18,10 @@ export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [showAppointment, setShowAppointment] = useState(false);
   const { t } = useTranslation();
   const vetInfo = useVetInfo();
+  // The appointment button would link to the page the visitor is already on.
+  const onAppointmentPage = useLocation().pathname === ROUTES.APPOINTMENT;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -58,9 +58,9 @@ export default function Navbar() {
           <NavLink to={ROUTES.FOR_VETS} className={({ isActive }) => isActive ? 'nav-vets-link active' : 'nav-vets-link'}>
             {t('nav.forVets')}
           </NavLink>
-          <button type="button" className="btn-primary nav-cta" onClick={() => setShowAppointment(true)}>
+          <Link to={ROUTES.APPOINTMENT} className="btn-primary nav-cta">
             {t('nav.appointment')}
-          </button>
+          </Link>
           {isAuthenticated ? (
             <button className="nav-login-link" onClick={logout}>
               {t('nav.logout')}
@@ -121,21 +121,25 @@ export default function Navbar() {
         </div>
       )}
 
-      <div className="mobile-cta-bar">
-        <button type="button" className="btn-primary mobile-cta-button" onClick={() => setShowAppointment(true)}>
-          {t('nav.appointment')}
-        </button>
-        {vetInfo?.phone && (
-          <a className="btn-secondary mobile-cta-call" href={telHref(vetInfo.phone)} aria-label={`${t('contactInfo.call')} ${vetInfo.phone}`}>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
-            </svg>
-          </a>
-        )}
-      </div>
+      {(!onAppointmentPage || vetInfo?.phone) && (
+        <div className={onAppointmentPage ? 'mobile-cta-bar mobile-cta-bar-call-only' : 'mobile-cta-bar'}>
+          {!onAppointmentPage && (
+            <Link to={ROUTES.APPOINTMENT} className="btn-primary mobile-cta-button">
+              {t('nav.appointment')}
+            </Link>
+          )}
+          {vetInfo?.phone && (
+            <a className="btn-secondary mobile-cta-call" href={telHref(vetInfo.phone)} aria-label={`${t('contactInfo.call')} ${vetInfo.phone}`}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+              </svg>
+              {onAppointmentPage && <span>{t('contactInfo.call')} {vetInfo.phone}</span>}
+            </a>
+          )}
+        </div>
+      )}
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
-      {showAppointment && <ContactFormModal mode="appointment" onClose={() => setShowAppointment(false)} />}
     </>
   );
 }

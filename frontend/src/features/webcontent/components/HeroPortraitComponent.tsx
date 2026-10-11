@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DOMPurify from 'dompurify';
 import type { ArticleResponse } from '../types';
 import { imageApi } from '../api';
-import ContactFormModal from '../../contact/components/ContactFormModal';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../router/routes';
 import OpenStatusLine from '../../contact/components/OpenStatusLine';
 import { useVetInfo } from '../../contact/useVetInfo';
 import { telHref } from '../../contact/officeHours';
@@ -15,7 +15,6 @@ interface Props {
 /** Home hero: headline, subline and a first-person statement (first section) next to a portrait (first image). */
 export default function HeroPortraitComponent({ article }: Props) {
     const { t } = useTranslation();
-    const [showAppointment, setShowAppointment] = useState(false);
     const vetInfo = useVetInfo();
     const portrait = article.images[0] ?? null;
     const statement = [...article.sections].sort((a, b) => a.order - b.order)[0];
@@ -40,9 +39,9 @@ export default function HeroPortraitComponent({ article }: Props) {
                     />
                 )}
                 <div className="hero-portrait-actions">
-                    <button type="button" className="btn-primary btn-large" onClick={() => setShowAppointment(true)}>
+                    <Link to={ROUTES.APPOINTMENT} className="btn-primary btn-large">
                         {t('nav.appointment')}
-                    </button>
+                    </Link>
                     {vetInfo?.phone && (
                         <a className="hero-portrait-phone" href={telHref(vetInfo.phone)}>
                             {vetInfo.phone}
@@ -58,7 +57,6 @@ export default function HeroPortraitComponent({ article }: Props) {
                     alt={portrait.title || portrait.fileName}
                 />
             )}
-            {showAppointment && <ContactFormModal mode="appointment" onClose={() => setShowAppointment(false)} />}
         </section>
     );
 }

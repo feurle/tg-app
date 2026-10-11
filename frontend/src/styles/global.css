@@ -2566,7 +2566,7 @@ tbody tr:hover td {
 }
 
 /* ── Questionnaire ─────────────────────────────────────────── */
-.questionnaire-page {
+.form-page {
     border-top: none;
     max-width: 800px;
     margin: 0 auto;
@@ -2574,11 +2574,11 @@ tbody tr:hover td {
     padding-bottom: var(--space-7);
 }
 
-.questionnaire-intro {
+.form-intro {
     margin-bottom: var(--space-5);
 }
 
-.questionnaire-title {
+.form-title {
     font-size: var(--fs-2xl);
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -2587,57 +2587,80 @@ tbody tr:hover td {
     margin-bottom: var(--space-2);
 }
 
-.questionnaire-subtitle {
+.form-subtitle {
     font-size: var(--fs-lg);
     color: var(--text-secondary);
     margin-bottom: var(--space-2);
 }
 
-.questionnaire-lead {
+.form-lead {
     font-size: var(--fs-sm);
     color: var(--text-secondary);
     line-height: 1.6;
 }
 
-.questionnaire-form {
+.form-stack {
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
 }
 
-.questionnaire-section {
+.form-section {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: var(--space-5);
     background: var(--surface);
 }
 
-.questionnaire-legend {
+.form-legend {
     font-size: var(--fs-lg);
     font-weight: 600;
     color: var(--ink);
     padding: 0 var(--space-2);
 }
 
-.questionnaire-form .form-label {
+.form-page .form-label {
     font-size: var(--fs-sm);
     line-height: 1.4;
 }
 
-.questionnaire-form .form-input {
+.form-page .form-input {
     font-size: var(--fs-sm);
+    min-height: 44px;
     padding: 12px 14px;
     border-radius: var(--radius-sm);
 }
 
-.questionnaire-yesno {
+.form-page .form-input:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--space-4);
+}
+
+.form-note {
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.form-required-note {
+    font-size: var(--fs-xs);
+    color: var(--text-secondary);
+}
+
+.form-choices {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2) var(--space-4);
     align-items: center;
 }
 
-.questionnaire-radio {
+.form-choice {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -2646,29 +2669,31 @@ tbody tr:hover td {
     cursor: pointer;
 }
 
-.questionnaire-radio input {
+.form-choice input {
     width: 18px;
     height: 18px;
     accent-color: var(--brand);
 }
 
-.questionnaire-actions {
+.form-actions {
     display: flex;
     justify-content: flex-end;
 }
 
-.questionnaire-actions .btn-accent {
+.form-actions .btn-accent,
+.form-actions .btn-primary {
+    min-height: 44px;
     padding: 14px 26px;
     font-size: var(--fs-sm);
     border-radius: var(--radius-sm);
 }
 
-.questionnaire-error {
+.form-error {
     color: var(--danger);
     font-size: var(--fs-sm);
 }
 
-.questionnaire-success {
+.form-success {
     max-width: 560px;
     margin: var(--space-7) auto;
     text-align: center;
@@ -2678,7 +2703,7 @@ tbody tr:hover td {
     padding: var(--space-6) var(--space-5);
 }
 
-.questionnaire-success-icon {
+.form-success-icon {
     width: 56px;
     height: 56px;
     margin: 0 auto var(--space-4);
@@ -2691,24 +2716,29 @@ tbody tr:hover td {
     justify-content: center;
 }
 
-.questionnaire-success h2 {
+.form-success h2 {
     font-size: var(--fs-xl);
     font-weight: 600;
     color: var(--ink);
     margin-bottom: var(--space-2);
 }
 
-.questionnaire-success p {
+.form-success p {
     color: var(--text-secondary);
     font-size: var(--fs-base);
 }
 
 @media (max-width: 640px) {
-    .questionnaire-section {
+    .form-section {
         padding: var(--space-3);
     }
 
-    .questionnaire-actions .btn-accent {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions .btn-accent,
+    .form-actions .btn-primary {
         width: 100%;
     }
 }
@@ -3222,115 +3252,14 @@ tbody tr:hover td {
         padding: 0;
         border-radius: var(--radius-sm);
     }
-}
 
-/* ── Referral form for vets (/for-vets) ──────────────────────────────── */
-.referral {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-6) 64px var(--space-7);
-}
-
-.referral-form {
-    max-width: 720px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
-}
-
-.referral-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-.referral-fieldset legend {
-    font-size: var(--fs-lg);
-    font-weight: 600;
-    color: var(--ink);
-    padding: 0;
-    margin-bottom: var(--space-2);
-}
-
-.referral-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 var(--space-4);
-}
-
-.referral-form .form-group {
-    margin-bottom: var(--space-3);
-}
-
-.referral-form .form-label {
-    font-size: var(--fs-sm);
-}
-
-.referral-form .form-input {
-    font-size: var(--fs-sm);
-    padding: 12px 14px;
-}
-
-.referral-urgency {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-}
-
-.referral-radio {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--fs-sm);
-    color: var(--ink);
-    cursor: pointer;
-}
-
-.referral-radio input {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--brand);
-}
-
-.referral-consent {
-    align-items: flex-start;
-}
-
-.referral-note {
-    font-size: var(--fs-xs);
-    color: var(--text-secondary);
-    margin: 0;
-}
-
-.referral-error {
-    color: var(--danger);
-    font-size: var(--fs-sm);
-    margin: 0;
-}
-
-.referral-success {
-    font-size: var(--fs-base);
-    line-height: 1.6;
-    color: var(--ink);
-    margin: var(--space-3) 0 var(--space-4);
-}
-
-.referral-form .btn-large {
-    align-self: flex-start;
-}
-
-@media (max-width: 900px) {
-    .referral {
-        padding: var(--space-5) var(--space-3) var(--space-6);
-    }
-
-    .referral-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .referral-form .btn-large {
-        align-self: stretch;
+    /* On /appointment the bar only offers the phone number, so it gets a label and the full width. */
+    .mobile-cta-bar-call-only .mobile-cta-call {
+        flex: 1;
+        width: auto;
+        gap: var(--space-2);
+        padding: 14px 18px;
+        font-size: var(--fs-sm);
     }
 }
 
@@ -3478,4 +3407,15 @@ tbody tr:hover td {
 .news-feed .language-fallback {
     margin: 0;
     padding: 0 0 var(--space-3);
+}
+
+.form-success h2:focus {
+    outline: none;
+}
+
+/* Buttons rendered as router links */
+:where(a.btn-primary, a.btn-secondary, a.btn-accent) {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
 }

@@ -1,9 +1,11 @@
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { questionnaireApi } from '../api';
 import { EMPTY_QUESTIONNAIRE, SPECIES, type QuestionnaireFormData, type Species } from '../types';
 import { ApiError } from '../../../lib/apiClient';
 import HoneypotField from '../../../components/HoneypotField';
+import { ChoiceGroup, FormSection, TextAreaField as Area, TextField as Text, YesNo } from '../../../components/form/FormFields';
+import FormSuccess from '../../../components/form/FormSuccess';
 
 type Section = 'owner' | 'pet';
 
@@ -38,7 +40,6 @@ export default function QuestionnaireForm() {
     try {
       await questionnaireApi.submit({ ...form, ...(website && { website }) });
       setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       setError(err instanceof ApiError ? err.message : t('questionnaire.error'));
     } finally {
@@ -48,11 +49,9 @@ export default function QuestionnaireForm() {
 
   if (submitted) {
     return (
-      <div className="questionnaire-success">
-        <div className="questionnaire-success-icon">✓</div>
-        <h2>{t('questionnaire.success.title')}</h2>
+      <FormSuccess title={t('questionnaire.success.title')}>
         <p>{t('questionnaire.success.body')}</p>
-      </div>
+      </FormSuccess>
     );
   }
 
@@ -60,10 +59,9 @@ export default function QuestionnaireForm() {
   const pet = form.pet;
 
   return (
-    <form className="questionnaire-form" onSubmit={handleSubmit}>
+    <form className="form-stack" onSubmit={handleSubmit}>
       <HoneypotField value={website} onChange={setWebsite} />
-      <fieldset className="questionnaire-section">
-        <legend className="questionnaire-legend">{t('questionnaire.section.owner')}</legend>
+      <FormSection legend={t('questionnaire.section.owner')}>
 
         <Text label={t('questionnaire.form.owner.name')} value={owner.name}
           onChange={(v) => update('owner', 'name', v)} required />
@@ -73,33 +71,15 @@ export default function QuestionnaireForm() {
           onChange={(v) => update('owner', 'firstPet', v)} yes={t('questionnaire.yes')} no={t('questionnaire.no')} />
         <Area label={t('questionnaire.form.owner.reasonForChoosing')} value={owner.reasonForChoosing}
           onChange={(v) => update('owner', 'reasonForChoosing', v)} />
-      </fieldset>
+      </FormSection>
 
-      <fieldset className="questionnaire-section">
-        <legend className="questionnaire-legend">{t('questionnaire.section.pet')}</legend>
+      <FormSection legend={t('questionnaire.section.pet')}>
 
         <Text label={t('questionnaire.form.pet.name')} value={pet.name}
           onChange={(v) => update('pet', 'name', v)} required />
-        <div className="form-group" style={{ marginBottom: '16px' }}>
-          <span className="form-label" id="questionnaire-species-label">
-            {t('questionnaire.form.pet.species')} *
-          </span>
-          <div className="questionnaire-yesno" role="radiogroup" aria-labelledby="questionnaire-species-label">
-            {SPECIES.map((species, index) => (
-              <label key={species} className="questionnaire-radio">
-                <input
-                  type="radio"
-                  name="species"
-                  value={species}
-                  checked={pet.species === species}
-                  required={index === 0}
-                  onChange={() => selectSpecies(species)}
-                />{' '}
-                {t(`questionnaire.species.${species}`)}
-              </label>
-            ))}
-          </div>
-        </div>
+        <ChoiceGroup label={t('questionnaire.form.pet.species')} name="species" required value={pet.species}
+          options={SPECIES.map((species) => ({ value: species, label: t(`questionnaire.species.${species}`) }))}
+          onChange={selectSpecies} />
         <Area label={t('questionnaire.form.pet.origin')} value={pet.origin}
           onChange={(v) => update('pet', 'origin', v)} />
         <Area label={t('questionnaire.form.pet.breederRearing')} value={pet.breederRearing}
@@ -140,70 +120,15 @@ export default function QuestionnaireForm() {
           onChange={(v) => update('pet', 'lastDeworming', v)} />
         <Area label={t('questionnaire.form.pet.bloodTest')} value={pet.bloodTest}
           onChange={(v) => update('pet', 'bloodTest', v)} />
-      </fieldset>
+      </FormSection>
 
-      {error && <p className="questionnaire-error">{error}</p>}
+      {error && <p className="form-error" role="alert">{error}</p>}
 
-      <div className="questionnaire-actions">
+      <div className="form-actions">
         <button type="submit" className="btn-accent" disabled={submitting}>
           {submitting ? t('questionnaire.submitting') : t('questionnaire.submit')}
         </button>
       </div>
     </form>
-  );
-}
-
-interface TextProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  required?: boolean;
-  type?: string;
-}
-
-function Text({ label, value, onChange, required, type = 'text' }: TextProps) {
-  const id = useId();
-  return (
-    <div className="form-group" style={{ marginBottom: '16px' }}>
-      <label className="form-label" htmlFor={id}>{label}{required && ' *'}</label>
-      <input id={id} className="form-input" type={type} value={value} required={required}
-        onChange={(e) => onChange(e.target.value)} />
-    </div>
-  );
-}
-
-function Area({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
-  const id = useId();
-  return (
-    <div className="form-group" style={{ marginBottom: '16px' }}>
-      <label className="form-label" htmlFor={id}>{label}</label>
-      <textarea id={id} className="form-input" rows={3} value={value}
-        onChange={(e) => onChange(e.target.value)} style={{ resize: 'vertical' }} />
-    </div>
-  );
-}
-
-interface YesNoProps {
-  label: string;
-  value: boolean | null;
-  onChange: (value: boolean) => void;
-  yes: string;
-  no: string;
-}
-
-function YesNo({ label, value, onChange, yes, no }: YesNoProps) {
-  const id = useId();
-  return (
-    <div className="form-group" style={{ marginBottom: '16px' }} role="group" aria-labelledby={id}>
-      <span className="form-label" id={id}>{label}</span>
-      <div className="questionnaire-yesno">
-        <label className="questionnaire-radio">
-          <input type="radio" checked={value === true} onChange={() => onChange(true)} /> {yes}
-        </label>
-        <label className="questionnaire-radio">
-          <input type="radio" checked={value === false} onChange={() => onChange(false)} /> {no}
-        </label>
-      </div>
-    </div>
   );
 }

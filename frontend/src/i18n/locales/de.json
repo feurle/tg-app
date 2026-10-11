@@ -68,7 +68,7 @@
     },
     "subtitle": "Expertenwissen rund um Tierernährung, Vorsorge und Pflege — verständlich aufbereitet für jeden Tierhalter.",
     "cta": {
-      "primary": "Termin vereinbaren",
+      "primary": "Termin anfragen",
       "secondary": "Kontakt"
     },
     "contact": {
@@ -152,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Termin vereinbaren",
+    "appointment": "Termin anfragen",
     "message": "Nachricht schreiben"
   },
   "contactForm": {
     "message": {
-      "heading": "Nachricht schreiben",
       "text": "Ihre Nachricht"
-    },
-    "appointment": {
-      "heading": "Termin vereinbaren"
     },
     "name": "Name",
     "email": "E-Mail",
@@ -170,11 +166,14 @@
     "preferredDate": "Wunschtermin",
     "preferredTime": "Uhrzeit (optional)",
     "note": "Anliegen (optional)",
-    "submit": "Absenden",
     "sending": "Wird gesendet…",
-    "success": "Vielen Dank! Wir melden uns so bald wie möglich bei Ihnen.",
     "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut.",
-    "close": "Schließen"
+    "section": {
+      "you": "Ihre Daten",
+      "appointment": "Ihr Wunschtermin",
+      "message": "Ihre Nachricht"
+    },
+    "errorWithPhone": "Das Senden hat nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Kontaktdaten",
@@ -215,7 +214,7 @@
     "next": "Nächste Sprechzeit: {{day}} ab {{time}} Uhr"
   },
   "contactInfo": {
-    "unavailable": "Sie erreichen uns über „Termin vereinbaren“ oder „Nachricht schreiben“.",
+    "unavailable": "Sie erreichen uns über „Termin anfragen“ oder „Nachricht schreiben“.",
     "call": "Anrufen",
     "route": "Route anzeigen",
     "closed": "Geschlossen",
@@ -302,7 +301,7 @@
     "new": "Neuer Artikel",
     "newHeading": "Neuer Artikel",
     "editHeading": "Artikel bearbeiten",
-    "deleteConfirm": "Artikel \u201E{{title}}\u201C wirklich löschen?",
+    "deleteConfirm": "Artikel „{{title}}“ wirklich löschen?",
     "loadError": "Artikel konnten nicht geladen werden.",
     "empty": "Keine Artikel vorhanden.",
     "col": {
@@ -391,7 +390,7 @@
     "uploading": "Hochladen…",
     "uploadAction": "Hochladen",
     "selectFile": "Datei auswählen…",
-    "deleteConfirm": "Bild \u201E{{fileName}}\u201C wirklich löschen?",
+    "deleteConfirm": "Bild „{{fileName}}“ wirklich löschen?",
     "loadError": "Bilder konnten nicht geladen werden.",
     "uploadError": "Hochladen fehlgeschlagen.",
     "empty": "Keine Bilder vorhanden.",
@@ -405,7 +404,7 @@
     "new": "Neuer Tag",
     "newHeading": "Neuer Tag",
     "editHeading": "Tag bearbeiten",
-    "deleteConfirm": "Tag \u201E{{name}}\u201C wirklich löschen?",
+    "deleteConfirm": "Tag „{{name}}“ wirklich löschen?",
     "loadError": "Tags konnten nicht geladen werden.",
     "empty": "Keine Tags vorhanden.",
     "name": "Tag-Name *",
@@ -420,7 +419,7 @@
     "new": "Neuer Kunde",
     "newHeading": "Neuer Kunde",
     "editHeading": "Kunde bearbeiten",
-    "deleteConfirm": "Kunde \u201E{{firstName}} {{lastName}}\u201C wirklich löschen?",
+    "deleteConfirm": "Kunde „{{firstName}} {{lastName}}“ wirklich löschen?",
     "loadError": "Kunden konnten nicht geladen werden.",
     "empty": "Keine Kunden vorhanden.",
     "col": {
@@ -448,7 +447,7 @@
     "new": "Neuer Benutzer",
     "newHeading": "Neuer Benutzer",
     "editHeading": "Benutzer bearbeiten: {{login}}",
-    "deleteConfirm": "Benutzer \u201E{{login}}\u201C wirklich löschen?",
+    "deleteConfirm": "Benutzer „{{login}}“ wirklich löschen?",
     "loadError": "Benutzer konnten nicht geladen werden.",
     "createError": "Erstellen fehlgeschlagen.",
     "empty": "Keine Benutzer vorhanden.",
@@ -488,5 +487,26 @@
     "cancel": "Abbrechen",
     "errorInvalid": "Benutzername oder Passwort falsch.",
     "errorGeneral": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+  },
+  "appointmentForm": {
+    "title": "Termin anfragen",
+    "intro": "Nennen Sie mir Ihren Wunschtermin und kurz den Grund Ihres Besuchs. Ich melde mich bei Ihnen, um den Termin zu bestätigen.",
+    "submit": "Termin anfragen",
+    "success": {
+      "title": "Anfrage gesendet",
+      "body": "Ich melde mich in der Regel innerhalb von 1–2 Werktagen bei Ihnen, um den Termin zu bestätigen."
+    }
+  },
+  "messageForm": {
+    "title": "Nachricht schreiben",
+    "intro": "Haben Sie eine Frage an mich? Schreiben Sie mir, ich antworte per E-Mail.",
+    "submit": "Nachricht senden",
+    "success": {
+      "title": "Nachricht gesendet",
+      "body": "Ich antworte in der Regel innerhalb von 1–2 Werktagen per E-Mail."
+    }
+  },
+  "form": {
+    "requiredNote": "* Pflichtfeld"
   }
 }

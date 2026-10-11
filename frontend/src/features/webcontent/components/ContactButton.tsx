@@ -1,22 +1,18 @@
-import {useState} from 'react';
+import {Link} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import ContactFormModal, {type ContactFormMode} from '../../contact/components/ContactFormModal';
+import {ROUTES} from '../../../router/routes';
 
 export default function ContactButton() {
     const {t} = useTranslation();
-    const [mode, setMode] = useState<ContactFormMode | null>(null);
 
     return (
-        <>
-            <div className="hero-actions">
-                <button type="button" className="btn-primary" onClick={() => setMode('appointment')}>
-                    {t('contact.appointment')}
-                </button>
-                <button type="button" className="btn-secondary" onClick={() => setMode('message')}>
-                    {t('contact.message')}
-                </button>
-            </div>
-            {mode && <ContactFormModal mode={mode} onClose={() => setMode(null)}/>}
-        </>
+        <div className="hero-actions">
+            <Link to={ROUTES.APPOINTMENT} className="btn-primary">
+                {t('contact.appointment')}
+            </Link>
+            <Link to={ROUTES.MESSAGE} className="btn-secondary">
+                {t('contact.message')}
+            </Link>
+        </div>
     );
 }

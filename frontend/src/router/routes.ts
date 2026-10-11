@@ -5,6 +5,8 @@ export const ROUTES = {
   FOR_PET_OWNERS: '/for-pet-owners',
   FOR_VETS: '/for-vets',
   QUESTIONNAIRE: '/questionnaire',
+  APPOINTMENT: '/appointment',
+  MESSAGE: '/message',
   NEWS: '/news',
   ABOUT: '/about',
   PRIVACY: '/privacy',

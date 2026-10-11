@@ -152,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Book Appointment",
-    "message": "Send Message"
+    "appointment": "Request appointment",
+    "message": "Send message"
   },
   "contactForm": {
     "message": {
-      "heading": "Send a message",
       "text": "Your message"
-    },
-    "appointment": {
-      "heading": "Book an appointment"
     },
     "name": "Name",
     "email": "Email",
@@ -170,11 +166,14 @@
     "preferredDate": "Preferred date",
     "preferredTime": "Time (optional)",
     "note": "Reason for visit (optional)",
-    "submit": "Send",
     "sending": "Sending…",
-    "success": "Thank you! We will get back to you as soon as possible.",
     "error": "Sending failed. Please try again later.",
-    "close": "Close"
+    "section": {
+      "you": "Your details",
+      "appointment": "Your preferred date",
+      "message": "Your message"
+    },
+    "errorWithPhone": "Sending failed. Please try again or call us: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Contact Info",
@@ -488,5 +487,26 @@
     "cancel": "Cancel",
     "errorInvalid": "Invalid username or password.",
     "errorGeneral": "Login failed. Please try again."
+  },
+  "appointmentForm": {
+    "title": "Request an appointment",
+    "intro": "Tell me your preferred date and briefly the reason for your visit. I will get back to you to confirm the appointment.",
+    "submit": "Request appointment",
+    "success": {
+      "title": "Request sent",
+      "body": "I usually get back to you within 1–2 working days to confirm the appointment."
+    }
+  },
+  "messageForm": {
+    "title": "Send a message",
+    "intro": "Do you have a question for me? Write to me and I will reply by e-mail.",
+    "submit": "Send message",
+    "success": {
+      "title": "Message sent",
+      "body": "I usually reply by e-mail within 1–2 working days."
+    }
+  },
+  "form": {
+    "requiredNote": "* Required field"
   }
 }
