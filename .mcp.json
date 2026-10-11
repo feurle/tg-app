@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "env": {}
+    },
+    "firefox-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@mozilla/firefox-devtools-mcp@latest"
+      ],
+      "env": {
+        "START_URL": "about:blank"
+      }
+    }
+  }
+}
