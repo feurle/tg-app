@@ -167,7 +167,7 @@ Targets are validated **on save** (backend, in the section service, when the par
 - Seed assertion — every page slug has a published `CTA` article in each of the four languages, so a broken migration fails the build rather than emptying the live site.
 - `WebContentModuleTests` (Spring Modulith boundaries) stays green; this design adds nothing cross-module.
 
-**Frontend** — no test runner exists (`package.json` has only `dev`, `build`, `lint`, `preview`). Verification is `npm run build` (`tsc -b`), `npm run lint`, and runtime checking via the project's `verify` skill: start both services, confirm each of the five pages renders its CTA, contact buttons behave as before, and the questionnaire link navigates. Before/after screenshots per page are the regression check, since the goal is that **nothing visibly changes** while the content source moves from code to database.
+**Frontend** — no test runner exists (`package.json` has only `dev`, `build`, `lint`, `preview`). Verification is `npm run build` (`tsc -b`), `npm run lint`, and runtime checking as described in `docs/verification.md`: start both services, confirm each of the five pages renders its CTA, contact buttons behave as before, and the questionnaire link navigates. Before/after screenshots per page are the regression check, since the goal is that **nothing visibly changes** while the content source moves from code to database.
 
 Introducing a frontend test framework is out of scope — a real gap, but its own decision with its own conventions, and bundling it here would double the size of the change.
 

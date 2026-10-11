@@ -43,7 +43,7 @@ Alternatively, `./gradlew devAll` starts both dev servers in parallel in one ter
 
 ## Authentication
 
-Form-based login with stateful sessions. Two accounts are seeded in every environment:
+Session-based login via `POST /api/auth/login` (form login is disabled). Two accounts are seeded in every environment:
 
 | Username | Password | Roles |
 |----------|----------|-------|
@@ -98,4 +98,4 @@ Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS.
 
 ---
 
-For module architecture, layer conventions, and the frontend's structure/routing/i18n conventions, see [`AGENTS.md`](AGENTS.md) — kept as the single source of truth to avoid this README drifting out of sync.
+For module architecture, conventions and everything else beyond this overview, see [`docs/`](docs/) (index in [`AGENTS.md`](AGENTS.md)).

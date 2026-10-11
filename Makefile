@@ -13,7 +13,7 @@ api-sync: dump-openapi
 # holding that pipe open. The trap guarantees the backend gets killed even if a
 # later step (e.g. the curl below) fails, so we never leak a running process.
 # Killed by port, not by the gradlew PID: gradlew forks the actual JVM, so
-# killing the wrapper alone leaves that JVM holding :8080 (see .claude/skills/verify).
+# killing the wrapper alone leaves that JVM holding :8080 (see docs/verification.md).
 dump-openapi:
 	set -e
 	./gradlew bootRun --args='--spring.profiles.active=dev' > /tmp/tg-app-bootrun.log 2>&1 &

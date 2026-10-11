@@ -1,6 +1,6 @@
 # tg-app Frontend
 
-React 19 + TypeScript + Vite + React Router v7 + react-i18next. Talks to the Spring Boot backend only through `src/lib/apiClient.ts` (cookie sessions). Architecture, routing, auth and i18n conventions: see [`../AGENTS.md`](../AGENTS.md).
+React 19 + TypeScript + Vite + React Router v7 + react-i18next. Talks to the Spring Boot backend only through `src/lib/apiClient.ts` (cookie sessions). Conventions for routing, auth and i18n: see [`../docs/frontend.md`](../docs/frontend.md).
 
 ## Commands
 
@@ -39,7 +39,7 @@ Admin (login required): `/customers`, `/users`, `/questionnaires`, `/contact-inf
 
 ## CMS article types
 
-`features/webcontent/components/PageBlocks.tsx` renders one component per `ArticleType` (list in `features/webcontent/blockTypes.ts`). The admin form shows a help text per type (`article.pageTypeHelp.*`). Home: `HERO_PORTRAIT`, `SYMPTOMS`, `METHODS` (sections carry an optional image), `ABOUT_TEASER`, `STEPS`, `VET_BAND`. Generic: `HERO`, `COL2`, `COL3`, `COL4`, `TEXT`.
+`features/webcontent/components/PageBlocks.tsx` renders one component per `ArticleType`. The types are defined in `features/webcontent/blockTypes.ts` (mirrors the backend enum `ArticleType.java`). See [`../docs/webcontent.md`](../docs/webcontent.md).
 
 ## Design
 
