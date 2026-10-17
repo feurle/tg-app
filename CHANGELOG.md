@@ -9,6 +9,20 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.1.0] - 2026-10-17
+
+### Added
+
 - Entwürfe für die Inhalte der Seiten „Behandlungen“ (Chiropraktik, Goldimplantation, Blutegeltherapie, Ablauf), „Für Tierärzte“ (Überweisungsgründe, Angebot, Ablauf) und „Über mich“ (Ich-Form, Mission). Sie sind aus den vorhandenen Texten abgeleitet und von Dr. Feurle-Elsäßer zu prüfen. Die Seiten `treatments` und `for-vets` sind als CMS-Seiten angelegt.
 - Spamschutz für die öffentlichen Formulare (Nachricht, Termin, Überweisung, Erhebungsbogen): ein unsichtbares Feld, das Bots verrät (solche Einsendungen werden verworfen), und eine Begrenzung auf 5 Einsendungen pro Adresse und 10 Minuten (konfigurierbar über `app.rate-limit.*`, Antwort 429).
 - Eigene 404-Seite und eine Fehlerseite statt einer weißen Seite, wenn eine Seite nicht angezeigt werden kann. Seitentitel passen sich Seite und Sprache an, `<html lang>` folgt der gewählten Sprache, und die Startseite hat eine Meta-Beschreibung.
@@ -35,17 +49,11 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - Öffentliche Navigation neu aufgebaut: Behandlungen · Über mich · Aktuelles mit festem Button „Termin anfragen“, dezentem Link „Für Tierärzte“ und auf dem Handy einer festen Termin-Leiste unten; das „Anfragen“-Dropdown entfällt. `/for-pet-owners` ist jetzt die Seite „Behandlungen“ (`/treatments`) und leitet weiter.
 - Neues Design-Fundament „Bodensee & Holz“ (siehe `docs/ui-design.md`): zentrale Tokens für Farbe, Typografie (Figtree statt Lora/DM Sans), Abstände und Radien; fest codierte Farben und Schriften in `global.css` und den Formular-Modals durch Tokens ersetzt.
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - Entwürfe und geschlossene Artikel waren über `GET /api/webcontent/pages/{slug}` auch ohne Login lesbar. Anonyme Besucher bekommen dort jetzt nur veröffentlichte Artikel, angemeldete Benutzer wie bisher alle.
 - Öffentliche Seiten stürzten ab (weiße Seite), wenn in den Kontaktdaten die Telefonnummer fehlte. Kontaktbereich, Footer und Links berücksichtigen jetzt fehlende Angaben; ohne Kontaktdaten zeigt die Kontaktseite einen Hinweis auf die Formulare, und beim Laden wird Platz reserviert. Auf der Kontaktseite folgen auf die Überschrift jetzt Überschriften der zweiten Ebene.
 - Neue Tags ließen sich nicht anlegen (Fehler 500), weil die automatisch vergebene ID mit den geseedeten Tags kollidierte. Tags, Abschnitte und Seiten vergeben neue IDs jetzt ab 1500, wie die übrigen Tabellen. Bei Abschnitten wäre derselbe Fehler ab dem hundertsten neuen Abschnitt aufgetreten (#88).
-
-### Security
 
 ## [1.0.3] - 2026-09-26
 
@@ -95,7 +103,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/feurle/tg-app/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/feurle/tg-app/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/feurle/tg-app/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/feurle/tg-app/compare/v1.0.0...v1.0.1
