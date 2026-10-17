@@ -1,6 +1,6 @@
 # tg-app - UI Design
 
-Design-Referenz für das öffentliche Frontend von **Tier. Gesund.** Sie beschreibt, wie die Seite aussehen und sich verhalten soll. Offene Nacharbeit steht in [plans/post-redesign-plan.md](plans/post-redesign-plan.md).
+Design-Referenz für das öffentliche Frontend von **Tier. Gesund.** Sie beschreibt, wie die Seite aussehen und sich verhalten soll.
 
 ## 1. Zielgruppen & Aufgaben
 
