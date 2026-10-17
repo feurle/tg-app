@@ -11,7 +11,8 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`.
      (`src/main/docker/test-compose.yml`).
 3. Deployed over SSH with the Docker Compose files in `src/main/docker/`.
 
-Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS.
+Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS
+([proxy-architecture.puml](proxy-architecture.puml)).
 
 Production data is re-seeded from the CSV files on every deploy. See
 [database.md](database.md).
@@ -39,6 +40,8 @@ serves both frontend and backend. There is no separate frontend image. See
 
 - `/actuator/health` is public.
 - Other actuator endpoints require `ROLE_ADMIN` via HTTP Basic, so that `tg-admin` can query them.
+- Open before go-live: `test` and `prod` expose `heapdump`, `env`, `beans`, `threaddump` and
+  `loggers`. A heap dump leaks sessions and secrets. Trim to `health,info,metrics,modulith`.
 
 ## tg-admin
 

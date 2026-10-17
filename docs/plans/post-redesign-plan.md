@@ -48,7 +48,7 @@ Entscheidungen aus der Rückfrage:
 5. **Rechtliches:** Datenschutz-Ergänzung (WP1) von der Praxis oder einem Juristen prüfen lassen, bevor live. Hinweis auf Gesundheitsdaten Dritter im Überweisungsformular.
 6. **Texte freigeben:** Home-Seed, Behandlungen, Für Tierärzte, Über mich, Hero-Statement durch Dr. Feurle-Elsäßer.
 7. **Bilder:** höher aufgelöstes Gold-Foto, Foto für „Ganzheitliche Betreuung“; große Bilder liegen als Base64 in der DB (Hero 168 KB).
-8. **Alte Spezifikation** `docs/superpowers/specs/2026-07-30-cta-block-design.md` (CTA-Artikeltyp) ist veraltet (verweist auf `tg-web`, `ForPetOwnersPage`). Entweder aktualisieren oder als überholt markieren; `ContactButton` ist weiterhin in 7 Komponenten hart verdrahtet.
+8. **CTA als Artikeltyp:** Die alte Spezifikation ist gelöscht (siehe Git-Historie). `ContactButton` ist weiterhin in 7 Komponenten hart verdrahtet.
 
 ### A4. Fehlen Seiten, Sections, Content?
 | Was | Stand | Lösung im Plan |

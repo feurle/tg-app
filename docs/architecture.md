@@ -1,9 +1,8 @@
 # Architecture
 
 The backend is a **Spring Modulith** modular monolith under `com.feurle.tg`. The
-framework enforces module boundaries: modules talk to each other through Spring
-events or exposed interfaces (e.g. `PrimaryContactEmailLookup` from `vetinfo`),
-never by importing another module's internals.
+framework enforces the module boundaries from `AGENTS.md`. Example of an exposed
+interface: `PrimaryContactEmailLookup` from `vetinfo`.
 
 ## Modules
 

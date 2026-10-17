@@ -39,8 +39,8 @@ Admin (login required): `/customers`, `/users`, `/questionnaires`, `/contact-inf
 
 ## CMS article types
 
-`features/webcontent/components/PageBlocks.tsx` renders one component per `ArticleType`. The types are defined in `features/webcontent/blockTypes.ts` (mirrors the backend enum `ArticleType.java`). See [`../docs/webcontent.md`](../docs/webcontent.md).
+See [`../docs/webcontent.md`](../docs/webcontent.md).
 
 ## Design
 
-Tokens (colour, type scale, spacing, radius) live in `src/styles/variables.css`; direction and rules are in [`../docs/ui-design.md`](../docs/ui-design.md). Figtree is self-hosted via `@fontsource-variable/figtree`.
+Tokens live in `src/styles/variables.css`; direction and rules are in [`../docs/ui-design.md`](../docs/ui-design.md).

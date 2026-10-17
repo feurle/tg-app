@@ -1,16 +1,12 @@
 # AGENTS.md
 
-Spring Boot backend (Java 21, Gradle, Spring Modulith) for a veterinary practice website and CMS, with a React 19 + TypeScript frontend in `frontend/`.
-
-Package managers: Gradle wrapper for the backend, npm in `frontend/`.
+Spring Boot backend (Java 21, Gradle wrapper, Spring Modulith) for a veterinary practice website and CMS, with a React 19 + TypeScript frontend in `frontend/`. The default branch is `trunk`.
 
 ## Commands
 
 ```bash
-./gradlew bootRun           # backend on :8080, dev profile (H2)
-./gradlew devAll            # backend + frontend dev server in one terminal
+./gradlew devAll            # backend :8080 (dev profile, H2) + frontend :5173 in one terminal
 ./gradlew spotlessApply     # format code (Google Java Format), run before committing
-cd frontend && npm run dev  # frontend on :5173, proxies /api to :8080
 ```
 
 `./gradlew build` runs the tests and also builds the frontend into the backend's static resources.
@@ -20,7 +16,7 @@ cd frontend && npm run dev  # frontend on :5173, proxies /api to :8080
 - Modules talk to each other only through Spring events or exposed interfaces, never through another module's internals.
 - All frontend backend calls go through `frontend/src/lib/apiClient.ts`.
 - Write endpoints under `/api/webcontent` require `ROLE_ADMIN`.
-- Until go-live, Liquibase changesets are edited in place and the database is re-seeded on every start and every production deploy. After go-live, every change needs a new changeset. See [docs/database.md](docs/database.md).
+- Until go-live, Liquibase changesets are edited in place, not added. See [docs/database.md](docs/database.md).
 - Structural changes update the docs in the same change. See [docs/contributing.md](docs/contributing.md).
 
 ## Docs

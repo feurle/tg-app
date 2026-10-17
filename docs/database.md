@@ -2,11 +2,11 @@
 
 ## Profiles
 
-| Profile | Database | Used by |
-|---------|----------|---------|
-| `dev` | H2 in-memory (H2 console at `http://localhost:8080/h2-console`) | local development |
-| `test` | MySQL 9.2 | staging |
-| `prod` | MySQL 9.2 | production |
+| Profile | Database | Liquibase contexts | Used by |
+|---------|----------|--------------------|---------|
+| `dev` | H2 in-memory (console at `http://localhost:8080/h2-console`) | `seed` | local development |
+| `test` | MySQL 9.2 (`tg-database-test`) | `seed` | staging |
+| `prod` | MySQL 9.2 (`tg-database`) | `seed` | production |
 
 ## Liquibase
 
@@ -36,6 +36,14 @@ The site is not live yet, but production is deployed from `trunk`. Until go-live
 
 **After go-live:** `drop-first` is switched off. From then on, every schema or data
 change needs its own new changeset, and existing changesets must not be edited.
+
+Open before go-live:
+
+- Remove `drop-first: true` and the `seed` context from the `test` and `prod` profiles in
+  `application.yaml`, and check that Liquibase runs incrementally against a MySQL snapshot.
+- Production and staging connect as MySQL `root`. Create a least-privilege user.
+- `h2` and `spring-boot-h2console` are unconditional dependencies. Restrict them to dev.
+- The seeded `admin`/`admin` and `user`/`user` accounts must not reach the live database.
 
 ## Test credentials
 

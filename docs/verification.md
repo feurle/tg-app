@@ -27,22 +27,10 @@ Tool names differ between the two:
 | Console messages | `list_console_messages` / `get_console_message` | no direct equivalent; use `get_firefox_output` for browser logs |
 | End session | not needed | `close_firefox_session` when done |
 
-Snapshot UIDs go stale in both browsers after DOM changes, so re-snapshot before reusing one.
-
 ## Launch
 
-Both in background; they take ~10s and ~1s respectively.
-
-```bash
-./gradlew bootRun                    # :8080, dev profile, H2
-cd frontend && npm run dev           # :5173, proxies /api -> :8080
-```
-
-`./gradlew devAll` runs both in one terminal, but interleaves their output
-without labeling which process a line came from and has no readiness signal
-of its own. Prefer the two-terminal approach when debugging a launch failure.
-
-Wait on readiness rather than sleeping:
+Start backend and frontend in the background as in [local-development.md](local-development.md)
+(~10s and ~1s). Wait on readiness rather than sleeping:
 
 ```bash
 until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home \
@@ -50,8 +38,8 @@ until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home
 ```
 
 **H2 is in-memory.** Restarting the backend resets to the Liquibase seed, the
-cheapest way to get clean data after probes pollute it. Seeded pages: `home` (100),
-`news` (200), `about` (300), `privacy` (400), `imprint` (500).
+cheapest way to get clean data after probes pollute it. Seeded pages are in
+`src/main/resources/db/data/page.csv`.
 
 ## Authenticate
 
@@ -80,18 +68,15 @@ Don't trust that the fetch resolved. Check the `Set-Cookie` header on the
 response status directly in the login fetch.
 This catches a silent 401 that a status-blind assertion would miss.
 
-Mutating endpoints return 401 without the cookie. Only `/published`, `/pages/{slug}`
-(not the `/pages` list) and image downloads are public.
+Mutating endpoints return 401 without the cookie. Public endpoints: see
+[webcontent.md](webcontent.md#access).
 
 ## Drive
 
-- **Public pages:** `localhost:5173/`, `/news`, `/about`, `/contact`. Rendering
-  dispatches on `article.articleType`. An article with a null or unhandled type
-  silently renders nothing, so check the type when a page looks empty. The
-  dispatch lives in `PageBlocks.tsx`; the enum is `ArticleType.java`.
-- **Admin pages:** `localhost:5173/webcontent/page/{home,news,about,privacy,imprint}`.
-  Protected routes render **blank** when unauthenticated, not a redirect. A white
-  page usually means the cookie is missing, not a crash.
+- **Public pages:** routes in [frontend/README.md](../frontend/README.md#routes). An empty
+  page usually means an article type problem, see [webcontent.md](webcontent.md).
+- **Admin pages:** `localhost:5173/webcontent/page/{slug}`. A blank page means the
+  session cookie is missing, not a crash (see [frontend.md](frontend.md#auth)).
 - **Admin table loop** (Chrome names, Firefox equivalents in the table above):
   `resize_page` to ~1500x900 (action buttons are off-screen at default width; take a
   screenshot to confirm the resize revealed them) → `take_snapshot` → act on the
@@ -128,10 +113,6 @@ matches display order:
 - **Firefox: `fill_by_uid` with an empty string is untested here.** Check whether the
   React state updates. If it doesn't, use the clear sequence from above
   (`click_by_uid`, `press_key` `ctrl+a`, `press_key` `Backspace`).
-- **Scratch files** (snapshots, dumps) go into a temp directory (e.g. `mktemp -d`), not the repo, so
-  they don't pollute `git status`.
-- **`./gradlew spotlessApply` reformats the whole codebase.** Check `git status`
-  and `git diff` afterwards and revert anything unrelated before committing.
 - **Stopping the backend:** `kill $(ss -ltnp | grep ':8080' | grep -oP 'pid=\K[0-9]+')`.
   `pkill -f bootRun` only catches the Gradle wrapper and leaves the forked JVM
   holding the port. The kill command can return an odd exit code even on success,

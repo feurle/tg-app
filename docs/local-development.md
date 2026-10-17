@@ -13,5 +13,5 @@ interleaved without labels, so use the two-terminal setup when debugging a start
 - Vite proxies `/api/*` to the backend, so the browser sees one origin and no CORS setup is needed.
 - Spring Boot DevTools reloads the backend when Java files change.
 - H2 console: `http://localhost:8080/h2-console`.
-- Dev login: `admin` / `admin` (see [database.md](database.md)).
+- Logins: see [database.md](database.md#test-credentials).
 - To verify a change at runtime, follow [verification.md](verification.md).

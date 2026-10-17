@@ -42,8 +42,9 @@ This file covers the conventions behind them.
 Each domain lives in `frontend/src/features/<feature>/`, with `api.ts`, `types.ts` and
 `components/`.
 
-Known deviation: `features/webcontent/api.ts` defines its own `BASE_URL` instead of going
-through `apiClient.ts`. New code should use `apiClient.ts`.
+Known deviation: `features/webcontent/api.ts` builds the image download URL and the multipart
+upload with its own `BASE_URL` (from `VITE_API_URL`, empty by default) instead of `apiClient.ts`.
+New code should use `apiClient.ts`.
 
 ## Design
 

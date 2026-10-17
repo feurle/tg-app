@@ -1,6 +1,6 @@
 # tg-app - UI Design
 
-Design-Referenz für das öffentliche Frontend von **Tier. Gesund.** Sie beschreibt, wie die Seite aussehen und sich verhalten soll. Offene Nacharbeit steht in [post-redesign-plan.md](post-redesign-plan.md).
+Design-Referenz für das öffentliche Frontend von **Tier. Gesund.** Sie beschreibt, wie die Seite aussehen und sich verhalten soll. Offene Nacharbeit steht in [plans/post-redesign-plan.md](plans/post-redesign-plan.md).
 
 ## 1. Zielgruppen & Aufgaben
 
@@ -117,7 +117,7 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
 7 KONTAKT        Adresse + Karten-Link | Sprechzeiten | Telefon   (aus VetInfo)
 ```
 
-Zuordnung zu Artikeltypen (`ArticleType`):
+Zuordnung zu Artikeltypen (`ArticleType`, maßgeblich ist `frontend/src/features/webcontent/blockTypes.ts`):
 
 | Sektion | Typ |
 |---|---|
