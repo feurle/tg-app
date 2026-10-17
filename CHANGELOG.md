@@ -43,6 +43,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 - Entwürfe und geschlossene Artikel waren über `GET /api/webcontent/pages/{slug}` auch ohne Login lesbar. Anonyme Besucher bekommen dort jetzt nur veröffentlichte Artikel, angemeldete Benutzer wie bisher alle.
 - Öffentliche Seiten stürzten ab (weiße Seite), wenn in den Kontaktdaten die Telefonnummer fehlte. Kontaktbereich, Footer und Links berücksichtigen jetzt fehlende Angaben; ohne Kontaktdaten zeigt die Kontaktseite einen Hinweis auf die Formulare, und beim Laden wird Platz reserviert. Auf der Kontaktseite folgen auf die Überschrift jetzt Überschriften der zweiten Ebene.
+- Neue Tags ließen sich nicht anlegen (Fehler 500), weil die automatisch vergebene ID mit den geseedeten Tags kollidierte. Tags, Abschnitte und Seiten vergeben neue IDs jetzt ab 1500, wie die übrigen Tabellen. Bei Abschnitten wäre derselbe Fehler ab dem hundertsten neuen Abschnitt aufgetreten (#88).
 
 ### Security
 
