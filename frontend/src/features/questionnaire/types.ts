@@ -5,8 +5,14 @@ export interface OwnerDetails {
   reasonForChoosing: string;
 }
 
+export type Species = 'DOG' | 'CAT' | 'SMALL_ANIMAL' | 'OTHER';
+
+export const SPECIES: Species[] = ['DOG', 'CAT', 'SMALL_ANIMAL', 'OTHER'];
+
 export interface PetDetails {
   name: string;
+  /** `null` until the visitor picks one (required on submit). Only dogs get school/commands questions. */
+  species: Species | null;
   origin: string;
   breederRearing: string;
   historyBeforeOwner: string;
@@ -44,6 +50,7 @@ export const EMPTY_QUESTIONNAIRE: QuestionnaireFormData = {
   },
   pet: {
     name: '',
+    species: null,
     origin: '',
     breederRearing: '',
     historyBeforeOwner: '',

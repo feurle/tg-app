@@ -1,0 +1,4 @@
+vet_info_id;sort_order;day_of_week;opens_at;closes_at
+100;0;MONDAY;14:00:00;18:00:00
+100;1;TUESDAY;08:30:00;12:30:00
+100;2;THURSDAY;08:30:00;12:30:00

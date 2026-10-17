@@ -15,7 +15,7 @@ public class VetInfoMapper {
   public VetInfoResponse toResponse(VetInfo vetInfo) {
     List<OfficeHourDto> officeHours =
         vetInfo.getOfficeHours().stream()
-            .map(oh -> new OfficeHourDto(oh.getLabel(), oh.getHours()))
+            .map(oh -> new OfficeHourDto(oh.getDayOfWeek(), oh.getOpensAt(), oh.getClosesAt()))
             .toList();
     return new VetInfoResponse(
         vetInfo.getId(),
@@ -31,6 +31,8 @@ public class VetInfoMapper {
   }
 
   public List<OfficeHour> toDomain(List<OfficeHourDto> dtos) {
-    return dtos.stream().map(dto -> new OfficeHour(dto.label(), dto.hours())).toList();
+    return dtos.stream()
+        .map(dto -> new OfficeHour(dto.dayOfWeek(), dto.opensAt(), dto.closesAt()))
+        .toList();
   }
 }

@@ -89,7 +89,8 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/articles/pagetype/*/published")
               .permitAll()
-              .requestMatchers(HttpMethod.GET, "/api/webcontent/pages/**")
+              // one segment only: /pages/{slug} is public, the page list (/pages) is not
+              .requestMatchers(HttpMethod.GET, "/api/webcontent/pages/*")
               .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/webcontent/images/*/download")
               .permitAll()
@@ -97,7 +98,11 @@ public class SecurityConfig {
               .permitAll()
               .requestMatchers(HttpMethod.POST, "/api/contact/appointment")
               .permitAll()
+              .requestMatchers(HttpMethod.POST, "/api/contact/referral")
+              .permitAll()
               .requestMatchers(HttpMethod.GET, "/api/contact/info")
+              .permitAll()
+              .requestMatchers(HttpMethod.GET, "/api/vetinfo/primary")
               .permitAll()
               .requestMatchers(HttpMethod.POST, "/api/questionnaire")
               .permitAll();

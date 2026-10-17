@@ -1,51 +1,16 @@
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pageApi } from '../../features/webcontent/api';
-import type { ArticleResponse } from '../../features/webcontent/types';
-import ArticleBlock from '../../features/webcontent/components/ArticleBlock';
-import { resolveLanguage } from '../../features/webcontent/language';
+import ContactSection from '../../features/contact/components/ContactSection';
+import ContactButton from '../../features/webcontent/components/ContactButton';
 
 export default function ContactPage() {
-  const [articles, setArticles] = useState<ArticleResponse[]>([]);
-  const [fetchedLanguage, setFetchedLanguage] = useState<string | null>(null);
-  const { t, i18n: i18nInstance } = useTranslation();
-  const language = resolveLanguage(i18nInstance.language);
-  const loading = fetchedLanguage !== language;
-
-  useEffect(() => {
-    let cancelled = false;
-    pageApi.getBySlug('contact')
-      .then((page) => {
-        if (!cancelled) {
-          setArticles(
-            page.articles.filter(
-              (a) => a.state === 'PUBLISHED' && a.language === language,
-            ),
-          );
-          setFetchedLanguage(language);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setArticles([]);
-          setFetchedLanguage(language);
-        }
-      });
-    return () => { cancelled = true; };
-  }, [language]);
+  const { t } = useTranslation();
 
   return (
     <div style={{ background: 'var(--bg)', minHeight: 'calc(100vh - 60px)' }}>
-      <div className="section">
-        {loading ? (
-          <p>{t('common.loading')}</p>
-        ) : (
-          <div className="article-grid-1">
-            {articles.map((article) => (
-              <ArticleBlock key={article.id} article={article} />
-            ))}
-          </div>
-        )}
+      <ContactSection headingLevel="h1" />
+      <div className="cta-section">
+        <p className="cta-tagline">{t('home.contact.sub')}</p>
+        <ContactButton />
       </div>
     </div>
   );

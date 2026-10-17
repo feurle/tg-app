@@ -1,69 +1,93 @@
-import {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {contactApi} from '../api';
-import type {ContactInfoResponse} from '../types';
+import { useTranslation } from 'react-i18next';
+import { useVetInfoState } from '../useVetInfo';
+import { formatTime, groupByDay, telHref, weekdayName } from '../officeHours';
+import { addressLines, filled, mapUrl } from '../contactInfo';
+import OpenStatusLine from './OpenStatusLine';
 
-export default function ContactSection() {
-    const {t} = useTranslation();
-    const [info, setInfo] = useState<ContactInfoResponse | null>(null);
+interface Props {
+    /** Heading level: `h1` where this is the main content of the page, `h2` inside a longer page. */
+    headingLevel?: 'h1' | 'h2';
+}
 
-    useEffect(() => {
-        contactApi.getInfo()
-            .then(setInfo)
-            .catch(() => setInfo(null));
-    }, []);
+/**
+ * Phone, e-mail, address and office hours of the practice, all from the primary VetInfo.
+ * Parts that are missing in the data are left out; without any data a hint points to the forms.
+ */
+export default function ContactSection({ headingLevel: Heading = 'h2' }: Props) {
+    const { t, i18n } = useTranslation();
+    const { info, loaded } = useVetInfoState();
+    // The labels sit one level below the section heading.
+    const Label = Heading === 'h1' ? 'h2' : 'h3';
 
-    if (!info) return null;
+    const { street, place } = info ? addressLines(info) : { street: null, place: null };
+    const route = info ? mapUrl(info) : null;
+    const hours = info ? groupByDay(info.officeHours) : [];
+    const hasData = filled(info?.phone) || filled(info?.email) || !!street || !!place || hours.length > 0;
 
     return (
-        <div className="section">
-            <div className="section-header">
-                <span className="section-title">{t('home.contact.title')}</span>
-                <span className="section-sub">{t('home.contact.sub')}</span>
-            </div>
-            <div className="contact-info-grid">
-                <div className="contact-info-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.86a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
-                    </svg>
-                    <span className="contact-info-label">{t('contactInfo.phone')}</span>
-                    <a className="contact-info-value contact-info-link" href={`tel:${info.phone}`}>
-                        {info.phone}
-                    </a>
-                </div>
-                <div className="contact-info-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect width="20" height="16" x="2" y="4" rx="2"/>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                    </svg>
-                    <span className="contact-info-label">{t('contactInfo.email')}</span>
-                    <a className="contact-info-value contact-info-link" href={`mailto:${info.email}`}>
-                        {info.email}
-                    </a>
-                </div>
-                <div className="contact-info-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    <span className="contact-info-label">{t('contactInfo.address')}</span>
-                    <span className="contact-info-value">{info.street}</span>
-                    <span className="contact-info-value">{info.zip} {info.city}</span>
-                </div>
-                <div className="contact-info-col">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    <span className="contact-info-label">{t('contactInfo.officeHours')}</span>
-                    {info.officeHours.map((oh) => (
-                        <div key={oh.label} className="contact-info-hours-row">
-                            <span className="contact-info-hours-day">{oh.label}</span>
-                            <span className="contact-info-value">{oh.hours}</span>
+        <section className="home-section">
+            <Heading className="home-heading">{t('home.contact.title')}</Heading>
+
+            {!loaded && <div className="vet-contact-placeholder" aria-hidden="true" />}
+            {loaded && !hasData && <p className="home-lead">{t('contactInfo.unavailable')}</p>}
+
+            {info && hasData && (
+                <div className="vet-contact-grid">
+                    {(filled(info.phone) || filled(info.email)) && (
+                        <div className="vet-contact-col">
+                            {filled(info.phone) && (
+                                <>
+                                    <Label className="vet-contact-label">{t('contactInfo.phone')}</Label>
+                                    <a className="vet-contact-link" href={telHref(info.phone)}>
+                                        {info.phone}
+                                    </a>
+                                </>
+                            )}
+                            {filled(info.email) && (
+                                <>
+                                    <Label className="vet-contact-label">{t('contactInfo.email')}</Label>
+                                    <a className="vet-contact-link" href={`mailto:${info.email}`}>
+                                        {info.email}
+                                    </a>
+                                </>
+                            )}
                         </div>
-                    ))}
+                    )}
+                    {(street || place) && (
+                        <div className="vet-contact-col">
+                            <Label className="vet-contact-label">{t('contactInfo.address')}</Label>
+                            <address className="vet-contact-address">
+                                {street}
+                                {street && place && <br />}
+                                {place}
+                            </address>
+                            {route && (
+                                <a className="home-more-link" href={route} target="_blank" rel="noopener noreferrer">
+                                    {t('contactInfo.route')} →
+                                </a>
+                            )}
+                        </div>
+                    )}
+                    {hours.length > 0 && (
+                        <div className="vet-contact-col">
+                            <Label className="vet-contact-label">{t('contactInfo.officeHours')}</Label>
+                            <dl className="vet-hours">
+                                {hours.map(({ day, intervals }) => (
+                                    <div key={day} className="vet-hours-row">
+                                        <dt>{weekdayName(day, i18n.language)}</dt>
+                                        <dd>
+                                            {intervals
+                                                .map((h) => `${formatTime(h.opensAt)}–${formatTime(h.closesAt)}`)
+                                                .join(', ')}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                            <OpenStatusLine officeHours={info.officeHours} />
+                        </div>
+                    )}
                 </div>
-            </div>
-        </div>
+            )}
+        </section>
     );
 }

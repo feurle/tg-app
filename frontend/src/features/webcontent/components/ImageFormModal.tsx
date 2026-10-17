@@ -58,7 +58,7 @@ const overlay: React.CSSProperties = {
 };
 
 const modal: React.CSSProperties = {
-  background: '#fff', padding: '2rem', borderRadius: '8px',
+  background: 'var(--surface)', padding: '2rem', borderRadius: '8px',
   width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto',
 };
 
@@ -67,5 +67,5 @@ const labelStyle: React.CSSProperties = {
 };
 
 const inputStyle: React.CSSProperties = {
-  padding: '0.35rem 0.5rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem',
+  padding: '0.35rem 0.5rem', border: '1px solid var(--border-strong)', borderRadius: '4px', fontSize: '1rem',
 };

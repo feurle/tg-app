@@ -4,6 +4,7 @@ package com.feurle.tg.vetinfo.infrastructure.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -14,6 +15,8 @@ import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.domain.VetInfoRepository;
 import com.feurle.tg.vetinfo.infrastructure.rest.dto.OfficeHourDto;
 import com.feurle.tg.vetinfo.infrastructure.rest.dto.UpsertVetInfoRequest;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +46,7 @@ class VetInfoControllerIT {
 
   @BeforeEach
   void setUp() {
-    mockMvc = webAppContextSetup(webApplicationContext).build();
+    mockMvc = webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
     vetInfoRepository.deleteAll();
   }
 
@@ -55,6 +58,7 @@ class VetInfoControllerIT {
   // ========== GET /api/vetinfo ==========
 
   @Test
+  @WithMockUser
   void getAllVetInfo_returnsEmptyList_whenNoData() throws Exception {
     mockMvc
         .perform(get("/api/vetinfo"))
@@ -63,6 +67,7 @@ class VetInfoControllerIT {
   }
 
   @Test
+  @WithMockUser
   void getAllVetInfo_returnsAllRecords() throws Exception {
     vetInfoService.createVetInfo(
         "Praxis A", "+49 89 1", "a@example.de", "Str. 1", "München", "80331", false, List.of());
@@ -76,13 +81,22 @@ class VetInfoControllerIT {
   }
 
   @Test
-  void getAllVetInfo_isPublic_withoutAuth() throws Exception {
-    mockMvc.perform(get("/api/vetinfo")).andExpect(status().isOk());
+  void getAllVetInfo_requiresLogin() throws Exception {
+    // Only /api/vetinfo/primary is public; the full list and single records need a login.
+    // Without login the app answers 403 (HTTP Basic, which would give 401, is only enabled in the
+    // dev profile).
+    mockMvc.perform(get("/api/vetinfo")).andExpect(status().isForbidden());
+  }
+
+  @Test
+  void getVetInfoById_requiresLogin() throws Exception {
+    mockMvc.perform(get("/api/vetinfo/1")).andExpect(status().isForbidden());
   }
 
   // ========== GET /api/vetinfo/{id} ==========
 
   @Test
+  @WithMockUser
   void getVetInfoById_returnsRecord() throws Exception {
     VetInfo saved =
         vetInfoService.createVetInfo(
@@ -93,7 +107,7 @@ class VetInfoControllerIT {
             "München",
             "80331",
             true,
-            List.of(new OfficeHour("Montag – Freitag", "09:00 – 18:00")));
+            List.of(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0))));
 
     mockMvc
         .perform(get("/api/vetinfo/" + saved.getId()))
@@ -104,10 +118,45 @@ class VetInfoControllerIT {
         .andExpect(jsonPath("$.email", equalTo("praxis@example.de")))
         .andExpect(jsonPath("$.primary", equalTo(true)))
         .andExpect(jsonPath("$.officeHours", hasSize(1)))
-        .andExpect(jsonPath("$.officeHours[0].label", equalTo("Montag – Freitag")));
+        .andExpect(jsonPath("$.officeHours[0].dayOfWeek", equalTo("MONDAY")))
+        .andExpect(jsonPath("$.officeHours[0].opensAt", equalTo("09:00:00")));
+  }
+
+  // ========== GET /api/vetinfo/primary ==========
+
+  @Test
+  void getPrimaryVetInfo_returnsPrimaryRecord() throws Exception {
+    vetInfoService.createVetInfo(
+        "Other", "1", "other@example.de", "S 1", "Wien", "1010", false, List.of());
+    vetInfoService.createVetInfo(
+        "Tiergesund Praxis",
+        "+43 5574 83500",
+        "praxis@example.de",
+        "Holzackergasse 13",
+        "Bregenz",
+        "6900",
+        true,
+        List.of(new OfficeHour(DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(12, 30))));
+
+    mockMvc
+        .perform(get("/api/vetinfo/primary"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.name", equalTo("Tiergesund Praxis")))
+        .andExpect(jsonPath("$.officeHours[0].dayOfWeek", equalTo("TUESDAY")))
+        .andExpect(jsonPath("$.officeHours[0].opensAt", equalTo("08:30:00")))
+        .andExpect(jsonPath("$.officeHours[0].closesAt", equalTo("12:30:00")));
   }
 
   @Test
+  void getPrimaryVetInfo_returns404_whenNoPrimaryExists() throws Exception {
+    vetInfoService.createVetInfo(
+        "Other", "1", "other@example.de", "S 1", "Wien", "1010", false, List.of());
+
+    mockMvc.perform(get("/api/vetinfo/primary")).andExpect(status().isNotFound());
+  }
+
+  @Test
+  @WithMockUser
   void getVetInfoById_returns404_whenNotFound() throws Exception {
     mockMvc.perform(get("/api/vetinfo/999")).andExpect(status().isNotFound());
   }
@@ -278,6 +327,28 @@ class VetInfoControllerIT {
 
   // ========== Helper ==========
 
+  @Test
+  @WithMockUser(roles = "ADMIN")
+  void createVetInfo_returns400_whenOfficeHourClosesBeforeItOpens() throws Exception {
+    UpsertVetInfoRequest request =
+        new UpsertVetInfoRequest(
+            "Tiergesund Praxis",
+            "+49 89 123456",
+            "praxis@example.de",
+            "Musterstr. 1",
+            "München",
+            "80331",
+            true,
+            List.of(new OfficeHourDto(DayOfWeek.MONDAY, LocalTime.of(18, 0), LocalTime.of(9, 0))));
+
+    mockMvc
+        .perform(
+            post("/api/vetinfo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest());
+  }
+
   private UpsertVetInfoRequest defaultRequest() {
     return new UpsertVetInfoRequest(
         "Tiergesund Praxis",
@@ -287,6 +358,6 @@ class VetInfoControllerIT {
         "München",
         "80331",
         true,
-        List.of(new OfficeHourDto("Montag – Freitag", "09:00 – 18:00")));
+        List.of(new OfficeHourDto(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0))));
   }
 }

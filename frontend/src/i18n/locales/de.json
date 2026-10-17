@@ -5,9 +5,12 @@
   },
   "nav": {
     "home": "Home",
-    "forPetOwners": "Für Tierhalter",
     "forVets": "Für Tierärzte",
-    "requests": "Anfragen",
+    "treatments": "Behandlungen",
+    "aboutMe": "Über mich",
+    "appointment": "Termin anfragen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
     "news": "Aktuelles",
     "administration": "Verwaltung",
     "customers": "Kunden",
@@ -16,10 +19,6 @@
     "articles": "Artikel",
     "images": "Bilder",
     "tags": "Tags",
-    "about": "Über uns",
-    "privacy": "Datenschutz",
-    "imprint": "Impressum",
-    "contact": "Kontakt",
     "contactInfo": "Kontaktdaten",
     "login": "Anmelden",
     "logout": "Abmelden",
@@ -34,6 +33,7 @@
     "save": "Speichern",
     "saving": "Speichern…",
     "cancel": "Abbrechen",
+    "close": "Schließen",
     "delete": "Löschen",
     "view": "Ansehen",
     "edit": "Bearbeiten",
@@ -43,12 +43,24 @@
     "empty": "—",
     "all": "Alle"
   },
+  "treatments": {
+    "title": "Behandlungen",
+    "subtitle": "Was ich für Ihr Tier tun kann und wie der erste Termin abläuft."
+  },
   "pages": {
+    "fallbackNotice": "Dieser Inhalt ist in Ihrer Sprache noch nicht verfügbar und wird auf Deutsch angezeigt.",
     "home": "Willkommen",
     "news": "Fachbeiträge & Publikationen",
     "about": "Über uns"
   },
   "home": {
+    "more": {
+      "treatments": "Alle Behandlungen",
+      "about": "Mehr über mich"
+    },
+    "vetBand": {
+      "cta": "Patient überweisen"
+    },
     "tagline": "Tiergesundheit im Fokus",
     "title": {
       "line1": "Gesunde Tiere,",
@@ -56,15 +68,11 @@
     },
     "subtitle": "Expertenwissen rund um Tierernährung, Vorsorge und Pflege — verständlich aufbereitet für jeden Tierhalter.",
     "cta": {
-      "primary": "Termin vereinbaren",
+      "primary": "Termin anfragen",
       "secondary": "Kontakt"
     },
-    "articles": {
-      "title": "Unsere Behandlungsmethoden",
-      "sub": "Ein individueller Ansatz für jedes Tier"
-    },
     "contact": {
-      "title": "Kontakt & Spechzeiten",
+      "title": "Kontakt & Sprechzeiten",
       "sub": "Wir sind für Sie und Ihr Tier da"
     }
   },
@@ -93,6 +101,7 @@
       },
       "pet": {
         "name": "Name des Tieres",
+        "species": "Tierart",
         "origin": "Herkunft des Tieres",
         "breederRearing": "Falls vom Züchter: Beschreiben Sie Haltung und Aufzucht. Haben Sie die Elterntiere gesehen?",
         "historyBeforeOwner": "Falls Sie nicht der erste Besitzer sind: Wissen Sie etwas aus der Vergangenheit Ihres Tieres, bevor es zu Ihnen kam?",
@@ -110,6 +119,12 @@
         "lastDeworming": "Wann wurde Ihr Tier das letzte Mal entwurmt?",
         "bloodTest": "Ist in letzter Zeit eine Blutuntersuchung erfolgt? Gab es Auffälligkeiten?"
       }
+    },
+    "species": {
+      "DOG": "Hund",
+      "CAT": "Katze",
+      "SMALL_ANIMAL": "Kleintier",
+      "OTHER": "Anderes"
     },
     "yes": "Ja",
     "no": "Nein",
@@ -137,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Termin vereinbaren",
+    "appointment": "Termin anfragen",
     "message": "Nachricht schreiben"
   },
   "contactForm": {
     "message": {
-      "heading": "Nachricht schreiben",
       "text": "Ihre Nachricht"
-    },
-    "appointment": {
-      "heading": "Termin vereinbaren"
     },
     "name": "Name",
     "email": "E-Mail",
@@ -155,11 +166,14 @@
     "preferredDate": "Wunschtermin",
     "preferredTime": "Uhrzeit (optional)",
     "note": "Anliegen (optional)",
-    "submit": "Absenden",
     "sending": "Wird gesendet…",
-    "success": "Vielen Dank! Wir melden uns so bald wie möglich bei Ihnen.",
     "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut.",
-    "close": "Schließen"
+    "section": {
+      "you": "Ihre Daten",
+      "appointment": "Ihr Wunschtermin",
+      "message": "Ihre Nachricht"
+    },
+    "errorWithPhone": "Das Senden hat nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie an: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Kontaktdaten",
@@ -188,17 +202,74 @@
       "city": "Ort *",
       "officeHours": "Sprechzeiten",
       "addHour": "Sprechzeit hinzufügen",
-      "hourLabel": "Bezeichnung (z. B. Mo–Fr)",
-      "hourTime": "Uhrzeit (z. B. 09:00–17:00)"
+      "hourDay": "Wochentag",
+      "hourOpens": "Von",
+      "hourCloses": "Bis"
     }
   },
+  "openStatus": {
+    "open": "Jetzt geöffnet, bis {{time}} Uhr",
+    "later": "Heute ab {{time}} Uhr geöffnet",
+    "closed": "Heute geschlossen",
+    "next": "Nächste Sprechzeit: {{day}} ab {{time}} Uhr"
+  },
   "contactInfo": {
+    "unavailable": "Sie erreichen uns über „Termin anfragen“ oder „Nachricht schreiben“.",
+    "call": "Anrufen",
+    "route": "Route anzeigen",
+    "closed": "Geschlossen",
     "phone": "Telefon",
     "email": "E-Mail",
     "address": "Adresse",
     "officeHours": "Sprechzeiten"
   },
+  "forVets": {
+    "title": "Für Tierärzte",
+    "subtitle": "Überweisen Sie Patienten mit Schmerz- und Bewegungsproblemen direkt zu mir. Sie erhalten eine Bestätigung per E-Mail."
+  },
+  "referral": {
+    "heading": "Patient überweisen",
+    "practice": "Überweisende Praxis",
+    "practiceName": "Praxis",
+    "vetName": "Tierärztin/Tierarzt",
+    "email": "E-Mail",
+    "phone": "Telefon (optional)",
+    "owner": "Tierhalter",
+    "ownerName": "Name",
+    "ownerContact": "Telefon oder E-Mail",
+    "patient": "Patient",
+    "patientName": "Name (optional)",
+    "species": "Tierart",
+    "breed": "Rasse (optional)",
+    "age": "Alter (optional)",
+    "question": "Fragestellung",
+    "previous": "Vorbehandlung und Medikation (optional)",
+    "urgency": "Dringlichkeit",
+    "consent": "Der Tierhalter ist mit der Weitergabe seiner Kontaktdaten einverstanden.",
+    "reports": "Befunde (Röntgen, Labor) senden Sie bitte per E-Mail an {{email}}.",
+    "submit": "Überweisung senden",
+    "sending": "Wird gesendet…",
+    "success": "Vielen Dank! Ihre Überweisung ist eingegangen. Sie erhalten eine Bestätigung per E-Mail.",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut oder rufen Sie uns an.",
+    "again": "Weiteren Patienten überweisen",
+    "urgencyOption": {
+      "ROUTINE": "Routine",
+      "SOON": "Zeitnah",
+      "URGENT": "Dringend"
+    }
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite gibt es nicht (mehr). Vielleicht hilft Ihnen die Startseite weiter.",
+    "back": "Zur Startseite"
+  },
+  "routeError": {
+    "title": "Etwas ist schiefgelaufen",
+    "text": "Die Seite konnte nicht angezeigt werden. Bitte laden Sie sie neu oder kontaktieren Sie uns.",
+    "reload": "Neu laden"
+  },
   "footer": {
+    "questionnaire": "Erhebungsbogen",
     "privacy": "Datenschutz",
     "imprint": "Impressum",
     "contact": "Kontakt",
@@ -219,24 +290,18 @@
     "form": {
       "order": "Reihenfolge",
       "title": "Titel *",
-      "content": "Inhalt"
+      "content": "Inhalt",
+      "image": "Bild",
+      "noImage": "Kein Bild"
     }
   },
   "article": {
     "management": "Artikelverwaltung",
     "subtitle": "Verwalten Sie Ihre Artikel und Inhalte",
-    "page": {
-      "home":    { "title": "Home-Inhalte",   "subtitle": "Teaser und Seiteninhalte für die Startseite" },
-      "news":    { "title": "Fachbeiträge",   "subtitle": "Artikel und Teaser für den News-Bereich" },
-      "about":   { "title": "Über uns",       "subtitle": "Inhalte der Über-uns-Seite" },
-      "privacy": { "title": "Datenschutz",    "subtitle": "Datenschutzerklärung" },
-      "imprint": { "title": "Impressum",      "subtitle": "Impressum und rechtliche Angaben" },
-      "contact": { "title": "Kontakt",        "subtitle": "Kontaktseite und Sprechzeiten" }
-    },
     "new": "Neuer Artikel",
     "newHeading": "Neuer Artikel",
     "editHeading": "Artikel bearbeiten",
-    "deleteConfirm": "Artikel \u201E{{title}}\u201C wirklich löschen?",
+    "deleteConfirm": "Artikel „{{title}}“ wirklich löschen?",
     "loadError": "Artikel konnten nicht geladen werden.",
     "empty": "Keine Artikel vorhanden.",
     "col": {
@@ -262,15 +327,48 @@
     },
     "moveUp": "Nach oben",
     "moveDown": "Nach unten",
+    "copy": "In andere Sprache kopieren",
+    "copyHeading": "Artikel kopieren",
+    "copyHint": "wird mit Abschnitten, Bildern und Tags als Entwurf ans Ende der gewählten Sprache kopiert.",
+    "copyTo": "Zielsprache",
+    "preview": "Vorschau",
+    "previewBanner": "Vorschau: So sieht die Seite für Besucher aus, inklusive Entwürfen.",
+    "previewDrafts": "({{count}} nicht veröffentlicht)",
+    "previewBack": "Zurück zur Verwaltung",
+    "previewEmpty": "In dieser Sprache gibt es noch keine Artikel.",
     "pageType": {
       "DEFAULT": "Standard",
-      "HERO": "Hero (teaser) Komponente",
-      "HOME_TEASER": "Home Teaser",
-      "HOME_PAGE": "Home Page",
+      "HERO": "Hero",
+      "COL2": "Zwei Spalten",
+      "COL3": "Drei Spalten",
+      "COL4": "Vier Spalten",
+      "TEXT": "Textblock",
+      "HERO_PORTRAIT": "Hero mit Porträt (Home)",
+      "SYMPTOMS": "Beschwerdebilder (Home)",
+      "METHODS": "Schwerpunkte mit Bildern (Home)",
+      "STEPS": "Ablauf in Schritten (Home)",
+      "VET_BAND": "Band für Tierärzte (Home)",
       "NEWS_TEASER": "News Teaser",
-      "NEWS_PAGE": "News Page",
+      "NEWS_PAGE": "News",
       "ABOUT_TEASER": "Über mich Teaser",
       "ABOUT_PAGE": "Über mich Seite"
+    },
+    "pageTypeHelp": {
+      "DEFAULT": "Fließtext mit Bildern, wie bei Datenschutz und Impressum: Der Inhalt wird auf die Bilder verteilt, Abschnitte folgen darunter. In Seiten mit Blöcken (z. B. Home) wird dieser Typ nicht angezeigt.",
+      "HERO": "Titel = Überschrift, Inhalt = Unterzeile, Tags = Label über der Überschrift, 1. Bild = Bild neben dem Text.",
+      "COL2": "Titel = Überschrift, Inhalt = Einleitung, Abschnitte = Textblöcke, 1. Bild = Bild neben dem Text.",
+      "COL3": "Titel und Inhalt = Kopf, jeder Abschnitt = eine von drei Spalten.",
+      "COL4": "Titel und Inhalt = Kopf, jeder Abschnitt = eine von vier Spalten.",
+      "TEXT": "Titel = Überschrift, Inhalt = Einleitung, Abschnitte = Textblöcke darunter.",
+      "HERO_PORTRAIT": "Titel = Überschrift, Inhalt = Unterzeile, 1. Abschnitt = Ich-Statement, 1. Bild = Porträt.",
+      "SYMPTOMS": "Titel = Überschrift, Inhalt = Einleitung, jeder Abschnitt = ein Beschwerdebild (Titel + ein Satz).",
+      "METHODS": "Titel = Überschrift, Inhalt = Einleitung, jeder Abschnitt = ein Schwerpunkt mit eigenem Bild (im Abschnitt wählen).",
+      "STEPS": "Titel = Überschrift, Inhalt = Einleitung, jeder Abschnitt = ein Schritt, in Reihenfolge mit Pfeilen.",
+      "VET_BAND": "Titel = Frage, Inhalt = Satz darunter; der Knopf führt zu „Für Tierärzte“.",
+      "NEWS_TEASER": "Eintrag in der Liste auf „Aktuelles“: Titel und Auszug aus dem Inhalt (sonst dem 1. Abschnitt).",
+      "NEWS_PAGE": "Eintrag in der Liste auf „Aktuelles“: Titel und Auszug aus dem Inhalt (sonst dem 1. Abschnitt).",
+      "ABOUT_TEASER": "Titel = Überschrift, Inhalt = Text, Abschnitte = Qualifikationszeile, 1. Bild = Foto; Link zu „Über mich“.",
+      "ABOUT_PAGE": "Artikel der Seite „Über mich“."
     },
     "language": {
       "GERMAN": "Deutsch",
@@ -292,7 +390,7 @@
     "uploading": "Hochladen…",
     "uploadAction": "Hochladen",
     "selectFile": "Datei auswählen…",
-    "deleteConfirm": "Bild \u201E{{fileName}}\u201C wirklich löschen?",
+    "deleteConfirm": "Bild „{{fileName}}“ wirklich löschen?",
     "loadError": "Bilder konnten nicht geladen werden.",
     "uploadError": "Hochladen fehlgeschlagen.",
     "empty": "Keine Bilder vorhanden.",
@@ -306,7 +404,7 @@
     "new": "Neuer Tag",
     "newHeading": "Neuer Tag",
     "editHeading": "Tag bearbeiten",
-    "deleteConfirm": "Tag \u201E{{name}}\u201C wirklich löschen?",
+    "deleteConfirm": "Tag „{{name}}“ wirklich löschen?",
     "loadError": "Tags konnten nicht geladen werden.",
     "empty": "Keine Tags vorhanden.",
     "name": "Tag-Name *",
@@ -321,7 +419,7 @@
     "new": "Neuer Kunde",
     "newHeading": "Neuer Kunde",
     "editHeading": "Kunde bearbeiten",
-    "deleteConfirm": "Kunde \u201E{{firstName}} {{lastName}}\u201C wirklich löschen?",
+    "deleteConfirm": "Kunde „{{firstName}} {{lastName}}“ wirklich löschen?",
     "loadError": "Kunden konnten nicht geladen werden.",
     "empty": "Keine Kunden vorhanden.",
     "col": {
@@ -349,7 +447,7 @@
     "new": "Neuer Benutzer",
     "newHeading": "Neuer Benutzer",
     "editHeading": "Benutzer bearbeiten: {{login}}",
-    "deleteConfirm": "Benutzer \u201E{{login}}\u201C wirklich löschen?",
+    "deleteConfirm": "Benutzer „{{login}}“ wirklich löschen?",
     "loadError": "Benutzer konnten nicht geladen werden.",
     "createError": "Erstellen fehlgeschlagen.",
     "empty": "Keine Benutzer vorhanden.",
@@ -389,5 +487,26 @@
     "cancel": "Abbrechen",
     "errorInvalid": "Benutzername oder Passwort falsch.",
     "errorGeneral": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+  },
+  "appointmentForm": {
+    "title": "Termin anfragen",
+    "intro": "Nennen Sie mir Ihren Wunschtermin und kurz den Grund Ihres Besuchs. Ich melde mich bei Ihnen, um den Termin zu bestätigen.",
+    "submit": "Termin anfragen",
+    "success": {
+      "title": "Anfrage gesendet",
+      "body": "Ich melde mich in der Regel innerhalb von 1–2 Werktagen bei Ihnen, um den Termin zu bestätigen."
+    }
+  },
+  "messageForm": {
+    "title": "Nachricht schreiben",
+    "intro": "Haben Sie eine Frage an mich? Schreiben Sie mir, ich antworte per E-Mail.",
+    "submit": "Nachricht senden",
+    "success": {
+      "title": "Nachricht gesendet",
+      "body": "Ich antworte in der Regel innerhalb von 1–2 Werktagen per E-Mail."
+    }
+  },
+  "form": {
+    "requiredNote": "* Pflichtfeld"
   }
 }

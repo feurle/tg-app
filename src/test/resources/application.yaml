@@ -8,3 +8,6 @@ spring:
 app:
   mail:
     from: Webapp <app@foo.bar>
+  rate-limit:
+    # the ITs post many forms from the same address
+    max-requests: 1000

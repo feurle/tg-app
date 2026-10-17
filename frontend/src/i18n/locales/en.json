@@ -1,13 +1,16 @@
 {
   "app": {
-    "name": "Tier Gesund",
+    "name": "Tier. Gesund.",
     "claim": "Ganzheitlich-integrative Tiermedizin"
   },
   "nav": {
     "home": "Home",
-    "forPetOwners": "For Pet Owners",
     "forVets": "For Vets",
-    "requests": "Requests",
+    "treatments": "Treatments",
+    "aboutMe": "About me",
+    "appointment": "Request appointment",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
     "news": "Articles",
     "administration": "Administration",
     "customers": "Customers",
@@ -22,13 +25,15 @@
     "sidebar": {
       "management": "Management",
       "webcontent": "Webcontent",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "pages": "Pages"
     }
   },
   "common": {
     "save": "Save",
     "saving": "Saving…",
     "cancel": "Cancel",
+    "close": "Close",
     "delete": "Delete",
     "edit": "Edit",
     "view": "View",
@@ -38,12 +43,24 @@
     "empty": "—",
     "all": "All"
   },
+  "treatments": {
+    "title": "Treatments",
+    "subtitle": "What I can do for your pet and how the first appointment works."
+  },
   "pages": {
+    "fallbackNotice": "This content is not available in your language yet and is shown in German.",
     "home": "Welcome",
     "news": "Articles & Publications",
     "about": "About Us"
   },
   "home": {
+    "more": {
+      "treatments": "All treatments",
+      "about": "More about me"
+    },
+    "vetBand": {
+      "cta": "Refer a patient"
+    },
     "tagline": "Pet Health in Focus",
     "title": {
       "line1": "Healthy Pets,",
@@ -53,10 +70,6 @@
     "cta": {
       "primary": "Discover Articles",
       "secondary": "Learn More"
-    },
-    "articles": {
-      "title": "Recent Articles",
-      "viewAll": "View all"
     },
     "contact": {
       "title": "Contact & Office Hours",
@@ -88,6 +101,7 @@
       },
       "pet": {
         "name": "Pet's name",
+        "species": "Species",
         "origin": "Where does your pet come from?",
         "breederRearing": "If from a breeder: describe the keeping and rearing. Did you see the parent animals?",
         "historyBeforeOwner": "If you are not the first owner: do you know anything about your pet's past before it came to you?",
@@ -105,6 +119,12 @@
         "lastDeworming": "When was your pet last dewormed?",
         "bloodTest": "Has a blood test been done recently? Were there any abnormalities?"
       }
+    },
+    "species": {
+      "DOG": "Dog",
+      "CAT": "Cat",
+      "SMALL_ANIMAL": "Small animal",
+      "OTHER": "Other"
     },
     "yes": "Yes",
     "no": "No",
@@ -132,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Book Appointment",
-    "message": "Send Message"
+    "appointment": "Request appointment",
+    "message": "Send message"
   },
   "contactForm": {
     "message": {
-      "heading": "Send a message",
       "text": "Your message"
-    },
-    "appointment": {
-      "heading": "Book an appointment"
     },
     "name": "Name",
     "email": "Email",
@@ -150,11 +166,14 @@
     "preferredDate": "Preferred date",
     "preferredTime": "Time (optional)",
     "note": "Reason for visit (optional)",
-    "submit": "Send",
     "sending": "Sending…",
-    "success": "Thank you! We will get back to you as soon as possible.",
     "error": "Sending failed. Please try again later.",
-    "close": "Close"
+    "section": {
+      "you": "Your details",
+      "appointment": "Your preferred date",
+      "message": "Your message"
+    },
+    "errorWithPhone": "Sending failed. Please try again or call us: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Contact Info",
@@ -183,17 +202,74 @@
       "city": "City *",
       "officeHours": "Office Hours",
       "addHour": "Add office hour",
-      "hourLabel": "Label (e.g. Mon–Fri)",
-      "hourTime": "Time (e.g. 09:00–17:00)"
+      "hourDay": "Weekday",
+      "hourOpens": "From",
+      "hourCloses": "To"
     }
   },
+  "openStatus": {
+    "open": "Open now, until {{time}}",
+    "later": "Open today from {{time}}",
+    "closed": "Closed today",
+    "next": "Next opening: {{day}} from {{time}}"
+  },
   "contactInfo": {
+    "unavailable": "You can reach us via “Request appointment” or “Send message”.",
+    "call": "Call",
+    "route": "Show route",
+    "closed": "Closed",
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
     "officeHours": "Office Hours"
   },
+  "forVets": {
+    "title": "For vets",
+    "subtitle": "Refer patients with pain or mobility problems directly to me. You will receive a confirmation by e-mail."
+  },
+  "referral": {
+    "heading": "Refer a patient",
+    "practice": "Referring practice",
+    "practiceName": "Practice",
+    "vetName": "Veterinarian",
+    "email": "E-mail",
+    "phone": "Phone (optional)",
+    "owner": "Owner",
+    "ownerName": "Name",
+    "ownerContact": "Phone or e-mail",
+    "patient": "Patient",
+    "patientName": "Name (optional)",
+    "species": "Species",
+    "breed": "Breed (optional)",
+    "age": "Age (optional)",
+    "question": "Reason for referral",
+    "previous": "Previous treatment and medication (optional)",
+    "urgency": "Urgency",
+    "consent": "The owner agrees to their contact details being passed on.",
+    "reports": "Please send findings (x-rays, lab results) by e-mail to {{email}}.",
+    "submit": "Send referral",
+    "sending": "Sending…",
+    "success": "Thank you! Your referral has been received. You will get a confirmation by e-mail.",
+    "error": "Sending failed. Please try again later or call us.",
+    "again": "Refer another patient",
+    "urgencyOption": {
+      "ROUTINE": "Routine",
+      "SOON": "Soon",
+      "URGENT": "Urgent"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page does not exist (any more). The home page might help.",
+    "back": "Back to home"
+  },
+  "routeError": {
+    "title": "Something went wrong",
+    "text": "The page could not be displayed. Please reload it or contact us.",
+    "reload": "Reload"
+  },
   "footer": {
+    "questionnaire": "Questionnaire",
     "privacy": "Privacy",
     "imprint": "Imprint",
     "contact": "Contact",
@@ -211,7 +287,7 @@
     "col": {
       "order": "No.",
       "title": "Title",
-      "page": "Page",
+      "pageType": "Page",
       "language": "Language",
       "status": "Status",
       "published": "Published",
@@ -220,7 +296,7 @@
     "form": {
       "title": "Title *",
       "content": "Content *",
-      "page": "Page",
+      "pageType": "Page",
       "language": "Language",
       "status": "Status",
       "order": "Order",
@@ -231,11 +307,39 @@
     },
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "page": {
-      "HOME_TEASER": "Home Teaser",
-      "HOME_PAGE": "Home",
+    "pageType": {
+      "DEFAULT": "Default",
+      "HERO": "Hero",
+      "COL2": "Two columns",
+      "COL3": "Three columns",
+      "COL4": "Four columns",
+      "TEXT": "Text block",
+      "HERO_PORTRAIT": "Hero with portrait (Home)",
+      "SYMPTOMS": "Complaints (Home)",
+      "METHODS": "Focus areas with images (Home)",
+      "STEPS": "Process in steps (Home)",
+      "VET_BAND": "Band for vets (Home)",
       "NEWS_TEASER": "News Teaser",
-      "NEWS_PAGE": "News"
+      "NEWS_PAGE": "News",
+      "ABOUT_TEASER": "About me teaser",
+      "ABOUT_PAGE": "About me page"
+    },
+    "pageTypeHelp": {
+      "DEFAULT": "Running text with images, as on Privacy and Imprint: the content is spread around the images, sections follow below. Not shown on block-based pages (e.g. Home).",
+      "HERO": "Title = heading, content = subline, tags = label above the heading, 1st image = image next to the text.",
+      "COL2": "Title = heading, content = intro, sections = text blocks, 1st image = image next to the text.",
+      "COL3": "Title and content = header, each section = one of three columns.",
+      "COL4": "Title and content = header, each section = one of four columns.",
+      "TEXT": "Title = heading, content = intro, sections = text blocks below.",
+      "HERO_PORTRAIT": "Title = heading, content = subline, 1st section = first-person statement, 1st image = portrait.",
+      "SYMPTOMS": "Title = heading, content = intro, each section = one complaint (title + one sentence).",
+      "METHODS": "Title = heading, content = intro, each section = one focus area with its own image (choose it in the section).",
+      "STEPS": "Title = heading, content = intro, each section = one step, ordered with the arrows.",
+      "VET_BAND": "Title = question, content = sentence below; the button leads to \"For vets\".",
+      "NEWS_TEASER": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
+      "NEWS_PAGE": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
+      "ABOUT_TEASER": "Title = heading, content = text, sections = qualifications line, 1st image = photo; links to \"About me\".",
+      "ABOUT_PAGE": "Article of the \"About me\" page."
     },
     "language": {
       "GERMAN": "German",
@@ -247,6 +351,35 @@
       "CREATED": "Created",
       "PUBLISHED": "Published",
       "CLOSED": "Closed"
+    },
+    "copy": "Copy to another language",
+    "copyHeading": "Copy article",
+    "copyHint": "is copied with sections, images and tags as a draft to the end of the chosen language.",
+    "copyTo": "Target language",
+    "preview": "Preview",
+    "previewBanner": "Preview: how the page looks to visitors, including drafts.",
+    "previewDrafts": "({{count}} unpublished)",
+    "previewBack": "Back to management",
+    "previewEmpty": "There are no articles in this language yet."
+  },
+  "section": {
+    "add": "Add section",
+    "addHeading": "Add section",
+    "editHeading": "Edit section",
+    "deleteConfirm": "Really delete section \"{{title}}\"?",
+    "empty": "No sections yet.",
+    "col": {
+      "title": "Title",
+      "content": "Content",
+      "order": "No.",
+      "actions": "Actions"
+    },
+    "form": {
+      "order": "Order",
+      "title": "Title *",
+      "content": "Content",
+      "image": "Image",
+      "noImage": "No image"
     }
   },
   "image": {
@@ -354,5 +487,26 @@
     "cancel": "Cancel",
     "errorInvalid": "Invalid username or password.",
     "errorGeneral": "Login failed. Please try again."
+  },
+  "appointmentForm": {
+    "title": "Request an appointment",
+    "intro": "Tell me your preferred date and briefly the reason for your visit. I will get back to you to confirm the appointment.",
+    "submit": "Request appointment",
+    "success": {
+      "title": "Request sent",
+      "body": "I usually get back to you within 1–2 working days to confirm the appointment."
+    }
+  },
+  "messageForm": {
+    "title": "Send a message",
+    "intro": "Do you have a question for me? Write to me and I will reply by e-mail.",
+    "submit": "Send message",
+    "success": {
+      "title": "Message sent",
+      "body": "I usually reply by e-mail within 1–2 working days."
+    }
+  },
+  "form": {
+    "requiredNote": "* Required field"
   }
 }

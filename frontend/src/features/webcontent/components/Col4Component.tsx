@@ -37,7 +37,6 @@ export default function Col4Component({ article }: Props) {
   return (
     <div className="section">
       <div className="section-header">
-        <p className="section-eyebrow">Kontakt</p>
         <h2
           className="section-heading"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.title) }}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RichTextEditor from '../../../components/RichTextEditor';
+import { imageApi } from '../api';
 import type {
   ArticleResponse,
   ArticleState,
@@ -35,7 +36,7 @@ interface EditProps {
 
 type Props = CreateProps | EditProps;
 
-const PAGE_TYPE_VALUES: ArticleType[] = ['DEFAULT', 'HERO', 'COL2', 'COL3', 'COL4', 'TEXT', 'NEWS_TEASER', 'NEWS_PAGE', 'ABOUT_TEASER', 'ABOUT_PAGE'];
+const PAGE_TYPE_VALUES: ArticleType[] = ['DEFAULT', 'HERO', 'COL2', 'COL3', 'COL4', 'TEXT', 'HERO_PORTRAIT', 'SYMPTOMS', 'METHODS', 'STEPS', 'VET_BAND', 'NEWS_TEASER', 'NEWS_PAGE', 'ABOUT_TEASER', 'ABOUT_PAGE'];
 const LANGUAGE_VALUES: Language[] = ['GERMAN', 'ENGLISH', 'SWEDISH', 'RUSSIAN'];
 const STATE_VALUES: ArticleState[] = ['CREATED', 'PUBLISHED', 'CLOSED'];
 
@@ -170,6 +171,8 @@ export default function ArticleFormModal(props: Props) {
             </label>
           </div>
 
+          <p className="form-help">{t(`article.pageTypeHelp.${articleType}`, '')}</p>
+
           {images.length > 0 && (
             <fieldset className="form-fieldset">
               <legend>{t('article.form.images')}</legend>
@@ -180,6 +183,12 @@ export default function ArticleFormModal(props: Props) {
                       type="checkbox"
                       checked={selectedImageIds.has(img.id)}
                       onChange={() => toggleImage(img.id)}
+                    />
+                    <img
+                      src={imageApi.getDownloadUrl(img.id)}
+                      alt=""
+                      loading="lazy"
+                      style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
                     />
                     {img.title || img.fileName}
                   </label>

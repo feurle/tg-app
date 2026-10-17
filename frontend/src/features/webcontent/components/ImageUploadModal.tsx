@@ -37,7 +37,7 @@ export default function ImageUploadModal({ onUpload, onCancel, saving }: Props) 
             {selectedFile ? (
               <span>{selectedFile.name}</span>
             ) : (
-              <span style={{ color: '#888' }}>{t('image.selectFile')}</span>
+              <span style={{ color: 'var(--text-muted)' }}>{t('image.selectFile')}</span>
             )}
             <input
               ref={inputRef}
@@ -77,7 +77,7 @@ const overlay: React.CSSProperties = {
 };
 
 const modal: React.CSSProperties = {
-  background: '#fff', padding: '2rem', borderRadius: '8px',
+  background: 'var(--surface)', padding: '2rem', borderRadius: '8px',
   width: '100%', maxWidth: '400px',
 };
 
@@ -86,11 +86,11 @@ const labelStyle: React.CSSProperties = {
 };
 
 const inputStyle: React.CSSProperties = {
-  padding: '0.35rem 0.5rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem',
+  padding: '0.35rem 0.5rem', border: '1px solid var(--border-strong)', borderRadius: '4px', fontSize: '1rem',
 };
 
 const dropArea: React.CSSProperties = {
-  border: '2px dashed #ccc',
+  border: '2px dashed var(--border-strong)',
   borderRadius: '6px',
   padding: '2rem',
   textAlign: 'center',

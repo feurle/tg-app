@@ -9,4 +9,5 @@ public record SendMessageRequest(
     @NotBlank String title,
     @NotBlank String text,
     @Email @NotBlank String replyToEmail,
-    @NotBlank String senderName) {}
+    @NotBlank String senderName,
+    String website) {}

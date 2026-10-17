@@ -2,8 +2,10 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import LanguageSync from '../i18n/LanguageSync';
+import { usePageTitle } from './usePageTitle';
 
 export default function PublicLayout() {
+  usePageTitle();
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--bg)' }}>
       <LanguageSync />

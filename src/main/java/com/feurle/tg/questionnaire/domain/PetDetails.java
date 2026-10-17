@@ -4,11 +4,13 @@ package com.feurle.tg.questionnaire.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** Value object: "Allgemeine Fragen zu Ihrem Hund" — general details about the pet. */
+/** Value object: "Allgemeine Fragen zu Ihrem Tier" — general details about the pet. */
 @Embeddable
 @Data
 @NoArgsConstructor
@@ -18,6 +20,11 @@ public class PetDetails {
   /** 1. Tiername. */
   @Column(name = "pet_name")
   private String name;
+
+  /** Tierart. Nur bei Hunden sind Hundeschule und Kommandos relevant. */
+  @Enumerated(EnumType.STRING)
+  @Column(name = "pet_species")
+  private Species species;
 
   /** 2. Herkunft des Tieres. */
   @Column(name = "pet_origin", columnDefinition = "TEXT")
@@ -55,11 +62,11 @@ public class PetDetails {
   @Column(name = "pet_behavior_changes_after_neutering", columnDefinition = "TEXT")
   private String behaviorChangesAfterNeutering;
 
-  /** 6. Hundeschule / eigene Ausbildung / Hilfsmittel (z.B. Clicker). */
+  /** 6. Hundeschule (nur Hunde) / eigene Ausbildung / Hilfsmittel (z.B. Clicker). */
   @Column(name = "pet_school", columnDefinition = "TEXT")
   private String school;
 
-  /** 6a. Bekannte Kommandos (z.B. Sitz, Platz, Aus). */
+  /** 6a. Bekannte Kommandos (nur Hunde) (z.B. Sitz, Platz, Aus). */
   @Column(name = "pet_known_commands", columnDefinition = "TEXT")
   private String knownCommands;
 

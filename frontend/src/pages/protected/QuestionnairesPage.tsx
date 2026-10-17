@@ -74,7 +74,10 @@ export default function QuestionnairesPage() {
               {items.map((q) => (
                 <tr key={q.id} style={{ cursor: 'pointer' }} onClick={() => setModal({ kind: 'detail', questionnaire: q })}>
                   <td style={{ fontWeight: 500 }}>{q.owner.name || t('common.empty')}</td>
-                  <td className="td-secondary">{q.pet.name || t('common.empty')}</td>
+                  <td className="td-secondary">
+                    {q.pet.name || t('common.empty')}
+                    {q.pet.species && ` (${t(`questionnaire.species.${q.pet.species}`)})`}
+                  </td>
                   <td className="td-secondary">{new Date(q.submittedAt).toLocaleString()}</td>
                   <td onClick={(e) => e.stopPropagation()}>
                     <div className="row-actions">

@@ -145,6 +145,9 @@ databaseChangeLog:
               - column:
                   name: article_id
                   type: NUMERIC
+              - column:
+                  name: image_id
+                  type: NUMERIC
 
   - changeSet:
       id: 006-load-article-images

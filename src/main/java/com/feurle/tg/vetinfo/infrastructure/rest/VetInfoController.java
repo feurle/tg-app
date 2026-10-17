@@ -33,6 +33,17 @@ public class VetInfoController {
     return ResponseEntity.ok(response);
   }
 
+  /** Public contact data of the practice (the primary VetInfo). */
+  @GetMapping("/primary")
+  public ResponseEntity<VetInfoResponse> getPrimaryVetInfo() {
+    log.info("getPrimaryVetInfo: GET /api/vetinfo/primary");
+    return vetInfoService
+        .getVetInfo()
+        .map(vetInfoMapper::toResponse)
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
+  }
+
   @GetMapping("/{id}")
   public ResponseEntity<VetInfoResponse> getVetInfoById(@PathVariable Long id) {
     log.info("getVetInfoById: GET /api/vetinfo/{}", id);

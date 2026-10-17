@@ -1,13 +1,16 @@
 {
   "app": {
-    "name": "Tier Gesund",
+    "name": "Tier. Gesund.",
     "claim": "Ganzheitlich-integrative Tiermedizin"
   },
   "nav": {
     "home": "Hem",
-    "forPetOwners": "För djurägare",
     "forVets": "För veterinärer",
-    "requests": "Förfrågningar",
+    "treatments": "Behandlingar",
+    "aboutMe": "Om mig",
+    "appointment": "Begär tid",
+    "openMenu": "Öppna menyn",
+    "closeMenu": "Stäng menyn",
     "news": "Fackartiklar",
     "administration": "Förvaltning",
     "customers": "Kunder",
@@ -22,13 +25,15 @@
     "sidebar": {
       "management": "Hantering",
       "webcontent": "Webbinnehål",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "pages": "Sidor"
     }
   },
   "common": {
     "save": "Spara",
     "saving": "Sparar…",
     "cancel": "Avbryt",
+    "close": "Stäng",
     "delete": "Ta bort",
     "edit": "Redigera",
     "view": "Visa",
@@ -38,12 +43,24 @@
     "empty": "—",
     "all": "Alla"
   },
+  "treatments": {
+    "title": "Behandlingar",
+    "subtitle": "Vad jag kan göra för ditt djur och hur det första besöket går till."
+  },
   "pages": {
+    "fallbackNotice": "Det här innehållet finns ännu inte på ditt språk och visas på tyska.",
     "home": "Välkommen",
     "news": "Fackartiklar & Publikationer",
     "about": "Om oss"
   },
   "home": {
+    "more": {
+      "treatments": "Alla behandlingar",
+      "about": "Mer om mig"
+    },
+    "vetBand": {
+      "cta": "Remittera en patient"
+    },
     "tagline": "Djurhälsa i fokus",
     "title": {
       "line1": "Friska djur,",
@@ -54,9 +71,9 @@
       "primary": "Utforska artiklar",
       "secondary": "Läs mer"
     },
-    "articles": {
-      "title": "Senaste artiklarna",
-      "viewAll": "Visa alla"
+    "contact": {
+      "title": "Kontakt & öppettider",
+      "sub": "Vi finns här för dig och ditt djur"
     }
   },
   "news": {
@@ -84,6 +101,7 @@
       },
       "pet": {
         "name": "Djurets namn",
+        "species": "Djurslag",
         "origin": "Var kommer ditt djur ifrån?",
         "breederRearing": "Om från en uppfödare: beskriv hållning och uppfödning. Såg du föräldradjuren?",
         "historyBeforeOwner": "Om du inte är den första ägaren: vet du något om djurets förflutna innan det kom till dig?",
@@ -101,6 +119,12 @@
         "lastDeworming": "När avmaskades ditt djur senast?",
         "bloodTest": "Har en blodanalys gjorts nyligen? Fanns det några avvikelser?"
       }
+    },
+    "species": {
+      "DOG": "Hund",
+      "CAT": "Katt",
+      "SMALL_ANIMAL": "Smådjur",
+      "OTHER": "Annat"
     },
     "yes": "Ja",
     "no": "Nej",
@@ -128,16 +152,12 @@
     }
   },
   "contact": {
-    "appointment": "Boka tid",
+    "appointment": "Begär tid",
     "message": "Skicka meddelande"
   },
   "contactForm": {
     "message": {
-      "heading": "Skicka meddelande",
       "text": "Ditt meddelande"
-    },
-    "appointment": {
-      "heading": "Boka tid"
     },
     "name": "Namn",
     "email": "E-post",
@@ -146,11 +166,14 @@
     "preferredDate": "Önskat datum",
     "preferredTime": "Tid (valfritt)",
     "note": "Ärende (valfritt)",
-    "submit": "Skicka",
     "sending": "Skickar…",
-    "success": "Tack! Vi återkommer så snart som möjligt.",
     "error": "Det gick inte att skicka. Försök igen senare.",
-    "close": "Stäng"
+    "section": {
+      "you": "Dina uppgifter",
+      "appointment": "Önskad tid",
+      "message": "Ditt meddelande"
+    },
+    "errorWithPhone": "Det gick inte att skicka. Försök igen eller ring oss: {{phone}}"
   },
   "contactInfoAdmin": {
     "management": "Kontaktuppgifter",
@@ -179,11 +202,74 @@
       "city": "Stad *",
       "officeHours": "Öppettider",
       "addHour": "Lägg till öppettid",
-      "hourLabel": "Beteckning (t.ex. Mån–Fre)",
-      "hourTime": "Tid (t.ex. 09:00–17:00)"
+      "hourDay": "Veckodag",
+      "hourOpens": "Från",
+      "hourCloses": "Till"
     }
   },
+  "openStatus": {
+    "open": "Öppet nu, till {{time}}",
+    "later": "Öppet idag från {{time}}",
+    "closed": "Stängt idag",
+    "next": "Nästa öppettid: {{day}} från {{time}}"
+  },
+  "contactInfo": {
+    "unavailable": "Du når oss via ”Boka tid” eller ”Skicka meddelande”.",
+    "phone": "Telefon",
+    "email": "E-post",
+    "address": "Adress",
+    "officeHours": "Öppettider",
+    "call": "Ring",
+    "route": "Visa vägen",
+    "closed": "Stängt"
+  },
+  "forVets": {
+    "title": "För veterinärer",
+    "subtitle": "Remittera patienter med smärta eller rörelseproblem direkt till mig. Du får en bekräftelse via e-post."
+  },
+  "referral": {
+    "heading": "Remittera en patient",
+    "practice": "Remitterande klinik",
+    "practiceName": "Klinik",
+    "vetName": "Veterinär",
+    "email": "E-post",
+    "phone": "Telefon (valfritt)",
+    "owner": "Djurägare",
+    "ownerName": "Namn",
+    "ownerContact": "Telefon eller e-post",
+    "patient": "Patient",
+    "patientName": "Namn (valfritt)",
+    "species": "Djurslag",
+    "breed": "Ras (valfritt)",
+    "age": "Ålder (valfritt)",
+    "question": "Frågeställning",
+    "previous": "Tidigare behandling och medicinering (valfritt)",
+    "urgency": "Brådskande",
+    "consent": "Djurägaren samtycker till att kontaktuppgifterna förs vidare.",
+    "reports": "Skicka provsvar och bilder (röntgen, labb) via e-post till {{email}}.",
+    "submit": "Skicka remiss",
+    "sending": "Skickar…",
+    "success": "Tack! Din remiss har kommit in. Du får en bekräftelse via e-post.",
+    "error": "Det gick inte att skicka. Försök igen senare eller ring oss.",
+    "again": "Remittera en till patient",
+    "urgencyOption": {
+      "ROUTINE": "Rutin",
+      "SOON": "Snart",
+      "URGENT": "Brådskande"
+    }
+  },
+  "notFound": {
+    "title": "Sidan hittades inte",
+    "text": "Den här sidan finns inte (längre). Startsidan kan hjälpa dig vidare.",
+    "back": "Till startsidan"
+  },
+  "routeError": {
+    "title": "Något gick fel",
+    "text": "Sidan kunde inte visas. Ladda om sidan eller kontakta oss.",
+    "reload": "Ladda om"
+  },
   "footer": {
+    "questionnaire": "Frågeformulär",
     "privacy": "Integritet",
     "imprint": "Impressum",
     "contact": "Kontakt",
@@ -201,7 +287,7 @@
     "col": {
       "order": "Nr.",
       "title": "Titel",
-      "page": "Sida",
+      "pageType": "Sida",
       "language": "Språk",
       "status": "Status",
       "published": "Publicerad",
@@ -210,7 +296,7 @@
     "form": {
       "title": "Titel *",
       "content": "Innehål *",
-      "page": "Sida",
+      "pageType": "Sida",
       "language": "Språk",
       "status": "Status",
       "order": "Ordning",
@@ -221,11 +307,39 @@
     },
     "moveUp": "Flytta upp",
     "moveDown": "Flytta ner",
-    "page": {
-      "HOME_TEASER": "Startsida teaser",
-      "HOME_PAGE": "Startsida",
+    "pageType": {
+      "DEFAULT": "Standard",
+      "HERO": "Hero",
+      "COL2": "Två kolumner",
+      "COL3": "Tre kolumner",
+      "COL4": "Fyra kolumner",
+      "TEXT": "Textblock",
+      "HERO_PORTRAIT": "Hero med porträtt (Hem)",
+      "SYMPTOMS": "Besvär (Hem)",
+      "METHODS": "Fokusområden med bilder (Hem)",
+      "STEPS": "Förlopp i steg (Hem)",
+      "VET_BAND": "Band för veterinärer (Hem)",
       "NEWS_TEASER": "Nyheter teaser",
-      "NEWS_PAGE": "Nyheter"
+      "NEWS_PAGE": "Nyheter",
+      "ABOUT_TEASER": "Om mig teaser",
+      "ABOUT_PAGE": "Om mig-sida"
+    },
+    "pageTypeHelp": {
+      "DEFAULT": "Löptext med bilder, som på Integritet och Impressum: innehållet fördelas runt bilderna, avsnitt följer under. Visas inte på blockbaserade sidor (t.ex. Hem).",
+      "HERO": "Titel = rubrik, innehåll = underrad, taggar = etikett ovanför rubriken, 1:a bilden = bild bredvid texten.",
+      "COL2": "Titel = rubrik, innehåll = inledning, avsnitt = textblock, 1:a bilden = bild bredvid texten.",
+      "COL3": "Titel och innehåll = huvud, varje avsnitt = en av tre kolumner.",
+      "COL4": "Titel och innehåll = huvud, varje avsnitt = en av fyra kolumner.",
+      "TEXT": "Titel = rubrik, innehåll = inledning, avsnitt = textblock under.",
+      "HERO_PORTRAIT": "Titel = rubrik, innehåll = underrad, 1:a avsnittet = jag-påstående, 1:a bilden = porträtt.",
+      "SYMPTOMS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett besvär (titel + en mening).",
+      "METHODS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett fokusområde med egen bild (väljs i avsnittet).",
+      "STEPS": "Titel = rubrik, innehåll = inledning, varje avsnitt = ett steg, ordnade med pilarna.",
+      "VET_BAND": "Titel = fråga, innehåll = mening under; knappen leder till \"För veterinärer\".",
+      "NEWS_TEASER": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
+      "NEWS_PAGE": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
+      "ABOUT_TEASER": "Titel = rubrik, innehåll = text, avsnitt = kvalifikationsrad, 1:a bilden = foto; länk till \"Om mig\".",
+      "ABOUT_PAGE": "Artikel på sidan \"Om mig\"."
     },
     "language": {
       "GERMAN": "Tyska",
@@ -237,6 +351,35 @@
       "CREATED": "Skapad",
       "PUBLISHED": "Publicerad",
       "CLOSED": "Stängd"
+    },
+    "copy": "Kopiera till annat språk",
+    "copyHeading": "Kopiera artikel",
+    "copyHint": "kopieras med avsnitt, bilder och taggar som utkast till slutet av det valda språket.",
+    "copyTo": "Målspråk",
+    "preview": "Förhandsvisning",
+    "previewBanner": "Förhandsvisning: så ser sidan ut för besökare, inklusive utkast.",
+    "previewDrafts": "({{count}} opublicerade)",
+    "previewBack": "Tillbaka till hanteringen",
+    "previewEmpty": "Det finns inga artiklar på det här språket än."
+  },
+  "section": {
+    "add": "Lägg till avsnitt",
+    "addHeading": "Lägg till avsnitt",
+    "editHeading": "Redigera avsnitt",
+    "deleteConfirm": "Vill du verkligen radera avsnittet \"{{title}}\"?",
+    "empty": "Inga avsnitt ännu.",
+    "col": {
+      "title": "Titel",
+      "content": "Innehåll",
+      "order": "Nr.",
+      "actions": "Åtgärder"
+    },
+    "form": {
+      "order": "Ordning",
+      "title": "Titel *",
+      "content": "Innehåll",
+      "image": "Bild",
+      "noImage": "Ingen bild"
     }
   },
   "image": {
@@ -344,5 +487,26 @@
     "cancel": "Avbryt",
     "errorInvalid": "Ogiltigt användarnamn eller lösenord.",
     "errorGeneral": "Inloggningen misslyckades. Försök igen."
+  },
+  "appointmentForm": {
+    "title": "Begär tid",
+    "intro": "Ange önskat datum och kort anledningen till besöket. Jag återkommer för att bekräfta tiden.",
+    "submit": "Begär tid",
+    "success": {
+      "title": "Förfrågan skickad",
+      "body": "Jag återkommer vanligtvis inom 1–2 arbetsdagar för att bekräfta tiden."
+    }
+  },
+  "messageForm": {
+    "title": "Skicka meddelande",
+    "intro": "Har du en fråga till mig? Skriv till mig så svarar jag via e-post.",
+    "submit": "Skicka meddelande",
+    "success": {
+      "title": "Meddelandet skickat",
+      "body": "Jag svarar vanligtvis via e-post inom 1–2 arbetsdagar."
+    }
+  },
+  "form": {
+    "requiredNote": "* Obligatoriskt fält"
   }
 }

@@ -44,6 +44,9 @@ public class QuestionnaireNotificationListener {
             + "\n"
             + "Tier: "
             + nullToDash(event.petName())
+            + "\n"
+            + "Tierart: "
+            + speciesLabel(event.petSpecies())
             + "\n\n"
             + "Die vollständigen Angaben finden Sie in der Verwaltung.";
 
@@ -58,6 +61,19 @@ public class QuestionnaireNotificationListener {
           event.questionnaireId(),
           ex.getMessage());
     }
+  }
+
+  private static String speciesLabel(String species) {
+    if (species == null) {
+      return "—";
+    }
+    return switch (species) {
+      case "DOG" -> "Hund";
+      case "CAT" -> "Katze";
+      case "SMALL_ANIMAL" -> "Kleintier";
+      case "OTHER" -> "Anderes";
+      default -> species;
+    };
   }
 
   private static String nullToDash(String value) {

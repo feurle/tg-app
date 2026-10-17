@@ -181,6 +181,38 @@ public class ArticleService {
     return scope;
   }
 
+  /**
+   * Copies an article with its sections, images and tags into {@code language}. The copy is a draft
+   * ({@code CREATED}), unpublished, and placed at the end of the page + language scope.
+   */
+  public Article copyArticle(Long id, Language language) {
+    Article source =
+        articleRepository
+            .findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Article not found: " + id));
+
+    Article copy = new Article();
+    copy.setTitle(source.getTitle());
+    copy.setContent(source.getContent());
+    copy.setArticleType(source.getArticleType());
+    copy.setLanguage(language);
+    copy.setState(ArticleState.CREATED);
+    copy.setPage(source.getPage());
+    copy.setOrder(nextOrder(pageIdOf(source), language));
+    copy.setImages(new ArrayList<>(source.getImages()));
+    copy.setTags(new ArrayList<>(source.getTags()));
+    for (Section original : source.getSections()) {
+      Section section = new Section();
+      section.setOrder(original.getOrder());
+      section.setTitle(original.getTitle());
+      section.setContent(original.getContent());
+      section.setImage(original.getImage());
+      section.setArticle(copy);
+      copy.getSections().add(section);
+    }
+    return articleRepository.save(copy);
+  }
+
   /** The next free order value at the end of a page + language scope. */
   private int nextOrder(Long pageId, Language language) {
     return scope(pageId, language).stream().mapToInt(Article::getOrder).max().orElse(0) + 1;

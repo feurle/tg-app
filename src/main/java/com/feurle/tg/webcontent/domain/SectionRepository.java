@@ -2,10 +2,13 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.webcontent.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SectionRepository {
   Optional<Section> findById(Long id);
+
+  List<Section> findByArticleIdOrderByOrderAscIdAsc(Long articleId);
 
   Section save(Section section);
 

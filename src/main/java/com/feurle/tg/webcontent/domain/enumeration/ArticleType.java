@@ -15,5 +15,10 @@ public enum ArticleType {
   COL3,
   COL4,
   TEXT,
+  HERO_PORTRAIT,
+  SYMPTOMS,
+  METHODS,
+  STEPS,
+  VET_BAND,
   DEFAULT
 }

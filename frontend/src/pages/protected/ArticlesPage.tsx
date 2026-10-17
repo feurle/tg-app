@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { articleApi, imageApi, pageApi, sectionApi, tagApi } from '../../features/webcontent/api';
 import type {
@@ -17,6 +18,10 @@ import type {
 import { LANGUAGE_MAP } from '../../features/webcontent/language';
 import ArticleTable from '../../features/webcontent/components/ArticleTable';
 import ArticleFormModal from '../../features/webcontent/components/ArticleFormModal';
+import CopyArticleModal from '../../features/webcontent/components/CopyArticleModal';
+import ArticlePreviewModal from '../../features/webcontent/components/ArticlePreviewModal';
+import { BLOCK_TYPES } from '../../features/webcontent/blockTypes';
+import { adminPagePreviewPath } from '../../router/routes';
 import ArticleDetailModal from '../../features/webcontent/components/ArticleDetailModal';
 import SectionFormModal from '../../features/webcontent/components/SectionFormModal';
 import ConfirmDialog from '../../components/ConfirmDialog';
@@ -35,6 +40,7 @@ type Modal =
   | { kind: 'create' }
   | { kind: 'view'; article: ArticleResponse }
   | { kind: 'edit'; article: ArticleResponse }
+  | { kind: 'copy'; article: ArticleResponse }
   | { kind: 'delete'; article: ArticleResponse }
   | { kind: 'addSection'; article: ArticleResponse }
   | { kind: 'editSection'; article: ArticleResponse; section: SectionResponse }
@@ -42,7 +48,7 @@ type Modal =
   | null;
 
 interface Props {
-  slug: 'home' | 'news' | 'about' | 'privacy' | 'imprint' | 'contact';
+  slug: string;
 }
 
 export default function ArticlesPage({ slug }: Readonly<Props>) {
@@ -171,6 +177,22 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
     }
   }
 
+  async function handleCopy(language: Language) {
+    if (modal?.kind !== 'copy') return;
+    setSaving(true);
+    try {
+      const copy = await articleApi.copy(modal.article.id, language);
+      setArticles((prev) => [...prev, copy]);
+      setLanguageFilter(language);
+      setModal(null);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : t('common.saveError'));
+      setModal(null);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function handleMove(article: ArticleResponse, direction: MoveDirection) {
     setMoving(true);
     try {
@@ -178,6 +200,20 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
       const reordered = await articleApi.move(article.id, direction);
       const byId = new Map(reordered.map((a) => [a.id, a]));
       setArticles((prev) => prev.map((a) => byId.get(a.id) ?? a));
+    } catch (err) {
+      const message = err instanceof ApiError ? err.message : t('common.saveError');
+      setError(message);
+    } finally {
+      setMoving(false);
+    }
+  }
+
+  async function handleMoveSection(article: ArticleResponse, section: SectionResponse, direction: MoveDirection) {
+    setMoving(true);
+    try {
+      // The response is the article's whole section list, already reordered.
+      const reordered = await sectionApi.move(section.id, direction);
+      setArticles((prev) => prev.map((a) => (a.id === article.id ? { ...a, sections: reordered } : a)));
     } catch (err) {
       const message = err instanceof ApiError ? err.message : t('common.saveError');
       setError(message);
@@ -242,6 +278,15 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
               </button>
             ))}
           </div>
+          <Link
+            to={adminPagePreviewPath(
+              slug,
+              Object.entries(LANGUAGE_MAP).find(([, l]) => l === languageFilter)?.[0] ?? 'de',
+            )}
+            className="btn-secondary"
+          >
+            {t('article.preview')}
+          </Link>
           <button onClick={() => setModal({ kind: 'create' })} className="btn-accent">
             + {t('article.new')}
           </button>
@@ -266,13 +311,27 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
           onAddSection={(a) => setModal({ kind: 'addSection', article: a })}
           onEditSection={(a, s) => setModal({ kind: 'editSection', article: a, section: s })}
           onDeleteSection={(a, s) => setModal({ kind: 'deleteSection', article: a, section: s })}
+          onMoveSection={handleMoveSection}
+          onCopy={(a) => setModal({ kind: 'copy', article: a })}
           onMove={handleMove}
           moving={moving}
         />
       )}
 
-      {modal?.kind === 'view' && (
-        <ArticleDetailModal article={modal.article} onClose={() => setModal(null)} />
+      {modal?.kind === 'view' &&
+        (BLOCK_TYPES.has(modal.article.articleType) ? (
+          <ArticlePreviewModal article={modal.article} onClose={() => setModal(null)} />
+        ) : (
+          <ArticleDetailModal article={modal.article} onClose={() => setModal(null)} />
+        ))}
+
+      {modal?.kind === 'copy' && (
+        <CopyArticleModal
+          article={modal.article}
+          onCopy={handleCopy}
+          onCancel={() => setModal(null)}
+          saving={saving}
+        />
       )}
 
       {modal?.kind === 'create' && (
@@ -303,6 +362,8 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
         <SectionFormModal
           mode="create"
           articleTitle={modal.article.title}
+          nextOrder={Math.max(0, ...modal.article.sections.map((s) => s.order)) + 1}
+          images={images}
           onSave={handleAddSection}
           onCancel={() => setModal(null)}
           saving={saving}
@@ -313,6 +374,7 @@ export default function ArticlesPage({ slug }: Readonly<Props>) {
         <SectionFormModal
           mode="edit"
           initial={modal.section}
+          images={images}
           onSave={handleEditSection}
           onCancel={() => setModal(null)}
           saving={saving}

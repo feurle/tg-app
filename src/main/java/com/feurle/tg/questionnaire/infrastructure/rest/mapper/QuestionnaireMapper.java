@@ -20,6 +20,7 @@ public class QuestionnaireMapper {
   public PetDetails toDomain(PetDto dto) {
     return new PetDetails(
         dto.name(),
+        dto.species(),
         dto.origin(),
         dto.breederRearing(),
         dto.historyBeforeOwner(),
@@ -60,6 +61,7 @@ public class QuestionnaireMapper {
     }
     return new PetDto(
         pet.getName(),
+        pet.getSpecies(),
         pet.getOrigin(),
         pet.getBreederRearing(),
         pet.getHistoryBeforeOwner(),

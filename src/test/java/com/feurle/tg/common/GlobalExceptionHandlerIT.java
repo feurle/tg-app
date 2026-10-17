@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,7 @@ class GlobalExceptionHandlerIT {
   // ========== handleDataIntegrityViolation ==========
 
   @Test
+  @WithMockUser(roles = "ADMIN")
   void createDuplicateTag_returns500_dataIntegrityViolation() throws Exception {
     // Create first tag
     CreateTagRequest request = new CreateTagRequest("UniqueTag");

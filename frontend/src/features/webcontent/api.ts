@@ -8,6 +8,7 @@ import type {
   Language,
   MoveDirection,
   PageResponse,
+  PageSummary,
   ArticleType,
   SectionResponse,
   TagResponse,
@@ -53,6 +54,10 @@ export const articleApi = {
 
   update: (id: number, data: UpdateArticleRequest) =>
     apiClient.put<ArticleResponse>(`${ARTICLES}/${id}`, data),
+
+  /** Copies the article (sections, images, tags) as a draft into another language of its page. */
+  copy: (id: number, language: Language) =>
+    apiClient.post<ArticleResponse>(`${ARTICLES}/${id}/copy?language=${language}`, {}),
 
   /** Swaps the article with its neighbour; returns its whole page + language group, reordered. */
   move: (id: number, direction: MoveDirection) =>
@@ -104,6 +109,8 @@ export const tagApi = {
 };
 
 export const pageApi = {
+  /** All CMS pages without articles (login required); feeds the admin navigation. */
+  getAll: () => apiClient.get<PageSummary[]>(PAGES),
   getBySlug: (slug: string) => apiClient.get<PageResponse>(`${PAGES}/${slug}`),
 };
 
@@ -115,6 +122,9 @@ export const sectionApi = {
 
   update: (sectionId: number, data: UpdateSectionRequest) =>
     apiClient.put<SectionResponse>(`${SECTIONS}/${sectionId}`, data),
+
+  move: (sectionId: number, direction: MoveDirection) =>
+    apiClient.put<SectionResponse[]>(`${SECTIONS}/${sectionId}/move`, { direction }),
 
   delete: (sectionId: number) =>
     apiClient.delete<void>(`${SECTIONS}/${sectionId}`),

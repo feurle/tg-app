@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
 import logoImg from '../assets/logo.png';
+import { useVetInfo } from '../features/contact/useVetInfo';
+import { telHref } from '../features/contact/officeHours';
+import { addressLines, filled } from '../features/contact/contactInfo';
 import LoginModal from '../features/auth/components/LoginModal';
 
 const LANGUAGES = [
@@ -15,6 +18,7 @@ const LANGUAGES = [
 export default function Footer() {
     const { t, i18n: i18nInstance } = useTranslation();
     const [showLogin, setShowLogin] = useState(false);
+    const vetInfo = useVetInfo();
     const [showLangMenu, setShowLangMenu] = useState(false);
     const langRef = useRef<HTMLDivElement>(null);
     const currentLang = i18nInstance.language;
@@ -46,13 +50,32 @@ export default function Footer() {
                         {t('app.name')}
                     </Link>
                     <p className="footer-tagline">{t('home.tagline')}</p>
+                    {vetInfo && (
+                        <address className="footer-address">
+                            {[addressLines(vetInfo).street, addressLines(vetInfo).place].filter(filled).join(', ')}
+                            {filled(vetInfo.phone) && (
+                                <>
+                                    <br />
+                                    <a href={telHref(vetInfo.phone)}>{vetInfo.phone}</a>
+                                </>
+                            )}
+                            {filled(vetInfo.email) && (
+                                <>
+                                    <br />
+                                    <a href={`mailto:${vetInfo.email}`}>{vetInfo.email}</a>
+                                </>
+                            )}
+                        </address>
+                    )}
                 </div>
 
                 <div className="footer-col">
                     <div className="footer-col-label">Navigation</div>
-                    <Link className="footer-link" to={ROUTES.HOME}>{t('nav.home')}</Link>
+                    <Link className="footer-link" to={ROUTES.TREATMENTS}>{t('nav.treatments')}</Link>
+                    <Link className="footer-link" to={ROUTES.ABOUT}>{t('nav.aboutMe')}</Link>
                     <Link className="footer-link" to={ROUTES.NEWS}>{t('nav.news')}</Link>
-                    <Link className="footer-link" to={ROUTES.ABOUT}>{t('pages.about')}</Link>
+                    <Link className="footer-link" to={ROUTES.FOR_VETS}>{t('nav.forVets')}</Link>
+                    <Link className="footer-link" to={ROUTES.QUESTIONNAIRE}>{t('footer.questionnaire')}</Link>
                 </div>
 
                 <div className="footer-col">

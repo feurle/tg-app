@@ -1,17 +1,22 @@
+export type DayOfWeek = 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
+
+/** One opening interval; times are `HH:mm` or `HH:mm:ss`. A day with a break has two entries. */
 export interface OfficeHour {
-    label: string;
-    hours: string;
+    dayOfWeek: DayOfWeek;
+    opensAt: string;
+    closesAt: string;
 }
 
+/** The API accepts incomplete records, so every contact field may be missing. */
 export interface ContactInfoResponse {
     id: number;
-    name: string;
+    name: string | null;
     primary: boolean;
-    phone: string;
-    email: string;
-    street: string;
-    city: string;
-    zip: string;
+    phone: string | null;
+    email: string | null;
+    street: string | null;
+    city: string | null;
+    zip: string | null;
     officeHours: OfficeHour[];
     updatedAt: string;
 }
@@ -21,6 +26,8 @@ export interface SendMessageRequest {
     text: string;
     replyToEmail: string;
     senderName: string;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }
 
 export interface RequestAppointmentRequest {
@@ -33,6 +40,8 @@ export interface RequestAppointmentRequest {
     /** Optional 24h time, `HH:mm`. */
     preferredTime?: string;
     text?: string;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }
 
 export interface ContactInfoFormData {
@@ -44,4 +53,26 @@ export interface ContactInfoFormData {
     city: string;
     zip: string;
     officeHours: OfficeHour[];
+}
+
+export type ReferralUrgency = 'ROUTINE' | 'SOON' | 'URGENT';
+
+/** Optional fields are omitted when left blank. */
+export interface RequestReferralRequest {
+    referringPractice: string;
+    referringVetName: string;
+    referringEmail: string;
+    referringPhone?: string;
+    ownerName: string;
+    ownerContact: string;
+    patientName?: string;
+    species: string;
+    breed?: string;
+    age?: string;
+    question: string;
+    previousTreatment?: string;
+    urgency: ReferralUrgency;
+    ownerConsent: boolean;
+    /** Honeypot, always empty for real visitors. */
+    website?: string;
 }

@@ -6,4 +6,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public record SubmitQuestionnaireRequest(
-    @NotNull @Valid OwnerDto owner, @NotNull @Valid PetDto pet) {}
+    @NotNull @Valid OwnerDto owner,
+    @NotNull @Valid PetDto pet,
+    /** Honeypot field that real visitors never fill. */
+    String website) {}

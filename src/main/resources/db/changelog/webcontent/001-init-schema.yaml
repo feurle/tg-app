@@ -41,6 +41,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -161,6 +162,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -217,6 +219,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
                   autoIncrement: true
+                  startWith: 1500
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -237,6 +240,9 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
+              - column:
+                  name: image_id
+                  type: BIGINT
         - addForeignKeyConstraint:
             baseTableName: section
             baseColumnNames: article_id
@@ -244,3 +250,10 @@ databaseChangeLog:
             referencedTableName: article
             referencedColumnNames: id
             onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: section
+            baseColumnNames: image_id
+            constraintName: fk_section_image
+            referencedTableName: image
+            referencedColumnNames: id
+            onDelete: SET NULL

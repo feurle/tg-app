@@ -1,49 +1,40 @@
-import { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
 import { useAuth } from '../features/auth/authStore';
 import LoginModal from '../features/auth/components/LoginModal';
+import { useVetInfo } from '../features/contact/useVetInfo';
+import { telHref } from '../features/contact/officeHours';
 import logoImg from '../assets/logo.png';
+
+const MAIN_LINKS = [
+  { to: ROUTES.TREATMENTS, label: 'nav.treatments' },
+  { to: ROUTES.ABOUT, label: 'nav.aboutMe' },
+  { to: ROUTES.NEWS, label: 'nav.news' },
+] as const;
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
-  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [showRequests, setShowRequests] = useState(false);
-  const [mobileRequestsOpen, setMobileRequestsOpen] = useState(false);
-  const requestsRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-
-  const isRequestsActive = ([ROUTES.FOR_PET_OWNERS, ROUTES.FOR_VETS] as string[]).includes(location.pathname);
+  const vetInfo = useVetInfo();
+  // The appointment button would link to the page the visitor is already on.
+  const onAppointmentPage = useLocation().pathname === ROUTES.APPOINTMENT;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  function closeMenu() {
-    setMenuOpen(false);
-    setMobileRequestsOpen(false);
-  }
-
-  useEffect(() => {
-    if (!showRequests) return;
-    function handleClickOutside(e: MouseEvent) {
-      if (requestsRef.current && !requestsRef.current.contains(e.target as Node)) {
-        setShowRequests(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showRequests]);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
       <nav className="navbar">
         <NavLink to={ROUTES.HOME} className="nav-logo">
-          <img src={logoImg} alt="Tier Gesund" className="nav-logo-img" width="44" height="44" />
+          <img src={logoImg} alt="Tier. Gesund." className="nav-logo-img" width="44" height="44" />
           <span className="nav-logo-text">
             <span className="nav-logo-name">{t('app.name')}</span>
             <span className="nav-logo-claim">{t('app.claim')}</span>
@@ -51,52 +42,11 @@ export default function Navbar() {
         </NavLink>
 
         <div className="nav-links">
-          <NavLink to={ROUTES.HOME} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            {t('nav.home')}
-          </NavLink>
-          <NavLink to={ROUTES.NEWS} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            {t('nav.news')}
-          </NavLink>
-          <NavLink to={ROUTES.ABOUT} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-            {t('pages.about')}
-          </NavLink>
-          <div className="nav-dropdown" ref={requestsRef}>
-            <button
-              className={isRequestsActive ? 'nav-dropdown-trigger active' : 'nav-dropdown-trigger'}
-              onClick={() => setShowRequests((v) => !v)}
-              aria-expanded={showRequests}
-            >
-              {t('nav.requests')}
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 10 10"
-                fill="none"
-                aria-hidden="true"
-                style={{ transform: showRequests ? 'rotate(180deg)' : 'none', transition: 'transform 0.18s' }}
-              >
-                <path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            {showRequests && (
-              <div className="nav-dropdown-menu">
-                <NavLink
-                  to={ROUTES.FOR_PET_OWNERS}
-                  className={({ isActive }) => isActive ? 'nav-dropdown-item active' : 'nav-dropdown-item'}
-                  onClick={() => setShowRequests(false)}
-                >
-                  {t('nav.forPetOwners')}
-                </NavLink>
-                <NavLink
-                  to={ROUTES.FOR_VETS}
-                  className={({ isActive }) => isActive ? 'nav-dropdown-item active' : 'nav-dropdown-item'}
-                  onClick={() => setShowRequests(false)}
-                >
-                  {t('nav.forVets')}
-                </NavLink>
-              </div>
-            )}
-          </div>
+          {MAIN_LINKS.map(({ to, label }) => (
+            <NavLink key={to} to={to} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              {t(label)}
+            </NavLink>
+          ))}
           {isAuthenticated && (
             <NavLink to={ROUTES.CUSTOMERS} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
               {t('nav.administration')}
@@ -105,6 +55,12 @@ export default function Navbar() {
         </div>
 
         <div className="nav-right">
+          <NavLink to={ROUTES.FOR_VETS} className={({ isActive }) => isActive ? 'nav-vets-link active' : 'nav-vets-link'}>
+            {t('nav.forVets')}
+          </NavLink>
+          <Link to={ROUTES.APPOINTMENT} className="btn-primary nav-cta">
+            {t('nav.appointment')}
+          </Link>
           {isAuthenticated ? (
             <button className="nav-login-link" onClick={logout}>
               {t('nav.logout')}
@@ -117,7 +73,7 @@ export default function Navbar() {
           <button
             className="nav-hamburger"
             onClick={() => (menuOpen ? closeMenu() : setMenuOpen(true))}
-            aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
+            aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={menuOpen}
           >
             {menuOpen ? (
@@ -139,61 +95,49 @@ export default function Navbar() {
       {menuOpen && (
         <div className="mobile-overlay" role="dialog" aria-modal="true" aria-label="Navigation">
           <nav className="mobile-overlay-links">
-            <NavLink to={ROUTES.HOME} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
-              {t('nav.home')}
+            {MAIN_LINKS.map(({ to, label }) => (
+              <NavLink key={to} to={to} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
+                {t(label)}
+              </NavLink>
+            ))}
+            <NavLink to={ROUTES.FOR_VETS} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-sublink active' : 'mobile-overlay-sublink'}>
+              {t('nav.forVets')}
             </NavLink>
-            <NavLink to={ROUTES.NEWS} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
-              {t('nav.news')}
-            </NavLink>
-            <NavLink to={ROUTES.ABOUT} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
-              {t('pages.about')}
-            </NavLink>
-            <div className="mobile-overlay-group">
-              <button
-                className="mobile-overlay-group-trigger"
-                onClick={() => setMobileRequestsOpen((v) => !v)}
-                aria-expanded={mobileRequestsOpen}
-              >
-                {t('nav.requests')}
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  aria-hidden="true"
-                  style={{ transform: mobileRequestsOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.18s' }}
-                >
-                  <path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              {mobileRequestsOpen && (
-                <div className="mobile-overlay-subitems">
-                  <NavLink
-                    to={ROUTES.FOR_PET_OWNERS}
-                    onClick={closeMenu}
-                    className={({ isActive }) => isActive ? 'mobile-overlay-sublink active' : 'mobile-overlay-sublink'}
-                  >
-                    {t('nav.forPetOwners')}
-                  </NavLink>
-                  <NavLink
-                    to={ROUTES.FOR_VETS}
-                    onClick={closeMenu}
-                    className={({ isActive }) => isActive ? 'mobile-overlay-sublink active' : 'mobile-overlay-sublink'}
-                  >
-                    {t('nav.forVets')}
-                  </NavLink>
-                </div>
-              )}
-            </div>
             {isAuthenticated && (
               <NavLink to={ROUTES.CUSTOMERS} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
                 {t('nav.administration')}
               </NavLink>
             )}
+            {isAuthenticated ? (
+              <button className="mobile-overlay-sublink" onClick={() => { closeMenu(); logout(); }}>
+                {t('nav.logout')}
+              </button>
+            ) : (
+              <button className="mobile-overlay-sublink" onClick={() => { closeMenu(); setShowLogin(true); }}>
+                {t('nav.login')}
+              </button>
+            )}
           </nav>
         </div>
       )}
 
+      {(!onAppointmentPage || vetInfo?.phone) && (
+        <div className={onAppointmentPage ? 'mobile-cta-bar mobile-cta-bar-call-only' : 'mobile-cta-bar'}>
+          {!onAppointmentPage && (
+            <Link to={ROUTES.APPOINTMENT} className="btn-primary mobile-cta-button">
+              {t('nav.appointment')}
+            </Link>
+          )}
+          {vetInfo?.phone && (
+            <a className="btn-secondary mobile-cta-call" href={telHref(vetInfo.phone)} aria-label={`${t('contactInfo.call')} ${vetInfo.phone}`}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+              </svg>
+              {onAppointmentPage && <span>{t('contactInfo.call')} {vetInfo.phone}</span>}
+            </a>
+          )}
+        </div>
+      )}
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     </>

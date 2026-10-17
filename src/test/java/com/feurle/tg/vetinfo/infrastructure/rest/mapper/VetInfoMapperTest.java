@@ -8,7 +8,9 @@ import com.feurle.tg.vetinfo.domain.OfficeHour;
 import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.infrastructure.rest.dto.OfficeHourDto;
 import com.feurle.tg.vetinfo.infrastructure.rest.dto.VetInfoResponse;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,29 +52,33 @@ class VetInfoMapperTest {
   @Test
   void toResponse_mapsOfficeHours() {
     VetInfo vetInfo = new VetInfo();
-    vetInfo.getOfficeHours().add(new OfficeHour("Montag – Freitag", "09:00 – 18:00"));
-    vetInfo.getOfficeHours().add(new OfficeHour("Samstag", "09:00 – 13:00"));
+    vetInfo
+        .getOfficeHours()
+        .add(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0)));
+    vetInfo
+        .getOfficeHours()
+        .add(new OfficeHour(DayOfWeek.SATURDAY, LocalTime.of(9, 0), LocalTime.of(13, 0)));
 
     VetInfoResponse response = mapper.toResponse(vetInfo);
 
     assertThat(response.officeHours()).hasSize(2);
-    assertThat(response.officeHours().get(0).label()).isEqualTo("Montag – Freitag");
-    assertThat(response.officeHours().get(0).hours()).isEqualTo("09:00 – 18:00");
-    assertThat(response.officeHours().get(1).label()).isEqualTo("Samstag");
+    assertThat(response.officeHours().get(0).dayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+    assertThat(response.officeHours().get(0).opensAt()).isEqualTo(LocalTime.of(9, 0));
+    assertThat(response.officeHours().get(1).dayOfWeek()).isEqualTo(DayOfWeek.SATURDAY);
   }
 
   @Test
   void toDomain_mapsOfficeHourDtos() {
     List<OfficeHourDto> dtos =
         List.of(
-            new OfficeHourDto("Montag – Freitag", "09:00 – 18:00"),
-            new OfficeHourDto("Samstag", "09:00 – 13:00"));
+            new OfficeHourDto(DayOfWeek.MONDAY, LocalTime.of(9, 0), LocalTime.of(18, 0)),
+            new OfficeHourDto(DayOfWeek.SATURDAY, LocalTime.of(9, 0), LocalTime.of(13, 0)));
 
     List<OfficeHour> result = mapper.toDomain(dtos);
 
     assertThat(result).hasSize(2);
-    assertThat(result.get(0).getLabel()).isEqualTo("Montag – Freitag");
-    assertThat(result.get(0).getHours()).isEqualTo("09:00 – 18:00");
-    assertThat(result.get(1).getLabel()).isEqualTo("Samstag");
+    assertThat(result.get(0).getDayOfWeek()).isEqualTo(DayOfWeek.MONDAY);
+    assertThat(result.get(0).getClosesAt()).isEqualTo(LocalTime.of(18, 0));
+    assertThat(result.get(1).getDayOfWeek()).isEqualTo(DayOfWeek.SATURDAY);
   }
 }
