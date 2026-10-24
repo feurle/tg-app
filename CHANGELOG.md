@@ -9,8 +9,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
-- Optionale Umgebungsvariable `MAIL_TO`: Ist sie gesetzt, gehen alle ausgehenden Mails an diese Adresse statt an die Praxis bzw. den überweisenden Tierarzt (Betreff mit `[an: …]`). Gedacht für das Staging und lokale Tests; in Produktion nicht setzen.
-
 ### Changed
 
 ### Deprecated
@@ -20,6 +18,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 ### Fixed
 
 ### Security
+
+## [1.2.0] - 2026-10-24
+
+### Added
+
+- Optionale Umgebungsvariable `MAIL_TO`: Ist sie gesetzt, gehen alle ausgehenden Mails an diese Adresse statt an die Praxis bzw. den überweisenden Tierarzt (Betreff mit `[an: …]`). Gedacht für das Staging und lokale Tests; in Produktion nicht setzen.
 
 ## [1.1.2] - 2026-10-24
 
@@ -132,7 +136,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/feurle/tg-app/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/feurle/tg-app/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/feurle/tg-app/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/feurle/tg-app/compare/v1.0.3...v1.1.0
