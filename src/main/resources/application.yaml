@@ -125,7 +125,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,loggers,threaddump,heapdump,env,beans,scheduledtasks,modulith,logfile
+        include: health,info,metrics,modulith   # no heapdump/env/beans/threaddump/loggers/logfile
 
 logging:
   file:
@@ -160,7 +160,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,loggers,threaddump,heapdump,env,beans,scheduledtasks,modulith,logfile
+        include: health,info,metrics,modulith   # no heapdump/env/beans/threaddump/loggers/logfile
 
 logging:
   file:

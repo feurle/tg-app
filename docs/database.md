@@ -42,7 +42,6 @@ Open before go-live:
 - Remove `drop-first: true` and the `seed` context from the `test` and `prod` profiles in
   `application.yaml`, and check that Liquibase runs incrementally against a MySQL snapshot.
 - Production and staging connect as MySQL `root`. Create a least-privilege user.
-- `h2` and `spring-boot-h2console` are unconditional dependencies. Restrict them to dev.
 - The seeded `admin`/`admin` and `user`/`user` accounts must not reach the live database.
 
 ## Test credentials

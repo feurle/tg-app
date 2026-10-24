@@ -19,6 +19,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+- Actuator in `test` und `prod` nur noch mit `health,info,metrics,modulith`: `heapdump`, `env`, `beans`, `threaddump`, `loggers` und `logfile` sind dort nicht mehr erreichbar. H2 und die H2-Konsole sind nur noch im dev-Profil und in den Tests dabei und nicht mehr im Produktions-Image.
+
 ## [1.2.0] - 2026-10-24
 
 ### Added
