@@ -5,7 +5,10 @@
 GitHub Actions workflow: `.github/workflows/deploy.yml`.
 
 1. `./gradlew test bootJar sonar`: tests and SonarQube analysis.
-2. `./gradlew bootBuildImage`: pushes the Docker image `feurle/tg-app` to Docker Hub.
+2. `./gradlew bootBuildImage`: pushes the Docker image `feurle/tg-app` to Docker Hub. The Paketo
+   builder is pinned in `build.gradle` (`builder-noble-java-tiny:0.0.200`) because its `latest` tag
+   was republished arm64-only on 2026-10-23, which breaks the amd64 runner (`exec format error`).
+   Bump the version deliberately, and check that the tag is multi-arch.
    - `trunk` → tag `latest` → production (`src/main/docker/prod-compose.yml`).
    - `feature/**`, `fix/**`, `hotfix/**`, `chore/**`, `refactor/**` → tag `snapshot` → staging
      (`src/main/docker/test-compose.yml`).
