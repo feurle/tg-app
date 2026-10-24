@@ -16,7 +16,7 @@ Spring Boot backend (Java 21, Gradle wrapper, Spring Modulith) for a veterinary 
 - Modules talk to each other only through Spring events or exposed interfaces, never through another module's internals.
 - All frontend backend calls go through `frontend/src/lib/apiClient.ts`.
 - Write endpoints under `/api/webcontent` require `ROLE_ADMIN`.
-- Until go-live, Liquibase changesets are edited in place, not added. See [docs/database.md](docs/database.md).
+- Until go-live, Liquibase changesets are edited in place; after go-live, every change needs a new changeset. See [docs/database.md](docs/database.md).
 - Structural changes update the docs in the same change. See [docs/contributing.md](docs/contributing.md).
 
 ## Docs
