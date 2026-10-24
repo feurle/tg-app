@@ -12,6 +12,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - Frontend-Tests mit Vitest und React Testing Library (`npm test`), zuerst für `officeHours.ts` (Öffnungsstatus in Wiener Zeit), `apiClient.ts` und `HoneypotField`. Die CI führt sie nach dem Lint aus.
 ### Changed
 
+- `home.cta.primary` ist jetzt auch auf Englisch, Schwedisch und Russisch „Termin anfragen“ (wie im Deutschen). Die Übersetzungen entsprechen den vorhandenen Formulartexten und sind von Muttersprachlern zu prüfen.
+
 ### Deprecated
 
 ### Removed
