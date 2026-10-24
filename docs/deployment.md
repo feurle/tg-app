@@ -48,10 +48,10 @@ serves both frontend and backend. There is no separate frontend image. See
 
 - `/actuator/health` is public.
 - Other actuator endpoints require `ROLE_ADMIN` via HTTP Basic, so that `tg-admin` can query them.
-- `test` and `prod` expose only `health,info,metrics,modulith`. `heapdump`, `env`, `beans`,
-  `threaddump`, `loggers` and `logfile` are dev-only (a heap dump leaks sessions and secrets), so
-  tg-admin shows health, info, metrics and the Modulith view for these instances, not logging or
-  environment details.
+- `test` and `prod` expose only `health,info,metrics,loggers,modulith`. `loggers` stays so that
+  log levels can be changed from tg-admin. `heapdump`, `env`, `beans`, `threaddump` and `logfile`
+  are dev-only (a heap dump leaks sessions and secrets), so tg-admin shows no environment, dumps
+  or log file for these instances. All of them require `ROLE_ADMIN` via HTTP Basic.
 
 ## tg-admin
 
