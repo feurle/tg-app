@@ -17,6 +17,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Unbekannte API-Pfade (zum Beispiel nicht mehr erreichbare Actuator-Endpunkte) liefern wieder 404 statt 500 und schreiben keinen ERROR mehr ins Log.
+
 ### Security
 
 ## [1.2.1] - 2026-10-24
