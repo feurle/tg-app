@@ -8,10 +8,11 @@ React 19 + TypeScript + Vite + React Router v7 + react-i18next. Talks to the Spr
 npm run dev           # Vite dev server on :5173, proxies /api to :8080
 npm run build         # tsc -b && vite build
 npm run lint          # ESLint
+npm test              # Vitest (jsdom, React Testing Library)
 npm run generate:api  # OpenAPI types into src/api (gitignored)
 ```
 
-No test runner is configured. `./gradlew build` builds this app and copies `dist/` into the Spring Boot static resources.
+Tests sit next to the code as `*.test.ts(x)`. `./gradlew build` builds this app and copies `dist/` into the Spring Boot static resources.
 
 ## Structure
 

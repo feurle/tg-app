@@ -9,6 +9,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Frontend-Tests mit Vitest und React Testing Library (`npm test`), zuerst für `officeHours.ts` (Öffnungsstatus in Wiener Zeit), `apiClient.ts` und `HoneypotField`. Die CI führt sie nach dem Lint aus.
 ### Changed
 
 ### Deprecated

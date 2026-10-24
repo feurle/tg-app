@@ -46,6 +46,14 @@ Known deviation: `features/webcontent/api.ts` builds the image download URL and 
 upload with its own `BASE_URL` (from `VITE_API_URL`, empty by default) instead of `apiClient.ts`.
 New code should use `apiClient.ts`.
 
+## Tests
+
+Vitest with jsdom and React Testing Library, run with `npm test`. Put logic without UI in plain
+`*.test.ts` files next to the module (`officeHours.ts`, `apiClient.ts`); use Testing Library only for
+components. Pass a fixed `Date` to time-dependent logic instead of faking the clock where possible.
+CI runs the tests after the lint step. Runtime checks in the browser still follow
+[verification.md](verification.md).
+
 ## Design
 
 Design tokens are in `frontend/src/styles/variables.css`. Direction and rules are in
