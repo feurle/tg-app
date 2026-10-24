@@ -17,8 +17,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
-- Image-Build in der CI: Der Paketo-Builder ist auf eine Version festgelegt, weil sein `latest`-Tag nur noch für arm64 veröffentlicht wurde (`exec format error` auf dem amd64-Runner).
 ### Security
+
+## [1.1.1] - 2026-10-24
+
+### Fixed
+
+- Image-Build in der CI: Der Paketo-Builder ist auf eine Version festgelegt, weil sein `latest`-Tag nur noch für arm64 veröffentlicht wurde (`exec format error` auf dem amd64-Runner).
 
 ## [1.1.0] - 2026-10-17
 
@@ -104,7 +109,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/feurle/tg-app/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/feurle/tg-app/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/feurle/tg-app/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/feurle/tg-app/compare/v1.0.1...v1.0.2
