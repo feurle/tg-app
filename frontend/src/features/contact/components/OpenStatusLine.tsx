@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { formatTime, getOpenStatus, weekdayName } from '../officeHours';
 import type { OfficeHour } from '../types';
+import { useNow } from '../useNow';
 
 interface Props {
     officeHours: OfficeHour[];
@@ -9,7 +10,8 @@ interface Props {
 /** One line such as "Jetzt geöffnet, bis 18:00 Uhr"; renders nothing without office hours. */
 export default function OpenStatusLine({ officeHours }: Props) {
     const { t, i18n } = useTranslation();
-    const status = getOpenStatus(officeHours);
+    const now = useNow();
+    const status = getOpenStatus(officeHours, now);
     if (!status) return null;
 
     let text: string;
