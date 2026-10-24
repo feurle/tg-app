@@ -4,7 +4,6 @@
     "claim": "Ganzheitlich-integrative Tiermedizin"
   },
   "nav": {
-    "home": "Home",
     "forVets": "For Vets",
     "treatments": "Treatments",
     "aboutMe": "About me",
@@ -16,7 +15,6 @@
     "customers": "Customers",
     "users": "Users",
     "questionnaires": "Questionnaires",
-    "articles": "Articles",
     "images": "Images",
     "tags": "Tags",
     "contactInfo": "Contact Info",
@@ -49,9 +47,7 @@
   },
   "pages": {
     "fallbackNotice": "This content is not available in your language yet and is shown in German.",
-    "home": "Welcome",
-    "news": "Articles & Publications",
-    "about": "About Us"
+    "news": "Articles & Publications"
   },
   "home": {
     "more": {
@@ -62,15 +58,6 @@
       "cta": "Refer a patient"
     },
     "tagline": "Pet Health in Focus",
-    "title": {
-      "line1": "Healthy Pets,",
-      "line2": "Happy Owners."
-    },
-    "subtitle": "Expert knowledge on pet nutrition, prevention and care — clearly presented for every pet owner.",
-    "cta": {
-      "primary": "Request appointment",
-      "secondary": "Learn More"
-    },
     "contact": {
       "title": "Contact & Office Hours",
       "sub": "We are here for you and your pet"
@@ -78,9 +65,6 @@
   },
   "news": {
     "subtitle": "All posts about pet health, nutrition and care."
-  },
-  "about": {
-    "subtitle": "Learn more about us and our team."
   },
   "questionnaire": {
     "page": {
@@ -189,8 +173,7 @@
       "name": "Name",
       "phone": "Phone",
       "email": "Email",
-      "city": "City",
-      "actions": "Actions"
+      "city": "City"
     },
     "form": {
       "name": "Name *",
@@ -217,7 +200,6 @@
     "unavailable": "You can reach us via “Request appointment” or “Send message”.",
     "call": "Call",
     "route": "Show route",
-    "closed": "Closed",
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
@@ -250,7 +232,6 @@
     "submit": "Send referral",
     "sending": "Sending…",
     "success": "Thank you! Your referral has been received. You will get a confirmation by e-mail.",
-    "error": "Sending failed. Please try again later or call us.",
     "again": "Refer another patient",
     "urgencyOption": {
       "ROUTINE": "Routine",
@@ -276,8 +257,6 @@
     "language": "Language"
   },
   "article": {
-    "management": "Article Management",
-    "subtitle": "Manage your articles and content",
     "new": "New Article",
     "newHeading": "New Article",
     "editHeading": "Edit Article",
@@ -290,8 +269,7 @@
       "pageType": "Page",
       "language": "Language",
       "status": "Status",
-      "published": "Published",
-      "actions": "Actions"
+      "published": "Published"
     },
     "form": {
       "title": "Title *",
@@ -375,7 +353,6 @@
       "actions": "Actions"
     },
     "form": {
-      "order": "Order",
       "title": "Title *",
       "content": "Content",
       "image": "Image",
@@ -409,8 +386,7 @@
     "empty": "No tags found.",
     "name": "Tag Name *",
     "col": {
-      "name": "Name",
-      "actions": "Actions"
+      "name": "Name"
     }
   },
   "customer": {
@@ -426,8 +402,7 @@
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
-      "city": "City",
-      "actions": "Actions"
+      "city": "City"
     },
     "form": {
       "firstName": "First Name *",
@@ -456,8 +431,7 @@
       "name": "Name",
       "email": "Email",
       "roles": "Roles",
-      "active": "Active",
-      "actions": "Actions"
+      "active": "Active"
     },
     "form": {
       "login": "Login *",
@@ -484,7 +458,6 @@
     "password": "Password",
     "login": "Sign In",
     "loggingIn": "Signing in...",
-    "cancel": "Cancel",
     "errorInvalid": "Invalid username or password.",
     "errorGeneral": "Login failed. Please try again."
   },

@@ -4,7 +4,6 @@
     "claim": "Ganzheitlich-integrative Tiermedizin"
   },
   "nav": {
-    "home": "Hem",
     "forVets": "För veterinärer",
     "treatments": "Behandlingar",
     "aboutMe": "Om mig",
@@ -16,7 +15,6 @@
     "customers": "Kunder",
     "users": "Användare",
     "questionnaires": "Frågeformulär",
-    "articles": "Artiklar",
     "images": "Bilder",
     "tags": "Taggar",
     "contactInfo": "Kontaktuppgifter",
@@ -49,9 +47,7 @@
   },
   "pages": {
     "fallbackNotice": "Det här innehållet finns ännu inte på ditt språk och visas på tyska.",
-    "home": "Välkommen",
-    "news": "Fackartiklar & Publikationer",
-    "about": "Om oss"
+    "news": "Fackartiklar & Publikationer"
   },
   "home": {
     "more": {
@@ -62,15 +58,6 @@
       "cta": "Remittera en patient"
     },
     "tagline": "Djurhälsa i fokus",
-    "title": {
-      "line1": "Friska djur,",
-      "line2": "glada ägare."
-    },
-    "subtitle": "Expertkunskap om djurhälsa, prevention och vård — presenterad på ett enkelt sätt för varje djurägare.",
-    "cta": {
-      "primary": "Begär tid",
-      "secondary": "Läs mer"
-    },
     "contact": {
       "title": "Kontakt & öppettider",
       "sub": "Vi finns här för dig och ditt djur"
@@ -78,9 +65,6 @@
   },
   "news": {
     "subtitle": "Alla inlägg om djurhälsa, nutrition och vård."
-  },
-  "about": {
-    "subtitle": "Läs mer om oss och vårt team."
   },
   "questionnaire": {
     "page": {
@@ -189,8 +173,7 @@
       "name": "Namn",
       "phone": "Telefon",
       "email": "E-post",
-      "city": "Stad",
-      "actions": "Åtgärder"
+      "city": "Stad"
     },
     "form": {
       "name": "Namn *",
@@ -220,8 +203,7 @@
     "address": "Adress",
     "officeHours": "Öppettider",
     "call": "Ring",
-    "route": "Visa vägen",
-    "closed": "Stängt"
+    "route": "Visa vägen"
   },
   "forVets": {
     "title": "För veterinärer",
@@ -250,7 +232,6 @@
     "submit": "Skicka remiss",
     "sending": "Skickar…",
     "success": "Tack! Din remiss har kommit in. Du får en bekräftelse via e-post.",
-    "error": "Det gick inte att skicka. Försök igen senare eller ring oss.",
     "again": "Remittera en till patient",
     "urgencyOption": {
       "ROUTINE": "Rutin",
@@ -276,8 +257,6 @@
     "language": "Språk"
   },
   "article": {
-    "management": "Artikelhantering",
-    "subtitle": "Hantera dina artiklar och innehål",
     "new": "Ny artikel",
     "newHeading": "Ny artikel",
     "editHeading": "Redigera artikel",
@@ -290,8 +269,7 @@
       "pageType": "Sida",
       "language": "Språk",
       "status": "Status",
-      "published": "Publicerad",
-      "actions": "Åtgärder"
+      "published": "Publicerad"
     },
     "form": {
       "title": "Titel *",
@@ -375,7 +353,6 @@
       "actions": "Åtgärder"
     },
     "form": {
-      "order": "Ordning",
       "title": "Titel *",
       "content": "Innehåll",
       "image": "Bild",
@@ -409,8 +386,7 @@
     "empty": "Inga taggar hittades.",
     "name": "Taggnamn *",
     "col": {
-      "name": "Namn",
-      "actions": "Åtgärder"
+      "name": "Namn"
     }
   },
   "customer": {
@@ -426,8 +402,7 @@
       "name": "Namn",
       "email": "E-post",
       "phone": "Telefon",
-      "city": "Stad",
-      "actions": "Åtgärder"
+      "city": "Stad"
     },
     "form": {
       "firstName": "Förnamn *",
@@ -456,8 +431,7 @@
       "name": "Namn",
       "email": "E-post",
       "roles": "Roller",
-      "active": "Aktiv",
-      "actions": "Åtgärder"
+      "active": "Aktiv"
     },
     "form": {
       "login": "Inloggning *",
@@ -484,7 +458,6 @@
     "password": "Lösenord",
     "login": "Logga in",
     "loggingIn": "Loggar in...",
-    "cancel": "Avbryt",
     "errorInvalid": "Ogiltigt användarnamn eller lösenord.",
     "errorGeneral": "Inloggningen misslyckades. Försök igen."
   },

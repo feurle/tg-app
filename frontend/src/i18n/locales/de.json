@@ -4,7 +4,6 @@
     "claim": "Ganzheitlich-integrative Tiermedizin"
   },
   "nav": {
-    "home": "Home",
     "forVets": "Für Tierärzte",
     "treatments": "Behandlungen",
     "aboutMe": "Über mich",
@@ -16,7 +15,6 @@
     "customers": "Kunden",
     "users": "Benutzer",
     "questionnaires": "Erhebungsbögen",
-    "articles": "Artikel",
     "images": "Bilder",
     "tags": "Tags",
     "contactInfo": "Kontaktdaten",
@@ -49,9 +47,7 @@
   },
   "pages": {
     "fallbackNotice": "Dieser Inhalt ist in Ihrer Sprache noch nicht verfügbar und wird auf Deutsch angezeigt.",
-    "home": "Willkommen",
-    "news": "Fachbeiträge & Publikationen",
-    "about": "Über uns"
+    "news": "Fachbeiträge & Publikationen"
   },
   "home": {
     "more": {
@@ -62,15 +58,6 @@
       "cta": "Patient überweisen"
     },
     "tagline": "Tiergesundheit im Fokus",
-    "title": {
-      "line1": "Gesunde Tiere,",
-      "line2": "glückliche Halter."
-    },
-    "subtitle": "Expertenwissen rund um Tierernährung, Vorsorge und Pflege — verständlich aufbereitet für jeden Tierhalter.",
-    "cta": {
-      "primary": "Termin anfragen",
-      "secondary": "Kontakt"
-    },
     "contact": {
       "title": "Kontakt & Sprechzeiten",
       "sub": "Wir sind für Sie und Ihr Tier da"
@@ -78,9 +65,6 @@
   },
   "news": {
     "subtitle": "Alle Beiträge rund um Tiergesundheit, Ernährung und Pflege."
-  },
-  "about": {
-    "subtitle": "Erfahre mehr über uns und unser Team."
   },
   "questionnaire": {
     "page": {
@@ -189,8 +173,7 @@
       "name": "Name",
       "phone": "Telefon",
       "email": "E-Mail",
-      "city": "Ort",
-      "actions": "Aktionen"
+      "city": "Ort"
     },
     "form": {
       "name": "Name *",
@@ -217,7 +200,6 @@
     "unavailable": "Sie erreichen uns über „Termin anfragen“ oder „Nachricht schreiben“.",
     "call": "Anrufen",
     "route": "Route anzeigen",
-    "closed": "Geschlossen",
     "phone": "Telefon",
     "email": "E-Mail",
     "address": "Adresse",
@@ -250,7 +232,6 @@
     "submit": "Überweisung senden",
     "sending": "Wird gesendet…",
     "success": "Vielen Dank! Ihre Überweisung ist eingegangen. Sie erhalten eine Bestätigung per E-Mail.",
-    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es später erneut oder rufen Sie uns an.",
     "again": "Weiteren Patienten überweisen",
     "urgencyOption": {
       "ROUTINE": "Routine",
@@ -288,7 +269,6 @@
       "actions": "Aktionen"
     },
     "form": {
-      "order": "Reihenfolge",
       "title": "Titel *",
       "content": "Inhalt",
       "image": "Bild",
@@ -296,8 +276,6 @@
     }
   },
   "article": {
-    "management": "Artikelverwaltung",
-    "subtitle": "Verwalten Sie Ihre Artikel und Inhalte",
     "new": "Neuer Artikel",
     "newHeading": "Neuer Artikel",
     "editHeading": "Artikel bearbeiten",
@@ -310,8 +288,7 @@
       "pageType": "Seiten Typ",
       "language": "Sprache",
       "status": "Status",
-      "published": "Veröffentlicht",
-      "actions": "Aktionen"
+      "published": "Veröffentlicht"
     },
     "form": {
       "title": "Titel *",
@@ -409,8 +386,7 @@
     "empty": "Keine Tags vorhanden.",
     "name": "Tag-Name *",
     "col": {
-      "name": "Name",
-      "actions": "Aktionen"
+      "name": "Name"
     }
   },
   "customer": {
@@ -426,8 +402,7 @@
       "name": "Name",
       "email": "E-Mail",
       "phone": "Telefon",
-      "city": "Ort",
-      "actions": "Aktionen"
+      "city": "Ort"
     },
     "form": {
       "firstName": "Vorname *",
@@ -456,8 +431,7 @@
       "name": "Name",
       "email": "E-Mail",
       "roles": "Rollen",
-      "active": "Aktiv",
-      "actions": "Aktionen"
+      "active": "Aktiv"
     },
     "form": {
       "login": "Login *",
@@ -484,7 +458,6 @@
     "password": "Passwort",
     "login": "Anmelden",
     "loggingIn": "Anmelden...",
-    "cancel": "Abbrechen",
     "errorInvalid": "Benutzername oder Passwort falsch.",
     "errorGeneral": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
   },

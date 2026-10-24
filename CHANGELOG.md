@@ -18,6 +18,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Removed
 
+- Ungenutzte Übersetzungsschlüssel (u. a. `home.cta.*`, `home.title.*`, `home.subtitle`, `nav.home`, `nav.articles`, `pages.home`, `pages.about`, `about.subtitle`, leere Spaltentitel `*.col.actions`) aus allen vier Sprachdateien entfernt.
+
 ### Fixed
 
 - Image-Build in der CI: Der Paketo-Builder ist auf eine Version festgelegt, weil sein `latest`-Tag nur noch für arm64 veröffentlicht wurde (`exec format error` auf dem amd64-Runner).
