@@ -25,6 +25,9 @@ interface: `PrimaryContactEmailLookup` from `vetinfo`.
 - **`notification`**: outbound email (`MailService`). `QuestionnaireNotificationListener`
   reacts to `QuestionnaireSubmittedEvent`.
 - **`common`**: `GlobalExceptionHandler` and other shared error handling.
+  `SpaForwardController` forwards client-side routes (no file extension, not under `/api`,
+  `/actuator`, `/assets`) to `index.html` so reload and deep links work. The matching
+  permit rule is `SecurityConfig.SPA_ROUTE_REGEX`; keep both in sync.
 
 ## Layers
 

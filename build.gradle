@@ -211,8 +211,12 @@ bootRun {
 	if (envFile.exists()) {
 		envFile.readLines().each { line ->
 			if (line && !line.startsWith('#')) {
-				def (key, value) = line.tokenize('=')
-				environment key, value
+				def idx = line.indexOf('=')
+				if (idx > 0) {
+					// split at the first '=' only and drop surrounding quotes, like a shell would
+					def value = line.substring(idx + 1).trim().replaceAll(/^(['"])(.*)\1$/, '$2')
+					environment line.substring(0, idx).trim(), value
+				}
 			}
 		}
 	}

@@ -20,11 +20,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+  /**
+   * Client-side routes: no file extension, not a backend prefix. See {@code SpaForwardController}.
+   */
+  private static final String SPA_ROUTE_REGEX =
+      "^/(?!(api|actuator|assets|v3|swagger-ui)(/|$))[^.]*$";
 
   private final AppUserDetailsService userDetailsService;
   private final Environment environment;
@@ -80,6 +87,8 @@ public class SecurityConfig {
         authz -> {
           authz
               .requestMatchers("/", "/index.html", "/assets/**", "/*.png", "/*.svg", "/*.ico")
+              .permitAll()
+              .requestMatchers(RegexRequestMatcher.regexMatcher(HttpMethod.GET, SPA_ROUTE_REGEX))
               .permitAll()
               .requestMatchers("/api/auth/**")
               .permitAll()
