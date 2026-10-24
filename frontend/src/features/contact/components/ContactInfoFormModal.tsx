@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ContactInfoResponse, ContactInfoFormData, OfficeHour } from '../types';
 import { DAYS, formatTime, weekdayName } from '../officeHours';
+import { TimeInput } from '../../../components/form/FormFields';
 
 interface Props {
   initial: ContactInfoResponse | null;
@@ -114,24 +115,22 @@ export default function ContactInfoFormModal({ initial, primaryTaken, onSave, on
                     <option key={day} value={day}>{weekdayName(day, i18n.language)}</option>
                   ))}
                 </select>
-                <input
-                  className="form-input"
-                  type="time"
-                  required
-                  aria-label={t('contactInfoAdmin.form.hourOpens')}
-                  value={oh.opensAt}
-                  onChange={(e) => handleHourChange(i, 'opensAt', e.target.value)}
-                  style={{ flex: 1 }}
-                />
-                <input
-                  className="form-input"
-                  type="time"
-                  required
-                  aria-label={t('contactInfoAdmin.form.hourCloses')}
-                  value={oh.closesAt}
-                  onChange={(e) => handleHourChange(i, 'closesAt', e.target.value)}
-                  style={{ flex: 1 }}
-                />
+                <div style={{ flex: 1 }}>
+                  <TimeInput
+                    required
+                    aria-label={t('contactInfoAdmin.form.hourOpens')}
+                    value={oh.opensAt}
+                    onChange={(value) => handleHourChange(i, 'opensAt', value)}
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <TimeInput
+                    required
+                    aria-label={t('contactInfoAdmin.form.hourCloses')}
+                    value={oh.closesAt}
+                    onChange={(value) => handleHourChange(i, 'closesAt', value)}
+                  />
+                </div>
                 <button type="button" onClick={() => removeHour(i)} className="icon-btn danger">
                   🗑
                 </button>

@@ -22,6 +22,46 @@ export function TextField({ label, value, onChange, required, type = 'text', nam
   );
 }
 
+const TIME_PATTERN = '([01][0-9]|2[0-3]):[0-5][0-9]';
+
+interface TimeInputProps {
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  id?: string;
+  'aria-label'?: string;
+  className?: string;
+}
+
+/**
+ * 24-hour time as `HH:mm`. `<input type="time">` follows the browser locale and shows AM/PM in some
+ * browsers, which is ambiguous for office hours, so this is a text input with a pattern instead.
+ */
+export function TimeInput({ value, onChange, required, id, className = 'form-input', ...rest }: TimeInputProps) {
+  return (
+    <input id={id} className={className} type="text" inputMode="numeric" placeholder="HH:mm" maxLength={5}
+      pattern={TIME_PATTERN} title="HH:mm (00:00–23:59)" required={required} aria-label={rest['aria-label']}
+      value={value.slice(0, 5)} onChange={(e) => onChange(e.target.value)} />
+  );
+}
+
+interface TimeFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+}
+
+export function TimeField({ label, value, onChange, required }: TimeFieldProps) {
+  const id = useId();
+  return (
+    <div className="form-group">
+      <label className="form-label" htmlFor={id}>{label}{required && ' *'}</label>
+      <TimeInput id={id} value={value} onChange={onChange} required={required} />
+    </div>
+  );
+}
+
 interface TextAreaFieldProps {
   label: string;
   value: string;
