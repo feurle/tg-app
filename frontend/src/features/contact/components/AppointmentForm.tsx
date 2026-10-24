@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { contactApi } from '../api';
 import { useVetInfo } from '../useVetInfo';
 import HoneypotField from '../../../components/HoneypotField';
-import { FormSection, TextAreaField, TextField } from '../../../components/form/FormFields';
+import { FormSection, TextAreaField, TextField, TimeField } from '../../../components/form/FormFields';
 import FormSuccess from '../../../components/form/FormSuccess';
 
 const EMPTY = { senderName: '', replyToEmail: '', phone: '', preferredDate: '', preferredTime: '', text: '' };
@@ -70,7 +70,7 @@ export default function AppointmentForm() {
                 <div className="form-grid">
                     <TextField label={t('contactForm.preferredDate')} type="date" required min={today()}
                         value={form.preferredDate} onChange={set('preferredDate')} />
-                    <TextField label={t('contactForm.preferredTime')} type="time"
+                    <TimeField label={t('contactForm.preferredTime')}
                         value={form.preferredTime} onChange={set('preferredTime')} />
                 </div>
                 <TextAreaField label={t('contactForm.note')} rows={5}

@@ -21,6 +21,7 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - Neuladen, Lesezeichen und Links aus Bestätigungsmails auf Unterseiten wie `/treatments` liefern nicht mehr 401, sondern die Seite (Weiterleitung auf `index.html`). `bootRun` liest Werte mit Anführungszeichen oder `=` in `.env` korrekt ein.
 - Chiropraktik-Seite: Pferde-Texte aus dem Seed entfernt (Abschnitt „Beweglichkeit beim Pferd“, Pferde-Beispiele bei „Wann soll mein Tier zum Chiropraktor?“).
 - Die Statuszeile „Jetzt geöffnet“ aktualisiert sich jede Minute und kippt zur Öffnungs- und Schließzeit um.
+- Zeitfelder (Sprechzeiten im Admin, gewünschte Uhrzeit im Terminformular) zeigen immer die 24-Stunden-Schreibweise `HH:mm`, unabhängig von der Browser-Sprache.
 
 ### Security
 
