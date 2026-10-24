@@ -17,9 +17,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
-- Unbekannte API-Pfade (zum Beispiel nicht mehr erreichbare Actuator-Endpunkte) liefern wieder 404 statt 500 und schreiben keinen ERROR mehr ins Log.
-
 ### Security
+
+## [1.2.2] - 2026-10-24
+
+### Fixed
+
+- Unbekannte API-Pfade (zum Beispiel nicht mehr erreichbare Actuator-Endpunkte) liefern wieder 404 statt 500 und schreiben keinen ERROR mehr ins Log.
 
 ## [1.2.1] - 2026-10-24
 
@@ -144,7 +148,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/feurle/tg-app/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/feurle/tg-app/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/feurle/tg-app/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/feurle/tg-app/compare/v1.1.1...v1.1.2
