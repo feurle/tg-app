@@ -9,12 +9,24 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.1.2] - 2026-10-24
+
+### Added
+
 - Frontend-Tests mit Vitest und React Testing Library (`npm test`), zuerst für `officeHours.ts` (Öffnungsstatus in Wiener Zeit), `apiClient.ts` und `HoneypotField`. Die CI führt sie nach dem Lint aus.
 ### Changed
 
 - `home.cta.primary` ist jetzt auch auf Englisch, Schwedisch und Russisch „Termin anfragen“ (wie im Deutschen). Die Übersetzungen entsprechen den vorhandenen Formulartexten und sind von Muttersprachlern zu prüfen.
-
-### Deprecated
 
 ### Removed
 
@@ -27,8 +39,6 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - Chiropraktik-Seite: Pferde-Texte aus dem Seed entfernt (Abschnitt „Beweglichkeit beim Pferd“, Pferde-Beispiele bei „Wann soll mein Tier zum Chiropraktor?“).
 - Die Statuszeile „Jetzt geöffnet“ aktualisiert sich jede Minute und kippt zur Öffnungs- und Schließzeit um.
 - Zeitfelder (Sprechzeiten im Admin, gewünschte Uhrzeit im Terminformular) zeigen immer die 24-Stunden-Schreibweise `HH:mm`, unabhängig von der Browser-Sprache.
-
-### Security
 
 ## [1.1.1] - 2026-10-24
 
@@ -120,7 +130,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/feurle/tg-app/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/feurle/tg-app/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/feurle/tg-app/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/feurle/tg-app/compare/v1.0.2...v1.0.3
