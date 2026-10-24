@@ -30,6 +30,11 @@ SMTP_PASSWORD=<Gmail app password, not the account password>
 MAIL_FROM='Name <address@example.com>'
 ```
 
+Optional `MAIL_TO=<address>` redirects **all** outgoing mail to that address (the subject gets a
+`[an: <real recipient>]` prefix, Reply-To is unchanged). Contact, appointment, referral and
+questionnaire mails otherwise go to the primary practice address from `vet_info`
+(`info@tier-gesund.at` in the seed), so set `MAIL_TO` before testing with real SMTP.
+
 Gmail rewrites the sender to the authenticated account unless the `MAIL_FROM` address is
 configured as a "Send mail as" alias. To check delivery, submit the contact form at
 `http://localhost:5173` and look at the inbox and spam folder. Never commit `.env`.

@@ -51,6 +51,29 @@ class MailServiceTest {
     assertThat(sent.getReplyTo()).isNull();
   }
 
+  @Test
+  void send_withMailTo_redirectsAndNamesTheRealRecipientInTheSubject() {
+    ReflectionTestUtils.setField(mailService, "mailTo", " test@example.com ");
+
+    mailService.send("info@tier-gesund.at", "Betreff", "Text", "absender@example.com");
+
+    SimpleMailMessage sent = capturedMail();
+    assertThat(sent.getTo()).containsExactly("test@example.com");
+    assertThat(sent.getSubject()).isEqualTo("[an: info@tier-gesund.at] Betreff");
+    assertThat(sent.getReplyTo()).isEqualTo("absender@example.com");
+  }
+
+  @Test
+  void send_withBlankMailTo_sendsToTheRealRecipient() {
+    ReflectionTestUtils.setField(mailService, "mailTo", "");
+
+    mailService.send("info@tier-gesund.at", "Betreff", "Text");
+
+    SimpleMailMessage sent = capturedMail();
+    assertThat(sent.getTo()).containsExactly("info@tier-gesund.at");
+    assertThat(sent.getSubject()).isEqualTo("Betreff");
+  }
+
   private SimpleMailMessage capturedMail() {
     ArgumentCaptor<SimpleMailMessage> captor = forClass(SimpleMailMessage.class);
     verify(mailSender).send(captor.capture());

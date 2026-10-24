@@ -16,6 +16,13 @@ public class MailService {
   @Value("${app.mail.from}")
   private String mailFrom;
 
+  /**
+   * Optional (env {@code MAIL_TO}). When set, every mail goes to this address instead of its real
+   * recipient, so staging and local runs never write to the practice or to outside vets.
+   */
+  @Value("${app.mail.to:}")
+  private String mailTo;
+
   private final JavaMailSender mailSender;
 
   public void send(String to, String subject, String body) {
@@ -25,7 +32,12 @@ public class MailService {
   public void send(String to, String subject, String body, String replyTo) {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(mailFrom);
-    message.setTo(to);
+    if (mailTo != null && !mailTo.isBlank()) {
+      message.setTo(mailTo.strip());
+      subject = "[an: " + to + "] " + subject;
+    } else {
+      message.setTo(to);
+    }
     if (replyTo != null && !replyTo.isBlank()) {
       message.setReplyTo(replyTo);
     }

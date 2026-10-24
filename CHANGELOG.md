@@ -9,6 +9,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Optionale Umgebungsvariable `MAIL_TO`: Ist sie gesetzt, gehen alle ausgehenden Mails an diese Adresse statt an die Praxis bzw. den überweisenden Tierarzt (Betreff mit `[an: …]`). Gedacht für das Staging und lokale Tests; in Produktion nicht setzen.
+
 ### Changed
 
 ### Deprecated

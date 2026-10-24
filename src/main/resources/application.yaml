@@ -43,6 +43,8 @@ spring:
 app:
   mail:
     from: ${MAIL_FROM:Webapp <app@foo.bar>}
+    # Optional: redirect all outgoing mail to this address (staging, local testing). Empty = off.
+    to: ${MAIL_TO:}
   rate-limit:
     # public forms (message, appointment, referral, questionnaire): submissions per client and window
     max-requests: 5

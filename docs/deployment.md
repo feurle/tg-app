@@ -17,6 +17,11 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`.
 Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS
 ([proxy-architecture.puml](proxy-architecture.puml)).
 
+All outgoing mail goes to the primary `vet_info` address. To keep staging from writing to the
+practice (or to referring vets), set `MAIL_TO=<own address>` in `/appbase/tg-app/.env` on the host:
+every mail is then redirected there with the real recipient in the subject. Leave it unset in
+production. The compose files pass it through (`MAIL_TO=${MAIL_TO:-}`).
+
 Production data is re-seeded from the CSV files on every deploy. See
 [database.md](database.md).
 
