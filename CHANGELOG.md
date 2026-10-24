@@ -17,6 +17,9 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Image-Build in der CI: Der Paketo-Builder ist auf eine Version festgelegt, weil sein `latest`-Tag nur noch für arm64 veröffentlicht wurde (`exec format error` auf dem amd64-Runner).
+- Neuladen, Lesezeichen und Links aus Bestätigungsmails auf Unterseiten wie `/treatments` liefern nicht mehr 401, sondern die Seite (Weiterleitung auf `index.html`). `bootRun` liest Werte mit Anführungszeichen oder `=` in `.env` korrekt ein.
+
 ### Security
 
 ## [1.1.1] - 2026-10-24
