@@ -85,6 +85,9 @@ springBoot {
 
 tasks.named("bootBuildImage") {
 	imageName = "docker.io/feurle/${project.name}"
+	// Pinned: on 2026-10-23 the `latest` tag was republished as an arm64-only image, which fails on
+	// the amd64 CI runner ("exec format error"). Versioned tags are multi-arch. Bump deliberately.
+	builder = "docker.io/paketobuildpacks/builder-noble-java-tiny:0.0.200"
 }
 
 // Frontend is built here and served by Spring Boot as static resources —
