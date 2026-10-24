@@ -15,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -98,6 +99,17 @@ public class GlobalExceptionHandler {
         new ErrorResponse(
             HttpStatus.UNAUTHORIZED.value(), "Unauthorized", "Authentication required");
     return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+  }
+
+  /** Unknown path (no controller, no static file): a plain 404, not worth an error log entry. */
+  @ExceptionHandler(NoResourceFoundException.class)
+  public ResponseEntity<ErrorResponse> handleNoResourceFound(
+      NoResourceFoundException ex, WebRequest request) {
+    log.debug("No resource found: {}", ex.getMessage());
+    ErrorResponse errorResponse =
+        new ErrorResponse(
+            HttpStatus.NOT_FOUND.value(), "Not Found", "The requested resource was not found");
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
   /** Handle all other uncaught exceptions. */

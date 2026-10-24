@@ -120,6 +120,17 @@ class GlobalExceptionHandlerIT {
         .andExpect(jsonPath("$.error", equalTo("Not Found")));
   }
 
+  // ========== handleNoResourceFound ==========
+
+  @Test
+  void unknownPath_returns404_notInternalServerError() throws Exception {
+    mockMvc
+        .perform(get("/api/does-not-exist"))
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$.status", equalTo(404)))
+        .andExpect(jsonPath("$.error", equalTo("Not Found")));
+  }
+
   // ========== handleGlobalException ==========
 
   @Test

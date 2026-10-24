@@ -17,6 +17,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Unbekannte API-Pfade (zum Beispiel nicht mehr erreichbare Actuator-Endpunkte) liefern wieder 404 statt 500 und schreiben keinen ERROR mehr ins Log.
+
 ### Security
 
 - Actuator in `test` und `prod` nur noch mit `health,info,metrics,loggers,modulith`: `heapdump`, `env`, `beans`, `threaddump` und `logfile` sind dort nicht mehr erreichbar, `loggers` bleibt zum Einstellen des Log-Levels in tg-admin. H2 und die H2-Konsole sind nur noch im dev-Profil und in den Tests dabei und nicht mehr im Produktions-Image.
