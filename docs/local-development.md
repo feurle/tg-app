@@ -16,6 +16,29 @@ interleaved without labels, so use the two-terminal setup when debugging a start
 - Logins: see [database.md](database.md#test-credentials).
 - To verify a change at runtime, follow [verification.md](verification.md).
 
+## Parallel worktrees
+
+Work on several issues at once with one git worktree per issue:
+
+```bash
+git worktree add ../tg-app-95 -b feat/95-cta-article-type origin/trunk
+```
+
+- Branch names are `<type>/<issue>-<slug>`, with `<type>` one of `feat`, `fix`, `chore`,
+  `refactor`. Open the PR against `trunk` (see [contributing.md](contributing.md)).
+- Every worktree has its own `node_modules`, H2 database and `.env` (git-ignored, so copy it over
+  if you need real mail).
+- The default ports 8080 and 5173 are taken by the first instance. Give every other worktree its own
+  pair, for example:
+
+  ```bash
+  SERVER_PORT=8081 VITE_PORT=5174 ./gradlew devAll
+  ```
+
+  `SERVER_PORT` moves the backend and the Vite proxy target, `VITE_PORT` moves the dev server (it
+  fails instead of picking another port, so the URL is always the one you set).
+- `docs/verification.md` and the `Makefile` assume the default ports. Substitute yours there.
+
 ## Sending real mail locally
 
 The mail properties come from environment variables (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`,

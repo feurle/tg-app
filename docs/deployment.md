@@ -2,17 +2,81 @@
 
 ## CI/CD
 
-GitHub Actions workflow: `.github/workflows/deploy.yml`.
+GitHub Actions workflow: `.github/workflows/deploy.yml`. Branching model and rationale:
+[adr/0002-trunk-based-with-promotion.md](adr/0002-trunk-based-with-promotion.md). Diagrams:
+[branching-model.puml](branching-model.puml), [deployment-pipeline.puml](deployment-pipeline.puml).
 
-1. `./gradlew test bootJar sonar`: tests and SonarQube analysis.
-2. `./gradlew bootBuildImage`: pushes the Docker image `feurle/tg-app` to Docker Hub. The Paketo
-   builder is pinned in `build.gradle` (`builder-noble-java-tiny:0.0.200`) because its `latest` tag
-   was republished arm64-only on 2026-10-23, which breaks the amd64 runner (`exec format error`).
-   Bump the version deliberately, and check that the tag is multi-arch.
-   - `trunk` → tag `latest` → production (`src/main/docker/prod-compose.yml`).
-   - `feature/**`, `fix/**`, `hotfix/**`, `chore/**`, `refactor/**` → tag `snapshot` → staging
-     (`src/main/docker/test-compose.yml`).
-3. Deployed over SSH with the Docker Compose files in `src/main/docker/`.
+| Trigger | What runs |
+|---|---|
+| PR against `trunk` | `Test & Build` only: frontend lint and tests, `./gradlew test bootJar sonar`. No image, no deploy. |
+| Merge (push) into `trunk` | `Test & Build` → image → TEST → release; then `deploy-prod` waits for approval. |
+| `workflow_dispatch` on any branch | `Test & Build` → image → TEST. |
+
+Steps after `Test & Build`:
+
+1. `./gradlew bootBuildImage` pushes `feurle/tg-app:sha-<sha>` to Docker Hub, once per build, and
+   `feurle/tg-app:x.y.z` when the build is a release. The Paketo builder is pinned in
+   `build.gradle` (`builder-noble-java-tiny:0.0.200`) because its `latest` tag was republished
+   arm64-only on 2026-10-23, which breaks the amd64 runner (`exec format error`). Bump the version
+   deliberately, and check that the tag is multi-arch.
+2. `deploy-test` points `:snapshot` at that image (`docker buildx imagetools create`, no rebuild)
+   and deploys `src/main/docker/test-compose.yml`.
+3. `release` (trunk only) cuts the changelog and tags the version, see [Release flow](#release-flow).
+4. `deploy-prod` (trunk only) runs in the GitHub environment `production` and waits for approval.
+   It then points `:latest` at the same `sha-<sha>` image and deploys
+   `src/main/docker/prod-compose.yml`. Nothing is rebuilt between TEST and PROD.
+
+`:snapshot` (TEST) and `:latest` (PROD) are moving pointers. The compose files do not change.
+Deploys use SSH and the Docker Compose files in `src/main/docker/`.
+
+### Promotion to production
+
+`deploy-prod` waits for the required reviewer. Check the build on TEST, then approve:
+
+- in the GitHub UI: Actions → the `Build & Deploy` run → *Review deployments*, or
+- `gh run list --workflow deploy.yml --branch trunk`, then open the run with `gh run view --web`.
+
+Approve the **newest** run. The job first checks that its commit is the newest `trunk` commit that
+is not a release commit; if not, it logs a warning and skips the deploy, so an older waiting run
+can never replace a newer build on PROD. Reject runs you do not want to release.
+
+### Deploying a branch to TEST
+
+To see a risky feature on TEST before it is merged, start the workflow on its branch:
+
+```bash
+gh workflow run deploy.yml --ref fix/113-office-hours
+```
+
+TEST then runs that branch (`BRANCH_NAME` shows it) until the next `trunk` merge or the next manual
+run overwrites it. Do not use this for routine work. Merge to `trunk` instead, so TEST shows what
+PROD will get. Starting the workflow on `trunk` rebuilds it and also queues an approval for PROD.
+
+### Rollback
+
+Deploy an earlier released version to PROD (the tag exists as `feurle/tg-app:x.y.z`):
+
+```bash
+gh workflow run rollback.yml -f version=1.2.4
+```
+
+`.github/workflows/rollback.yml` waits for the `production` approval, points `:latest` at that
+version and deploys. The next approved `trunk` build replaces it again. Production data is
+re-seeded on every deploy, so a rollback does not restore database content. Hotfixes are fix
+forward through `trunk`; if an untested feature is in the way, revert it on `trunk`.
+
+### GitHub setup
+
+These settings live outside the repository; recreate them when the repository is moved:
+
+- Environment `production`: required reviewer `feurle`, deployment branches limited to `trunk`.
+- Ruleset on `trunk`: pull request required, status check `Test & Build` required, force-push and
+  deletion blocked, *no* "branch must be up to date" (parallel PRs would need constant rebases).
+  Bypass list: repository admins and deploy keys.
+- Secret `RELEASE_DEPLOY_KEY`: the private half of a write-enabled deploy key. The `release` job
+  pushes the release commit and tag with it, because the ruleset blocks `GITHUB_TOKEN` pushes.
+- Secrets used by the workflows: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `SONAR_TOKEN`,
+  `SSH_PRIVATE_KEY`, `SERVER_HOST`, `SERVER_USER`, `VIRTUAL_HOST_TEST`, `VIRTUAL_HOST_PROD`.
 
 Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS
 ([proxy-architecture.puml](proxy-architecture.puml)).
@@ -34,15 +98,19 @@ serves both frontend and backend. There is no separate frontend image. See
 
 ## Release flow
 
-`.github/workflows/release.yml` runs after a successful production deploy from `trunk`:
+The `release` job in `deploy.yml` runs after every successful TEST deploy from a `trunk` push, so
+every merge with a changelog entry is a release, whether or not it is promoted to PROD:
 
-- It only releases if `## [Unreleased]` in `CHANGELOG.md` has at least one bullet.
+- It only releases if `changelog.d/` has at least one fragment or `## [Unreleased]` in
+  `CHANGELOG.md` has at least one bullet.
 - The next version is computed by `.github/scripts/next-version.sh` from the squash commit
   subject (see [contributing.md](contributing.md)).
-- `cut-changelog.py` moves `[Unreleased]` into `## [x.y.z] - date`. The bot commits
-  `chore(release): vx.y.z` to `trunk`, pushes the tag and creates a GitHub Release.
+- `cut-changelog.py` merges the fragments into `[Unreleased]`, moves it into
+  `## [x.y.z] - date` and deletes the fragments. The bot commits `chore(release): vx.y.z` to
+  `trunk` (with the `RELEASE_DEPLOY_KEY` deploy key), pushes the tag and creates a GitHub Release.
+- It skips itself when `trunk` has moved on since the deployed commit; the later run releases.
 - The version is baked into the app as `APP_VERSION` (`build.gradle`, actuator `/info`) and
-  pushed as Docker tag `feurle/tg-app:x.y.z`. Non-release builds get `x.y.z-SNAPSHOT`.
+  pushed as Docker tag `feurle/tg-app:x.y.z`. Builds of other branches get `x.y.z-SNAPSHOT`.
 
 ## Actuator
 

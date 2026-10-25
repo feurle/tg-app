@@ -23,8 +23,12 @@ else
   version="${major}.${minor}.${patch}"
 fi
 
+# A release needs a bullet under [Unreleased] or a fragment in changelog.d/.
 release=false
-if awk '/^## \[Unreleased\]/{in_section=1; next} /^## \[/{in_section=0} in_section && /^- /{found=1} END{exit !found}' "$changelog"; then
+fragments="$(dirname "$changelog")/changelog.d"
+if [ -d "$fragments" ] && [ -n "$(find "$fragments" -name '*.md' ! -name README.md -print -quit)" ]; then
+  release=true
+elif awk '/^## \[Unreleased\]/{in_section=1; next} /^## \[/{in_section=0} in_section && /^- /{found=1} END{exit !found}' "$changelog"; then
   release=true
 fi
 

@@ -1,9 +1,22 @@
 # Contributing
 
+## Pull request flow
+
+1. Work in a branch (one worktree per issue, see
+   [local-development.md](local-development.md#parallel-worktrees)). A push runs nothing. The
+   PR runs `Test & Build` only.
+2. Squash-merge the PR into `trunk`. This deploys to TEST and cuts the release. It does not
+   reach PROD.
+3. Check the result on TEST, then approve the run for `production`
+   (see [deployment.md](deployment.md#promotion-to-production)).
+
+Never push to `trunk` directly; the ruleset rejects it.
+
 ## Changelog
 
-Every feature or fix PR adds a bullet under `## [Unreleased]` in `CHANGELOG.md`. The merge then
-produces a release (see [deployment.md](deployment.md#release-flow)).
+Every feature or fix PR adds a fragment `changelog.d/<branch-slug>.md` instead of editing
+`CHANGELOG.md`, so parallel PRs do not conflict. Format: [changelog.d/README.md](../changelog.d/README.md).
+The merge then produces a release (see [deployment.md](deployment.md#release-flow)).
 
 ## Commit subjects
 

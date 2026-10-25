@@ -5,7 +5,7 @@ React 19 + TypeScript + Vite + React Router v7 + react-i18next. Talks to the Spr
 ## Commands
 
 ```bash
-npm run dev           # Vite dev server on :5173, proxies /api to :8080
+npm run dev           # Vite dev server on :5173 (VITE_PORT), proxies /api to :8080 (SERVER_PORT)
 npm run build         # tsc -b && vite build
 npm run lint          # ESLint
 npm test              # Vitest (jsdom, React Testing Library)

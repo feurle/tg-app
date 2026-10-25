@@ -7,7 +7,7 @@ This file covers the conventions behind them.
 
 - All backend calls go through `frontend/src/lib/apiClient.ts`, a thin fetch wrapper that sends
   `credentials: 'include'` (cookie sessions).
-- Dev: the Vite dev server proxies `/api/*` to `http://localhost:8080`.
+- Dev: the Vite dev server proxies `/api/*` to `http://localhost:8080` (`SERVER_PORT` overrides the port).
 - Prod: the frontend is served by the backend from the same container and calls relative
   `/api`. Do not set `VITE_API_URL` for any environment.
 - Frontend and API share one origin in both setups, so no CORS configuration is needed.
