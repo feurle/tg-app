@@ -18,3 +18,6 @@ Der Release-Job (`.github/workflows/deploy.yml`) sortiert die Bullets beim Relea
 `[Unreleased]` von `CHANGELOG.md` ein, schneidet den Abschnitt als neue Version und löscht die
 Fragmente im Release-Commit. Ohne Fragment und ohne Bullet unter `[Unreleased]` gibt es kein
 Release.
+
+Änderungen an dieser README lösen weder Deploy noch Release aus (Pfadfilter in
+`.github/workflows/deploy.yml`).
