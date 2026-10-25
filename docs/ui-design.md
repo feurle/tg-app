@@ -137,13 +137,25 @@ Zuordnung zu Artikeltypen (`ArticleType`, maßgeblich ist `frontend/src/features
 - Fachbegriffe nur mit Erklärung.
 - Fehlermeldungen geben eine Richtung vor und entschuldigen sich nicht.
 
-## 8. Formulare und Überweisung (`/for-vets`)
+## 8. Formulare und Überweisung (`/referral`, `/for-vets`)
 
-Alle öffentlichen Formulare (Termin, Nachricht, Überweisung, Fragebogen) teilen ein Muster: Seitenkopf mit kurzem Einleitungstext, Fieldsets als weiße Karten (800px breit, `--radius`, Legend in `--fs-lg`), Absenden unten rechts (mobil volle Breite) und eine Bestätigungskarte statt des Formulars. Die Bausteine liegen in `frontend/src/components/form/`. Termin und Nachricht sind eigene Seiten (`/appointment`, `/message`), kein Modal. Der CTA heißt überall „Termin anfragen“.
+Alle öffentlichen Formulare (Termin, Nachricht, Überweisung, Fragebogen) teilen ein Muster: Seitenkopf mit kurzem Einleitungstext, Fieldsets als weiße Karten (800px breit, `--radius`, Legend in `--fs-lg`), Absenden unten rechts (mobil volle Breite) und eine Bestätigungskarte statt des Formulars. Die Bausteine liegen in `frontend/src/components/form/`. Termin, Nachricht und Überweisung sind eigene Seiten (`/appointment`, `/message`, `/referral`), kein Modal. Der CTA heißt überall „Termin anfragen“, nur auf `/for-vets` steht an erster Stelle „Patienten überweisen“.
+
+`/for-vets` ist eine reine Infoseite, aufgebaut wie `/contact`:
 
 ```
 Für Tierärzte
-Kurztext: wann eine Überweisung sinnvoll ist (Schmerz, Bewegungsapparat, Therapieresistenz)
+Zusammenarbeit bei Schmerz- und Bewegungsproblemen Ihrer Patienten
+[Patienten überweisen]   → /referral, im Code, ohne Scrollen sichtbar
+CMS-Inhalt: wann eine Überweisung sinnvoll ist, Ablauf, CTA (Überweisen · Nachricht)
+```
+
+`/referral` zeigt nur das Formular, ohne Infotext. Die mobile Leiste hat dort wie auf `/appointment` nur den Anruf-Button.
+
+```
+Patienten überweisen
+Untertitel · Link „Mehr zur Zusammenarbeit“ → /for-vets
+* Pflichtfeld
 
 ┌ Überweisung ──────────────────────────────────────────┐
 │ Überweisende Praxis   │ Name Tierärztin/-arzt         │

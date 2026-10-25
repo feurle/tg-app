@@ -36,9 +36,12 @@ This file covers the conventions behind them.
 
 ## Public forms
 
-- Questionnaire, appointment (`/appointment`), message (`/message`) and referral (`/for-vets`) are
+- Questionnaire, appointment (`/appointment`), message (`/message`) and referral (`/referral`) are
   pages, not modals. Buttons in the nav and contact area are plain links; the call to action on
   content pages is a `CTA` article (see [webcontent.md](webcontent.md)).
+- `/for-vets` is an information page without a form: title, subtitle and a fixed button
+  „Patienten überweisen“ to `/referral`, then the CMS page `for-vets`.
+- On `/appointment` and `/referral` the mobile CTA bar shows only the call button.
 - All four share `components/form/`: `FormPage` (title, intro, frame), `FormSection` (fieldset
   card), `TextField`, `TextAreaField`, `ChoiceGroup`, `YesNo` and `FormSuccess` (confirmation card
   that takes focus). Styling is the `.form-*` classes in `global.css`.

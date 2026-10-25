@@ -8,6 +8,7 @@ const TITLE_KEYS: Record<string, string | null> = {
   [ROUTES.HOME]: null,
   [ROUTES.TREATMENTS]: 'nav.treatments',
   [ROUTES.FOR_VETS]: 'nav.forVets',
+  [ROUTES.REFERRAL]: 'referral.title',
   [ROUTES.QUESTIONNAIRE]: 'questionnaire.page.title',
   [ROUTES.APPOINTMENT]: 'appointmentForm.title',
   [ROUTES.MESSAGE]: 'messageForm.title',

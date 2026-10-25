@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import RichTextEditor from '../../../components/RichTextEditor';
 import { ROUTES } from '../../../router/routes';
 import { imageApi } from '../api';
-import { CONTACT_APPOINTMENT, CONTACT_MESSAGE, isValidCtaTarget } from '../ctaTarget';
+import { CONTACT_APPOINTMENT, CONTACT_MESSAGE, CONTACT_REFERRAL, isValidCtaTarget } from '../ctaTarget';
 import type { CreateSectionRequest, ImageResponse, SectionResponse, UpdateSectionRequest } from '../types';
 
 interface CreateProps {
@@ -119,6 +119,7 @@ export default function SectionFormModal(props: Props) {
                       <>
                         <option value={CONTACT_APPOINTMENT}>{t('section.cta.contact.appointment')}</option>
                         <option value={CONTACT_MESSAGE}>{t('section.cta.contact.message')}</option>
+                        <option value={CONTACT_REFERRAL}>{t('section.cta.contact.referral')}</option>
                       </>
                     ) : (
                       (INTERNAL_PAGES.includes(content) ? INTERNAL_PAGES : [content, ...INTERNAL_PAGES]).map((path) => <option key={path} value={path}>{path}</option>)

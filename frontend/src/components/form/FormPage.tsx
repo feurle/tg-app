@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 interface Props {
   title: string;
   subtitle?: string;
-  intro?: string;
+  intro?: ReactNode;
   /** Set to false when the form is not directly below the intro (the form then shows the note itself). */
   requiredNote?: boolean;
   children: ReactNode;

@@ -5,6 +5,7 @@ describe('resolveCtaTarget', () => {
     it('maps contact actions to their routes', () => {
         expect(resolveCtaTarget('contact:appointment')).toEqual({ kind: 'internal', to: '/appointment' });
         expect(resolveCtaTarget('contact:message')).toEqual({ kind: 'internal', to: '/message' });
+        expect(resolveCtaTarget('contact:referral')).toEqual({ kind: 'internal', to: '/referral' });
     });
 
     it('accepts internal routes and http(s) URLs', () => {

@@ -31,7 +31,7 @@ public class SectionService {
   static final int MAX_CTA_BUTTONS = 2;
 
   private static final Pattern CTA_TARGET =
-      Pattern.compile("contact:(appointment|message)|/[^\\s]*|https?://[^\\s]+");
+      Pattern.compile("contact:(appointment|message|referral)|/[^\\s]*|https?://[^\\s]+");
 
   public Section createSection(
       Long articleId, int order, String title, String content, Long imageId) {

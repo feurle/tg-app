@@ -100,7 +100,6 @@ export default function ReferralForm() {
     return (
         <form className="form-stack" onSubmit={handleSubmit}>
             <HoneypotField value={website} onChange={setWebsite} />
-            <p className="form-required-note">{t('form.requiredNote')}</p>
             <FormSection legend={t('referral.practice')}>
                 <div className="form-grid">
                     <TextField label={t('referral.practiceName')} required autoComplete="organization" {...text('referringPractice')} />

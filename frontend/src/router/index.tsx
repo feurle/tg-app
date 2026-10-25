@@ -11,6 +11,7 @@ import ImprintPage from '../pages/public/ImprintPage';
 import ContactPage from '../pages/public/ContactPage';
 import TreatmentsPage from '../pages/public/TreatmentsPage';
 import ForVetsPage from '../pages/public/ForVetsPage';
+import ReferralPage from '../pages/public/ReferralPage';
 import QuestionnairePage from '../pages/public/QuestionnairePage';
 import AppointmentPage from '../pages/public/AppointmentPage';
 import MessagePage from '../pages/public/MessagePage';
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
           { path: ROUTES.TREATMENTS, element: <TreatmentsPage /> },
           { path: ROUTES.FOR_PET_OWNERS, element: <Navigate to={ROUTES.TREATMENTS} replace /> },
           { path: ROUTES.FOR_VETS, element: <ForVetsPage /> },
+          { path: ROUTES.REFERRAL, element: <ReferralPage /> },
           { path: ROUTES.QUESTIONNAIRE, element: <QuestionnairePage /> },
           { path: ROUTES.APPOINTMENT, element: <AppointmentPage /> },
           { path: ROUTES.MESSAGE, element: <MessagePage /> },

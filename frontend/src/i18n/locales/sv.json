@@ -210,7 +210,7 @@
   },
   "forVets": {
     "title": "För veterinärer",
-    "subtitle": "Remittera patienter med smärta eller rörelseproblem direkt till mig. Du får en bekräftelse via e-post."
+    "subtitle": "Samarbete kring smärta och rörelseproblem hos dina patienter"
   },
   "referral": {
     "heading": "Remittera en patient",
@@ -240,7 +240,10 @@
       "ROUTINE": "Rutin",
       "SOON": "Snart",
       "URGENT": "Brådskande"
-    }
+    },
+    "title": "Remittera en patient",
+    "subtitle": "Remittera patienter med smärta eller rörelseproblem direkt till mig. Du får en bekräftelse via e-post.",
+    "moreInfo": "Mer om samarbetet"
   },
   "notFound": {
     "title": "Sidan hittades inte",
@@ -257,7 +260,8 @@
     "privacy": "Integritet",
     "imprint": "Impressum",
     "contact": "Kontakt",
-    "language": "Språk"
+    "language": "Språk",
+    "referral": "Remiss"
   },
   "article": {
     "new": "Ny artikel",
@@ -375,7 +379,8 @@
       },
       "contact": {
         "appointment": "Boka tid",
-        "message": "Skriv ett meddelande"
+        "message": "Skriv ett meddelande",
+        "referral": "Remittera en patient"
       }
     }
   },
