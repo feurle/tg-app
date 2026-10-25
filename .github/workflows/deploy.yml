@@ -13,6 +13,7 @@ on:
       - 'gradlew'
       - 'gradlew.bat'
       - 'changelog.d/**'
+      - '!changelog.d/README.md'
       - '.github/workflows/deploy.yml'
   # No paths filter: the ruleset requires the "Test & Build" check on every PR.
   pull_request:
