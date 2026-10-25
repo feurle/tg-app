@@ -17,9 +17,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
-- Terminanfrage: Wunschtermine sind nur noch an Sprechtagen innerhalb der Sprechzeiten möglich (30-Minuten-Slots, bis 8 Wochen im Voraus). Das Formular zeigt nur gültige Tage und Uhrzeiten, das Backend lehnt andere Anfragen mit `400` ab (#113)
-
 ### Security
+
+## [1.2.5] - 2026-10-25
+
+### Fixed
+
+- Terminanfrage: Wunschtermine sind nur noch an Sprechtagen innerhalb der Sprechzeiten möglich (30-Minuten-Slots, bis 8 Wochen im Voraus). Das Formular zeigt nur gültige Tage und Uhrzeiten, das Backend lehnt andere Anfragen mit `400` ab (#113)
 
 ## [1.2.4] - 2026-10-25
 
@@ -178,7 +182,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.4...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.5...HEAD
+[1.2.5]: https://github.com/feurle/tg-app/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/feurle/tg-app/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/feurle/tg-app/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/feurle/tg-app/compare/v1.2.1...v1.2.2
