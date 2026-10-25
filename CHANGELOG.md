@@ -9,13 +9,25 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [1.2.4] - 2026-10-25
+
+### Added
+
 - Neuer Artikeltyp „Call-to-Action“: Überschrift, Text und bis zu zwei Buttons (Kontaktaktion, interne Seite oder externe URL) lassen sich im Admin pflegen, verschieben, übersetzen und veröffentlichen. Neue Seite „Kontakt“ (`contact`) im CMS.
 
 ### Changed
 
 - Die Kontakt-Buttons auf Startseite, Über mich, Aktuelles, Behandlungen, Für Tierärzte und Kontakt sowie die Erhebungsbogen-Box auf „Behandlungen“ sind jetzt CTA-Artikel statt fest im Code. Auf der Startseite steht die CTA vor dem Kontaktbereich.
-
-### Deprecated
 
 ### Removed
 
@@ -164,7 +176,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.3...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.4...HEAD
+[1.2.4]: https://github.com/feurle/tg-app/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/feurle/tg-app/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/feurle/tg-app/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/feurle/tg-app/compare/v1.2.0...v1.2.1
