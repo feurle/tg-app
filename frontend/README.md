@@ -9,7 +9,6 @@ npm run dev           # Vite dev server on :5173 (VITE_PORT), proxies /api to :8
 npm run build         # tsc -b && vite build
 npm run lint          # ESLint
 npm test              # Vitest (jsdom, React Testing Library)
-npm run generate:api  # OpenAPI types into src/api (gitignored)
 ```
 
 Tests sit next to the code as `*.test.ts(x)`. `./gradlew build` builds this app and copies `dist/` into the Spring Boot static resources.

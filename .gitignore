@@ -67,10 +67,6 @@ dist-ssr
 *.sln
 *.sw?
 
-### OpenAPI contract (generated, regenerate with `make api-sync`)
-/api-contract/
-frontend/src/api/schema.d.ts
-
 ### Frontend build output, synced into here by the `syncFrontend` Gradle task
 # see docs/adr/0001-single-container-deployment.md
 /src/main/resources/static/

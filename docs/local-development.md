@@ -38,7 +38,7 @@ git worktree add ../tg-app-95 -b feat/95-cta-article-type origin/trunk
 
   `SERVER_PORT` moves the backend and the Vite proxy target, `VITE_PORT` moves the dev server (it
   fails instead of picking another port, so the URL is always the one you set).
-- `docs/verification.md` and the `Makefile` assume the default ports. Substitute yours there.
+- `docs/verification.md` assumes the default ports. Substitute yours there.
 
 ## Sending real mail locally
 
