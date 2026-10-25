@@ -49,7 +49,7 @@ export default function ArticlesPreviewPage() {
             <button
               key={l}
               className={`lang-btn${l === locale ? ' lang-btn--active' : ''}`}
-              onClick={() => setParams({ lang: l })}
+              onClick={() => setParams({ lang: l }, { preventScrollReset: true })}
             >
               {l.toUpperCase()}
             </button>

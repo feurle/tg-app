@@ -25,6 +25,12 @@ This file covers the conventions behind them.
 
 - Two layout tracks in `frontend/src/router/index.tsx`: `PublicLayout` for public pages and
   `ProtectedRoute` (checks auth, then renders `AppLayout`) for admin pages.
+- Both tracks sit under a pathless root route (`RootLayout`) that renders `<ScrollRestoration />`:
+  new navigations start at the top, Back/Forward restores the position. Search-param changes that
+  should keep the position pass `preventScrollReset`.
+- `usePublishedArticles` keeps the last result per page and language in a module-level cache and
+  refetches on every mount. A page you come back to is therefore full height on the first render,
+  which `ScrollRestoration` needs: restoring against the short loading skeleton clamps the position.
 - Route path constants live in `frontend/src/router/routes.ts`.
 - `/for-pet-owners` redirects to `/treatments`.
 

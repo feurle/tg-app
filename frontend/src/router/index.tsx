@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import RootLayout from '../layout/RootLayout';
 import PublicLayout from '../layout/PublicLayout';
 import AppLayout from '../layout/AppLayout';
 import ProtectedRoute from './ProtectedRoute';
@@ -27,39 +28,44 @@ import { ROUTES } from './routes';
 
 const router = createBrowserRouter([
   {
-    element: <PublicLayout />,
-    errorElement: <RouteErrorPage />,
-    children: [
-      { path: ROUTES.HOME, element: <HomePage /> },
-      { path: ROUTES.TREATMENTS, element: <TreatmentsPage /> },
-      { path: ROUTES.FOR_PET_OWNERS, element: <Navigate to={ROUTES.TREATMENTS} replace /> },
-      { path: ROUTES.FOR_VETS, element: <ForVetsPage /> },
-      { path: ROUTES.QUESTIONNAIRE, element: <QuestionnairePage /> },
-      { path: ROUTES.APPOINTMENT, element: <AppointmentPage /> },
-      { path: ROUTES.MESSAGE, element: <MessagePage /> },
-      { path: ROUTES.NEWS, element: <NewsPage /> },
-      { path: ROUTES.ABOUT, element: <AboutPage /> },
-      { path: ROUTES.PRIVACY, element: <PrivacyPage /> },
-      { path: ROUTES.IMPRESS, element: <ImprintPage /> },
-      { path: ROUTES.CONTACT, element: <ContactPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
-    element: <ProtectedRoute />,
-    errorElement: <RouteErrorPage />,
+    element: <RootLayout />,
     children: [
       {
-        element: <AppLayout />,
+        element: <PublicLayout />,
+        errorElement: <RouteErrorPage />,
         children: [
-          { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
-          { path: ROUTES.USERS, element: <UsersPage /> },
-          { path: ROUTES.QUESTIONNAIRES, element: <QuestionnairesPage /> },
-          { path: ROUTES.PAGE, element: <ArticlesRoute /> },
-          { path: ROUTES.PAGE_PREVIEW, element: <ArticlesPreviewPage /> },
-          { path: ROUTES.IMAGES, element: <ImagesPage /> },
-          { path: ROUTES.TAGS, element: <TagsPage /> },
-          { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },
+          { path: ROUTES.HOME, element: <HomePage /> },
+          { path: ROUTES.TREATMENTS, element: <TreatmentsPage /> },
+          { path: ROUTES.FOR_PET_OWNERS, element: <Navigate to={ROUTES.TREATMENTS} replace /> },
+          { path: ROUTES.FOR_VETS, element: <ForVetsPage /> },
+          { path: ROUTES.QUESTIONNAIRE, element: <QuestionnairePage /> },
+          { path: ROUTES.APPOINTMENT, element: <AppointmentPage /> },
+          { path: ROUTES.MESSAGE, element: <MessagePage /> },
+          { path: ROUTES.NEWS, element: <NewsPage /> },
+          { path: ROUTES.ABOUT, element: <AboutPage /> },
+          { path: ROUTES.PRIVACY, element: <PrivacyPage /> },
+          { path: ROUTES.IMPRESS, element: <ImprintPage /> },
+          { path: ROUTES.CONTACT, element: <ContactPage /> },
+          { path: '*', element: <NotFoundPage /> },
+        ],
+      },
+      {
+        element: <ProtectedRoute />,
+        errorElement: <RouteErrorPage />,
+        children: [
+          {
+            element: <AppLayout />,
+            children: [
+              { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
+              { path: ROUTES.USERS, element: <UsersPage /> },
+              { path: ROUTES.QUESTIONNAIRES, element: <QuestionnairesPage /> },
+              { path: ROUTES.PAGE, element: <ArticlesRoute /> },
+              { path: ROUTES.PAGE_PREVIEW, element: <ArticlesPreviewPage /> },
+              { path: ROUTES.IMAGES, element: <ImagesPage /> },
+              { path: ROUTES.TAGS, element: <TagsPage /> },
+              { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },
+            ],
+          },
         ],
       },
     ],
