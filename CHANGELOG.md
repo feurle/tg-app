@@ -17,9 +17,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
-- Startseite und Footer halten die Gestaltungsregeln ein: Beschreibungen bei „Wann Sie zu mir kommen können“, im Ablauf und im Tierärzte-Band sind wie der übrige Fließtext 18 px groß (Qualifikationen 16 px), die Footer-Überschriften stehen nicht mehr in Versalien, und die Links „Alle Behandlungen“, „Mehr über mich“, „Route anzeigen“ und die Telefonnummer im Hero haben eine größere Trefferfläche. Die Seite „Über mich“ hat jetzt eine Hauptüberschrift für Screenreader.
-
 ### Security
+
+## [1.2.3] - 2026-10-25
+
+### Fixed
+
+- Startseite und Footer halten die Gestaltungsregeln ein: Beschreibungen bei „Wann Sie zu mir kommen können“, im Ablauf und im Tierärzte-Band sind wie der übrige Fließtext 18 px groß (Qualifikationen 16 px), die Footer-Überschriften stehen nicht mehr in Versalien, und die Links „Alle Behandlungen“, „Mehr über mich“, „Route anzeigen“ und die Telefonnummer im Hero haben eine größere Trefferfläche. Die Seite „Über mich“ hat jetzt eine Hauptüberschrift für Screenreader.
 
 ## [1.2.2] - 2026-10-24
 
@@ -150,7 +154,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/feurle/tg-app/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/feurle/tg-app/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/feurle/tg-app/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/feurle/tg-app/compare/v1.1.2...v1.2.0
