@@ -23,6 +23,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Ein Seitenwechsel über Navigation, Footer, Logo oder einen Link im Inhalt beginnt jetzt oben, statt die Scrollposition der vorherigen Seite zu behalten. Zurück/Vor im Browser stellt die vorherige Position wieder her, auch auf Seiten mit nachgeladenem Inhalt. Das gilt auch für den Admin-Bereich; der Sprachwechsel in der Vorschau behält die Position.
+
 ### Security
 
 - Ziele von CTA-Buttons werden beim Speichern und beim Rendern geprüft; erlaubt sind nur Kontaktaktionen, interne Pfade und `http(s)`-Adressen.
