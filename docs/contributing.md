@@ -6,7 +6,8 @@
    [local-development.md](local-development.md#parallel-worktrees)). A push runs nothing. The
    PR runs `Test & Build` only.
 2. Squash-merge the PR into `trunk`. This deploys to TEST and cuts the release. It does not
-   reach PROD.
+   reach PROD. A merge that only touches files outside the paths listed in `deploy.yml` (for
+   example `docs/` only) triggers nothing: no deploy, no release.
 3. Check the result on TEST, then approve the run for `production`
    (see [deployment.md](deployment.md#promotion-to-production)).
 

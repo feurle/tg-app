@@ -8,7 +8,7 @@ start
 
 |GitHub Actions|
 :Test & Build\nlint, tests, Sonar;
-if (PR?) then (yes)
+if (pull_request event?) then (yes)
   :status check only,\nno image, no deploy;
   stop
 else (no)
@@ -22,7 +22,7 @@ endif
 :deploy tg-app-test, health check;
 
 |GitHub Actions|
-if (push to trunk?) then (no, branch started by hand)
+if (ref is trunk?) then (no, branch started by hand)
   note right
     TEST shows the branch until
     the next trunk merge overwrites it.
@@ -30,7 +30,11 @@ if (push to trunk?) then (no, branch started by hand)
   stop
 else (yes)
 endif
-:release: merge changelog.d/ into CHANGELOG.md,\ncommit, tag vX.Y.Z, GitHub release\n(runs in parallel to the approval);
+if (push event?) then (yes, trunk merge)
+  :release: merge changelog.d/ into CHANGELOG.md,\ncommit, tag vX.Y.Z, GitHub release\n(runs in parallel to the approval);
+else (workflow_dispatch on trunk)
+  :no release, only a rebuild;
+endif
 
 |Developer|
 :approve environment "production";
