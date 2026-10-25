@@ -30,6 +30,57 @@ Steps after `Test & Build`:
 `:snapshot` (TEST) and `:latest` (PROD) are moving pointers. The compose files do not change.
 Deploys use SSH and the Docker Compose files in `src/main/docker/`.
 
+### Compose files on the server
+
+`/appbase/tg-app/` holds three files that Docker Compose loads as one project (`-f services.yml
+-f prod-compose.yml -f test-compose.yml`). Loading all three keeps `--remove-orphans` from treating
+the other environment's container as an orphan. Each workflow copies only its own file and names
+only its own service in `up -d`:
+
+| Workflow | Copies | Starts or updates |
+|---|---|---|
+| `deploy-test` (`deploy.yml`) | `test-compose.yml` | `tg-app-test` |
+| `deploy-prod` (`deploy.yml`, after approval) and `rollback.yml` | `prod-compose.yml` | `tg-app-prod` |
+| none (by hand, see below) | `services.yml` | `tg-database`, `tg-admin` |
+
+So a TEST deploy never changes `prod-compose.yml` or the PROD container, and a PROD deploy or
+rollback never changes `test-compose.yml` or the TEST container. Before `docker compose`, every
+workflow checks that all three files exist on the server and fails if one is missing.
+
+#### Shared services (`services.yml`)
+
+`services.yml` defines `tg-database` and `tg-admin`, which both environments use. App deploys do not
+copy it, because a change can recreate the database container. To change it, merge the change to
+`trunk`, check out `trunk` and update the server by hand:
+
+```bash
+scp src/main/docker/services.yml <user>@<host>:/appbase/tg-app/
+ssh <user>@<host> 'docker compose -f /appbase/tg-app/services.yml \
+  -f /appbase/tg-app/prod-compose.yml -f /appbase/tg-app/test-compose.yml \
+  up -d --remove-orphans tg-database tg-admin'
+```
+
+All three files are loaded so that `--remove-orphans` keeps the app containers, and only the
+shared services are named, so `tg-app-test` and `tg-app-prod` are not recreated. Check the diff of
+`services.yml` first: a new image tag or a changed `command` restarts the database, and both
+environments are briefly down.
+
+#### First installation
+
+On a new server the workflows cannot create the files they do not own. Before the first deploy,
+copy all of them once and create the `.env` (template: `src/main/docker/.env.example`):
+
+```bash
+ssh <user>@<host> mkdir -p /appbase/tg-app
+scp -r src/main/docker/services.yml src/main/docker/prod-compose.yml \
+    src/main/docker/test-compose.yml src/main/docker/init \
+    <user>@<host>:/appbase/tg-app/
+```
+
+`init/` is mounted into the database container (`./init` in `services.yml`) and only runs when the
+database volume is empty. After that, the TEST and PROD deploys keep their own files current;
+`services.yml` is updated by hand as described above. Changes to `init/` are not synced; copy them by hand.
+
 ### Promotion to production
 
 `deploy-prod` waits for the required reviewer. Check the build on TEST, then approve:
@@ -62,7 +113,7 @@ gh workflow run rollback.yml -f version=1.2.4
 ```
 
 `.github/workflows/rollback.yml` waits for the `production` approval, points `:latest` at that
-version and deploys. The next approved `trunk` build replaces it again. Production data is
+version and deploys with `prod-compose.yml` only; TEST is left alone. The next approved `trunk` build replaces it again. Production data is
 re-seeded on every deploy, so a rollback does not restore database content. Hotfixes are fix
 forward through `trunk`; if an untested feature is in the way, revert it on `trunk`.
 
