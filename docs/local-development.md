@@ -24,8 +24,9 @@ Work on several issues at once with one git worktree per issue:
 git worktree add ../tg-app-95 -b feat/95-cta-article-type origin/trunk
 ```
 
-- Branch names are `<type>/<issue>-<slug>`, with `<type>` one of `feat`, `fix`, `chore`,
-  `refactor`. Open the PR against `trunk` (see [contributing.md](contributing.md)).
+- Branch names are `<type>/<issue>-<slug>`, for example `fix/113-office-hours`. Any prefix works,
+  because only the PR and `trunk` trigger CI. Open the PR against `trunk` (see
+  [contributing.md](contributing.md)).
 - Every worktree has its own `node_modules`, H2 database and `.env` (git-ignored, so copy it over
   if you need real mail).
 - The default ports 8080 and 5173 are taken by the first instance. Give every other worktree its own

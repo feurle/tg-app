@@ -9,8 +9,9 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`. Branching model and rat
 | Trigger | What runs |
 |---|---|
 | PR against `trunk` | `Test & Build` only: frontend lint and tests, `./gradlew test bootJar sonar`. No image, no deploy. |
-| Merge (push) into `trunk` | `Test & Build` → image → TEST → release; then `deploy-prod` waits for approval. |
-| `workflow_dispatch` on any branch | `Test & Build` → image → TEST. |
+| Merge (push) into `trunk` | `Test & Build` → image → TEST → release; then `deploy-prod` waits for approval. Only if the merge touches `src/`, `frontend/`, the Gradle files, `changelog.d/` or `deploy.yml`; a docs-only merge runs nothing. |
+| `workflow_dispatch` on a branch | `Test & Build` → image → TEST. |
+| `workflow_dispatch` on `trunk` | Like a merge, but without the release. |
 
 Steps after `Test & Build`:
 

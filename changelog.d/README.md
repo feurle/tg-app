@@ -3,8 +3,8 @@
 Jeder PR mit einer nennenswerten Änderung legt hier eine eigene Datei an, statt `CHANGELOG.md`
 zu bearbeiten. So geraten parallele PRs nicht in Konflikt.
 
-- Dateiname: der Branch-Name ohne Typ-Präfix, zum Beispiel `fix-113-office-hours.md` oder
-  `feat-95-cta-article-type.md`.
+- Dateiname: der Branch-Name, `/` durch `-` ersetzt. Aus `fix/113-office-hours` wird
+  `fix-113-office-hours.md`, aus `feat/95-cta-article-type` wird `feat-95-cta-article-type.md`.
 - Inhalt: die gleichen Kategorien wie in `CHANGELOG.md` (`Added`, `Changed`, `Deprecated`,
   `Removed`, `Fixed`, `Security`), nur die befüllten:
 
