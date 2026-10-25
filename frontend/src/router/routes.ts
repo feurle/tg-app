@@ -4,6 +4,7 @@ export const ROUTES = {
   /** Legacy route, redirects to TREATMENTS. */
   FOR_PET_OWNERS: '/for-pet-owners',
   FOR_VETS: '/for-vets',
+  REFERRAL: '/referral',
   QUESTIONNAIRE: '/questionnaire',
   APPOINTMENT: '/appointment',
   MESSAGE: '/message',

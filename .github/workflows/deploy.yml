@@ -185,11 +185,10 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
+      # Only the TEST file. prod-compose.yml and services.yml stay as they are on the server.
       - name: Sync compose file to server
         run: |
           scp src/main/docker/test-compose.yml \
-              src/main/docker/prod-compose.yml \
-              src/main/docker/services.yml \
               ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/appbase/tg-app/
 
       - name: Deploy via SSH
@@ -202,6 +201,9 @@ jobs:
           script: |
             set -e
             export BRANCH_NAME="${{ github.ref_name }}"
+            for f in services.yml prod-compose.yml test-compose.yml; do
+              [ -f "/appbase/tg-app/$f" ] || { echo "::error::/appbase/tg-app/$f is missing on the server, see docs/deployment.md#first-installation"; exit 1; }
+            done
             docker pull ${{ env.IMAGE_NAME }}:snapshot
             docker compose -f /appbase/tg-app/services.yml -f /appbase/tg-app/prod-compose.yml -f /appbase/tg-app/test-compose.yml up -d --remove-orphans tg-app-test
             docker image prune -f
@@ -336,8 +338,6 @@ jobs:
         if: steps.guard.outputs.stale != 'true'
         run: |
           scp src/main/docker/prod-compose.yml \
-              src/main/docker/test-compose.yml \
-              src/main/docker/services.yml \
               ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/appbase/tg-app/
 
       - name: Deploy via SSH
@@ -349,6 +349,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
+            for f in services.yml prod-compose.yml test-compose.yml; do
+              [ -f "/appbase/tg-app/$f" ] || { echo "::error::/appbase/tg-app/$f is missing on the server, see docs/deployment.md#first-installation"; exit 1; }
+            done
             docker pull ${{ env.IMAGE_NAME }}:latest
             docker compose -f /appbase/tg-app/services.yml -f /appbase/tg-app/prod-compose.yml -f /appbase/tg-app/test-compose.yml up -d --remove-orphans tg-app-prod
             docker image prune -f

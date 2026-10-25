@@ -7,10 +7,12 @@ export type CtaTarget =
 
 export const CONTACT_APPOINTMENT = 'contact:appointment';
 export const CONTACT_MESSAGE = 'contact:message';
+export const CONTACT_REFERRAL = 'contact:referral';
 
 const CONTACT_ROUTES: Record<string, string> = {
     [CONTACT_APPOINTMENT]: ROUTES.APPOINTMENT,
     [CONTACT_MESSAGE]: ROUTES.MESSAGE,
+    [CONTACT_REFERRAL]: ROUTES.REFERRAL,
 };
 
 /**

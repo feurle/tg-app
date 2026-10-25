@@ -20,8 +20,10 @@ export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
   const { t } = useTranslation();
   const vetInfo = useVetInfo();
-  // The appointment button would link to the page the visitor is already on.
-  const onAppointmentPage = useLocation().pathname === ROUTES.APPOINTMENT;
+  // Call button only: on /appointment the appointment button would link to the current page,
+  // on /referral it would pull the referring vet away from the form.
+  const { pathname } = useLocation();
+  const callOnly = pathname === ROUTES.APPOINTMENT || pathname === ROUTES.REFERRAL;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -121,9 +123,9 @@ export default function Navbar() {
         </div>
       )}
 
-      {(!onAppointmentPage || vetInfo?.phone) && (
-        <div className={onAppointmentPage ? 'mobile-cta-bar mobile-cta-bar-call-only' : 'mobile-cta-bar'}>
-          {!onAppointmentPage && (
+      {(!callOnly || vetInfo?.phone) && (
+        <div className={callOnly ? 'mobile-cta-bar mobile-cta-bar-call-only' : 'mobile-cta-bar'}>
+          {!callOnly && (
             <Link to={ROUTES.APPOINTMENT} className="btn-primary mobile-cta-button">
               {t('nav.appointment')}
             </Link>
@@ -133,7 +135,7 @@ export default function Navbar() {
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
               </svg>
-              {onAppointmentPage && <span>{t('contactInfo.call')} {vetInfo.phone}</span>}
+              {callOnly && <span>{t('contactInfo.call')} {vetInfo.phone}</span>}
             </a>
           )}
         </div>

@@ -9,7 +9,6 @@ npm run dev           # Vite dev server on :5173 (VITE_PORT), proxies /api to :8
 npm run build         # tsc -b && vite build
 npm run lint          # ESLint
 npm test              # Vitest (jsdom, React Testing Library)
-npm run generate:api  # OpenAPI types into src/api (gitignored)
 ```
 
 Tests sit next to the code as `*.test.ts(x)`. `./gradlew build` builds this app and copies `dist/` into the Spring Boot static resources.
@@ -34,7 +33,7 @@ src/
 | `/` | CMS page `home` plus contact block |
 | `/treatments`, `/for-vets`, `/about`, `/news` | CMS pages `treatments`, `for-vets`, `about`, `news` |
 | `/privacy`, `/impress` | CMS pages `privacy`, `imprint` |
-| `/questionnaire`, `/appointment`, `/message`, `/contact` | Questionnaire, appointment request and message forms, contact data |
+| `/questionnaire`, `/appointment`, `/message`, `/referral`, `/contact` | Questionnaire, appointment request, message and referral forms, contact data |
 
 Admin (login required): `/customers`, `/users`, `/questionnaires`, `/contact-info`, `/webcontent/images`, `/webcontent/tags`, `/webcontent/page/:slug` (articles of any CMS page) and `/webcontent/page/:slug/preview?lang=de` (page preview incl. drafts). Writing CMS content needs `ROLE_ADMIN`.
 

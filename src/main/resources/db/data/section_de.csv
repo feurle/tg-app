@@ -53,9 +53,9 @@ id;sort_order;title;content;article_id;image_id
 743;3;Untersuchung in der Praxis;Ich untersuche Ihr Tier gründlich und bespreche mit Ihnen die passende Behandlung.;740;
 811;1;Typische Überweisungsgründe;<ul><li>Arthrose und Spondylose</li><li>chronische Lahmheit oder Auffälligkeiten im Gangbild</li><li>Verspannungen, Steifigkeit und Asymmetrien</li><li>Hüftgelenksdysplasie und chronische Schmerzen bei Katzen</li><li>chronische Zahnfleischentzündung (Gingivitis) bei Katzen</li><li>Schmerzen, die auf die bisherige Therapie nicht ausreichend ansprechen</li></ul>;810;
 812;2;Was ich anbiete;<ul><li>Chiropraktik (international ausgebildet und geprüft: IAVC, IVCA)</li><li>Goldimplantation zur Schmerztherapie</li><li>Akupunktur und Neuraltherapie (Fachtierärztin)</li><li>Blutegeltherapie</li></ul>;810;
-821;1;Überweisung senden;Sie füllen das Formular unten aus und erhalten eine Bestätigung per E-Mail.;820;
+821;1;Überweisung senden;Sie füllen das Überweisungsformular aus und erhalten eine Bestätigung per E-Mail.;820;
 822;2;Termin mit dem Tierhalter;Ich melde mich beim Tierhalter und vereinbare den Termin.;820;
-823;3;Befunde und Rückmeldung;Befunde senden Sie bitte per E-Mail, die Adresse steht unter dem Formular. Ich halte Sie über die Behandlung auf dem Laufenden.;820;
+823;3;Befunde und Rückmeldung;Befunde senden Sie bitte per E-Mail, die Adresse steht im Überweisungsformular. Ich halte Sie über die Behandlung auf dem Laufenden.;820;
 830;1;Termin anfragen;contact:appointment;160;
 831;2;Nachricht schreiben;contact:message;160;
 832;1;Termin anfragen;contact:appointment;240;
@@ -67,5 +67,5 @@ id;sort_order;title;content;article_id;image_id
 838;1;Zum Erhebungsbogen;/questionnaire;750;
 839;1;Termin anfragen;contact:appointment;760;
 840;2;Nachricht schreiben;contact:message;760;
-841;1;Termin anfragen;contact:appointment;830;
+841;1;Patienten überweisen;contact:referral;830;
 842;2;Nachricht schreiben;contact:message;830;
