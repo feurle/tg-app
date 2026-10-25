@@ -273,6 +273,21 @@
       "content": "Inhalt",
       "image": "Bild",
       "noImage": "Kein Bild"
+    },
+    "cta": {
+      "label": "Button-Text *",
+      "targetKind": "Art des Ziels",
+      "target": "Ziel",
+      "invalidTarget": "Ungültiges Ziel. Erlaubt sind Kontaktaktionen, interne Seiten und http(s)-Adressen.",
+      "kind": {
+        "contact": "Kontaktaktion",
+        "internal": "Interne Seite",
+        "external": "Externe URL"
+      },
+      "contact": {
+        "appointment": "Termin anfragen",
+        "message": "Nachricht schreiben"
+      }
     }
   },
   "article": {
@@ -328,7 +343,8 @@
       "NEWS_TEASER": "News Teaser",
       "NEWS_PAGE": "News",
       "ABOUT_TEASER": "Über mich Teaser",
-      "ABOUT_PAGE": "Über mich Seite"
+      "ABOUT_PAGE": "Über mich Seite",
+      "CTA": "Call-to-Action"
     },
     "pageTypeHelp": {
       "DEFAULT": "Fließtext mit Bildern, wie bei Datenschutz und Impressum: Der Inhalt wird auf die Bilder verteilt, Abschnitte folgen darunter. In Seiten mit Blöcken (z. B. Home) wird dieser Typ nicht angezeigt.",
@@ -345,7 +361,8 @@
       "NEWS_TEASER": "Eintrag in der Liste auf „Aktuelles“: Titel und Auszug aus dem Inhalt (sonst dem 1. Abschnitt).",
       "NEWS_PAGE": "Eintrag in der Liste auf „Aktuelles“: Titel und Auszug aus dem Inhalt (sonst dem 1. Abschnitt).",
       "ABOUT_TEASER": "Titel = Überschrift, Inhalt = Text, Abschnitte = Qualifikationszeile, 1. Bild = Foto; Link zu „Über mich“.",
-      "ABOUT_PAGE": "Artikel der Seite „Über mich“."
+      "ABOUT_PAGE": "Artikel der Seite „Über mich“.",
+      "CTA": "Titel = Überschrift (optional), Inhalt = Text (optional), Abschnitte = Buttons (max. 2): Titel = Beschriftung, Ziel = Kontaktaktion, interne Seite oder URL."
     },
     "language": {
       "GERMAN": "Deutsch",

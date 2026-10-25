@@ -9,15 +9,23 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Added
 
+- Neuer Artikeltyp „Call-to-Action“: Überschrift, Text und bis zu zwei Buttons (Kontaktaktion, interne Seite oder externe URL) lassen sich im Admin pflegen, verschieben, übersetzen und veröffentlichen. Neue Seite „Kontakt“ (`contact`) im CMS.
+
 ### Changed
+
+- Die Kontakt-Buttons auf Startseite, Über mich, Aktuelles, Behandlungen, Für Tierärzte und Kontakt sowie die Erhebungsbogen-Box auf „Behandlungen“ sind jetzt CTA-Artikel statt fest im Code. Auf der Startseite steht die CTA vor dem Kontaktbereich.
 
 ### Deprecated
 
 ### Removed
 
+- Der feste Kontakt-Button im Hero-Block (`HERO`). Eine CTA direkt nach dem Hero ersetzt ihn.
+
 ### Fixed
 
 ### Security
+
+- Ziele von CTA-Buttons werden beim Speichern und beim Rendern geprüft; erlaubt sind nur Kontaktaktionen, interne Pfade und `http(s)`-Adressen.
 
 ## [1.2.3] - 2026-10-25
 

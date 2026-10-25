@@ -10,6 +10,7 @@ import Col2Component from './Col2Component';
 import Col3Component from './Col3Component';
 import Col4Component from './Col4Component';
 import TextBlock from './TextBlock';
+import CtaComponent from './CtaComponent';
 
 interface Props {
     articles: ArticleResponse[];
@@ -32,6 +33,7 @@ export default function PageBlocks({ articles }: Props) {
                     case 'COL3': return <Col3Component key={article.id} article={article} />;
                     case 'COL4': return <Col4Component key={article.id} article={article} />;
                     case 'TEXT': return <TextBlock key={article.id} article={article} />;
+                    case 'CTA': return <CtaComponent key={article.id} article={article} />;
                     default: return null;
                 }
             })}

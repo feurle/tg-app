@@ -4,7 +4,6 @@ import '../../i18n';
 import AboutPage from './AboutPage';
 
 vi.mock('../../features/webcontent/components/PageContent', () => ({ default: () => null }));
-vi.mock('../../features/webcontent/components/ContactButton', () => ({ default: () => null }));
 
 afterEach(cleanup);
 
