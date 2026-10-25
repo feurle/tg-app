@@ -8,6 +8,7 @@ Website and CMS for a veterinary practice: a Spring Boot backend serving article
 
 ```bash
 ./gradlew devAll   # backend on :8080, frontend on :5173, Ctrl+C stops both
+                   # SERVER_PORT / VITE_PORT change the ports (parallel worktrees)
 ```
 
 Open http://localhost:5173 and log in with `admin` / `admin`. Details: [docs/local-development.md](docs/local-development.md).

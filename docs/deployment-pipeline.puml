@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+title Build & Deploy pipeline (.github/workflows/deploy.yml)
+
+|Developer|
+start
+:open PR against trunk,\nmerge into trunk or\nrun workflow on a branch (workflow_dispatch);
+
+|GitHub Actions|
+:Test & Build\nlint, tests, Sonar;
+if (PR?) then (yes)
+  :status check only,\nno image, no deploy;
+  stop
+else (no)
+endif
+
+|Docker Hub|
+:push feurle/tg-app:sha-<sha>\n(+ :x.y.z on a trunk release);
+
+|TEST|
+:retag sha-<sha> as :snapshot;
+:deploy tg-app-test, health check;
+
+|GitHub Actions|
+if (push to trunk?) then (no, branch started by hand)
+  note right
+    TEST shows the branch until
+    the next trunk merge overwrites it.
+  end note
+  stop
+else (yes)
+endif
+:release: merge changelog.d/ into CHANGELOG.md,\ncommit, tag vX.Y.Z, GitHub release\n(runs in parallel to the approval);
+
+|Developer|
+:approve environment "production";
+
+|GitHub Actions|
+if (newest trunk build?) then (no, stale)
+  :skip, PROD stays as it is;
+  stop
+else (yes)
+endif
+
+|Docker Hub|
+:retag sha-<sha> as :latest;
+
+|PROD|
+:deploy tg-app-prod, health check;
+stop
+
+note right
+  Rollback: rollback.yml retags a released
+  version x.y.z as :latest and deploys it
+  (same approval, see branching-model.puml).
+end note
+@enduml

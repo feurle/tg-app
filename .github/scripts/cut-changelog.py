@@ -3,6 +3,9 @@
 
 Usage: cut-changelog.py <version> <date> [changelog-path]
 Prints the new release section (for use as release notes) to stdout.
+
+Fragments in changelog.d/ next to the changelog (one file per PR, with the same "### Category"
+headings) are merged into [Unreleased] first and deleted afterwards.
 """
 import re
 import sys
@@ -28,8 +31,11 @@ def main() -> None:
     )
     section_end = min(next_heading_idx, link_start)
 
-    old_section = lines[unreleased_idx + 1 : section_end]
-    release_section = [f"## [{version}] - {date}", ""] + strip_empty_categories(old_section)
+    fragments = sorted(
+        f for f in (path.parent / "changelog.d").glob("*.md") if f.name != "README.md"
+    )
+    old_section = merge_fragments(lines[unreleased_idx + 1 : section_end], fragments)
+    release_section = [f"## [{version}] - {date}", ""] + old_section
     while release_section and release_section[-1] == "":
         release_section.pop()
 
@@ -57,6 +63,8 @@ def main() -> None:
     new_lines += ["", *links]
 
     path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+    for fragment in fragments:
+        fragment.unlink()
     print("\n".join(release_section[2:]).strip())
 
 
@@ -69,22 +77,31 @@ def collapse_blank_lines(lines: list[str]) -> list[str]:
     return result
 
 
-def strip_empty_categories(section: list[str]) -> list[str]:
-    result: list[str] = []
-    i = 0
-    while i < len(section):
-        line = section[i]
+def split_categories(section: list[str]) -> dict[str, list[str]]:
+    """Group the lines of a section by their "### Category" heading, dropping blank lines."""
+    result: dict[str, list[str]] = {}
+    current = None
+    for line in section:
         if line.startswith("### "):
-            j = i + 1
-            while j < len(section) and not section[j].startswith("### "):
-                j += 1
-            block = section[i:j]
-            if any(l.strip() for l in block[1:]):
-                result += block
-            i = j
-        else:
-            result.append(line)
-            i += 1
+            current = line[4:].strip()
+            if current not in CATEGORIES:
+                sys.exit(f"Unknown changelog category: {current}")
+            result.setdefault(current, [])
+        elif line.strip() and current is not None:
+            result[current].append(line)
+    return result
+
+
+def merge_fragments(section: list[str], fragments: list[Path]) -> list[str]:
+    """Return the [Unreleased] section with the fragment bullets added and empty categories dropped."""
+    categories = split_categories(section)
+    for fragment in fragments:
+        for cat, bullets in split_categories(fragment.read_text(encoding="utf-8").splitlines()).items():
+            categories.setdefault(cat, []).extend(bullets)
+    result: list[str] = []
+    for cat in CATEGORIES:
+        if categories.get(cat):
+            result += [f"### {cat}", ""] + categories[cat] + [""]
     return result
 
 

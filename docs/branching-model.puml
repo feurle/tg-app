@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title Branching model: trunk-based with promotion
+
+participant "feat/95-...\n(worktree A)" as A
+participant "fix/113-...\n(worktree B)" as B
+participant "trunk" as T
+participant "TEST" as TEST
+participant "PROD" as PROD
+
+T -> A : git worktree add
+T -> B : git worktree add
+A -> A : commits + changelog.d/feat-95-....md
+B -> B : commits + changelog.d/fix-113-....md
+
+A -> T : PR (CI only), squash merge
+T -> TEST : build sha-a, deploy, release v1.3.0
+B -> T : PR (CI only), squash merge
+T -> TEST : build sha-b, deploy, release v1.3.1
+
+note over T, PROD
+  Approving the run of sha-a does nothing,
+  because sha-b is already the newest build.
+end note
+TEST -> PROD : approve run of sha-b\n(retag sha-b as latest)
+
+== Fix forward ==
+T -> T : fix/... PR, squash merge
+T -> TEST : build sha-c, deploy, release v1.3.2
+TEST -> PROD : approve run of sha-c
+
+== Rollback ==
+PROD -> PROD : rollback.yml, version=1.3.1\n(retag 1.3.1 as latest)
+@enduml

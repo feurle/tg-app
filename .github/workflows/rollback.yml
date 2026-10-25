@@ -1,0 +1,77 @@
+name: Rollback Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Released version to deploy to production, for example 1.2.4'
+        required: true
+        type: string
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/tg-app
+
+jobs:
+  rollback:
+    name: Deploy released version to Production
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check version
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::'$VERSION' is not a released version (x.y.z)."
+            exit 1
+          fi
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Point latest at the released image
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          docker buildx imagetools inspect "${IMAGE_NAME}:${VERSION}" > /dev/null
+          docker buildx imagetools create -t "${IMAGE_NAME}:latest" "${IMAGE_NAME}:${VERSION}"
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Sync compose file to server
+        run: |
+          scp src/main/docker/prod-compose.yml \
+              src/main/docker/test-compose.yml \
+              src/main/docker/services.yml \
+              ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/appbase/tg-app/
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker compose -f /appbase/tg-app/services.yml -f /appbase/tg-app/prod-compose.yml -f /appbase/tg-app/test-compose.yml up -d --remove-orphans tg-app-prod
+            docker image prune -f
+
+      - name: Health Check
+        run: |
+          echo "Warte 60s auf Spring Boot Start..."
+          sleep 60
+          curl --fail --retry 5 --retry-delay 10 \
+            https://${{ secrets.VIRTUAL_HOST_PROD }}/actuator/health

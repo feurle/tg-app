@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - trunk
-      - 'feature/**'
-      - 'fix/**'
-      - 'hotfix/**'
-      - 'chore/**'
-      - 'refactor/**'
     paths:
       - 'src/**'
       - 'frontend/**'
@@ -17,8 +12,19 @@ on:
       - 'gradle/**'
       - 'gradlew'
       - 'gradlew.bat'
+      - 'changelog.d/**'
       - '.github/workflows/deploy.yml'
+  # No paths filter: the ruleset requires the "Test & Build" check on every PR.
+  pull_request:
+    branches:
+      - trunk
+  # Deploys the selected branch to TEST (see docs/deployment.md).
   workflow_dispatch: {}
+
+# A new push to a PR cancels the previous CI run. Every other run gets its own group.
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || format('run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/tg-app
@@ -91,8 +97,7 @@ jobs:
     name: Build & Push Image
     runs-on: ubuntu-latest
     needs: build
-    outputs:
-      image-tag: ${{ steps.tag.outputs.value }}
+    if: github.event_name != 'pull_request'
 
     steps:
       - name: Checkout Code
@@ -129,22 +134,13 @@ jobs:
           restore-keys: |
             gradle-
 
-      - name: Determine Image Tag
-        id: tag
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/trunk" ]; then
-            echo "value=latest" >> $GITHUB_OUTPUT
-          else
-            echo "value=snapshot" >> $GITHUB_OUTPUT
-          fi
-
       - name: Determine App Version
         id: version
         run: |
           out="$(bash .github/scripts/next-version.sh)"
           echo "$out" >> $GITHUB_OUTPUT
           eval "$out"
-          if [ "${{ steps.tag.outputs.value }}" = "latest" ] && [ "$release" = "true" ]; then
+          if [ "${{ github.ref }}" = "refs/heads/trunk" ] && [ "$release" = "true" ]; then
             echo "app=${version}" >> $GITHUB_OUTPUT
           else
             echo "app=${version}-SNAPSHOT" >> $GITHUB_OUTPUT
@@ -154,31 +150,40 @@ jobs:
         env:
           APP_VERSION: ${{ steps.version.outputs.app }}
         run: |
-          ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
-          docker push ${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.value }}
+          ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
 
-          if [ "${{ steps.tag.outputs.value }}" = "latest" ]; then
-            docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
-            docker push ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
-          fi
-
-          if [ "${{ steps.version.outputs.release }}" = "true" ] && [ "${{ steps.tag.outputs.value }}" = "latest" ]; then
-            docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+          if [ "${{ github.ref }}" = "refs/heads/trunk" ] && [ "${{ steps.version.outputs.release }}" = "true" ]; then
+            docker tag ${{ env.IMAGE_NAME }}:sha-${{ github.sha }} ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
             docker push ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
           fi
 
   # ─────────────────────────────────────────
-  # JOB 3a: Deploy to Test (feature branches)
+  # JOB 3: Deploy to Test (trunk, or a branch started by hand)
   # ─────────────────────────────────────────
   deploy-test:
     name: Deploy to Test
     runs-on: ubuntu-latest
     needs: docker
-    if: github.ref != 'refs/heads/trunk'
+    concurrency:
+      group: deploy-test
+      cancel-in-progress: false
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Point snapshot at this build
+        run: |
+          docker buildx imagetools create \
+            -t ${{ env.IMAGE_NAME }}:snapshot \
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
 
       - name: Set up SSH key
         run: |
@@ -216,19 +221,118 @@ jobs:
             https://${{ secrets.VIRTUAL_HOST_TEST }}/actuator/health
 
   # ─────────────────────────────────────────
-  # JOB 3b: Deploy to Production (trunk)
+  # JOB 4: Release (tag + changelog), once per trunk merge
+  # ─────────────────────────────────────────
+  release:
+    name: Tag & Changelog
+    runs-on: ubuntu-latest
+    needs: deploy-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/trunk'
+    permissions:
+      contents: write
+    concurrency:
+      group: release-trunk
+      cancel-in-progress: false
+
+    steps:
+      # The deploy key is in the trunk ruleset bypass list; GITHUB_TOKEN is not.
+      - name: Checkout trunk
+        uses: actions/checkout@v4
+        with:
+          ref: trunk
+          fetch-depth: 0
+          ssh-key: ${{ secrets.RELEASE_DEPLOY_KEY }}
+
+      - name: Skip if trunk moved on since the deployed commit
+        id: guard
+        run: |
+          if [ "$(git rev-parse HEAD)" != "${{ github.sha }}" ]; then
+            echo "::notice::trunk HEAD is newer than deployed ${{ github.sha }} – a later run will release."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Determine version
+        id: version
+        if: steps.guard.outputs.skip != 'true'
+        run: bash .github/scripts/next-version.sh >> $GITHUB_OUTPUT
+
+      - name: Skip if there are no changelog entries
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release != 'true'
+        run: echo "::notice::No entries under [Unreleased] and no fragments in changelog.d/ – nothing to release."
+
+      - name: Cut changelog
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        run: |
+          python3 .github/scripts/cut-changelog.py \
+            "${{ steps.version.outputs.version }}" "$(date -u +%F)" > "$RUNNER_TEMP/release-notes.md"
+
+      - name: Commit, tag and push
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md changelog.d
+          git commit -m "chore(release): v${VERSION} [skip ci]"
+          git tag -a "v${VERSION}" -m "v${VERSION}"
+          git push origin trunk --follow-tags
+
+      - name: Create GitHub release
+        if: steps.guard.outputs.skip != 'true' && steps.version.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --notes-file "$RUNNER_TEMP/release-notes.md"
+
+  # ─────────────────────────────────────────
+  # JOB 5: Deploy to Production (trunk, after approval)
   # ─────────────────────────────────────────
   deploy-prod:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    needs: docker
+    needs: deploy-test
     if: github.ref == 'refs/heads/trunk'
+    # Required reviewer: the run waits here until the image on TEST is approved.
+    environment: production
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Approving an older run must not roll PROD back to an older build.
+      # The newest trunk commit that is not a release commit is the one TEST is running.
+      - name: Skip if a newer build exists
+        id: guard
+        run: |
+          git fetch --quiet origin trunk
+          latest="$(git log origin/trunk --invert-grep --grep='^chore(release): v' -1 --format=%H)"
+          if [ "$latest" != "${{ github.sha }}" ]; then
+            echo "::warning::${{ github.sha }} is not the newest trunk build ($latest) – not deploying it to production."
+            echo "stale=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Login to Docker Hub
+        if: steps.guard.outputs.stale != 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Point latest at the tested build
+        if: steps.guard.outputs.stale != 'true'
+        run: |
+          docker buildx imagetools create \
+            -t ${{ env.IMAGE_NAME }}:latest \
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
 
       - name: Set up SSH key
+        if: steps.guard.outputs.stale != 'true'
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -236,6 +340,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Sync compose file to server
+        if: steps.guard.outputs.stale != 'true'
         run: |
           scp src/main/docker/prod-compose.yml \
               src/main/docker/test-compose.yml \
@@ -243,6 +348,7 @@ jobs:
               ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/appbase/tg-app/
 
       - name: Deploy via SSH
+        if: steps.guard.outputs.stale != 'true'
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -255,6 +361,7 @@ jobs:
             docker image prune -f
 
       - name: Health Check
+        if: steps.guard.outputs.stale != 'true'
         run: |
           echo "Warte 60s auf Spring Boot Start..."
           sleep 60

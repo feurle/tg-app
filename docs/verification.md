@@ -37,6 +37,10 @@ until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home
    && curl -s -o /dev/null --max-time 2 localhost:5173/; do sleep 2; done
 ```
 
+In a second worktree set `SERVER_PORT` and `VITE_PORT` (see
+[local-development.md](local-development.md#parallel-worktrees)) and replace 8080 and 5173 in every
+command below.
+
 **H2 is in-memory.** Restarting the backend resets to the Liquibase seed, the
 cheapest way to get clean data after probes pollute it. Seeded pages are in
 `src/main/resources/db/data/page.csv`.
