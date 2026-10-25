@@ -19,6 +19,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.2.6] - 2026-10-25
+
+### Changed
+
+- Neuer Deploy-Ablauf: Ein Merge auf `trunk` deployt nach TEST und erzeugt das Release. Nach PROD gelangt dasselbe Image erst nach einer Freigabe. Feature-Branches lassen nur noch die CI laufen, ein Branch lässt sich bei Bedarf per `workflow_dispatch` auf TEST deployen. Changelog-Einträge liegen als Fragmente in `changelog.d/`. Mit `SERVER_PORT` und `VITE_PORT` laufen mehrere Worktrees lokal parallel.
+
 ## [1.2.5] - 2026-10-25
 
 ### Fixed
@@ -182,7 +188,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.5...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.6...HEAD
+[1.2.6]: https://github.com/feurle/tg-app/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/feurle/tg-app/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/feurle/tg-app/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/feurle/tg-app/compare/v1.2.2...v1.2.3
