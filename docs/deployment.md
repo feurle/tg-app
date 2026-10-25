@@ -87,6 +87,31 @@ practice (or to referring vets), set `MAIL_TO=<own address>` in `/appbase/tg-app
 every mail is then redirected there with the real recipient in the subject. Leave it unset in
 production. The compose files pass it through (`MAIL_TO=${MAIL_TO:-}`).
 
+### Checking real mail delivery (go-live)
+
+Local runs only prove that the app can talk to an SMTP server (see
+[local-development.md](local-development.md#sending-real-mail-locally)). Delivery from the real
+sender needs a check on TEST and again on PROD, because only there the sender domain
+`tier-gesund.at` applies:
+
+1. On the host, set `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD` and `MAIL_FROM` (an address on
+   `tier-gesund.at`) in `/appbase/tg-app/.env`. `SMTP_PORT` is not passed through by the compose
+   files and stays at its default 587 (STARTTLS).
+2. On TEST also set `MAIL_TO=<own address>`, so nothing reaches the practice or outside vets.
+3. Submit the contact form, an appointment request and a referral (the referral also sends a
+   confirmation to the referring vet) and complete the questionnaire. These are all four mail
+   types.
+4. In the received mail, check the headers: `spf=pass` and `dkim=pass` for `tier-gesund.at`
+   (in Gmail: "Show original"), and that the mail landed in the inbox, not in spam.
+5. On PROD, unset `MAIL_TO` and repeat once with the own address as the referring vet's e-mail.
+   Mail to the practice goes to the primary `vet_info` address, so tell the practice beforehand.
+
+If SPF or DKIM fail, fix the DNS records of `tier-gesund.at` at the mail provider, not in the app.
+
+Mail texts are German only, on purpose: all mails except the referral confirmation go to the
+practice. Only that confirmation reaches an outsider (the referring vet); translating it is a
+possible later change.
+
 Production data is re-seeded from the CSV files on every deploy. See
 [database.md](database.md).
 
