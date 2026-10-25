@@ -17,6 +17,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Startseite und Footer halten die Gestaltungsregeln ein: Beschreibungen bei „Wann Sie zu mir kommen können“, im Ablauf und im Tierärzte-Band sind wie der übrige Fließtext 18 px groß (Qualifikationen 16 px), die Footer-Überschriften stehen nicht mehr in Versalien, und die Links „Alle Behandlungen“, „Mehr über mich“, „Route anzeigen“ und die Telefonnummer im Hero haben eine größere Trefferfläche. Die Seite „Über mich“ hat jetzt eine Hauptüberschrift für Screenreader.
+
 ### Security
 
 ## [1.2.2] - 2026-10-24
