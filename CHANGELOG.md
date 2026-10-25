@@ -19,6 +19,17 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.3.0] - 2026-10-25
+
+### Changed
+
+- CI: TEST-Deploy kopiert nur noch `test-compose.yml`, PROD-Deploy und PROD-Rollback nur noch `prod-compose.yml`. `services.yml` (Datenbank, tg-admin) wird nicht mehr bei App-Deployments überschrieben; der manuelle Aktualisierungsweg steht in `docs/deployment.md` (#123)
+- Überweisungsformular für Tierärzte auf eigener Seite `/referral`; `/for-vets` ist eine Infoseite mit dem Button „Patienten überweisen“ ganz oben, Footer-Link „Überweisung“ und CTA-Ziel `contact:referral` (#125)
+
+### Removed
+
+- Ungenutztes OpenAPI-Codegen-Tooling (`make api-sync`, `npm run generate:api`, `openapi-typescript`) entfernt. API-Typen im Frontend stehen weiterhin von Hand in `features/*/types.ts`, Swagger-UI und `/v3/api-docs` bleiben erhalten (#126)
+
 ## [1.2.6] - 2026-10-25
 
 ### Changed
@@ -188,7 +199,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.2.6...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/feurle/tg-app/compare/v1.2.6...v1.3.0
 [1.2.6]: https://github.com/feurle/tg-app/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/feurle/tg-app/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/feurle/tg-app/compare/v1.2.3...v1.2.4
