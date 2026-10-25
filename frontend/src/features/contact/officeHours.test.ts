@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { getOpenStatus, groupByDay, sortOfficeHours, telHref } from './officeHours';
+import {
+    appointmentDays,
+    appointmentSlots,
+    appointmentTimes,
+    getOpenStatus,
+    groupByDay,
+    practiceToday,
+    sortOfficeHours,
+    telHref,
+} from './officeHours';
 import type { OfficeHour } from './types';
 
 const hours: OfficeHour[] = [
@@ -79,6 +88,63 @@ describe('sortOfficeHours / groupByDay', () => {
         const groups = groupByDay(hours);
         expect(groups.map((g) => g.day)).toEqual(['MONDAY', 'TUESDAY', 'THURSDAY']);
         expect(groups[1].intervals).toHaveLength(2);
+    });
+});
+
+describe('appointment slots', () => {
+    it('steps through each interval and stops one slot before closing', () => {
+        expect(appointmentSlots(hours, 'MONDAY')).toEqual(['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30']);
+        expect(appointmentSlots(hours, 'THURSDAY')).toEqual(['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00']);
+    });
+
+    it('merges both intervals of a day in order', () => {
+        const slots = appointmentSlots(hours, 'TUESDAY');
+        expect(slots[0]).toBe('08:30');
+        expect(slots).toContain('17:30');
+        expect(slots).not.toContain('13:00');
+    });
+
+    it('has no slots on days without office hours', () => {
+        expect(appointmentSlots(hours, 'WEDNESDAY')).toEqual([]);
+    });
+});
+
+describe('appointmentTimes', () => {
+    it('drops slots that have already passed today (Vienna time)', () => {
+        // 2026-01-05 is a Monday; 15:10 Vienna = 14:10Z
+        const now = new Date('2026-01-05T14:10:00Z');
+        expect(appointmentTimes(hours, '2026-01-05', now)).toEqual(['15:30', '16:00', '16:30', '17:00', '17:30']);
+    });
+
+    it('offers all slots on a later date', () => {
+        expect(appointmentTimes(hours, '2026-01-12', new Date('2026-01-05T14:10:00Z'))).toHaveLength(8);
+    });
+});
+
+describe('appointmentDays', () => {
+    const now = new Date('2026-01-05T09:00:00Z'); // Monday 10:00 Vienna
+
+    it('lists only days with office hours inside the 8 week window', () => {
+        const days = appointmentDays(hours, now);
+        expect(days[0]).toBe('2026-01-05');
+        expect(days[1]).toBe('2026-01-06');
+        expect(days[2]).toBe('2026-01-08');
+        expect(days).not.toContain('2026-01-07');
+        expect(days[days.length - 1]).toBe('2026-03-02');
+    });
+
+    it('skips today once the last slot has passed', () => {
+        // 17:45 Vienna
+        expect(appointmentDays(hours, new Date('2026-01-05T16:45:00Z'))[0]).toBe('2026-01-06');
+    });
+
+    it('uses Vienna time for today near midnight', () => {
+        // 2026-01-05 23:30Z is already Tuesday 00:30 in Vienna
+        expect(practiceToday(new Date('2026-01-05T23:30:00Z'))).toBe('2026-01-06');
+    });
+
+    it('is empty without office hours', () => {
+        expect(appointmentDays([], now)).toEqual([]);
     });
 });
 

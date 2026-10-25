@@ -2659,6 +2659,10 @@ tbody tr:hover td {
     margin: 0;
 }
 
+.form-grid + .form-note {
+    margin-bottom: var(--space-4);
+}
+
 .form-required-note {
     font-size: var(--fs-xs);
     color: var(--text-secondary);

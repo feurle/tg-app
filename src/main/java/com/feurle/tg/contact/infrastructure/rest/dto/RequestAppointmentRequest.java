@@ -3,7 +3,6 @@
 package com.feurle.tg.contact.infrastructure.rest.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public record RequestAppointmentRequest(
     @NotBlank String senderName,
     @Email @NotBlank String replyToEmail,
     String phone,
-    @NotNull @FutureOrPresent LocalDate preferredDate,
+    @NotNull LocalDate preferredDate,
     LocalTime preferredTime,
     String text,
     String website) {}

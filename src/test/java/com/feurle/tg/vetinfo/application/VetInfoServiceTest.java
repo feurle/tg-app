@@ -4,6 +4,7 @@ package com.feurle.tg.vetinfo.application;
 
 import static org.assertj.core.api.Assertions.*;
 
+import com.feurle.tg.vetinfo.WeeklyOfficeHour;
 import com.feurle.tg.vetinfo.domain.OfficeHour;
 import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.domain.VetInfoRepository;
@@ -64,6 +65,30 @@ class VetInfoServiceTest {
     vetInfoService.createVetInfo(
         "Praxis A", null, "a@example.de", null, null, null, true, List.of());
     assertThat(vetInfoService.primaryEmail()).contains("a@example.de");
+  }
+
+  // ========== primaryOfficeHours ==========
+
+  @Test
+  void primaryOfficeHours_returnsEmpty_whenNoPrimaryExists() {
+    assertThat(vetInfoService.primaryOfficeHours()).isEmpty();
+  }
+
+  @Test
+  void primaryOfficeHours_returnsIntervalsOfPrimaryRecord() {
+    vetInfoService.createVetInfo(
+        "Praxis A",
+        null,
+        null,
+        null,
+        null,
+        null,
+        true,
+        List.of(new OfficeHour(DayOfWeek.MONDAY, LocalTime.of(14, 0), LocalTime.of(18, 0))));
+
+    assertThat(vetInfoService.primaryOfficeHours())
+        .containsExactly(
+            new WeeklyOfficeHour(DayOfWeek.MONDAY, LocalTime.of(14, 0), LocalTime.of(18, 0)));
   }
 
   // ========== getAllVetInfo ==========

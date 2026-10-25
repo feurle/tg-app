@@ -77,6 +77,63 @@ export function getOpenStatus(hours: OfficeHour[], now: Date = new Date()): Open
     return { kind: 'closed', next: null };
 }
 
+/** Appointments start at each opening time in steps of this many minutes; the last slot ends at closing time. */
+export const SLOT_MINUTES = 30;
+/** How far ahead an appointment can be requested. The backend enforces the same limit. */
+export const BOOKING_WEEKS = 8;
+
+function pad(n: number): string {
+    return String(n).padStart(2, '0');
+}
+
+/** `yyyy-MM-dd` of today in practice time. */
+export function practiceToday(now: Date = new Date()): string {
+    return new Intl.DateTimeFormat('sv-SE', {
+        timeZone: PRACTICE_TIME_ZONE,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).format(now);
+}
+
+function addDays(date: string, days: number): string {
+    const [y, m, d] = date.split('-').map(Number);
+    return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+function dayOf(date: string): DayOfWeek {
+    const [y, m, d] = date.split('-').map(Number);
+    return DAYS[(new Date(Date.UTC(y, m - 1, d)).getUTCDay() + 6) % 7];
+}
+
+/** Bookable `HH:mm` slots of a weekday, ordered; a day with a break has slots in both intervals. */
+export function appointmentSlots(hours: OfficeHour[], day: DayOfWeek): string[] {
+    const slots: number[] = [];
+    for (const h of hours.filter((x) => x.dayOfWeek === day)) {
+        for (let m = minutes(h.opensAt); m + SLOT_MINUTES <= minutes(h.closesAt); m += SLOT_MINUTES) slots.push(m);
+    }
+    return slots.sort((a, b) => a - b).map((m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`);
+}
+
+/** Bookable `HH:mm` slots on a date (`yyyy-MM-dd`); slots that have already passed today are left out. */
+export function appointmentTimes(hours: OfficeHour[], date: string, now: Date = new Date()): string[] {
+    const slots = appointmentSlots(hours, dayOf(date));
+    if (date !== practiceToday(now)) return slots;
+    const current = practiceNow(now).minutes;
+    return slots.filter((s) => minutes(s) > current);
+}
+
+/** Dates (`yyyy-MM-dd`) within the booking window that still have a free slot, earliest first. */
+export function appointmentDays(hours: OfficeHour[], now: Date = new Date()): string[] {
+    const today = practiceToday(now);
+    const days: string[] = [];
+    for (let i = 0; i <= BOOKING_WEEKS * 7; i++) {
+        const date = addDays(today, i);
+        if (appointmentTimes(hours, date, now).length > 0) days.push(date);
+    }
+    return days;
+}
+
 /** `tel:` target for a display number such as "+43 (0)5574 83500" (drops the optional "(0)" and spaces). */
 export function telHref(phone: string): string {
     return `tel:${phone.replace(/\(0\)/g, '').replace(/[^\d+]/g, '')}`;

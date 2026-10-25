@@ -2,7 +2,9 @@
 // Copyright (C) 2026 Daniel Feurle
 package com.feurle.tg.vetinfo.application;
 
+import com.feurle.tg.vetinfo.OfficeHoursLookup;
 import com.feurle.tg.vetinfo.PrimaryContactEmailLookup;
+import com.feurle.tg.vetinfo.WeeklyOfficeHour;
 import com.feurle.tg.vetinfo.domain.OfficeHour;
 import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.domain.VetInfoRepository;
@@ -15,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class VetInfoService implements PrimaryContactEmailLookup {
+public class VetInfoService implements PrimaryContactEmailLookup, OfficeHoursLookup {
 
   private final VetInfoRepository vetInfoRepository;
 
@@ -34,6 +36,15 @@ public class VetInfoService implements PrimaryContactEmailLookup {
   @Transactional(readOnly = true)
   public Optional<String> primaryEmail() {
     return getVetInfo().map(VetInfo::getEmail).filter(email -> email != null && !email.isBlank());
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<WeeklyOfficeHour> primaryOfficeHours() {
+    return getVetInfo().stream()
+        .flatMap(vetInfo -> vetInfo.getOfficeHours().stream())
+        .map(h -> new WeeklyOfficeHour(h.getDayOfWeek(), h.getOpensAt(), h.getClosesAt()))
+        .toList();
   }
 
   @Transactional(readOnly = true)

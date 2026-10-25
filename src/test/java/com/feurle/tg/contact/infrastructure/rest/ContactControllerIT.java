@@ -16,10 +16,14 @@ import com.feurle.tg.contact.application.ReferralUrgency;
 import com.feurle.tg.contact.infrastructure.rest.dto.RequestAppointmentRequest;
 import com.feurle.tg.contact.infrastructure.rest.dto.RequestReferralRequest;
 import com.feurle.tg.contact.infrastructure.rest.dto.SendMessageRequest;
+import com.feurle.tg.vetinfo.domain.OfficeHour;
 import com.feurle.tg.vetinfo.domain.VetInfo;
 import com.feurle.tg.vetinfo.domain.VetInfoRepository;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -219,6 +223,75 @@ class ContactControllerIT {
         .andExpect(status().isBadRequest());
 
     verifyNoInteractions(mailSender);
+  }
+
+  private void givenTuesdayMorningOfficeHours() {
+    VetInfo vetInfo = new VetInfo();
+    vetInfo.setName("Praxis");
+    vetInfo.setEmail("praxis@example.com");
+    vetInfo.setPrimary(true);
+    vetInfo
+        .getOfficeHours()
+        .add(new OfficeHour(DayOfWeek.TUESDAY, LocalTime.of(8, 30), LocalTime.of(12, 30)));
+    vetInfoRepository.save(vetInfo);
+  }
+
+  private static LocalDate nextPracticeDay(DayOfWeek day) {
+    return LocalDate.now(ZoneId.of("Europe/Vienna")).with(TemporalAdjusters.next(day));
+  }
+
+  private void assertAppointmentRejected(LocalDate date, LocalTime time) throws Exception {
+    RequestAppointmentRequest request =
+        new RequestAppointmentRequest(
+            "Max Mustermann", "kunde@example.com", null, date, time, null, null);
+
+    mockMvc
+        .perform(
+            post("/api/contact/appointment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest());
+
+    verifyNoInteractions(mailSender);
+  }
+
+  @Test
+  void requestAppointment_returnsBadRequest_whenDayHasNoOfficeHours() throws Exception {
+    givenTuesdayMorningOfficeHours();
+    assertAppointmentRejected(nextPracticeDay(DayOfWeek.WEDNESDAY), null);
+  }
+
+  @Test
+  void requestAppointment_returnsBadRequest_whenTimeIsOutsideOfficeHours() throws Exception {
+    givenTuesdayMorningOfficeHours();
+    assertAppointmentRejected(nextPracticeDay(DayOfWeek.TUESDAY), LocalTime.of(13, 0));
+  }
+
+  @Test
+  void requestAppointment_returnsBadRequest_whenDateIsBeyondBookingHorizon() throws Exception {
+    givenTuesdayMorningOfficeHours();
+    assertAppointmentRejected(nextPracticeDay(DayOfWeek.TUESDAY).plusWeeks(9), null);
+  }
+
+  @Test
+  void requestAppointment_returnsNoContent_whenTimeIsInsideOfficeHours() throws Exception {
+    givenTuesdayMorningOfficeHours();
+    RequestAppointmentRequest request =
+        new RequestAppointmentRequest(
+            "Max Mustermann",
+            "kunde@example.com",
+            null,
+            nextPracticeDay(DayOfWeek.TUESDAY),
+            LocalTime.of(9, 0),
+            null,
+            null);
+
+    mockMvc
+        .perform(
+            post("/api/contact/appointment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isNoContent());
   }
 
   @Test
