@@ -22,6 +22,31 @@ export function TextField({ label, value, onChange, required, type = 'text', nam
   );
 }
 
+interface SelectFieldProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: { value: string; label: string }[];
+  /** Label of the empty option; without it the field has no empty choice. */
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+}
+
+export function SelectField({ label, value, onChange, options, placeholder, required, disabled }: SelectFieldProps) {
+  const id = useId();
+  return (
+    <div className="form-group">
+      <label className="form-label" htmlFor={id}>{label}{required && ' *'}</label>
+      <select id={id} className="form-input" value={value} required={required} disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}>
+        {placeholder !== undefined && <option value="">{placeholder}</option>}
+        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+  );
+}
+
 const TIME_PATTERN = '([01][0-9]|2[0-3]):[0-5][0-9]';
 
 interface TimeInputProps {

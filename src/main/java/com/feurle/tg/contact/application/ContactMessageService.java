@@ -19,6 +19,7 @@ public class ContactMessageService {
 
   private final MailService mailService;
   private final PrimaryContactEmailLookup primaryContactEmailLookup;
+  private final AppointmentRules appointmentRules;
 
   private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy");
   private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
@@ -35,6 +36,7 @@ public class ContactMessageService {
       LocalDate preferredDate,
       LocalTime preferredTime,
       String text) {
+    appointmentRules.requireBookable(preferredDate, preferredTime);
     String appointment = formatAppointment(preferredDate, preferredTime);
     send(
         "Terminwunsch: " + appointment,

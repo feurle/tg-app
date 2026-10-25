@@ -30,6 +30,8 @@ class ContactMessageServiceTest {
 
   @Mock private PrimaryContactEmailLookup primaryContactEmailLookup;
 
+  @Mock private AppointmentRules appointmentRules;
+
   @InjectMocks private ContactMessageService contactMessageService;
 
   @BeforeEach

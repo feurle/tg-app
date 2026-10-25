@@ -17,6 +17,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Fixed
 
+- Terminanfrage: Wunschtermine sind nur noch an Sprechtagen innerhalb der Sprechzeiten möglich (30-Minuten-Slots, bis 8 Wochen im Voraus). Das Formular zeigt nur gültige Tage und Uhrzeiten, das Backend lehnt andere Anfragen mit `400` ab (#113)
+
 ### Security
 
 ## [1.2.4] - 2026-10-25
