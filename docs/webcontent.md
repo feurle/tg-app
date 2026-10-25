@@ -18,11 +18,14 @@
   and up to two buttons. Each button is a section: `section.title` is the label and
   `section.content` the target. With a headline the CTA gets the accent look
   (`questionnaire-cta`), without one it is the plain contact CTA.
-- Allowed targets: `contact:appointment`, `contact:message`, an internal path starting with `/`
+- Allowed targets: `contact:appointment`, `contact:message`, `contact:referral` (the referral form
+  `/referral`), an internal path starting with `/`
   (not `//`), or an `http(s)://` URL. `SectionService` rejects anything else on save and
   `features/webcontent/ctaTarget.ts` re-checks on render, because the value ends up in an `href`.
 - Pages do not hard-code a CTA. Home, news, about, treatments, for-vets and contact each have a
   seeded CTA article. `NewsPage` filters CTAs out of the news list and renders them as blocks.
+  The seeded buttons are „Termin anfragen“ and „Nachricht schreiben“; on for-vets the first one
+  is „Patienten überweisen“ (`contact:referral`).
 
 ## Access
 

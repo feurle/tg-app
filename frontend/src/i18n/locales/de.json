@@ -210,7 +210,7 @@
   },
   "forVets": {
     "title": "Für Tierärzte",
-    "subtitle": "Überweisen Sie Patienten mit Schmerz- und Bewegungsproblemen direkt zu mir. Sie erhalten eine Bestätigung per E-Mail."
+    "subtitle": "Zusammenarbeit bei Schmerz- und Bewegungsproblemen Ihrer Patienten"
   },
   "referral": {
     "heading": "Patient überweisen",
@@ -240,7 +240,10 @@
       "ROUTINE": "Routine",
       "SOON": "Zeitnah",
       "URGENT": "Dringend"
-    }
+    },
+    "title": "Patienten überweisen",
+    "subtitle": "Überweisen Sie Patienten mit Schmerz- und Bewegungsproblemen direkt zu mir. Sie erhalten eine Bestätigung per E-Mail.",
+    "moreInfo": "Mehr zur Zusammenarbeit"
   },
   "notFound": {
     "title": "Seite nicht gefunden",
@@ -257,7 +260,8 @@
     "privacy": "Datenschutz",
     "imprint": "Impressum",
     "contact": "Kontakt",
-    "language": "Sprache"
+    "language": "Sprache",
+    "referral": "Überweisung"
   },
   "section": {
     "add": "Abschnitt hinzufügen",
@@ -289,7 +293,8 @@
       },
       "contact": {
         "appointment": "Termin anfragen",
-        "message": "Nachricht schreiben"
+        "message": "Nachricht schreiben",
+        "referral": "Patienten überweisen"
       }
     }
   },

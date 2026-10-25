@@ -47,6 +47,7 @@ class SectionServiceCtaTest {
       strings = {
         "contact:appointment",
         "contact:message",
+        "contact:referral",
         "/questionnaire",
         "https://example.com/a?b=c",
         "http://example.com"

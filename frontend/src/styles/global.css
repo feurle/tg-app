@@ -328,6 +328,14 @@ body {
     margin: 0;
 }
 
+/* Main action of an information page, directly below the subtitle (e.g. referral on /for-vets). */
+.public-page-cta {
+    display: inline-block;
+    margin-top: var(--space-5);
+    padding: 11px 20px;
+    font-size: var(--fs-sm);
+}
+
 .nav-hamburger {
     display: none;
     background: none;
@@ -2666,6 +2674,11 @@ tbody tr:hover td {
 .form-required-note {
     font-size: var(--fs-xs);
     color: var(--text-secondary);
+}
+
+/* Link in the form intro (e.g. back to /for-vets): sits right under the subtitle, apart from the note. */
+.form-intro .home-more-link {
+    margin: 0 0 var(--space-3);
 }
 
 .form-choices {

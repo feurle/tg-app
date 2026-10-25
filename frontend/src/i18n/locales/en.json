@@ -210,7 +210,7 @@
   },
   "forVets": {
     "title": "For vets",
-    "subtitle": "Refer patients with pain or mobility problems directly to me. You will receive a confirmation by e-mail."
+    "subtitle": "Working together on pain and mobility problems in your patients"
   },
   "referral": {
     "heading": "Refer a patient",
@@ -240,7 +240,10 @@
       "ROUTINE": "Routine",
       "SOON": "Soon",
       "URGENT": "Urgent"
-    }
+    },
+    "title": "Refer a patient",
+    "subtitle": "Refer patients with pain or mobility problems directly to me. You will receive a confirmation by e-mail.",
+    "moreInfo": "More about working together"
   },
   "notFound": {
     "title": "Page not found",
@@ -257,7 +260,8 @@
     "privacy": "Privacy",
     "imprint": "Imprint",
     "contact": "Contact",
-    "language": "Language"
+    "language": "Language",
+    "referral": "Referral"
   },
   "article": {
     "new": "New Article",
@@ -375,7 +379,8 @@
       },
       "contact": {
         "appointment": "Request an appointment",
-        "message": "Write a message"
+        "message": "Write a message",
+        "referral": "Refer a patient"
       }
     }
   },

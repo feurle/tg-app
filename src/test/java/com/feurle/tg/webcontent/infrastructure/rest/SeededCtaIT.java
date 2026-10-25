@@ -27,8 +27,21 @@ class SeededCtaIT {
   @Autowired private ArticleRepository articleRepository;
 
   @ParameterizedTest
-  @ValueSource(strings = {"home", "news", "about", "treatments", "for-vets", "contact"})
+  @ValueSource(strings = {"home", "news", "about", "treatments", "contact"})
   void pageHasPublishedGermanCtaWithContactButtons(String slug) {
+    assertThat(lastPublishedGermanCta(slug).getSections())
+        .extracting(s -> s.getContent())
+        .containsExactly("contact:appointment", "contact:message");
+  }
+
+  @Test
+  void forVetsCtaOffersReferralInsteadOfAppointment() {
+    assertThat(lastPublishedGermanCta("for-vets").getSections())
+        .extracting(s -> s.getContent())
+        .containsExactly("contact:referral", "contact:message");
+  }
+
+  private Article lastPublishedGermanCta(String slug) {
     List<Article> ctas =
         articleRepository.findByPage_SlugOrderByOrderAscIdAsc(slug).stream()
             .filter(a -> a.getArticleType() == ArticleType.CTA)
@@ -37,9 +50,7 @@ class SeededCtaIT {
             .toList();
 
     assertThat(ctas).isNotEmpty();
-    assertThat(ctas.getLast().getSections())
-        .extracting(s -> s.getContent())
-        .containsExactly("contact:appointment", "contact:message");
+    return ctas.getLast();
   }
 
   @Test
