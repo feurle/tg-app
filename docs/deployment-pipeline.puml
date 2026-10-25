@@ -15,7 +15,7 @@ else (no)
 endif
 
 |Docker Hub|
-:push feurle/tg-app:sha-<sha>\n(+ :x.y.z on a trunk release);
+:push feurle/tg-app:sha-<sha>;
 
 |TEST|
 :retag sha-<sha> as :snapshot;
@@ -31,7 +31,7 @@ if (ref is trunk?) then (no, branch started by hand)
 else (yes)
 endif
 if (push event?) then (yes, trunk merge)
-  :release: merge changelog.d/ into CHANGELOG.md,\ncommit, tag vX.Y.Z, GitHub release\n(runs in parallel to the approval);
+  :release (skipped if a newer build follows):\nmerge changelog.d/ into CHANGELOG.md,\ncommit, tag vX.Y.Z, retag sha-<sha> as :x.y.z,\nGitHub release (runs in parallel to the approval);
 else (workflow_dispatch on trunk)
   :no release, only a rebuild;
 endif

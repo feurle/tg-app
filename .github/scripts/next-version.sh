@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-# Prints "version=<semver>" and "release=<true|false>" for the current HEAD.
+# Prints "version=<semver>" and "release=<true|false>" for <rev> (default HEAD).
+# Usage: next-version.sh [changelog] [rev]
 set -euo pipefail
 
 changelog="${1:-CHANGELOG.md}"
+rev="${2:-HEAD}"
 
 latest_tag="$(git tag --list 'v*' --sort=-v:refname | head -n 1)"
 
@@ -10,16 +12,24 @@ if [ -z "$latest_tag" ]; then
   version="1.0.0"
 else
   IFS=. read -r major minor patch <<< "${latest_tag#v}"
-  subject="$(git log -1 --format=%s HEAD)"
-  body="$(git log -1 --format=%b HEAD)"
 
-  if [[ "$subject" =~ ^[a-z]+(\([^\)]*\))?!: ]] || grep -q '^BREAKING CHANGE:' <<< "$body"; then
-    major=$((major + 1)); minor=0; patch=0
-  elif [[ "$subject" =~ ^feat ]]; then
-    minor=$((minor + 1)); patch=0
-  else
-    patch=$((patch + 1))
-  fi
+  # A release can collect several merges, so the highest bump since the last tag wins.
+  bump=patch
+  for sha in $(git rev-list --invert-grep --grep='^chore(release): v' "${latest_tag}..${rev}"); do
+    subject="$(git log -1 --format=%s "$sha")"
+    body="$(git log -1 --format=%b "$sha")"
+    if [[ "$subject" =~ ^[a-z]+(\([^\)]*\))?!: ]] || grep -q '^BREAKING CHANGE:' <<< "$body"; then
+      bump=major
+    elif [[ "$subject" =~ ^feat ]] && [ "$bump" = patch ]; then
+      bump=minor
+    fi
+  done
+
+  case "$bump" in
+    major) major=$((major + 1)); minor=0; patch=0 ;;
+    minor) minor=$((minor + 1)); patch=0 ;;
+    patch) patch=$((patch + 1)) ;;
+  esac
   version="${major}.${minor}.${patch}"
 fi
 

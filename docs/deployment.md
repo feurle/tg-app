@@ -15,8 +15,8 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`. Branching model and rat
 
 Steps after `Test & Build`:
 
-1. `./gradlew bootBuildImage` pushes `feurle/tg-app:sha-<sha>` to Docker Hub, once per build, and
-   `feurle/tg-app:x.y.z` when the build is a release. The Paketo builder is pinned in
+1. `./gradlew bootBuildImage` pushes `feurle/tg-app:sha-<sha>` to Docker Hub, once per build.
+   The version tag `:x.y.z` is set later by `release`. The Paketo builder is pinned in
    `build.gradle` (`builder-noble-java-tiny:0.0.200`) because its `latest` tag was republished
    arm64-only on 2026-10-23, which breaks the amd64 runner (`exec format error`). Bump the version
    deliberately, and check that the tag is multi-arch.
@@ -104,9 +104,10 @@ database volume is empty. After that, the TEST and PROD deploys keep their own f
 - in the GitHub UI: Actions → the `Build & Deploy` run → *Review deployments*, or
 - `gh run list --workflow deploy.yml --branch trunk`, then open the run with `gh run view --web`.
 
-Approve the **newest** run. The job first checks that its commit is the newest `trunk` commit that
-is not a release commit; if not, it logs a warning and skips the deploy, so an older waiting run
-can never replace a newer build on PROD. Reject runs you do not want to release.
+Approve the **newest** run. The job first checks that no newer `trunk` build exists
+(`.github/scripts/latest-build-commit.sh`: the newest commit that starts a run, so release and
+docs-only commits do not count); if one does, it logs a warning and skips the deploy, so an older
+waiting run can never replace a newer build on PROD. Reject runs you do not want to release.
 
 ### Deploying a branch to TEST
 
@@ -197,14 +198,17 @@ every merge with a changelog entry is a release, whether or not it is promoted t
 
 - It only releases if `changelog.d/` has at least one fragment or `## [Unreleased]` in
   `CHANGELOG.md` has at least one bullet.
-- The next version is computed by `.github/scripts/next-version.sh` from the squash commit
-  subject (see [contributing.md](contributing.md)).
+- The next version is computed by `.github/scripts/next-version.sh`: the highest bump among the
+  commit subjects since the last tag (see [contributing.md](contributing.md#commit-subjects)), so a
+  release that collects several merges gets the right version.
 - `cut-changelog.py` merges the fragments into `[Unreleased]`, moves it into
   `## [x.y.z] - date` and deletes the fragments. The bot commits `chore(release): vx.y.z` to
   `trunk` (with the `RELEASE_DEPLOY_KEY` deploy key), pushes the tag and creates a GitHub Release.
-- It skips itself when `trunk` has moved on since the deployed commit; the later run releases.
-- The version is baked into the app as `APP_VERSION` (`build.gradle`, actuator `/info`) and
-  pushed as Docker tag `feurle/tg-app:x.y.z`. Builds of other branches get `x.y.z-SNAPSHOT`.
+- It skips itself when `trunk` has a newer build (several merges in a row); that run releases
+  all fragments. Docs-only merges on top start no run and do not block the release.
+- The version is baked into the app as `APP_VERSION` (`build.gradle`, actuator `/info`). The job
+  points the Docker tag `feurle/tg-app:x.y.z` at the released `sha-<sha>` image, so only released
+  builds get a version tag. Builds of other branches get `x.y.z-SNAPSHOT`.
 
 ## Actuator
 
