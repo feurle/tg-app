@@ -21,7 +21,8 @@ The merge then produces a release (see [deployment.md](deployment.md#release-flo
 
 ## Commit subjects
 
-The squash commit subject sets the next version:
+The squash commit subject sets the next version. When a release collects several merges, the
+highest bump since the last tag wins:
 
 - `feat` → minor
 - `!` or `BREAKING CHANGE` → major
