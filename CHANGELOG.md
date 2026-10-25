@@ -19,6 +19,14 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.3.2] - 2026-10-25
+
+### Fixed
+
+- CI: Ein Doku-Merge direkt nach einem Merge mit Changelog-Fragment blockiert weder das Release noch den PROD-Deploy. Bisher blieb das Fragment liegen, bis der nächste Code-Merge kam
+- CI: Sammelt ein Release mehrere Merges ein, zählt der höchste Versionssprung seit dem letzten Tag (`feat` → Minor), nicht nur der letzte Commit
+- CI: Das Docker-Tag `feurle/tg-app:x.y.z` setzt erst der Release-Job auf das Image des Releases. Es entstehen keine Versions-Tags ohne Release mehr
+
 ## [1.3.1] - 2026-10-25
 
 ### Changed
@@ -205,7 +213,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/feurle/tg-app/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/feurle/tg-app/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/feurle/tg-app/compare/v1.2.6...v1.3.0
 [1.2.6]: https://github.com/feurle/tg-app/compare/v1.2.5...v1.2.6
