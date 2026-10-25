@@ -30,6 +30,22 @@ Steps after `Test & Build`:
 `:snapshot` (TEST) and `:latest` (PROD) are moving pointers. The compose files do not change.
 Deploys use SSH and the Docker Compose files in `src/main/docker/`.
 
+### Gradle cache
+
+`Test & Build` and `Build & Push Image` both use `gradle/actions/setup-gradle@v6` with
+`cache-provider: basic` (open source; the `enhanced` provider is proprietary and needs acceptance of
+the Gradle Terms of Use). There is no manual `actions/cache` for Gradle.
+
+- Only runs on `trunk` write the cache. PRs and `workflow_dispatch` on other branches restore it
+  read-only (action default, derived from the repository's default branch).
+- The key is a hash of `**/*.gradle*`, `gradle-wrapper.properties`, `gradle/*.versions.toml` and a few
+  other build files. A change to any of them starts with an empty cache and writes one new entry on
+  `trunk`. The basic provider has no restore keys and no automatic cleanup; old entries expire after
+  7 days without access.
+- The npm and Sonar caches are separate and unchanged.
+
+Inspect the caches with `gh api repos/{owner}/{repo}/actions/caches`.
+
 ### Promotion to production
 
 `deploy-prod` waits for the required reviewer. Check the build on TEST, then approve:
