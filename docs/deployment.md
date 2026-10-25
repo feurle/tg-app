@@ -158,8 +158,7 @@ production. The compose files pass it through (`MAIL_TO=${MAIL_TO:-}`).
 
 Local runs only prove that the app can talk to an SMTP server (see
 [local-development.md](local-development.md#sending-real-mail-locally)). Delivery from the real
-sender needs a check on TEST and again on PROD, because only there the sender domain
-`tier-gesund.at` applies:
+sender needs a check on TEST, because only there the sender domain `tier-gesund.at` applies:
 
 1. On the host, set `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD` and `MAIL_FROM` (an address on
    `tier-gesund.at`) in `/appbase/tg-app/.env`. `SMTP_PORT` is not passed through by the compose
@@ -170,8 +169,10 @@ sender needs a check on TEST and again on PROD, because only there the sender do
    types.
 4. In the received mail, check the headers: `spf=pass` and `dkim=pass` for `tier-gesund.at`
    (in Gmail: "Show original"), and that the mail landed in the inbox, not in spam.
-5. On PROD, unset `MAIL_TO` and repeat once with the own address as the referring vet's e-mail.
-   Mail to the practice goes to the primary `vet_info` address, so tell the practice beforehand.
+
+PROD uses the same mail settings as TEST (same SMTP server, credentials and sender), so it is not
+tested separately. On 2026-10-25 the contact message, appointment request, referral (with
+confirmation) and questionnaire were delivered successfully on TEST.
 
 If SPF or DKIM fail, fix the DNS records of `tier-gesund.at` at the mail provider, not in the app.
 
