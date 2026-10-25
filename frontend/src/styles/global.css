@@ -3290,6 +3290,12 @@ tbody tr:hover td {
 }
 
 /* Home-style sections inside an `about-feed` page: the feed already provides the side padding. */
+/* A CTA article inside the feed: the feed already provides the side padding. */
+.about-feed .cta-section {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .about-feed .home-section {
     padding-left: 0;
     padding-right: 0;

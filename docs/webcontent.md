@@ -12,6 +12,18 @@
 - Images are linked to articles. Sections of a `METHODS` article can carry one optional image
   (`section.image_id`).
 
+## Call to action (`CTA`)
+
+- A `CTA` article is a block with an optional headline (`title`), an optional text (`content`)
+  and up to two buttons. Each button is a section: `section.title` is the label and
+  `section.content` the target. With a headline the CTA gets the accent look
+  (`questionnaire-cta`), without one it is the plain contact CTA.
+- Allowed targets: `contact:appointment`, `contact:message`, an internal path starting with `/`
+  (not `//`), or an `http(s)://` URL. `SectionService` rejects anything else on save and
+  `features/webcontent/ctaTarget.ts` re-checks on render, because the value ends up in an `href`.
+- Pages do not hard-code a CTA. Home, news, about, treatments, for-vets and contact each have a
+  seeded CTA article. `NewsPage` filters CTAs out of the news list and renders them as blocks.
+
 ## Access
 
 - Write endpoints under `/api/webcontent` require `ROLE_ADMIN` (`@PreAuthorize`).

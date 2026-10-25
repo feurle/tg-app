@@ -20,5 +20,6 @@ public enum ArticleType {
   METHODS,
   STEPS,
   VET_BAND,
+  CTA,
   DEFAULT
 }

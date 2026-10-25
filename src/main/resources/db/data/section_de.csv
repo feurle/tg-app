@@ -56,3 +56,16 @@ id;sort_order;title;content;article_id;image_id
 821;1;Überweisung senden;Sie füllen das Formular unten aus und erhalten eine Bestätigung per E-Mail.;820;
 822;2;Termin mit dem Tierhalter;Ich melde mich beim Tierhalter und vereinbare den Termin.;820;
 823;3;Befunde und Rückmeldung;Befunde senden Sie bitte per E-Mail, die Adresse steht unter dem Formular. Ich halte Sie über die Behandlung auf dem Laufenden.;820;
+830;1;Termin anfragen;contact:appointment;160;
+831;2;Nachricht schreiben;contact:message;160;
+832;1;Termin anfragen;contact:appointment;240;
+833;2;Nachricht schreiben;contact:message;240;
+834;1;Termin anfragen;contact:appointment;340;
+835;2;Nachricht schreiben;contact:message;340;
+836;1;Termin anfragen;contact:appointment;610;
+837;2;Nachricht schreiben;contact:message;610;
+838;1;Zum Erhebungsbogen;/questionnaire;750;
+839;1;Termin anfragen;contact:appointment;760;
+840;2;Nachricht schreiben;contact:message;760;
+841;1;Termin anfragen;contact:appointment;830;
+842;2;Nachricht schreiben;contact:message;830;

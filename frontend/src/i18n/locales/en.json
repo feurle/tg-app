@@ -300,7 +300,8 @@
       "NEWS_TEASER": "News Teaser",
       "NEWS_PAGE": "News",
       "ABOUT_TEASER": "About me teaser",
-      "ABOUT_PAGE": "About me page"
+      "ABOUT_PAGE": "About me page",
+      "CTA": "Call to action"
     },
     "pageTypeHelp": {
       "DEFAULT": "Running text with images, as on Privacy and Imprint: the content is spread around the images, sections follow below. Not shown on block-based pages (e.g. Home).",
@@ -317,7 +318,8 @@
       "NEWS_TEASER": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
       "NEWS_PAGE": "Entry in the list on \"News\": title and excerpt of the content (else of the 1st section).",
       "ABOUT_TEASER": "Title = heading, content = text, sections = qualifications line, 1st image = photo; links to \"About me\".",
-      "ABOUT_PAGE": "Article of the \"About me\" page."
+      "ABOUT_PAGE": "Article of the \"About me\" page.",
+      "CTA": "Title = headline (optional), content = text (optional), sections = buttons (max. 2): title = label, target = contact action, internal page or URL."
     },
     "language": {
       "GERMAN": "German",
@@ -357,6 +359,21 @@
       "content": "Content",
       "image": "Image",
       "noImage": "No image"
+    },
+    "cta": {
+      "label": "Button label *",
+      "targetKind": "Target type",
+      "target": "Target",
+      "invalidTarget": "Invalid target. Allowed: contact actions, internal pages and http(s) addresses.",
+      "kind": {
+        "contact": "Contact action",
+        "internal": "Internal page",
+        "external": "External URL"
+      },
+      "contact": {
+        "appointment": "Request an appointment",
+        "message": "Write a message"
+      }
     }
   },
   "image": {

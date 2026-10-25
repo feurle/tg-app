@@ -8,11 +8,13 @@ import com.feurle.tg.webcontent.domain.Image;
 import com.feurle.tg.webcontent.domain.ImageRepository;
 import com.feurle.tg.webcontent.domain.Section;
 import com.feurle.tg.webcontent.domain.SectionRepository;
+import com.feurle.tg.webcontent.domain.enumeration.ArticleType;
 import com.feurle.tg.webcontent.domain.enumeration.MoveDirection;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +27,25 @@ public class SectionService {
   private final ArticleRepository articleRepository;
   private final ImageRepository imageRepository;
 
+  /** A CTA article holds its buttons as sections; at most two. */
+  static final int MAX_CTA_BUTTONS = 2;
+
+  private static final Pattern CTA_TARGET =
+      Pattern.compile("contact:(appointment|message)|/[^\\s]*|https?://[^\\s]+");
+
   public Section createSection(
       Long articleId, int order, String title, String content, Long imageId) {
     Article article =
         articleRepository
             .findById(articleId)
             .orElseThrow(() -> new NoSuchElementException("Article not found: " + articleId));
+    if (article.getArticleType() == ArticleType.CTA) {
+      validateCtaTarget(content);
+      if (sectionRepository.findByArticleIdOrderByOrderAscIdAsc(articleId).size()
+          >= MAX_CTA_BUTTONS) {
+        throw new IllegalArgumentException("A CTA has at most " + MAX_CTA_BUTTONS + " buttons");
+      }
+    }
     Section section = new Section();
     section.setOrder(order);
     section.setTitle(title);
@@ -45,6 +60,9 @@ public class SectionService {
         sectionRepository
             .findById(id)
             .orElseThrow(() -> new NoSuchElementException("Section not found: " + id));
+    if (section.getArticle().getArticleType() == ArticleType.CTA) {
+      validateCtaTarget(content);
+    }
     section.setOrder(order);
     section.setTitle(title);
     section.setContent(content);
@@ -103,6 +121,16 @@ public class SectionService {
       }
     }
     throw new IllegalStateException("Section " + id + " is missing from its own ordering scope");
+  }
+
+  /**
+   * A CTA button target ends up in an {@code href}, so only contact actions, internal routes and
+   * http(s) URLs are accepted. Protocol-relative ({@code //host}) targets are rejected.
+   */
+  static void validateCtaTarget(String target) {
+    if (target == null || !CTA_TARGET.matcher(target).matches() || target.startsWith("//")) {
+      throw new IllegalArgumentException("Invalid CTA button target: " + target);
+    }
   }
 
   private Image findImage(Long imageId) {

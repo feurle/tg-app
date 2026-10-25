@@ -4,11 +4,14 @@ import type { ArticleResponse } from '../../features/webcontent/types';
 import { usePublishedArticles } from '../../features/webcontent/usePublishedArticles';
 import NewsRow from '../../features/webcontent/components/NewsRow';
 import ArticleDetailModal from '../../features/webcontent/components/ArticleDetailModal';
-import ContactButton from '../../features/webcontent/components/ContactButton';
+import PageBlocks from '../../features/webcontent/components/PageBlocks';
 import PageSkeleton from '../../components/PageSkeleton';
 
 export default function NewsPage() {
-    const { articles, loading, fallback } = usePublishedArticles('news');
+    const { articles: published, loading, fallback } = usePublishedArticles('news');
+    // CTA articles are blocks of the page, everything else is a news entry.
+    const articles = published.filter((article) => article.articleType !== 'CTA');
+    const ctas = published.filter((article) => article.articleType === 'CTA');
     const [selected, setSelected] = useState<ArticleResponse | null>(null);
     const { t } = useTranslation();
 
@@ -38,9 +41,7 @@ export default function NewsPage() {
             {selected && (
                 <ArticleDetailModal article={selected} onClose={() => setSelected(null)} />
             )}
-            <div className="cta-section">
-                <ContactButton />
-            </div>
+            <PageBlocks articles={ctas} />
         </div>
     );
 }

@@ -1,7 +1,6 @@
 import DOMPurify from 'dompurify';
 import type { ArticleResponse } from '../types.ts';
 import { imageApi } from '../api.ts';
-import ContactButton from './ContactButton.tsx';
 
 interface Props {
     article: ArticleResponse;
@@ -31,7 +30,6 @@ export default function HeroComponent({ article }: Props) {
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
                     />
                 )}
-                <ContactButton />
             </div>
 
             {heroImage && (

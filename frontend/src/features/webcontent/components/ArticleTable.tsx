@@ -16,7 +16,10 @@ interface Props {
   moving?: boolean;
 }
 
-const sortedSections = (a: ArticleResponse) =>
+/** A CTA article has at most two buttons (its sections); the backend enforces the same limit. */
+const MAX_CTA_BUTTONS = 2;
+
+const sortedSections =(a: ArticleResponse) =>
   [...a.sections].sort((x, y) => x.order - y.order || x.id - y.id);
 
 export default function ArticleTable({ articles, onView, onEdit, onDelete, onAddSection, onEditSection, onDeleteSection, onMoveSection, onCopy, onMove, moving }: Props) {
@@ -117,7 +120,7 @@ export default function ArticleTable({ articles, onView, onEdit, onDelete, onAdd
                     <button onClick={() => onEdit(a)} className="icon-btn" title={t('common.edit')}>
                       ✏️
                     </button>
-                    {onAddSection && (
+                    {onAddSection && !(a.articleType === 'CTA' && a.sections.length >= MAX_CTA_BUTTONS) && (
                       <button onClick={() => onAddSection(a)} className="icon-btn" title={t('section.add')}>
                         ➕
                       </button>

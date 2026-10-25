@@ -300,7 +300,8 @@
       "NEWS_TEASER": "Nyheter teaser",
       "NEWS_PAGE": "Nyheter",
       "ABOUT_TEASER": "Om mig teaser",
-      "ABOUT_PAGE": "Om mig-sida"
+      "ABOUT_PAGE": "Om mig-sida",
+      "CTA": "Call to action"
     },
     "pageTypeHelp": {
       "DEFAULT": "Löptext med bilder, som på Integritet och Impressum: innehållet fördelas runt bilderna, avsnitt följer under. Visas inte på blockbaserade sidor (t.ex. Hem).",
@@ -317,7 +318,8 @@
       "NEWS_TEASER": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
       "NEWS_PAGE": "Post i listan på \"Nyheter\": titel och utdrag ur innehållet (annars 1:a avsnittet).",
       "ABOUT_TEASER": "Titel = rubrik, innehåll = text, avsnitt = kvalifikationsrad, 1:a bilden = foto; länk till \"Om mig\".",
-      "ABOUT_PAGE": "Artikel på sidan \"Om mig\"."
+      "ABOUT_PAGE": "Artikel på sidan \"Om mig\".",
+      "CTA": "Titel = rubrik (valfri), innehåll = text (valfri), avsnitt = knappar (max 2): titel = text, mål = kontaktåtgärd, intern sida eller URL."
     },
     "language": {
       "GERMAN": "Tyska",
@@ -357,6 +359,21 @@
       "content": "Innehåll",
       "image": "Bild",
       "noImage": "Ingen bild"
+    },
+    "cta": {
+      "label": "Knapptext *",
+      "targetKind": "Typ av mål",
+      "target": "Mål",
+      "invalidTarget": "Ogiltigt mål. Tillåtna är kontaktåtgärder, interna sidor och http(s)-adresser.",
+      "kind": {
+        "contact": "Kontaktåtgärd",
+        "internal": "Intern sida",
+        "external": "Extern URL"
+      },
+      "contact": {
+        "appointment": "Boka tid",
+        "message": "Skriv ett meddelande"
+      }
     }
   },
   "image": {
