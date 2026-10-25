@@ -655,10 +655,8 @@ body {
 }
 
 .footer-col-label {
-    font-size: 9.5px;
+    font-size: var(--fs-xs);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
     color: var(--text-muted);
     margin-bottom: 10px;
     font-family: var(--font);
@@ -2354,6 +2352,19 @@ tbody tr:hover td {
     min-height: calc(100vh - 72px);
 }
 
+/* Heading for screen readers only, for pages whose first visible heading is CMS content. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
 .about-feed {
     padding: 72px 64px 0;
     max-width: 1200px;
@@ -2884,7 +2895,7 @@ tbody tr:hover td {
     font-weight: 600;
     color: var(--brand);
     border-bottom: 2px solid var(--wood);
-    padding-bottom: 2px;
+    padding: var(--space-1) 0;
 }
 
 .home-more-link:hover {
@@ -2919,7 +2930,7 @@ tbody tr:hover td {
 .symptom-text,
 .step-text,
 .method-text {
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
     line-height: 1.6;
     color: var(--text-secondary);
     margin: 0;
@@ -2953,10 +2964,6 @@ tbody tr:hover td {
     object-fit: cover;
     border-radius: var(--radius);
     display: block;
-}
-
-.method-text {
-    font-size: var(--fs-base);
 }
 
 .symptom-text > * + *,
@@ -3003,7 +3010,7 @@ tbody tr:hover td {
 }
 
 .about-teaser-quals {
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     line-height: 1.6;
     color: var(--text-muted);
     margin: var(--space-3) 0 0;
@@ -3051,7 +3058,7 @@ tbody tr:hover td {
 }
 
 .vet-band-text {
-    font-size: var(--fs-sm);
+    font-size: var(--fs-base);
     color: var(--text-secondary);
     margin: 0;
 }
@@ -3128,6 +3135,7 @@ tbody tr:hover td {
     font-weight: 600;
     color: var(--brand);
     border-bottom: 2px solid var(--wood);
+    padding: var(--space-1) 0;
 }
 
 .open-status {
