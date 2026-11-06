@@ -1,9 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "worktree": {
+    "directory": ".."
+  },
   "mcp": {
     "chrome-devtools": {
       "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--isolated"],
       "enabled": true
     },
     "firefox-devtools": {

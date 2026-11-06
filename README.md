@@ -22,6 +22,7 @@ Open http://localhost:5173 and log in with `admin` / `admin`. Details: [docs/loc
 ./gradlew spotlessApply        # format code (run before committing)
 ./gradlew jacocoTestReport     # coverage report
 ./gradlew bootBuildImage       # Docker image via Cloud Native Buildpacks
+scripts/new-worktree.sh 137 chore actions-node24   # worktree per issue (docs/local-development.md)
 ```
 
 Frontend commands: [frontend/README.md](frontend/README.md).
