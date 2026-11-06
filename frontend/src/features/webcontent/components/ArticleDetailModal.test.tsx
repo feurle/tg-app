@@ -28,6 +28,6 @@ describe('ArticleDetailModal', () => {
 
         expect(screen.getByRole('heading', { name: 'Neue Sprechzeiten' })).not.toBeNull();
         expect(screen.getByText('Ab November gelten neue Sprechzeiten.')).not.toBeNull();
-        expect(container.textContent).not.toContain('25. Oktober 2026');
+        expect(container.textContent).not.toMatch(/2026/);
     });
 });

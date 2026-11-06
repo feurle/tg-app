@@ -29,7 +29,6 @@ describe('NewsRow', () => {
         expect(screen.getByRole('heading', { name: 'Neue Sprechzeiten' })).not.toBeNull();
         expect(screen.getByText('Ab November gelten neue Sprechzeiten.')).not.toBeNull();
         expect(screen.getByText('Lesen')).not.toBeNull();
-        expect(container.textContent).not.toContain('25.10.2026');
-        expect(container.textContent).not.toContain('01.10.2026');
+        expect(container.textContent).not.toMatch(/2026/);
     });
 });
