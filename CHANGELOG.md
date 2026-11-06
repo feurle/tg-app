@@ -19,6 +19,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.1] - 2026-11-06
+
+### Changed
+
+- CI: GitHub Actions auf Versionen mit nativem Node.js 24 gehoben; die Node-20-Warnungen in den Workflow-Läufen entfallen (#137)
+
 ## [1.4.0] - 2026-11-06
 
 ### Changed
@@ -219,7 +225,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/feurle/tg-app/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/feurle/tg-app/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/feurle/tg-app/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/feurle/tg-app/compare/v1.3.0...v1.3.1
