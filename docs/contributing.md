@@ -2,7 +2,7 @@
 
 ## Pull request flow
 
-1. Work in a branch (one worktree per issue, see
+1. Work in a branch. To work on several issues at once, use one worktree per issue (see
    [local-development.md](local-development.md#parallel-worktrees)). A push runs nothing. The
    PR runs `Test & Build` only.
 2. Squash-merge the PR into `trunk`. This deploys to TEST and cuts the release. It does not
