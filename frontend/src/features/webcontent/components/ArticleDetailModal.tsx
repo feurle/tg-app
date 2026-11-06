@@ -13,14 +13,6 @@ export default function ArticleDetailModal({ article, onClose }: Props) {
     const { images, content } = article;
     const segments = splitContent(content ?? '', images.length);
 
-    const dateStr = article.publishedDate
-        ? new Date(article.publishedDate).toLocaleDateString('de-DE', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-          })
-        : '';
-
     useEffect(() => {
         const prev = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
@@ -61,8 +53,6 @@ export default function ArticleDetailModal({ article, onClose }: Props) {
                             </svg>
                         </button>
                     </div>
-
-                    {dateStr && <div className="news-detail-date">{dateStr}</div>}
 
                     <div className="news-detail-body article-content">
                         {images.length === 0 && content && (
