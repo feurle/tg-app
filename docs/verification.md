@@ -37,7 +37,7 @@ until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home
    && curl -s -o /dev/null --max-time 2 localhost:5173/; do sleep 2; done
 ```
 
-In a second worktree set `SERVER_PORT` and `VITE_PORT` (see
+In a worktree, use its ports (backend `20000 + N`, frontend `30000 + N` for issue `N`, see
 [local-development.md](local-development.md#parallel-worktrees)) and replace 8080 and 5173 in every
 command below.
 
@@ -121,6 +121,7 @@ matches display order:
   `pkill -f bootRun` only catches the Gradle wrapper and leaves the forked JVM
   holding the port. The kill command can return an odd exit code even on success,
   so check the port instead of trusting the exit code.
-- **Stopping the frontend:** `pkill -f vite`. The `npm run dev` wrapper doesn't
-  hold the port, `vite` does.
+- **Stopping the frontend:** `kill $(ss -ltnp | grep ':5173' | grep -oP 'pid=\K[0-9]+')`. The
+  `npm run dev` wrapper doesn't hold the port, `vite` does. Don't use `pkill -f vite`: it also
+  stops the dev servers of other worktrees.
 - **Confirm both are down:** `ss -ltnp | grep -E ':8080|:5173' || echo "both ports free"`.
