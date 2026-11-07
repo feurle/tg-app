@@ -70,6 +70,8 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+	// layers src/test/resources/application-junit.yaml over the main application.yaml
+	systemProperty 'spring.profiles.active', 'junit'
 	finalizedBy jacocoTestReport
 }
 

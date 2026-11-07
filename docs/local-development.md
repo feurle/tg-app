@@ -29,6 +29,20 @@ fails instead of picking another port, so the URL is always the one you set). Pa
 command line, not in `.env`: `.env` only reaches the backend, so Vite would still proxy to 8080.
 `docs/verification.md` assumes the default ports. Substitute yours there.
 
+## Test configuration
+
+Tests run against `src/main/resources/application.yaml` with the `junit` profile on top
+(`src/test/resources/application-junit.yaml`, activated by the `test` task in `build.gradle`).
+`MainConfigurationIT` checks that the main file arrives.
+
+- Overrides for all tests go into `application-junit.yaml`. Do not add a
+  `src/test/resources/application.yaml`: it would hide the main file instead of extending it.
+- Overrides for one test class go into `@TestPropertySource`.
+- `@ActiveProfiles` replaces the active profiles, so list `junit` there as well.
+- The profile is not called `test`: that one belongs to the TEST environment.
+- The profile is set by Gradle. In the IDE, run tests through Gradle (IntelliJ's default) or set
+  `spring.profiles.active=junit` in the run configuration.
+
 ## Sending real mail locally
 
 The mail properties come from environment variables (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`,
