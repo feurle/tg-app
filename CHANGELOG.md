@@ -19,6 +19,19 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.2] - 2026-11-07
+
+### Changed
+
+- Startseite: Chiropraktik zeigt ein neues Foto, „Ganzheitliche Betreuung“ bekommt erstmals ein Foto (#86)
+- Goldimplantation: Startseite und Fachartikel zeigen hochauflösende Röntgenbilder statt des kleinen Fotos (#86)
+- Goldimplantation: Der Fachartikel nennt keine Kontaktdaten der Tierklinik Fürst mehr (#86)
+- Startseite: Der „Über mich“-Teaser zeigt ein echtes Foto statt eines KI-Bilds (#86)
+
+### Removed
+
+- Nicht mehr benötigte Bilder aus den Seed-Daten entfernt (#86)
+
 ## [1.4.1] - 2026-11-06
 
 ### Changed
@@ -225,7 +238,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.2...HEAD
+[1.4.2]: https://github.com/feurle/tg-app/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/feurle/tg-app/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/feurle/tg-app/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/feurle/tg-app/compare/v1.3.1...v1.3.2
