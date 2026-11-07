@@ -64,6 +64,17 @@ components. Pass a fixed `Date` to time-dependent logic instead of faking the cl
 CI runs the tests after the lint step. Runtime checks in the browser still follow
 [verification.md](verification.md).
 
+## Supported browsers
+
+- The build target is set in `frontend/vite.config.ts` (`BUILD_TARGET`): Chrome/Edge/Firefox 90,
+  Safari and iOS 15. Vite's default would start at Safari/iOS 16.4, and older iPads often stay on
+  iOS 15.
+- The target only covers syntax. Newer browser APIs are not polyfilled, so check
+  [caniuse](https://caniuse.com) against Safari 15 before using one on public pages.
+- Do not use regex lookbehind (`(?<=…)`, `(?<!…)`). It cannot be transpiled, and Safari before
+  16.4 fails on it. The `no-regex-lookbehind` plugin in `vite.config.ts` fails the build when any
+  chunk contains one, including chunks from dependencies (#148).
+
 ## Design
 
 Design tokens are in `frontend/src/styles/variables.css`. Direction and rules are in
