@@ -1,7 +1,7 @@
+import type { ComponentType } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import RootLayout from '../layout/RootLayout';
 import PublicLayout from '../layout/PublicLayout';
-import AppLayout from '../layout/AppLayout';
 import ProtectedRoute from './ProtectedRoute';
 import HomePage from '../pages/public/HomePage';
 import NewsPage from '../pages/public/NewsPage';
@@ -15,21 +15,24 @@ import ReferralPage from '../pages/public/ReferralPage';
 import QuestionnairePage from '../pages/public/QuestionnairePage';
 import AppointmentPage from '../pages/public/AppointmentPage';
 import MessagePage from '../pages/public/MessagePage';
-import QuestionnairesPage from '../pages/protected/QuestionnairesPage';
-import CustomersPage from '../pages/protected/CustomersPage';
-import UsersPage from '../pages/protected/UsersPage';
-import ArticlesRoute from '../pages/protected/ArticlesRoute';
-import ArticlesPreviewPage from '../pages/protected/ArticlesPreviewPage';
-import ImagesPage from '../pages/protected/ImagesPage';
-import TagsPage from '../pages/protected/TagsPage';
-import ContactInfoPage from '../pages/protected/ContactInfoPage';
 import NotFoundPage from '../pages/public/NotFoundPage';
 import RouteErrorPage from '../pages/RouteErrorPage';
+import PageSkeleton from '../components/PageSkeleton';
 import { ROUTES } from './routes';
+
+/**
+ * The admin area (layout, pages, the Tiptap editor) is loaded on demand, so visitors of the public
+ * pages do not download it (#151).
+ */
+const admin = (load: () => Promise<{ default: ComponentType }>) => async () => ({
+  Component: (await load()).default,
+});
 
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    // Shown while a lazy admin chunk loads on a direct visit or reload of an admin URL.
+    hydrateFallbackElement: <PageSkeleton />,
     children: [
       {
         element: <PublicLayout />,
@@ -56,16 +59,16 @@ const router = createBrowserRouter([
         errorElement: <RouteErrorPage />,
         children: [
           {
-            element: <AppLayout />,
+            lazy: admin(() => import('../layout/AppLayout')),
             children: [
-              { path: ROUTES.CUSTOMERS, element: <CustomersPage /> },
-              { path: ROUTES.USERS, element: <UsersPage /> },
-              { path: ROUTES.QUESTIONNAIRES, element: <QuestionnairesPage /> },
-              { path: ROUTES.PAGE, element: <ArticlesRoute /> },
-              { path: ROUTES.PAGE_PREVIEW, element: <ArticlesPreviewPage /> },
-              { path: ROUTES.IMAGES, element: <ImagesPage /> },
-              { path: ROUTES.TAGS, element: <TagsPage /> },
-              { path: ROUTES.CONTACT_INFO, element: <ContactInfoPage /> },
+              { path: ROUTES.CUSTOMERS, lazy: admin(() => import('../pages/protected/CustomersPage')) },
+              { path: ROUTES.USERS, lazy: admin(() => import('../pages/protected/UsersPage')) },
+              { path: ROUTES.QUESTIONNAIRES, lazy: admin(() => import('../pages/protected/QuestionnairesPage')) },
+              { path: ROUTES.PAGE, lazy: admin(() => import('../pages/protected/ArticlesRoute')) },
+              { path: ROUTES.PAGE_PREVIEW, lazy: admin(() => import('../pages/protected/ArticlesPreviewPage')) },
+              { path: ROUTES.IMAGES, lazy: admin(() => import('../pages/protected/ImagesPage')) },
+              { path: ROUTES.TAGS, lazy: admin(() => import('../pages/protected/TagsPage')) },
+              { path: ROUTES.CONTACT_INFO, lazy: admin(() => import('../pages/protected/ContactInfoPage')) },
             ],
           },
         ],
