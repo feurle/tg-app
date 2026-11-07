@@ -12,7 +12,12 @@
 
 - Changelogs live per module in `src/main/resources/db/changelog/`, usually as
   `001-init-schema` and `002-load-initial-data`. The master file is `db.changelog-master.yaml`.
-- Seed data is CSV under `src/main/resources/db/data/` (images in `db/data/blob/`).
+- Seed data is CSV under `src/main/resources/db/data/`.
+- Seed images are files in `db/data/blob/`. The `image_data` column of `image.csv` holds the
+  path, not Base64: `../../data/blob/<file>`. Liquibase resolves it relative to the changelog
+  folder (`db/changelog/webcontent/`), not relative to the CSV. To replace a seed photo, replace
+  the file. The changeset checksum covers only the CSV, so a replaced file does not break
+  validation, but it also does not reach a database where the changeset has already run.
 - Contexts:
 
 | Context | Data | Active in |
