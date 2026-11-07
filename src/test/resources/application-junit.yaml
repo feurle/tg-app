@@ -1,0 +1,22 @@
+# Test overrides, layered over src/main/resources/application.yaml (profile set in build.gradle).
+spring:
+  liquibase:
+    contexts: seed
+  mail:
+    host: localhost
+    port: 1025
+    # the main file reads these from SMTP_USERNAME/SMTP_PASSWORD without a default
+    username: junit
+    password: junit
+  # No tg-admin in tests
+  boot:
+    admin:
+      client:
+        enabled: false
+
+app:
+  mail:
+    from: Webapp <app@foo.bar>
+  rate-limit:
+    # the ITs post many forms from the same address
+    max-requests: 1000

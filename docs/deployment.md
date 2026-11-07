@@ -150,7 +150,8 @@ These settings live outside the repository; recreate them when the repository is
 Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS
 ([proxy-architecture.puml](proxy-architecture.puml)).
 
-The app itself takes care of HTTP delivery (`common/HttpDeliveryConfig`), not the proxy:
+The app itself takes care of HTTP delivery, not the proxy. Compression is set under
+`server.compression` in `application.yaml`, the cache headers in `common/HttpDeliveryConfig`:
 
 - gzip for HTML, CSS, JS, JSON and SVG from 1 KB.
 - `/assets/**` (Vite file names with content hash): `Cache-Control: public, max-age=31536000,
