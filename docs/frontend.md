@@ -16,15 +16,23 @@ This file covers the conventions behind them.
 
 - `frontend/src/features/auth/authStore.ts` is a plain module-level singleton, not a React
   context. It calls `GET /api/auth/me` on startup to restore the session.
-- Read auth state in components with the `useAuth()` hook.
+- Read auth state in components with the `useAuth()` hook. It reads the store with
+  `useSyncExternalStore`; do not switch back to `useState` plus a subscription in `useEffect`,
+  which misses a change that happens between render and effect (#151).
 - Login is `POST /api/auth/login` with JSON. Form login is disabled.
-- Protected routes render a blank page when the user is not logged in. They do not redirect.
-  A blank protected page usually means the session cookie is missing.
+- `ProtectedRoute` renders nothing while `/api/auth/me` is pending and redirects to `/` when the
+  user is not logged in. A protected page that stays blank therefore means the auth state never
+  arrived, not a missing cookie.
 
 ## Routing
 
 - Two layout tracks in `frontend/src/router/index.tsx`: `PublicLayout` for public pages and
   `ProtectedRoute` (checks auth, then renders `AppLayout`) for admin pages.
+- The admin track is code-split: `AppLayout` and every admin page use the route's `lazy` property,
+  so the public bundle does not contain them or the Tiptap editor (#151). Import admin pages only
+  from the router, never from public code, or they end up in the public bundle again. On a direct
+  visit or reload of an admin URL the root route shows `PageSkeleton` (`hydrateFallbackElement`)
+  until the chunk is loaded.
 - Both tracks sit under a pathless root route (`RootLayout`) that renders `<ScrollRestoration />`:
   new navigations start at the top, Back/Forward restores the position. Search-param changes that
   should keep the position pass `preventScrollReset`.
