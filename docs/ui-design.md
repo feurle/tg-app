@@ -69,7 +69,8 @@ Regeln:
 ## 5. Bildsprache
 
 - **Porträt:** Das Porträt von Dr. Feurle-Elsäßer (`aboutme.jpg`) steht im Hero und auf der Seite „Über mich“. Ein höher aufgelöster Zuschnitt für den Hero kann es ersetzen.
-- **Behandlungsfotos „Hände am Tier“** werden in der Methoden-Sektion verwendet.
+- **Behandlungsfotos „Hände am Tier“** werden in der Methoden-Sektion verwendet. Bei der Goldimplantation zeigt stattdessen ein Röntgenbild, wo die Implantate sitzen.
+- **Röntgenbilder** werden so zugeschnitten, dass keine Patienten- und Praxisdaten im Bild bleiben. Originale kommen nicht ins Repo.
 - Gezeigt werden nur Hund, Katze und Kleintiere. Es gibt keine Stockfotos und keine Illustrationen.
 
 ## 6. Navigation
@@ -110,7 +111,7 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
 2 WANN ZU MIR?   Schmerz | Bewegung/Lahmheit | Chronisches | Senioren
                  (je ein Satz + Verweis auf passende Methode)
 3 METHODEN       Chiropraktik | Goldimplantation | Integrativ
-                 (Foto Hände-am-Tier + 2 Sätze + "mehr" → Behandlungen)
+                 (Foto oder Röntgenbild + 2 Sätze + "mehr" → Behandlungen)
 4 ÜBER MICH      Vita kurz, Zertifikate (IVCA …), → /about
 5 ERSTER TERMIN  Anfrage → Fragebogen → Termin   (als Fließtext/Pfeile, keine Nummern-Badges)
 6 FÜR TIERÄRZTE  schmales Band auf --brand-light: "Patient überweisen →"
