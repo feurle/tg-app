@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/logo.webp';
 import { useVetInfo } from '../features/contact/useVetInfo';
 import { telHref } from '../features/contact/officeHours';
 import { addressLines, filled } from '../features/contact/contactInfo';

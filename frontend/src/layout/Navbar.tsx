@@ -6,7 +6,7 @@ import { useAuth } from '../features/auth/authStore';
 import LoginModal from '../features/auth/components/LoginModal';
 import { useVetInfo } from '../features/contact/useVetInfo';
 import { telHref } from '../features/contact/officeHours';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/logo.webp';
 
 const MAIN_LINKS = [
   { to: ROUTES.TREATMENTS, label: 'nav.treatments' },

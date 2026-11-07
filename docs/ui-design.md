@@ -90,6 +90,7 @@ Regeln:
 └──────────────────────────────────┘
 ```
 
+- Das Logo ist `frontend/src/assets/logo.webp` mit 228×228 px: Die Navigation zeigt es 70 px hoch (beim Hover 76 px), das reicht für dreifache Pixeldichte. Die Favicons liegen in `frontend/public/`: `favicon.ico` (16/32/48 px) und `apple-touch-icon.png` (180 px, Hintergrund `#F4F3EF`, weil iOS Transparenz schwarz füllt). Ein neues Logo in diesen Größen exportieren, nicht im Original (#150).
 - Es gibt kein „Anfragen“-Dropdown in der Navigation.
 - „Für Tierärzte“ erscheint als dezenter Link in der Kopfzeile und im Footer.
 - `/for-pet-owners` ist die Seite **Behandlungen**: Methoden im Detail, Ablauf des Erstbesuchs und ein Link zum Fragebogen. Die alte Route leitet weiter.
