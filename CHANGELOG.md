@@ -19,6 +19,17 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.5] - 2026-11-07
+
+### Changed
+
+- Seiten laden schneller: Texte, Skripte und Stylesheets werden komprimiert übertragen, das Skript-Paket schrumpft von 953 auf 286 KB (#149)
+- Bei einem erneuten Besuch lädt der Browser Skripte, Stylesheets und Schrift aus seinem Zwischenspeicher, statt sie jedes Mal neu herunterzuladen (#149)
+
+### Fixed
+
+- Die Website lädt wieder auf iPhones und iPads mit iOS 15 bis 16.3 und in Safari vor 16.4, statt leer zu bleiben (#148)
+
 ## [1.4.4] - 2026-11-07
 
 ### Changed
@@ -256,7 +267,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.4...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.5...HEAD
+[1.4.5]: https://github.com/feurle/tg-app/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/feurle/tg-app/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/feurle/tg-app/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/feurle/tg-app/compare/v1.4.1...v1.4.2
