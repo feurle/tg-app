@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../router/routes';
@@ -25,9 +25,44 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const callOnly = pathname === ROUTES.APPOINTMENT || pathname === ROUTES.REFERRAL;
 
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  // The open menu is a modal dialog (#152): focus goes to its first link, Escape closes it and
+  // returns the focus to the menu button, and Tab cycles through the button and the menu entries.
+  // A keydown handler instead of `inert`, which Safari only supports from 15.5 on.
+  useEffect(() => {
+    if (!menuOpen) return;
+    menuRef.current?.querySelector<HTMLElement>('a, button')?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+      if (e.key !== 'Tab' || !toggleRef.current || !menuRef.current) return;
+      const items = [toggleRef.current, ...menuRef.current.querySelectorAll<HTMLElement>('a, button')];
+      const first = items[0];
+      const last = items[items.length - 1];
+      const current = document.activeElement as HTMLElement | null;
+      const inside = current !== null && items.includes(current);
+      if (e.shiftKey && (current === first || !inside)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (current === last || !inside)) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
@@ -73,10 +108,12 @@ export default function Navbar() {
             </button>
           )}
           <button
+            ref={toggleRef}
             className="nav-hamburger"
             onClick={() => (menuOpen ? closeMenu() : setMenuOpen(true))}
             aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             {menuOpen ? (
               <svg viewBox="0 0 24 24" fill="none" width="22" height="22" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -95,7 +132,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="mobile-overlay" role="dialog" aria-modal="true" aria-label="Navigation">
+        <div id="mobile-menu" ref={menuRef} className="mobile-overlay" role="dialog" aria-modal="true" aria-label="Navigation">
           <nav className="mobile-overlay-links">
             {MAIN_LINKS.map(({ to, label }) => (
               <NavLink key={to} to={to} onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-overlay-link active' : 'mobile-overlay-link'}>
