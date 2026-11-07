@@ -38,6 +38,7 @@ export default function HeroComponent({ article }: Props) {
                         src={imageApi.getDownloadUrl(heroImage.id)}
                         alt={heroImage.title || heroImage.fileName}
                         className="hero-media-img"
+                        fetchPriority="high"
                     />
                     <div className="hero-media-frame" />
                 </div>

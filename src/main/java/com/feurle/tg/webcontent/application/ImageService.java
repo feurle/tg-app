@@ -6,6 +6,7 @@ import com.feurle.tg.webcontent.domain.Image;
 import com.feurle.tg.webcontent.domain.ImageRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,12 @@ import org.springframework.stereotype.Service;
 @Transactional
 @RequiredArgsConstructor
 public class ImageService {
+
+  /**
+   * Images are served publicly with their stored type, so only raster formats are accepted. SVG and
+   * HTML could run script on our own origin.
+   */
+  static final Set<String> ALLOWED_MIME_TYPES = Set.of("image/jpeg", "image/png", "image/webp");
 
   private final ImageRepository imageRepository;
 
@@ -23,6 +30,9 @@ public class ImageService {
   public Image upload(byte[] data, String fileName, String mimeType, String title) {
     if (data == null || data.length == 0) {
       throw new IllegalArgumentException("Image data cannot be empty");
+    }
+    if (mimeType == null || !ALLOWED_MIME_TYPES.contains(mimeType)) {
+      throw new IllegalArgumentException("Unsupported image type: " + mimeType);
     }
 
     Image image = new Image();

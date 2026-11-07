@@ -23,8 +23,10 @@ import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -152,8 +154,11 @@ public class WebContentController {
         image.getMimeType() != null
             ? image.getMimeType()
             : MediaType.APPLICATION_OCTET_STREAM_VALUE;
+    // The bytes behind an id never change (updates only touch the title), so browsers may keep
+    // the image for a year without asking again.
     return ResponseEntity.ok()
         .header(HttpHeaders.CONTENT_TYPE, contentType)
+        .cacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic().immutable())
         .body(image.getImageData());
   }
 

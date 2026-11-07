@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ACCEPTED_IMAGE_TYPES } from '../prepareImageUpload';
 
 interface Props {
   onUpload: (file: File, title: string) => void;
@@ -42,7 +43,7 @@ export default function ImageUploadModal({ onUpload, onCancel, saving }: Props) 
             <input
               ref={inputRef}
               type="file"
-              accept="image/*"
+              accept={ACCEPTED_IMAGE_TYPES.join(',')}
               onChange={handleFileChange}
               style={{ display: 'none' }}
             />

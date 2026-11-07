@@ -12,6 +12,8 @@ import com.feurle.tg.webcontent.domain.ImageRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -57,6 +59,36 @@ class ImageServiceTest {
     assertThatThrownBy(() -> imageService.upload(new byte[0], "photo.jpg", "image/jpeg", "Title"))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("Image data cannot be empty");
+
+    verifyNoInteractions(imageRepository);
+  }
+
+  @Test
+  void upload_acceptsPngAndWebp() {
+    when(imageRepository.save(any(Image.class)))
+        .thenAnswer(invocation -> invocation.getArgument(0));
+
+    assertThat(imageService.upload(new byte[] {1}, "a.png", "image/png", null).getMimeType())
+        .isEqualTo("image/png");
+    assertThat(imageService.upload(new byte[] {1}, "a.webp", "image/webp", null).getMimeType())
+        .isEqualTo("image/webp");
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"image/svg+xml", "text/html", "application/octet-stream", "image/gif"})
+  void upload_throwsForUnsupportedType(String mimeType) {
+    assertThatThrownBy(() -> imageService.upload(new byte[] {1}, "file", mimeType, "Title"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Unsupported image type: " + mimeType);
+
+    verifyNoInteractions(imageRepository);
+  }
+
+  @Test
+  void upload_throwsWhenTypeIsMissing() {
+    assertThatThrownBy(() -> imageService.upload(new byte[] {1}, "file", null, "Title"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessage("Unsupported image type: null");
 
     verifyNoInteractions(imageRepository);
   }

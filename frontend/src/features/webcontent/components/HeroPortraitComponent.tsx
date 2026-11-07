@@ -55,6 +55,7 @@ export default function HeroPortraitComponent({ article }: Props) {
                     className="hero-portrait-img"
                     src={imageApi.getDownloadUrl(portrait.id)}
                     alt={portrait.title || portrait.fileName}
+                    fetchPriority="high"
                 />
             )}
         </section>
