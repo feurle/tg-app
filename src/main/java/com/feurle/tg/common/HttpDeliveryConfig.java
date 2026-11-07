@@ -1,0 +1,62 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2026 Daniel Feurle
+package com.feurle.tg.common;
+
+import java.util.concurrent.TimeUnit;
+import org.springframework.boot.web.server.Compression;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.CacheControl;
+import org.springframework.util.unit.DataSize;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+/**
+ * Compression and cache headers for what Spring Boot serves itself, the frontend included
+ * (docs/adr/0001-single-container-deployment.md). Kept in code rather than application.yaml so the
+ * tests run against it: src/test/resources/application.yaml replaces the main one in tests.
+ */
+@Configuration
+class HttpDeliveryConfig implements WebMvcConfigurer {
+
+  /** Text responses only; images are compressed already. The JS bundle shrinks to about a third. */
+  @Bean
+  WebServerFactoryCustomizer<ConfigurableWebServerFactory> compressionCustomizer() {
+    return factory -> {
+      Compression compression = new Compression();
+      compression.setEnabled(true);
+      compression.setMimeTypes(
+          new String[] {
+            "text/html",
+            "text/css",
+            "text/javascript",
+            "application/javascript",
+            "application/json",
+            "image/svg+xml"
+          });
+      compression.setMinResponseSize(DataSize.ofKilobytes(1));
+      factory.setCompression(compression);
+    };
+  }
+
+  /**
+   * Vite puts a content hash into every file name under {@code /assets/}, so a changed file gets a
+   * new URL and the old one may stay cached for a year. Everything else ({@code index.html},
+   * favicons) is revalidated on each visit (304 via Last-Modified) instead of Spring Security's
+   * default "no-store", which would also keep pages out of the back/forward cache. API responses
+   * are not affected and keep "no-store".
+   */
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry
+        .addResourceHandler("/assets/**")
+        .addResourceLocations("classpath:/static/assets/")
+        .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic().immutable());
+    registry
+        .addResourceHandler("/**")
+        .addResourceLocations("classpath:/static/")
+        .setCacheControl(CacheControl.noCache());
+  }
+}

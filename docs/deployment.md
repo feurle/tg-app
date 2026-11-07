@@ -150,6 +150,16 @@ These settings live outside the repository; recreate them when the repository is
 Both environments sit behind an Nginx reverse proxy with Let's Encrypt TLS
 ([proxy-architecture.puml](proxy-architecture.puml)).
 
+The app itself takes care of HTTP delivery (`common/HttpDeliveryConfig`), not the proxy:
+
+- gzip for HTML, CSS, JS, JSON and SVG from 1 KB.
+- `/assets/**` (Vite file names with content hash): `Cache-Control: public, max-age=31536000,
+  immutable`. Uploaded images get the same, see [webcontent.md](webcontent.md#images).
+- Other static files (`index.html`, favicons): `no-cache`, so the browser revalidates (304).
+- API responses keep Spring Security's `no-store`.
+- HSTS comes from Spring Security. The app containers set `HSTS=off` for nginx-proxy in the
+  compose files, otherwise the header would be sent twice.
+
 All outgoing mail goes to the primary `vet_info` address. To keep staging from writing to the
 practice (or to referring vets), set `MAIL_TO=<own address>` in `/appbase/tg-app/.env` on the host:
 every mail is then redirected there with the real recipient in the subject. Leave it unset in

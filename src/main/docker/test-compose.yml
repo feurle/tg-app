@@ -22,6 +22,8 @@ services:
       - BRANCH_NAME=${BRANCH_NAME}
       - VIRTUAL_HOST=${VIRTUAL_HOST_TEST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST_TEST}
+      # HSTS comes from Spring Security (SecurityConfig); without this nginx-proxy sends a second one
+      - HSTS=off
     networks:
       - nginx-proxy-network
 
