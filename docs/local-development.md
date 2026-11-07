@@ -16,76 +16,18 @@ interleaved without labels, so use the two-terminal setup when debugging a start
 - Logins: see [database.md](database.md#test-credentials).
 - To verify a change at runtime, follow [verification.md](verification.md).
 
-## Parallel worktrees
+## Other ports
 
-Work on several issues at once with one git worktree per issue, next to the main checkout:
-
-```bash
-scripts/new-worktree.sh 137 chore actions-node24
-```
-
-This creates `../tg-app-137` on the new branch `chore/137-actions-node24` from `origin/trunk`,
-copies `.env` from the main checkout and runs `npm ci` in `frontend/`. It prints the ports and
-the next commands. The manual equivalent:
+The default ports 8080 and 5173 can be changed, for example if 8080 is taken:
 
 ```bash
-git fetch origin trunk
-git worktree add --no-track -b chore/137-actions-node24 ../tg-app-137 origin/trunk
+SERVER_PORT=8081 VITE_PORT=5174 ./gradlew devAll
 ```
 
-- `--no-track` matters. Without it the branch tracks `origin/trunk`, and a bare `git push` targets
-  `trunk`. Push the first time with `git push -u origin <branch>`.
-- Branch names are `<type>/<issue>-<slug>`, for example `fix/113-office-hours`. Any prefix works,
-  because only the PR and `trunk` trigger CI. Open the PR against `trunk` (see
-  [contributing.md](contributing.md)).
-- Every worktree has its own `node_modules`, H2 database and `.env` (git-ignored, so copy it over
-  if you need real mail).
-- The main checkout keeps the default ports 8080 and 5173. A worktree for issue `N` uses backend
-  `20000 + N` and frontend `30000 + N`, so parallel worktrees never collide:
-
-  ```bash
-  SERVER_PORT=20137 VITE_PORT=30137 ./gradlew devAll
-  ```
-
-  `SERVER_PORT` moves the backend and the Vite proxy target, `VITE_PORT` moves the dev server (it
-  fails instead of picking another port, so the URL is always the one you set). Pass both on the
-  command line, not in `.env`: `.env` only reaches the backend, so Vite would still proxy to 8080.
-- `docs/verification.md` assumes the default ports. Substitute yours there.
-- Issues that touch the same files (`global.css`, seed CSVs, Liquibase changesets) conflict at
-  merge time. Work on those one after the other.
-
-### With OpenCode
-
-Run one OpenCode session per worktree, started inside it:
-
-```bash
-cd ../tg-app-137 && opencode
-```
-
-The session then reads and writes only that worktree. Tell it the issue's ports, or let it derive
-them from the rule above.
-
-- `opencode.json` starts `chrome-devtools-mcp` with `--isolated` (also in `.mcp.json`), so every
-  session gets its own temporary Chrome profile instead of fighting over the shared default one.
-  Browser logins don't persist between sessions. That is fine, because verification logs in via the
-  API anyway (see [verification.md](verification.md#authenticate)).
-- OpenCode can also create worktrees itself. `"worktree": { "directory": ".." }` in `opencode.json`
-  puts them next to the main checkout. Prefer the script, because it sets the branch name, `.env`
-  and `node_modules` the way this repo expects.
-
-### Cleaning up
-
-After the PR is merged, from the main checkout:
-
-```bash
-git worktree remove ../tg-app-137
-git branch -D chore/137-actions-node24
-git pull --ff-only
-```
-
-`git branch -d` refuses here, because a squash merge leaves the branch's own commits unmerged as far
-as git can tell. `git worktree remove` refuses while the worktree has uncommitted or untracked
-files. Check them first, then add `--force` if they can go.
+`SERVER_PORT` moves the backend and the Vite proxy target, `VITE_PORT` moves the dev server (it
+fails instead of picking another port, so the URL is always the one you set). Pass both on the
+command line, not in `.env`: `.env` only reaches the backend, so Vite would still proxy to 8080.
+`docs/verification.md` assumes the default ports. Substitute yours there.
 
 ## Sending real mail locally
 

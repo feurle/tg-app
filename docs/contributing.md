@@ -2,9 +2,9 @@
 
 ## Pull request flow
 
-1. Work in a branch. To work on several issues at once, use one worktree per issue (see
-   [local-development.md](local-development.md#parallel-worktrees)). A push runs nothing. The
-   PR runs `Test & Build` only.
+1. Work in a branch named `<type>/<issue>-<slug>`, for example `fix/113-office-hours`. Any
+   prefix works, because only the PR and `trunk` trigger CI. A push runs nothing. The PR runs
+   `Test & Build` only.
 2. Squash-merge the PR into `trunk`. This deploys to TEST and cuts the release. It does not
    reach PROD. A merge that only touches files outside the paths listed in `deploy.yml` (for
    example `docs/` only) triggers nothing: no deploy, no release.
