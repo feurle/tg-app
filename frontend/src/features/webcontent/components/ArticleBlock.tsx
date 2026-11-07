@@ -39,6 +39,7 @@ export default function ArticleBlock({article}: Props) {
                                 src={imageApi.getDownloadUrl(image.id)}
                                 alt={image.fileName}
                                 title={image.fileName}
+                                loading="lazy"
                                 style={{
                                     float: floatLeft ? 'left' : 'right',
                                     width: '40%',

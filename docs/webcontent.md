@@ -12,6 +12,23 @@
 - Images are linked to articles. Sections of a `METHODS` article can carry one optional image
   (`section.image_id`).
 
+## Images
+
+- Stored as `LONGBLOB` in the `image` table and served by `GET /api/webcontent/images/{id}/download`
+  with the stored MIME type.
+- The download is cached for a year (`Cache-Control: public, max-age=31536000, immutable`). This
+  is safe because the bytes behind an id never change: `PUT /images/{id}` only updates the title.
+  A different photo is a new upload with a new id.
+- `ImageService` accepts only `image/jpeg`, `image/png` and `image/webp`. SVG and anything else
+  is rejected with `400`, because the file would be served from our own origin.
+- The admin upload (`ImagesPage`) passes the file through `features/webcontent/prepareImageUpload.ts`
+  first: images larger than 1600 px on the longest edge are scaled down, photos are saved as JPEG
+  (quality 0.82), PNGs with transparency stay PNG. The original is kept if the result would not be
+  smaller. The backend limit of 10 MB (`spring.servlet.multipart`) still applies.
+- Public components: the hero images (`HeroComponent`, `HeroPortraitComponent`) load with
+  `fetchPriority="high"`. Images further down use `loading="lazy"`. `Col2Component` loads
+  eagerly because it is the first image on `/about`.
+
 ## Call to action (`CTA`)
 
 - A `CTA` article is a block with an optional headline (`title`), an optional text (`content`)

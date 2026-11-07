@@ -83,7 +83,13 @@ export const imageApi = {
     });
 
     if (!response.ok) {
-      const message = await response.text().catch(() => response.statusText);
+      const body = await response.text().catch(() => '');
+      let message: string;
+      try {
+        message = JSON.parse(body).message ?? (body || response.statusText);
+      } catch {
+        message = body || response.statusText;
+      }
       throw new ApiError(response.status, message);
     }
 

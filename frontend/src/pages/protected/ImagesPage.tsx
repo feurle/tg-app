@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { imageApi } from '../../features/webcontent/api';
+import { prepareImageUpload } from '../../features/webcontent/prepareImageUpload';
 import type { ImageResponse, UpdateImageRequest } from '../../features/webcontent/types';
 import ImageGrid from '../../features/webcontent/components/ImageGrid';
 import ImageUploadModal from '../../features/webcontent/components/ImageUploadModal';
@@ -40,7 +41,7 @@ export default function ImagesPage() {
   async function handleUpload(file: File, title: string) {
     setSaving(true);
     try {
-      const created = await imageApi.upload(file, title);
+      const created = await imageApi.upload(await prepareImageUpload(file), title);
       setImages((prev) => [...prev, created]);
       setModal(null);
     } catch (err) {

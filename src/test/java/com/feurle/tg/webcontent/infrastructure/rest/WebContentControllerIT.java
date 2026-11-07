@@ -4,6 +4,7 @@ package com.feurle.tg.webcontent.infrastructure.rest;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -199,6 +200,23 @@ class WebContentControllerIT {
 
   @Test
   @WithMockUser(roles = "ADMIN")
+  void uploadImage_withSvg_returns400() throws Exception {
+    // Arrange - SVG can carry script and would be served from our own origin
+    MockMultipartFile svg =
+        new MockMultipartFile(
+            "file", "logo.svg", "image/svg+xml", "<svg onload=\"alert(1)\"/>".getBytes());
+
+    // Act & Assert
+    mockMvc
+        .perform(multipart("/api/webcontent/images").file(svg))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.message", equalTo("Unsupported image type: image/svg+xml")));
+
+    assertThat(imageRepository.findAll()).hasSize(1); // only testImage
+  }
+
+  @Test
+  @WithMockUser(roles = "ADMIN")
   void uploadImage_withoutAuth_returns401() throws Exception {
     // Arrange
     MockMultipartFile file =
@@ -218,6 +236,21 @@ class WebContentControllerIT {
         .andExpect(status().isOk())
         .andExpect(header().string("Content-Type", "image/jpeg"))
         .andExpect(content().bytes(new byte[] {1, 2, 3, 4, 5}));
+  }
+
+  @Test
+  void downloadImage_isCacheableForAYear() throws Exception {
+    // With the security filter chain, which sets "no-cache" headers unless the response has its own
+    MockMvc securedMockMvc =
+        webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
+
+    securedMockMvc
+        .perform(get("/api/webcontent/images/{imageId}/download", testImage.getId()))
+        .andExpect(status().isOk())
+        .andExpect(header().string("Cache-Control", "max-age=31536000, public, immutable"))
+        .andExpect(header().doesNotExist("Pragma"))
+        .andExpect(header().doesNotExist("Expires"))
+        .andExpect(header().string("X-Content-Type-Options", "nosniff"));
   }
 
   @Test

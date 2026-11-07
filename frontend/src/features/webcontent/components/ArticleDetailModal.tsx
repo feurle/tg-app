@@ -66,6 +66,7 @@ export default function ArticleDetailModal({ article, onClose }: Props) {
                                     <img
                                         src={imageApi.getDownloadUrl(image.id)}
                                         alt={image.title || image.fileName}
+                                        loading="lazy"
                                         style={{
                                             float: floatLeft ? 'left' : 'right',
                                             width: '42%',

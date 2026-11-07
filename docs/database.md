@@ -15,9 +15,13 @@
 - Seed data is CSV under `src/main/resources/db/data/`.
 - Seed images are files in `db/data/blob/`. The `image_data` column of `image.csv` holds the
   path, not Base64: `../../data/blob/<file>`. Liquibase resolves it relative to the changelog
-  folder (`db/changelog/webcontent/`), not relative to the CSV. To replace a seed photo, replace
-  the file. The changeset checksum covers only the CSV, so a replaced file does not break
-  validation, but it also does not reach a database where the changeset has already run.
+  folder (`db/changelog/webcontent/`), not relative to the CSV.
+- To replace a seed photo, add the new file as a new row with a new id and point the links
+  (`article_images.csv`, `image_id` in `section_de.csv`) at it. Do not swap the bytes behind an
+  existing id: browsers cache image downloads as immutable for a year (see
+  [webcontent.md](webcontent.md#images)). The changeset checksum covers only the CSV, so a
+  swapped file would not break validation either, and it would not reach a database where the
+  changeset has already run.
 - Contexts:
 
 | Context | Data | Active in |
