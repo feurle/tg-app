@@ -19,6 +19,13 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.6] - 2026-11-07
+
+### Changed
+
+- Logo und Website-Symbole sind 25-mal kleiner (533 KB → 24 KB), jede Seite lädt dadurch spürbar schneller (#150)
+- Neues Symbol für den iPhone-/iPad-Homescreen (`apple-touch-icon.png`) mit hellem Hintergrund statt Transparenz (#150)
+
 ## [1.4.5] - 2026-11-07
 
 ### Changed
@@ -267,7 +274,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.5...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.6...HEAD
+[1.4.6]: https://github.com/feurle/tg-app/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/feurle/tg-app/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/feurle/tg-app/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/feurle/tg-app/compare/v1.4.2...v1.4.3
