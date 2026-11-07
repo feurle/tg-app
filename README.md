@@ -8,7 +8,7 @@ Website and CMS for a veterinary practice: a Spring Boot backend serving article
 
 ```bash
 ./gradlew devAll   # backend on :8080, frontend on :5173, Ctrl+C stops both
-                   # SERVER_PORT / VITE_PORT change the ports (parallel worktrees)
+                   # SERVER_PORT / VITE_PORT change the ports (e.g. if 8080 is taken)
 ```
 
 Open http://localhost:5173 and log in with `admin` / `admin`. Details: [docs/local-development.md](docs/local-development.md).
@@ -22,7 +22,6 @@ Open http://localhost:5173 and log in with `admin` / `admin`. Details: [docs/loc
 ./gradlew spotlessApply        # format code (run before committing)
 ./gradlew jacocoTestReport     # coverage report
 ./gradlew bootBuildImage       # Docker image via Cloud Native Buildpacks
-scripts/new-worktree.sh 137 chore actions-node24   # worktree per issue (docs/local-development.md)
 ```
 
 Frontend commands: [frontend/README.md](frontend/README.md).

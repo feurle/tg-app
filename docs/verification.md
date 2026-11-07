@@ -7,7 +7,7 @@ Verify through the running stack, not either half alone.
 
 Browser steps need one of these MCP servers:
 
-- **chrome-devtools** (`.mcp.json`: `npx chrome-devtools-mcp@latest`). This is the default; the examples below use its tool names.
+- **chrome-devtools** (`opencode.json`: `npx chrome-devtools-mcp@latest`). This is the default; the examples below use its tool names.
 - **firefox-devtools**: use this when Firefox is requested or Chrome is unavailable.
 
 curl steps need no browser.
@@ -37,9 +37,8 @@ until curl -s -o /dev/null --max-time 2 localhost:8080/api/webcontent/pages/home
    && curl -s -o /dev/null --max-time 2 localhost:5173/; do sleep 2; done
 ```
 
-In a worktree, use its ports (backend `20000 + N`, frontend `30000 + N` for issue `N`, see
-[local-development.md](local-development.md#parallel-worktrees)) and replace 8080 and 5173 in every
-command below.
+With other ports (see [local-development.md](local-development.md#other-ports)), replace 8080 and
+5173 in every command below.
 
 **H2 is in-memory.** Restarting the backend resets to the Liquibase seed, the
 cheapest way to get clean data after probes pollute it. Seeded pages are in
@@ -122,6 +121,5 @@ matches display order:
   holding the port. The kill command can return an odd exit code even on success,
   so check the port instead of trusting the exit code.
 - **Stopping the frontend:** `kill $(ss -ltnp | grep ':5173' | grep -oP 'pid=\K[0-9]+')`. The
-  `npm run dev` wrapper doesn't hold the port, `vite` does. Don't use `pkill -f vite`: it also
-  stops the dev servers of other worktrees.
+  `npm run dev` wrapper doesn't hold the port, `vite` does.
 - **Confirm both are down:** `ss -ltnp | grep -E ':8080|:5173' || echo "both ports free"`.

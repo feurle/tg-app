@@ -2,14 +2,14 @@
 'https://plantuml.com/sequence-diagram
 title Branching model: trunk-based with promotion
 
-participant "feat/95-...\n(worktree A)" as A
-participant "fix/113-...\n(worktree B)" as B
+participant "feat/95-..." as A
+participant "fix/113-..." as B
 participant "trunk" as T
 participant "TEST" as TEST
 participant "PROD" as PROD
 
-T -> A : git worktree add
-T -> B : git worktree add
+T -> A : git switch -c
+T -> B : git switch -c
 A -> A : commits + changelog.d/feat-95-....md
 B -> B : commits + changelog.d/fix-113-....md
 
