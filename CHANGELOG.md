@@ -19,6 +19,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.8] - 2026-11-07
+
+### Fixed
+
+- Mobiles Menü per Tastatur bedienbar: Beim Öffnen springt der Fokus ins Menü, Tab bleibt im Menü, Escape schließt es und setzt den Fokus zurück auf den Menü-Button (#152)
+
 ## [1.4.7] - 2026-11-07
 
 ### Changed
@@ -280,7 +286,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.7...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.8...HEAD
+[1.4.8]: https://github.com/feurle/tg-app/compare/v1.4.7...v1.4.8
 [1.4.7]: https://github.com/feurle/tg-app/compare/v1.4.6...v1.4.7
 [1.4.6]: https://github.com/feurle/tg-app/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/feurle/tg-app/compare/v1.4.4...v1.4.5
