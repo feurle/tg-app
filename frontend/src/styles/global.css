@@ -3420,7 +3420,8 @@ tbody tr:hover td {
 
 /* Inside a padded feed the hint must not add its own side padding */
 .about-feed .language-fallback,
-.news-feed .language-fallback {
+.news-feed .language-fallback,
+.legal-feed .language-fallback {
     margin: 0;
     padding: 0 0 var(--space-3);
 }

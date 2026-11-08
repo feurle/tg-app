@@ -57,3 +57,5 @@
   loading state and the German fallback hint. Data comes from the hook
   `usePublishedArticles(slug)`.
 - If a page has no articles in the visitor's language, the German articles are shown.
+- Privacy and imprint (`PrivacyPage`, `ImprintPage`) use the same hook and fallback hint, but render
+  each article with `ArticleBlock` (legal-text layout) instead of `PageContent`.
