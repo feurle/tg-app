@@ -51,11 +51,11 @@ id;sort_order;title;content;article_id;image_id
 741;1;Termin anfragen;Sie schicken online eine Anfrage oder rufen an. Die Anmeldung meldet sich bei Ihnen, um den Termin zu bestätigen.;740;
 742;2;Erhebungsbogen ausfüllen;Auf Wunsch füllen Sie vorab den Erhebungsbogen aus. So lerne ich Ihr Tier schon vor dem Termin kennen.;740;
 743;3;Untersuchung in der Praxis;In den Räumen der Tierklinik Fürst untersuche ich Ihr Tier gründlich und bespreche mit Ihnen die passende Behandlung.;740;
-811;1;Typische Überweisungsgründe;<ul><li>Arthrose und Spondylose</li><li>chronische Lahmheit oder Auffälligkeiten im Gangbild</li><li>Verspannungen, Steifigkeit und Asymmetrien</li><li>Hüftgelenksdysplasie und chronische Schmerzen bei Katzen</li><li>chronische Zahnfleischentzündung (Gingivitis) bei Katzen</li><li>Schmerzen, die auf die bisherige Therapie nicht ausreichend ansprechen</li></ul>;810;
-812;2;Was ich anbiete;<ul><li>Chiropraktik (international ausgebildet und geprüft: IAVC, IVCA)</li><li>Goldimplantation zur Schmerztherapie</li><li>Akupunktur und Neuraltherapie (Fachtierärztin)</li><li>Blutegeltherapie</li></ul>;810;
-821;1;Überweisung senden;Sie füllen das Überweisungsformular aus und erhalten eine Bestätigung per E-Mail.;820;
-822;2;Termin mit dem Tierhalter;Ich melde mich beim Tierhalter und vereinbare den Termin.;820;
-823;3;Befunde und Rückmeldung;Befunde senden Sie bitte per E-Mail, die Adresse steht im Überweisungsformular. Ich halte Sie über die Behandlung auf dem Laufenden.;820;
+811;1;Typische Überweisungsgründe;<ul><li>Arthrose und Spondylose</li><li>chronische Lahmheit oder Auffälligkeiten im Gangbild</li><li>Verspannungen, Steifigkeit und Asymmetrien</li><li>Hüftgelenksdysplasie bei Hund und Katze</li><li>chronische Zahnfleischentzündung (Gingivitis) bei Katzen</li><li>Schmerzen, die auf die bisherige Therapie nicht ausreichend ansprechen</li></ul>;810;
+812;2;Was ich anbiete;<ul><li>Chiropraktik (international ausgebildet und geprüft: IAVC, IVCA)</li><li>Goldimplantation zur Schmerztherapie (seit 2012, Fachexpertin der AGI)</li><li>Akupunktur und Neuraltherapie (FTA)</li><li>Blutegeltherapie</li></ul>;810;
+821;1;Überweisung senden;Sie füllen das Überweisungsformular aus, ein Benutzerkonto brauchen Sie dafür nicht. Sie erhalten eine Bestätigung per E-Mail.;820;
+822;2;Termin mit dem Tierhalter;Die Anmeldung meldet sich beim Tierhalter und vereinbart den Termin.;820;
+823;3;Befunde und Rückmeldung;Befunde wie Röntgenbilder oder Laborwerte senden Sie bitte per E-Mail. Die Adresse steht im Formular und in der Bestätigung. Ich halte Sie über die Behandlung auf dem Laufenden.;820;
 830;1;Termin anfragen;contact:appointment;160;
 831;2;Nachricht schreiben;contact:message;160;
 832;1;Termin anfragen;contact:appointment;240;

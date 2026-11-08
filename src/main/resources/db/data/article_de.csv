@@ -18,7 +18,7 @@ id;title;content;state;published_date;created_at;updated_at;language;article_typ
 720;Goldimplantation zur Schmerztherapie;Die Goldimplantation ist eine Option für Katzen mit chronischen Gelenkschmerzen, wenn andere Therapien nicht mehr ausreichend helfen oder nicht vertragen werden.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;2;700
 730;Blutegeltherapie;Blutegel können bei verschiedenen Beschwerden wie Schmerzen oder Entzündungen eingesetzt werden.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;3;700
 740;So läuft der erste Termin ab;;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;STEPS;4;700
-810;Wann eine Überweisung sinnvoll ist;Ich übernehme Patienten mit Schmerz- und Bewegungsproblemen, bei denen die Behandlung in Ihrer Praxis an Grenzen stößt.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;800
+810;Wann eine Überweisung sinnvoll ist;Ich behandle Ihre Patienten mit, wenn die Behandlung von Schmerz- und Bewegungsproblemen in Ihrer Praxis an Grenzen stößt.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;TEXT;1;800
 820;So läuft eine Überweisung ab;;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;STEPS;2;800
 160;;Haben Sie eine Frage zu Ihrem Tier? Schreiben Sie eine Nachricht oder fragen Sie direkt einen Termin an.;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;CTA;7;100
 240;;;PUBLISHED;2026-01-01T00:00:00;2026-01-01T00:00:00;2026-01-01T00:00:00;GERMAN;CTA;4;200
