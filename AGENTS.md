@@ -32,5 +32,6 @@ Spring Boot backend (Java 21, Gradle wrapper, Spring Modulith) for a veterinary 
 | changing the CI/CD, Docker image, releases or `tg-admin` | [docs/deployment.md](docs/deployment.md) |
 | opening a PR (changelog, commit subjects, formatting) | [docs/contributing.md](docs/contributing.md) |
 | changing UI, styling or design tokens | [docs/ui-design.md](docs/ui-design.md) |
+| writing or reviewing website texts (voice, terms, claims) | [.agents/product-marketing.md](.agents/product-marketing.md) |
 | verifying a change at runtime (backend + browser) | [docs/verification.md](docs/verification.md) |
 | understanding a past architecture decision | [docs/adr/](docs/adr/) |
