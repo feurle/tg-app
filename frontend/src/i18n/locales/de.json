@@ -55,9 +55,9 @@
       "about": "Mehr über mich"
     },
     "vetBand": {
-      "cta": "Patient überweisen"
+      "cta": "Patienten überweisen"
     },
-    "tagline": "Tiergesundheit im Fokus",
+    "tagline": "Ganzheitlich-integrative Tiermedizin",
     "contact": {
       "title": "Kontakt & Sprechzeiten",
       "sub": "Wir sind für Sie und Ihr Tier da"
@@ -200,7 +200,7 @@
     "next": "Nächste Sprechzeit: {{day}} ab {{time}} Uhr"
   },
   "contactInfo": {
-    "unavailable": "Sie erreichen uns über „Termin anfragen“ oder „Nachricht schreiben“.",
+    "unavailable": "Sie erreichen die Praxis über „Termin anfragen“ oder „Nachricht schreiben“.",
     "call": "Anrufen",
     "route": "Route anzeigen",
     "phone": "Telefon",
