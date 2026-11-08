@@ -19,6 +19,12 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.11] - 2026-11-08
+
+### Fixed
+
+- Datenschutz und Impressum zeigen in EN/SV/RU den deutschen Text mit Hinweis statt einer leeren Seite (#161)
+
 ## [1.4.10] - 2026-11-08
 
 ### Changed
@@ -301,7 +307,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.10...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.11...HEAD
+[1.4.11]: https://github.com/feurle/tg-app/compare/v1.4.10...v1.4.11
 [1.4.10]: https://github.com/feurle/tg-app/compare/v1.4.9...v1.4.10
 [1.4.9]: https://github.com/feurle/tg-app/compare/v1.4.8...v1.4.9
 [1.4.8]: https://github.com/feurle/tg-app/compare/v1.4.7...v1.4.8
