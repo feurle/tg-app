@@ -24,6 +24,10 @@ export default function Navbar() {
   // on /referral it would pull the referring vet away from the form.
   const { pathname } = useLocation();
   const callOnly = pathname === ROUTES.APPOINTMENT || pathname === ROUTES.REFERRAL;
+  // On /for-vets the bar offers the referral, the main action for referring vets (#163).
+  const mobileCta = pathname === ROUTES.FOR_VETS
+    ? { to: ROUTES.REFERRAL, label: 'referral.title' }
+    : { to: ROUTES.APPOINTMENT, label: 'nav.appointment' };
 
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -163,8 +167,8 @@ export default function Navbar() {
       {(!callOnly || vetInfo?.phone) && (
         <div className={callOnly ? 'mobile-cta-bar mobile-cta-bar-call-only' : 'mobile-cta-bar'}>
           {!callOnly && (
-            <Link to={ROUTES.APPOINTMENT} className="btn-primary mobile-cta-button">
-              {t('nav.appointment')}
+            <Link to={mobileCta.to} className="btn-primary mobile-cta-button">
+              {t(mobileCta.label)}
             </Link>
           )}
           {vetInfo?.phone && (

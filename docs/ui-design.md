@@ -91,6 +91,7 @@ Regeln:
 ```
 
 - Das Logo ist `frontend/src/assets/logo.webp` mit 228×228 px: Die Navigation zeigt es 70 px hoch (beim Hover 76 px), das reicht für dreifache Pixeldichte. Die Favicons liegen in `frontend/public/`: `favicon.ico` (16/32/48 px) und `apple-touch-icon.png` (180 px, Hintergrund `#F4F3EF`, weil iOS Transparenz schwarz füllt). Ein neues Logo in diesen Größen exportieren, nicht im Original (#150).
+- Auf `/for-vets` zeigt die mobile Leiste „Patienten überweisen“ (→ `/referral`) statt „Termin anfragen“, der Anruf-Button bleibt. Auf `/appointment` und `/referral` hat sie nur den Anruf-Button (§8).
 - Es gibt kein „Anfragen“-Dropdown in der Navigation.
 - „Für Tierärzte“ erscheint als dezenter Link in der Kopfzeile und im Footer.
 - `/for-pet-owners` ist die Seite **Behandlungen**: Methoden im Detail, Ablauf des Erstbesuchs und ein Link zum Fragebogen. Die alte Route leitet weiter.
@@ -141,7 +142,7 @@ Zuordnung zu Artikeltypen (`ArticleType`, maßgeblich ist `frontend/src/features
 
 ## 8. Formulare und Überweisung (`/referral`, `/for-vets`)
 
-Alle öffentlichen Formulare (Termin, Nachricht, Überweisung, Fragebogen) teilen ein Muster: Seitenkopf mit kurzem Einleitungstext, Fieldsets als weiße Karten (800px breit, `--radius`, Legend in `--fs-lg`), Absenden unten rechts (mobil volle Breite) und eine Bestätigungskarte statt des Formulars. Die Bausteine liegen in `frontend/src/components/form/`. Termin, Nachricht und Überweisung sind eigene Seiten (`/appointment`, `/message`, `/referral`), kein Modal. Der CTA heißt überall „Termin anfragen“, nur auf `/for-vets` steht an erster Stelle „Patienten überweisen“.
+Alle öffentlichen Formulare (Termin, Nachricht, Überweisung, Fragebogen) teilen ein Muster: Seitenkopf mit kurzem Einleitungstext, Fieldsets als weiße Karten (800px breit, `--radius`, Legend in `--fs-lg`), Absenden unten rechts (mobil volle Breite) und eine Bestätigungskarte statt des Formulars. Die Bausteine liegen in `frontend/src/components/form/`. Termin, Nachricht und Überweisung sind eigene Seiten (`/appointment`, `/message`, `/referral`), kein Modal. Der CTA heißt überall „Termin anfragen“, nur auf `/for-vets` steht an erster Stelle „Patienten überweisen“, auf der Seite selbst und in der mobilen Leiste.
 
 `/for-vets` ist eine reine Infoseite, aufgebaut wie `/contact`:
 

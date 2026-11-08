@@ -59,3 +59,33 @@ describe('Navbar mobile menu', () => {
         expect(screen.queryByRole('dialog', { name: 'Navigation' })).toBeNull();
     });
 });
+
+function renderAt(path: string) {
+    const { container } = render(
+        <MemoryRouter initialEntries={[path]}>
+            <Navbar />
+        </MemoryRouter>,
+    );
+    return container.querySelector<HTMLElement>('.mobile-cta-bar');
+}
+
+describe('Navbar mobile CTA bar', () => {
+    it('offers the referral on the page for vets', () => {
+        const bar = renderAt('/for-vets')!;
+
+        expect(within(bar).getByRole('link', { name: 'Patienten überweisen' }).getAttribute('href')).toBe('/referral');
+        expect(within(bar).queryByRole('link', { name: 'Termin anfragen' })).toBeNull();
+    });
+
+    it('offers the appointment on the other public pages', () => {
+        const bar = renderAt('/treatments')!;
+
+        expect(within(bar).getByRole('link', { name: 'Termin anfragen' }).getAttribute('href')).toBe('/appointment');
+        expect(within(bar).queryByRole('link', { name: 'Patienten überweisen' })).toBeNull();
+    });
+
+    it.each(['/appointment', '/referral'])('shows no action link on %s', (path) => {
+        // Call-only page and no phone number mocked, so the bar is not rendered at all.
+        expect(renderAt(path)).toBeNull();
+    });
+});
