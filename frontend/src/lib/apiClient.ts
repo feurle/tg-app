@@ -4,11 +4,19 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
 export class ApiError extends Error {
   readonly status: number;
-  constructor(status: number, message: string) {
+  /** From the `Retry-After` header (delta seconds), set on rate-limited (429) responses. */
+  readonly retryAfterSeconds?: number;
+  constructor(status: number, message: string, retryAfterSeconds?: number) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
+    this.retryAfterSeconds = retryAfterSeconds;
   }
+}
+
+function parseRetryAfter(header: string | null): number | undefined {
+  if (header === null || !/^\d+$/.test(header.trim())) return undefined;
+  return Number(header);
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -28,7 +36,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     } catch {
       message = body || response.statusText;
     }
-    throw new ApiError(response.status, message);
+    throw new ApiError(response.status, message, parseRetryAfter(response.headers.get('Retry-After')));
   }
 
   // 204 No Content

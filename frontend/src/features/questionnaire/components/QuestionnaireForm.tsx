@@ -6,6 +6,7 @@ import { ApiError } from '../../../lib/apiClient';
 import HoneypotField from '../../../components/HoneypotField';
 import { ChoiceGroup, FormSection, TextAreaField as Area, TextField as Text, YesNo } from '../../../components/form/FormFields';
 import FormSuccess from '../../../components/form/FormSuccess';
+import { retryAfterMinutes } from '../../../components/form/rateLimit';
 
 type Section = 'owner' | 'pet';
 
@@ -41,7 +42,12 @@ export default function QuestionnaireForm() {
       await questionnaireApi.submit({ ...form, ...(website && { website }) });
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : t('questionnaire.error'));
+      const minutes = retryAfterMinutes(err);
+      if (minutes !== null) {
+        setError(t('form.rateLimited', { count: minutes }));
+      } else {
+        setError(err instanceof ApiError ? err.message : t('questionnaire.error'));
+      }
     } finally {
       setSubmitting(false);
     }

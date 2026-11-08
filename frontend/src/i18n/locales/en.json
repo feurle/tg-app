@@ -235,6 +235,7 @@
     "submit": "Send referral",
     "sending": "Sending…",
     "success": "Thank you! Your referral has been received. You will get a confirmation by e-mail.",
+    "successTitle": "Referral sent",
     "again": "Refer another patient",
     "urgencyOption": {
       "ROUTINE": "Routine",
@@ -505,6 +506,10 @@
     }
   },
   "form": {
-    "requiredNote": "* Required field"
+    "requiredNote": "* Required field",
+    "rateLimited_one": "Too many forms were sent in a short time. Please try again in one minute.",
+    "rateLimited_other": "Too many forms were sent in a short time. Please try again in {{count}} minutes.",
+    "rateLimitedWithPhone_one": "Too many forms were sent in a short time. Please try again in one minute or call us: {{phone}}",
+    "rateLimitedWithPhone_other": "Too many forms were sent in a short time. Please try again in {{count}} minutes or call us: {{phone}}"
   }
 }

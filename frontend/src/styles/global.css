@@ -10,6 +10,14 @@ body {
     background: var(--bg);
 }
 
+/* Keyboard focus ring for every element (#112). --brand is ~7:1 on --bg and white, above the
+   3:1 of WCAG 1.4.11. :where() keeps the specificity at zero, so components that draw their own
+   indicator can still set `outline` without fighting this rule. */
+:where(:focus-visible) {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
 /* Buttons */
 .btn-primary {
     padding: 8px 18px;
@@ -360,6 +368,8 @@ body {
     right: 0;
     bottom: 0;
     background: var(--ink);
+    /* --brand is only ~1.9:1 on --ink */
+    --focus-ring: var(--bg);
     z-index: 9;
     display: flex;
     flex-direction: column;

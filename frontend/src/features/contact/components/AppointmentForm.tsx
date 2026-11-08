@@ -13,6 +13,7 @@ import { useVetInfo } from '../useVetInfo';
 import HoneypotField from '../../../components/HoneypotField';
 import { FormSection, SelectField, TextAreaField, TextField, TimeField } from '../../../components/form/FormFields';
 import FormSuccess from '../../../components/form/FormSuccess';
+import { retryAfterMinutes } from '../../../components/form/rateLimit';
 
 const EMPTY = { senderName: '', replyToEmail: '', phone: '', preferredDate: '', preferredTime: '', text: '' };
 
@@ -24,7 +25,7 @@ export default function AppointmentForm() {
     const [form, setForm] = useState(EMPTY);
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<unknown>();
     const [website, setWebsite] = useState('');
 
     const set = (key: keyof typeof EMPTY) => (value: string) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -58,7 +59,7 @@ export default function AppointmentForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setSending(true);
-        setError(false);
+        setError(undefined);
         try {
             await contactApi.requestAppointment({
                 senderName: form.senderName,
@@ -70,8 +71,8 @@ export default function AppointmentForm() {
                 ...(website && { website }),
             });
             setSent(true);
-        } catch {
-            setError(true);
+        } catch (err) {
+            setError(err);
         } finally {
             setSending(false);
         }
@@ -133,7 +134,7 @@ export default function AppointmentForm() {
                 <TextAreaField label={t('contactForm.note')} rows={5}
                     value={form.text} onChange={set('text')} />
             </FormSection>
-            {error && <ContactError phone={vetInfo?.phone} />}
+            {error !== undefined && <ContactError error={error} phone={vetInfo?.phone} />}
             <div className="form-actions">
                 <button type="submit" disabled={sending} className="btn-primary">
                     {sending ? t('contactForm.sending') : t('appointmentForm.submit')}
@@ -143,11 +144,21 @@ export default function AppointmentForm() {
     );
 }
 
-export function ContactError({ phone }: { phone?: string | null }) {
+/** A rate-limited submission names the wait time, since an immediate retry would fail again. */
+export function ContactError({ error, phone }: { error: unknown; phone?: string | null }) {
     const { t } = useTranslation();
+    const minutes = retryAfterMinutes(error);
+    let text: string;
+    if (minutes !== null) {
+        text = phone
+            ? t('form.rateLimitedWithPhone', { count: minutes, phone })
+            : t('form.rateLimited', { count: minutes });
+    } else {
+        text = phone ? t('contactForm.errorWithPhone', { phone }) : t('contactForm.error');
+    }
     return (
         <p role="alert" className="form-error">
-            {phone ? t('contactForm.errorWithPhone', { phone }) : t('contactForm.error')}
+            {text}
         </p>
     );
 }

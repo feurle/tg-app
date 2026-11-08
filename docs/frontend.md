@@ -54,6 +54,10 @@ This file covers the conventions behind them.
   card), `TextField`, `TextAreaField`, `ChoiceGroup`, `YesNo` and `FormSuccess` (confirmation card
   that takes focus). Styling is the `.form-*` classes in `global.css`.
 - Spam trap: every form includes `HoneypotField`.
+- Rate limit: the backend allows 5 submissions per address in 10 minutes and answers `429` with
+  `Retry-After`. `ApiError.retryAfterSeconds` carries the header, `retryAfterMinutes()` in
+  `components/form/rateLimit.ts` turns it into the wait time, and the forms show `form.rateLimited`
+  (or `form.rateLimitedWithPhone`) instead of the generic error.
 
 ## Feature folders
 

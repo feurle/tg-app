@@ -36,7 +36,7 @@ export default function ReferralForm() {
     const [form, setForm] = useState<FormState>(EMPTY);
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<unknown>();
     const [website, setWebsite] = useState('');
 
     function set<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -51,7 +51,7 @@ export default function ReferralForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setSending(true);
-        setError(false);
+        setError(undefined);
         const optional = (value: string) => (value.trim() ? value.trim() : undefined);
         try {
             await contactApi.requestReferral({
@@ -72,8 +72,8 @@ export default function ReferralForm() {
                 ...(website && { website }),
             });
             setSent(true);
-        } catch {
-            setError(true);
+        } catch (err) {
+            setError(err);
         } finally {
             setSending(false);
         }
@@ -81,7 +81,7 @@ export default function ReferralForm() {
 
     if (sent) {
         return (
-            <FormSuccess title={t('referral.heading')}>
+            <FormSuccess title={t('referral.successTitle')}>
                 <p>{t('referral.success')}</p>
                 <button
                     type="button"
@@ -142,7 +142,7 @@ export default function ReferralForm() {
 
             {vetInfo?.email && <p className="form-note">{t('referral.reports', { email: vetInfo.email })}</p>}
 
-            {error && <ContactError phone={vetInfo?.phone} />}
+            {error !== undefined && <ContactError error={error} phone={vetInfo?.phone} />}
 
             <div className="form-actions">
                 <button type="submit" disabled={sending} className="btn-primary">

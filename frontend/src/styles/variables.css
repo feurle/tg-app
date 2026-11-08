@@ -21,6 +21,9 @@
   --brand-hover: #174749;
   --brand-light: #DCEBEA;
 
+  /* Keyboard focus ring. Dark surfaces override it (see .mobile-overlay). */
+  --focus-ring: var(--brand);
+
   /* Eichenholz: details only (underlines, icons, rules, hover).
      ~3:1 on white, never use for text or button fills. */
   --wood: #C08A4A;
