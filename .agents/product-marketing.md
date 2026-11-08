@@ -1,6 +1,6 @@
 # Product Marketing Context
 
-**Document version:** v2
+**Document version:** v3
 **Last updated:** 2026-11-08
 
 Dieses Dokument ist die Grundlage für alle Texte der Website (Skills `copywriting` und `copy-editing`). Die Sprache des Dokuments ist Deutsch, die Stimme gilt auch für EN/SV/RU.
@@ -21,13 +21,13 @@ Dieses Dokument ist die Grundlage für alle Texte der Website (Skills `copywriti
 
 **Marke:** „Tier. Gesund.“ ist eher ein Markenname für Dr. Feurle-Elsäßer.
 
-**Tierklinik Fürst:** Termine vereinbart die Anmeldung der Tierklinik Fürst, am Telefon meldet sich die Sprechstundenhilfe. Das Impressum nennt die Klinik, „Über mich“ nennt „Tierklinik Dr. Fürst, Bregenz (aktuell)“. `[PRAXIS: Behandelt Lisa in den Räumen der Tierklinik Fürst, und darf die Website auf die Klinik verweisen?]` Bis zur Antwort verweisen neue Texte nicht auf die Klinik, und die bestehenden Verweise bleiben unverändert.
+**Tierklinik Fürst:** Dr. Feurle-Elsäßer behandelt in den Räumlichkeiten der Tierklinik Fürst, und die Website darf auf die Klinik verweisen (bestätigt). Texte dürfen deshalb „in den Räumen der Tierklinik Fürst“ schreiben, zum Beispiel im Kontaktbereich und auf „Über mich“. Das Impressum nennt die Klinik und bleibt so. Termine vereinbart die Anmeldung der Tierklinik, am Telefon meldet sich die Sprechstundenhilfe.
 
 **Claim:** „Ganzheitlich-integrative Tiermedizin“. Der Footer-Slogan „Tiergesundheit im Fokus“ entfällt, im Footer steht der Claim.
 
 **Praxisdaten:** Holzackergasse 13, 6900 Bregenz. Festnetz +43 (0)5574 83500, info@tier-gesund.at. Sprechzeiten Montag 14:00–18:00, Dienstag und Donnerstag 08:30–12:30. Quelle für alle Kontaktdaten ist `VetInfo`.
 
-**Business model:** Tierhalter zahlen die Behandlung direkt. `[PRAXIS: Preise, Abrechnung, Tierversicherung]`
+**Business model:** Tierhalter zahlen die Behandlung direkt. Auf der Website stehen keine Preise und kein Preisrahmen (bestätigt). `[PRAXIS: Abrechnung und Tierversicherung]`
 
 ## Target Audience
 
@@ -84,7 +84,7 @@ Es werden keine Mitbewerber genannt und keine Vergleiche gezogen. Die Abgrenzung
 |---------|---------|
 | Ist das Esoterik? | Am Anfang steht die tierärztliche Untersuchung, bei Bedarf mit Röntgenbild. Die Behandlung ergänzt die Schulmedizin. |
 | Brauche ich eine Überweisung? | Nein. Halter fragen direkt einen Termin an. |
-| Was kostet das? | `[PRAXIS: Preisrahmen oder Hinweis auf Kostenvoranschlag]` |
+| Was kostet das? | „Die Kosten hängen von Untersuchung und Behandlung ab. Fragen Sie gerne bei der Terminvereinbarung.“ Keine Preise, kein Preisrahmen, kein Hinweis auf einen Kostenvoranschlag. |
 | Wie viele Sitzungen braucht mein Tier? | `[PRAXIS: typischer Verlauf je Methode]` |
 | Tut es meinem Tier weh? | `[PRAXIS: Beschreibung je Methode]` |
 | Zahlt die Tierversicherung? | `[PRAXIS]` |
@@ -151,14 +151,22 @@ Daraus kann später ein FAQ-Abschnitt entstehen.
 
 **Emotion:** Die Sorge der Halter wird anerkannt („Schmerzen zeigen sich bei Tieren oft nur in kleinen Veränderungen“). Es gibt keine Dramatisierung, keine Angst und keine Vorher/Nachher-Inszenierung. Sweep 6 („Heightened Emotion“) in `copy-editing` gilt deshalb nur abgeschwächt.
 
-**Wir und ich:** Ich-Form für alles, was Dr. Feurle-Elsäßer selbst sagt und tut, auch in Slogans. Ausgenommen sind Datenschutz und Impressum. Ebenfalls ohne Ich: alles, was die Anmeldung der Tierklinik tut, etwa Telefonhinweise („Rufen Sie an, die Anmeldung vereinbart Ihren Termin.“). Wer Terminanfragen und Nachrichten beantwortet, ist offen (siehe Support und Bestätigungen).
+**Wir und ich:** Ich-Form für alles, was Dr. Feurle-Elsäßer selbst sagt und tut, auch in Slogans. Ausgenommen sind Datenschutz und Impressum. Alles, was die Anmeldung der Tierklinik tut, steht ohne Ich-Form, etwa Telefonhinweise („Rufen Sie an, die Anmeldung vereinbart Ihren Termin.“).
+
+Wer antwortet, hängt vom Formular ab:
+
+| Formular | Wer antwortet | Form |
+|----------|---------------|------|
+| Termin anfragen | Die Anmeldung | Neutral oder über die Anmeldung: „Die Anmeldung meldet sich bei Ihnen, um den Termin zu bestätigen.“ Gilt auch für Schritt 1 „Termin anfragen“ auf Home und Behandlungen. |
+| Nachricht schreiben | Die Anmeldung entscheidet, ob sie selbst antwortet oder an Dr. Feurle-Elsäßer weiterleitet. | Neutral: „Sie bekommen eine Antwort per E-Mail.“ |
+| Patienten überweisen | Dr. Feurle-Elsäßer antwortet dem Tierarzt. Den Termin mit dem Tierhalter vereinbart die Anmeldung. | Antwort an den Tierarzt in Ich-Form. Für den Termin: „Die Anmeldung meldet sich beim Tierhalter und vereinbart den Termin.“ |
 
 **Tone by context:**
-- Support und Bestätigungen: freundlich, kurz, mit konkretem nächsten Schritt. Solange nicht klar ist, wer antwortet und ob die Frist stimmt, steht keine Ich-Form und keine feste Frist. `[PRAXIS: Wer beantwortet Terminanfragen und Nachrichten, und kann die Praxis „in der Regel innerhalb von 1–2 Werktagen“ zusagen? Bisherige Texte: „Ich melde mich …“ und „Ich antworte …“.]`
+- Support und Bestätigungen: freundlich, kurz, mit konkretem nächsten Schritt. Wer antwortet, steht in der Tabelle bei „Wir und ich“. Solange die Antwortzeit offen ist, steht keine feste Frist. `[PRAXIS: Kann die Praxis „in der Regel innerhalb von 1–2 Werktagen“ zusagen? Bisherige Texte: „Ich melde mich …“ und „Ich antworte …“.]`
 - Fehlermeldungen: geben eine Richtung vor und entschuldigen sich nicht.
 - Texte für Tierärzte: sachlich, knapp, kollegial.
 - Behandlungen: erklärend, mit Ablauf und Grenzen der Methode.
-- Ernährung: positiv und individuell, ohne Feindbilder. `[PRAXIS: Lisas Haltung zur Fütterung]`
+- Ernährung: positiv und individuell, ohne Feindbilder. Lisas Haltung: Eine gesunde Darmflora und eine gesunde Ernährung sind die Grundlage für ein gesundes Tier. Das steht als Haltung in Ich-Form („Für mich sind eine gesunde Darmflora und eine gute Ernährung die Grundlage für ein gesundes Tier.“), nicht als Ursache und Wirkung („verhindert Krankheiten“). `[PRAXIS: konkrete Empfehlungen, die auf der Website stehen dürfen]`
 
 **Terms we own:** ganzheitlich-integrativ, Schwerpunkt Schmerz und Bewegung.
 
@@ -203,11 +211,17 @@ Daraus kann später ein FAQ-Abschnitt entstehen.
 
 | Date | Learning | Evidence | Applies to | Status |
 |------|----------|----------|------------|--------|
+| 2026-11-08 | Nach einer Überweisung meldet sich die Anmeldung beim Tierhalter. Lisa antwortet dem überweisenden Tierarzt. | Auftraggeber im Interview | Für Tierärzte (Schritt 2), Überweisungsbestätigung | active |
+| 2026-11-08 | Auf „Was kostet das?“ antworten die Texte mit „Die Kosten hängen von Untersuchung und Behandlung ab. Fragen Sie gerne bei der Terminvereinbarung.“ | Entscheidung im Interview | Behandlungen, FAQ, Formulare | active |
+| 2026-11-08 | Auf der Website stehen keine Preise und kein Preisrahmen. | Fragebogen an Lisa | alle Texte | active |
+| 2026-11-08 | Lisa behandelt in den Räumlichkeiten der Tierklinik Fürst, und die Website darf auf die Klinik verweisen. | Fragebogen an Lisa | Kontakt, Über mich, Impressum | active |
+| 2026-11-08 | Terminanfragen beantwortet die Anmeldung, Nachrichten die Anmeldung oder Lisa, Überweisungen Lisa. Die Ich-Form in Bestätigungen richtet sich danach. | Fragebogen an Lisa | Formulare, Bestätigungen, Home (Schritt 1) | active |
+| 2026-11-08 | Lisas Haltung zur Ernährung: gesunde Darmflora und gesunde Ernährung sind die Grundlage. Als Haltung in Ich-Form schreiben, nicht als Ursache und Wirkung. | Fragebogen an Lisa, strenge Regeln für Werbeaussagen | Home (Gesund bleiben), Behandlungen, Aktuelles | active |
 | 2026-11-08 | Termine vereinbart die Anmeldung der Tierklinik Fürst. Telefonhinweise stehen deshalb ohne Ich-Form, die Stelle heißt „die Anmeldung“. | Auftraggeber im Interview | Kontakt, Hero, Formulare, Fehlermeldungen | active |
 | 2026-11-08 | Product category stellt die Person voran („Tierärztin für ganzheitlich-integrative Tiermedizin“), nicht den Ort („Kleintierpraxis“). | Entscheidung im Interview, `ui-design.md` §2 (Lisa ist die Marke) | alle Texte | active |
 | 2026-11-08 | Vorbeugung ist ein zweiter Einstieg über Ernährung, nicht die Hauptbotschaft. Hero und Claim bleiben bei Schmerz und Bewegung. | Entscheidung im Interview, `ui-design.md` §2 (Beschwerdebilder vor Methoden) | Home, Behandlungen, Aktuelles | active |
 | 2026-11-08 | Keine Heilversprechen, Garantien oder Superlative, auch nicht bei Ernährung. Wirkungen als Möglichkeit formulieren. | Entscheidung im Interview, Berufsrecht (TÄG, BSO) | alle Texte | active |
-| 2026-11-08 | Ich-Form überall außer Datenschutz und Impressum. | Entscheidung im Interview, `ui-design.md` §2 | alle Texte | active |
+| 2026-11-08 | Ich-Form für alles, was Lisa selbst sagt und tut, außer in Datenschutz und Impressum. | Entscheidung im Interview, `ui-design.md` §2 | alle Texte | active |
 | 2026-11-08 | Kein Gendern. „Für Tierärzte“ gilt für alle Geschlechter. Abkürzung FTA. | Entscheidung im Interview | alle Texte | active |
 | 2026-11-08 | Gemischtes Deutsch: „Praxis“ und „Sprechzeiten“ bleiben, natürliche Austriazismen bleiben, neue Rechtschreibung. | Entscheidung im Interview | alle Texte | active |
 | 2026-11-08 | Integrative Positionierung: Diagnostik zuerst, Schwerpunkte vorne, Methoden ohne nachvollziehbare Begründung nicht im Vordergrund. | Entscheidung im Interview | Über mich, Behandlungen | active |
@@ -218,24 +232,25 @@ Daraus kann später ein FAQ-Abschnitt entstehen.
 
 Aus diesen Punkten entsteht der Fragebogen an Dr. Feurle-Elsäßer.
 
-1. Behandelt Lisa in den Räumen der Tierklinik Fürst, und darf die Website auf die Klinik verweisen? Davon hängen Impressum, Verweise auf die Klinik und der abgebrochene Text auf „Aktuelles“ ab. Bestätigt ist bisher nur, dass die Anmeldung der Tierklinik die Termine vereinbart.
-2. Wortlaut der Mission freigeben.
-3. Wird Verhaltensberatung angeboten? Davon hängt der Name des Erhebungsbogens ab („für die Verhaltensberatung“).
-4. Wer beantwortet Terminanfragen und Nachrichten aus den Formularen (Lisa oder die Anmeldung)? Kann die Praxis „in der Regel innerhalb von 1–2 Werktagen“ zusagen? Die Bestätigungstexte sagen bisher „Ich melde mich …“ und „Ich antworte …“. Auftraggeber fragt nach.
-5. Wann ist die Anmeldung telefonisch erreichbar? Die Statuszeile „Jetzt geöffnet, bis 18 Uhr“ rechnet mit Lisas Sprechzeiten (Montag nachmittags, Dienstag und Donnerstag vormittags). Ist die Anmeldung öfter erreichbar, braucht es zwei Angaben (Sprechzeiten und telefonische Erreichbarkeit). Das wäre eine Codeänderung mit eigenem Issue. Auftraggeber klärt mit Lisa.
-6. Gibt es Hausbesuche?
-7. Zusage an Tierärzte: „Ihr Patient bleibt Ihr Patient.“
-8. Antworten auf die Einwände der Halter: Kosten, Anzahl der Sitzungen, Schmerzen bei der Behandlung, Tierversicherung.
-9. Ernährungsberatung: Gehören Wachstum (Welpen, Jungtiere) und ältere Tiere zu den Anlässen? Lisas Haltung zur Fütterung.
-10. Therapieliste auf „Über mich“: kürzen oder aufteilen, Reiki, Prana Vita, Geobiologie/Elektrosmog und telepathische Kommunikation weglassen?
-11. Typische Formulierungen der Halter aus Telefonaten und E-Mails.
-12. Preise und Abrechnung.
-13. Freigabe aller Seed-Texte (Issue #84). Die EN/SV/RU-Formulartexte prüfen Muttersprachler.
+1. Wortlaut der Mission freigeben.
+2. Wird Verhaltensberatung angeboten? Davon hängt der Name des Erhebungsbogens ab („für die Verhaltensberatung“).
+3. Kann die Praxis „in der Regel innerhalb von 1–2 Werktagen“ zusagen? Die Bestätigungstexte sagen bisher „Ich melde mich …“ und „Ich antworte …“. Das „Ich“ stimmt nur bei Überweisungen (siehe „Wir und ich“).
+4. Wann ist die Anmeldung telefonisch erreichbar? Die Statuszeile „Jetzt geöffnet, bis 18 Uhr“ rechnet mit Lisas Sprechzeiten (Montag nachmittags, Dienstag und Donnerstag vormittags). Ist die Anmeldung öfter erreichbar, braucht es zwei Angaben (Sprechzeiten und telefonische Erreichbarkeit). Das wäre eine Codeänderung mit eigenem Issue. Auftraggeber klärt mit Lisa.
+5. Gibt es Hausbesuche?
+6. Zusage an Tierärzte: „Ihr Patient bleibt Ihr Patient.“
+7. Antworten auf die Einwände der Halter: Anzahl der Sitzungen, Schmerzen bei der Behandlung, Tierversicherung.
+8. Ernährungsberatung: Gibt es sie als eigenes Angebot, und wie läuft ein Termin ab? Gehören Wachstum (Welpen, Jungtiere) und ältere Tiere zu den Anlässen? Welche konkreten Fütterungsempfehlungen dürfen auf die Website?
+9. Therapieliste auf „Über mich“: kürzen oder aufteilen, Reiki, Prana Vita, Geobiologie/Elektrosmog und telepathische Kommunikation weglassen?
+10. Typische Formulierungen der Halter aus Telefonaten und E-Mails.
+11. Abrechnung (wie Tierhalter zahlen).
+12. Freigabe aller Seed-Texte (Issue #84). Die EN/SV/RU-Formulartexte prüfen Muttersprachler.
+
+Geklärt und nicht mehr offen: Tierklinik Fürst und Verweise darauf, wer Formulare beantwortet, keine Preise auf der Website.
 
 ## Changelog
 
 *Neueste zuerst. Eine Zeile pro Revision.*
 
+- v3 (2026-11-08) — Antworten aus dem Fragebogen an Lisa eingearbeitet: Tierklinik Fürst und Verweise darauf geklärt, keine Preise auf der Website, Antwort auf Kostenfragen festgelegt, Ich-Form je Formular (Termin und Nachricht über die Anmeldung, Überweisung durch Lisa), Lisas Haltung zur Ernährung. Offene Punkte von 13 auf 12 reduziert und neu geordnet.
 - v2 (2026-11-08) — Product category auf die Person ausgerichtet („Tierärztin für ganzheitlich-integrative Tiermedizin“), Business model von „Privatpraxis“ (Annahme) auf „Tierhalter zahlen direkt“ geändert, Tierklinik Fürst und Anmeldung eingetragen, Ich-Form für Anmeldung und Terminbestätigungen eingeschränkt, offene Punkte um Antwortzeit und Erreichbarkeit erweitert.
-- v1 (2026-11-08) — Erste Fassung aus Analyse der Website-Texte, `ui-design.md` und einem Interview mit dem Auftraggeber.
 - v1 (2026-11-08) — Erste Fassung aus Analyse der Website-Texte, `ui-design.md` und einem Interview mit dem Auftraggeber.
