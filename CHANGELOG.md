@@ -19,6 +19,15 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.4.10] - 2026-11-08
+
+### Changed
+
+- Startseite: Texte überarbeitet, ohne Heilversprechen und Superlative, mit Hinweis auf die Tierklinik Fürst und die Anmeldung (#84)
+- Für Tierärzte: Mitbehandlung statt Übernahme, Belege zur Goldimplantation, die Anmeldung vereinbart den Termin mit dem Tierhalter (#84)
+- Behandlungen und Kontakt: Ablauf des ersten Termins und Abschlusstext an die Startseite angeglichen (#84)
+- Footer zeigt den Claim „Ganzheitlich-integrative Tiermedizin“, das Porträt hat einen deutschen Alt-Text (#84)
+
 ## [1.4.9] - 2026-11-07
 
 ### Fixed
@@ -292,7 +301,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.9...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.4.10...HEAD
+[1.4.10]: https://github.com/feurle/tg-app/compare/v1.4.9...v1.4.10
 [1.4.9]: https://github.com/feurle/tg-app/compare/v1.4.8...v1.4.9
 [1.4.8]: https://github.com/feurle/tg-app/compare/v1.4.7...v1.4.8
 [1.4.7]: https://github.com/feurle/tg-app/compare/v1.4.6...v1.4.7
