@@ -115,7 +115,7 @@ Die Struktur der Sektionen legt der Code fest, die Inhalte kommen aus dem CMS (A
                  (Foto oder Röntgenbild + 2 Sätze + "mehr" → Behandlungen)
 4 ÜBER MICH      Vita kurz, Zertifikate (IVCA …), → /about
 5 ERSTER TERMIN  Anfrage → Fragebogen → Termin   (als Fließtext/Pfeile, keine Nummern-Badges)
-6 FÜR TIERÄRZTE  schmales Band auf --brand-light: "Patient überweisen →"
+6 FÜR TIERÄRZTE  schmales Band auf --brand-light: "Patienten überweisen →"
 7 KONTAKT        Adresse + Karten-Link | Sprechzeiten | Telefon   (aus VetInfo)
 ```
 
