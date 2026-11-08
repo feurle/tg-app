@@ -19,6 +19,18 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ### Security
 
+## [1.5.1] - 2026-11-08
+
+### Changed
+
+- Tastaturfokus: Links, Buttons und Formularfelder zeigen einen einheitlichen Fokusring in Seepetrol, im mobilen Menü hell (#112)
+- Formulare: Bei zu vielen Einsendungen nennt die Meldung, nach wie vielen Minuten ein neuer Versuch möglich ist (#112)
+
+### Fixed
+
+- Überweisung: Die Bestätigung heißt „Überweisung gesendet“ statt „Patient überweisen“ (#112)
+- Seed: Tippfehler in der Beschreibung der Seite Impressum (#112)
+
 ## [1.5.0] - 2026-11-08
 
 ### Changed
@@ -313,7 +325,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 - CI: Automatisches Deployment auf TEST greift jetzt auch für `fix/**`, `hotfix/**`, `chore/**` und `refactor/**` Branches, nicht mehr nur für `feature/**`.
 - CI: Nach jedem erfolgreichen Prod-Deploy wird automatisch ein SemVer-Tag gesetzt, das Changelog in eine datierte Version überführt und ein GitHub Release erstellt. Die App-Version (Actuator `/info`, Docker-Image-Tag) folgt derselben Nummer.
 
-[Unreleased]: https://github.com/feurle/tg-app/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/feurle/tg-app/compare/v1.5.1...HEAD
+[1.5.1]: https://github.com/feurle/tg-app/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/feurle/tg-app/compare/v1.4.11...v1.5.0
 [1.4.11]: https://github.com/feurle/tg-app/compare/v1.4.10...v1.4.11
 [1.4.10]: https://github.com/feurle/tg-app/compare/v1.4.9...v1.4.10
