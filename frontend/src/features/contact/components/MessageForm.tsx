@@ -16,7 +16,7 @@ export default function MessageForm() {
     const [form, setForm] = useState(EMPTY);
     const [sending, setSending] = useState(false);
     const [sent, setSent] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<unknown>();
     const [website, setWebsite] = useState('');
 
     const set = (key: keyof typeof EMPTY) => (value: string) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -24,12 +24,12 @@ export default function MessageForm() {
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setSending(true);
-        setError(false);
+        setError(undefined);
         try {
             await contactApi.sendMessage({ ...form, ...(website && { website }) });
             setSent(true);
-        } catch {
-            setError(true);
+        } catch (err) {
+            setError(err);
         } finally {
             setSending(false);
         }
@@ -58,7 +58,7 @@ export default function MessageForm() {
                 <TextAreaField label={t('contactForm.message.text')} required rows={6}
                     value={form.text} onChange={set('text')} />
             </FormSection>
-            {error && <ContactError phone={vetInfo?.phone} />}
+            {error !== undefined && <ContactError error={error} phone={vetInfo?.phone} />}
             <div className="form-actions">
                 <button type="submit" disabled={sending} className="btn-primary">
                     {sending ? t('contactForm.sending') : t('messageForm.submit')}

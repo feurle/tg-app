@@ -40,6 +40,14 @@ describe('apiClient', () => {
         expect(error).toMatchObject({ status: 400, message: 'Nope' });
     });
 
+    it('exposes the Retry-After seconds of a rate-limited response', async () => {
+        mockFetch(Response.json({ message: 'Zu viele Anfragen' }, { status: 429, headers: { 'Retry-After': '421' } }));
+        await expect(apiClient.post('/api/x', {})).rejects.toMatchObject({ status: 429, retryAfterSeconds: 421 });
+
+        mockFetch(Response.json({ message: 'Nope' }, { status: 400 }));
+        await expect(apiClient.post('/api/x', {})).rejects.toMatchObject({ status: 400, retryAfterSeconds: undefined });
+    });
+
     it('falls back to the plain text body, then the status text', async () => {
         mockFetch(new Response('plain failure', { status: 500 }));
         await expect(apiClient.get('/api/x')).rejects.toMatchObject({ status: 500, message: 'plain failure' });

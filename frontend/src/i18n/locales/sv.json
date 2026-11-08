@@ -213,7 +213,6 @@
     "subtitle": "Samarbete kring smärta och rörelseproblem hos dina patienter"
   },
   "referral": {
-    "heading": "Remittera en patient",
     "practice": "Remitterande klinik",
     "practiceName": "Klinik",
     "vetName": "Veterinär",
@@ -235,6 +234,7 @@
     "submit": "Skicka remiss",
     "sending": "Skickar…",
     "success": "Tack! Din remiss har kommit in. Du får en bekräftelse via e-post.",
+    "successTitle": "Remissen skickad",
     "again": "Remittera en till patient",
     "urgencyOption": {
       "ROUTINE": "Rutin",
@@ -505,6 +505,10 @@
     }
   },
   "form": {
-    "requiredNote": "* Obligatoriskt fält"
+    "requiredNote": "* Obligatoriskt fält",
+    "rateLimited_one": "För många formulär har skickats på kort tid. Försök igen om en minut.",
+    "rateLimited_other": "För många formulär har skickats på kort tid. Försök igen om {{count}} minuter.",
+    "rateLimitedWithPhone_one": "För många formulär har skickats på kort tid. Försök igen om en minut eller ring oss: {{phone}}",
+    "rateLimitedWithPhone_other": "För många formulär har skickats på kort tid. Försök igen om {{count}} minuter eller ring oss: {{phone}}"
   }
 }

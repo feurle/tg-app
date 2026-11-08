@@ -45,6 +45,7 @@ Die Palette ist aus dem Ort abgeleitet: Seewasser, Vorarlberger Holz und heller 
 Regeln:
 - `--wood` erreicht auf Weiß nur ca. 3:1. Deshalb wird es **nie** für Text oder als Buttonfläche verwendet.
 - Die Status-Farben (`--danger*`, `--warning*`) bleiben unverändert.
+- Tastaturfokus: Eine gemeinsame Regel `:where(:focus-visible)` in `global.css` zeichnet für jedes Element einen 2px-Ring in `--focus-ring` (Standard `--brand`, ca. 7:1 auf Steinweiß und Weiß, WCAG 1.4.11 verlangt 3:1). Dunkle Flächen setzen `--focus-ring` um, das mobile Menü auf `--bg`. Komponenten mit eigenem Fokus-Indikator setzen `outline` selbst, die Regel hat Spezifität 0.
 - Neue Farben gibt es nur als Tokens. Feste Hex-Werte in Komponenten oder `global.css` sind nicht erlaubt.
 - Dark Mode ist kein Ziel.
 
