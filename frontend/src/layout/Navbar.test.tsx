@@ -4,9 +4,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import '../i18n';
 import Navbar from './Navbar';
 
-vi.mock('../features/contact/useVetInfo', () => ({ useVetInfo: () => null }));
+const vetInfo = vi.hoisted(() => ({ current: null as { phone: string } | null }));
+vi.mock('../features/contact/useVetInfo', () => ({ useVetInfo: () => vetInfo.current }));
 
-afterEach(cleanup);
+afterEach(() => {
+    cleanup();
+    vetInfo.current = null;
+});
 
 function openMenu() {
     render(
@@ -84,8 +88,10 @@ describe('Navbar mobile CTA bar', () => {
         expect(within(bar).queryByRole('link', { name: 'Patienten überweisen' })).toBeNull();
     });
 
-    it.each(['/appointment', '/referral'])('shows no action link on %s', (path) => {
-        // Call-only page and no phone number mocked, so the bar is not rendered at all.
-        expect(renderAt(path)).toBeNull();
+    it.each(['/appointment', '/referral'])('shows only the call button on %s', (path) => {
+        vetInfo.current = { phone: '+43 5574 83500' };
+        const bar = renderAt(path)!;
+
+        expect(within(bar).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['tel:+43557483500']);
     });
 });

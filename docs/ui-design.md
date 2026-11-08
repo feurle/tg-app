@@ -86,7 +86,7 @@ Regeln:
 [Logo]                         [☰]
 ...
 ┌──────────────────────────────────┐
-│  [ Termin anfragen ]   [ ☎ ]     │  ← sticky unten
+│  [ Termin anfragen ]   [ ☎ ]     │  ← sticky unten (auf /for-vets: [ Patienten überweisen ])
 └──────────────────────────────────┘
 ```
 

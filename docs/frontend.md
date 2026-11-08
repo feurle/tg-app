@@ -49,7 +49,7 @@ This file covers the conventions behind them.
   content pages is a `CTA` article (see [webcontent.md](webcontent.md)).
 - `/for-vets` is an information page without a form: title, subtitle and a fixed button
   „Patienten überweisen“ to `/referral`, then the CMS page `for-vets`.
-- On `/appointment` and `/referral` the mobile CTA bar shows only the call button.
+- On `/appointment` and `/referral` the mobile CTA bar shows only the call button. On `/for-vets` it shows „Patienten überweisen“ (→ `/referral`) instead of „Termin anfragen“.
 - All four share `components/form/`: `FormPage` (title, intro, frame), `FormSection` (fieldset
   card), `TextField`, `TextAreaField`, `ChoiceGroup`, `YesNo` and `FormSuccess` (confirmation card
   that takes focus). Styling is the `.form-*` classes in `global.css`.
