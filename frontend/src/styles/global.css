@@ -2243,7 +2243,6 @@ tbody tr:hover td {
     border-radius: 8px;
     font-size: 14px;
     color: var(--text-primary);
-    outline: none;
     transition: all 0.15s;
     font-family: var(--font);
     box-sizing: border-box;
@@ -2643,11 +2642,6 @@ tbody tr:hover td {
     min-height: 44px;
     padding: 12px 14px;
     border-radius: var(--radius-sm);
-}
-
-.form-page .form-input:focus-visible {
-    outline: 2px solid var(--brand);
-    outline-offset: 2px;
 }
 
 .form-grid {
