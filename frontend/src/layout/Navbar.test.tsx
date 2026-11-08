@@ -4,9 +4,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import '../i18n';
 import Navbar from './Navbar';
 
-vi.mock('../features/contact/useVetInfo', () => ({ useVetInfo: () => null }));
+const vetInfo = vi.hoisted(() => ({ current: null as { phone: string } | null }));
+vi.mock('../features/contact/useVetInfo', () => ({ useVetInfo: () => vetInfo.current }));
 
-afterEach(cleanup);
+afterEach(() => {
+    cleanup();
+    vetInfo.current = null;
+});
 
 function openMenu() {
     render(
@@ -57,5 +61,37 @@ describe('Navbar mobile menu', () => {
         fireEvent.click(toggle);
 
         expect(screen.queryByRole('dialog', { name: 'Navigation' })).toBeNull();
+    });
+});
+
+function renderAt(path: string) {
+    const { container } = render(
+        <MemoryRouter initialEntries={[path]}>
+            <Navbar />
+        </MemoryRouter>,
+    );
+    return container.querySelector<HTMLElement>('.mobile-cta-bar');
+}
+
+describe('Navbar mobile CTA bar', () => {
+    it('offers the referral on the page for vets', () => {
+        const bar = renderAt('/for-vets')!;
+
+        expect(within(bar).getByRole('link', { name: 'Patienten überweisen' }).getAttribute('href')).toBe('/referral');
+        expect(within(bar).queryByRole('link', { name: 'Termin anfragen' })).toBeNull();
+    });
+
+    it('offers the appointment on the other public pages', () => {
+        const bar = renderAt('/treatments')!;
+
+        expect(within(bar).getByRole('link', { name: 'Termin anfragen' }).getAttribute('href')).toBe('/appointment');
+        expect(within(bar).queryByRole('link', { name: 'Patienten überweisen' })).toBeNull();
+    });
+
+    it.each(['/appointment', '/referral'])('shows only the call button on %s', (path) => {
+        vetInfo.current = { phone: '+43 5574 83500' };
+        const bar = renderAt(path)!;
+
+        expect(within(bar).getAllByRole('link').map((a) => a.getAttribute('href'))).toEqual(['tel:+43557483500']);
     });
 });
